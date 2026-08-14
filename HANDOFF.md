@@ -1,8 +1,7 @@
 # Patchbay Portfolio — Session Handoff
 
 Everything a new session needs to pick this up. Written 13 Aug 2026, updated
-14 Aug 2026 after a major session covering the 3D background rebuild, mobile
-fixes, and a positioning change from solo to team. **Read section 0 first.**
+14 Aug 2026 across two major sessions. **Read section 0 and 0b first.**
 
 **Project root:** `C:\Users\zaheen\claude\portfolio`
 
@@ -19,7 +18,73 @@ it was not on the machine before.
 
 ---
 
-## 0. Read this first — what changed 14 Aug 2026
+## 0a. THE SITE IS LIVE — read this before anything else
+
+| What | Where |
+|---|---|
+| **Live site** | https://patchbay-portfolio.vercel.app |
+| **GitHub** | https://github.com/zaheenzuberi2/patchbay-portfolio |
+| **Vercel project** | `zaheen3/patchbay-portfolio` (Hobby/free plan) |
+| **Database** | Neon Postgres, `patchbay-db`, region `iad1`, free tier |
+| **Admin panel** | https://patchbay-portfolio.vercel.app/admin |
+
+**Deployment is fully automatic: every push to `main` deploys to production.**
+There is no separate deploy step. `git push origin main`, wait ~90 seconds,
+done.
+
+**The Vercel CLI is authenticated** as `zaheenzuberi2` and the project is
+linked (`.vercel/` exists, gitignored). This means an agent can run
+`npx vercel env ls`, `vercel ls`, `vercel domains add`, etc. directly. If auth
+has expired, `npx vercel login` prints a device URL for Zaheen to approve —
+never ask him to paste a token.
+
+**Zaheen's explicit instruction as of this session:** he does not want to do
+manual dashboard work. Do as much as possible yourself via the CLI and via
+git push. The only things he must do personally are purchases (domain),
+account creation (Resend), and approving auth prompts.
+
+---
+
+## 0b. What changed in the second 14 Aug 2026 session
+
+This session took the site from "works locally" to "deployed, hardened, and
+observable". Eight commits, all verified on production, not assumed.
+
+**Shipped:**
+
+- **Deployed to Vercel from a new git repo.** There was no git repo at all
+  before this session. Now: `main`, 10 commits, auto-deploy wired.
+- **Neon Postgres attached**, seeded with the 6 real projects.
+- **Reviews feature is live and in use** — Umer Wazir's real 5-star review is
+  on the homepage. The section auto-hides when the table is empty, so it
+  showed nothing until he added it via `/admin`.
+- **Canonical URL bug fixed** (section 16). Was emitting `localhost:3000` in
+  every canonical tag, OG URL, JSON-LD `@id`, and all 8 sitemap entries on
+  the live site.
+- **Voice bot: three real bugs fixed** (section 17). Most important: speaking
+  did nothing on mobile because the visualizer opened a second microphone
+  stream that preempted speech recognition.
+- **Spam protection on `/api/leads`** (section 18): per-IP rate limit +
+  honeypot.
+- **Lead notification emails** (section 19) — built, deployed, and dormant
+  until `RESEND_API_KEY` is set.
+- **`error.tsx`** runtime error boundary, plus the `not-found.tsx` from
+  earlier.
+- **Vercel Analytics + Speed Insights** installed and confirmed sending.
+- **Urdu voice support removed** at Zaheen's request after being built. Do
+  not re-add it without him asking.
+
+**Behavioural pattern established this session — follow it.** Three separate
+config values now *derive themselves* rather than failing when unset:
+`SESSION_SECRET` (from `DATABASE_URL`), the canonical site URL (from
+`VERCEL_PROJECT_PRODUCTION_URL`), and lead notifications (no-op without a
+key). Zaheen struggled with the Vercel dashboard repeatedly. **Prefer
+deriving a value in code over asking him to set an env var.** Only ask when
+the value is a genuine secret only he can choose.
+
+---
+
+## 0. Read this first — what changed in the first 14 Aug 2026 session
 
 - **Positioning flipped from solo to team.** Zaheen confirmed he has real
   collaborators (design, SEO, copy, dev specialists), Zaheen leading. Every
@@ -396,47 +461,95 @@ server after editing `.env.local`.
 
 ---
 
-## 11. Deployment (see `DEPLOY.md` for the click-path)
+## 11. Deployment — DONE. How it works now
 
-Decided: **Vercel, deploying from GitHub.** GitHub Pages was ruled out — it is
-static-only and would kill the admin panel, lead capture, and database
-entirely.
+**Already deployed.** GitHub Pages was ruled out and stays ruled out: it is
+static-only, and this site has 8 API routes, a `force-dynamic` homepage, a
+Postgres database, and server-side session auth. Roughly half the site — and
+all of the revenue-generating half — cannot run there.
 
-Roughly 5 minutes, once:
-1. Push to a GitHub repo (not yet initialized — no git repo exists yet)
-2. Import into Vercel (auto-detects Next.js)
-3. **Storage → Create Database → Neon** *from inside Vercel* — this sets
-   `DATABASE_URL` automatically, which is the exact variable the code reads.
-   Do not sign up at neon.com separately.
-4. Set `ADMIN_PASSWORD`, `SESSION_SECRET`, `NEXT_PUBLIC_SITE_URL` in Vercel
-5. Add the domain, then submit to Google Search Console
+**Current pipeline:** push to `main` on GitHub → Vercel builds and deploys to
+production automatically → live in ~90 seconds. Nothing else to do.
 
-Account creation is the one thing that cannot be automated on his behalf.
+Useful CLI (already authenticated):
+
+```bash
+npx vercel ls --scope zaheen3        # deployment status
+npx vercel env ls production          # env var names
+npx vercel logs <deployment-url>      # runtime logs
+```
+
+**Env vars currently set in Vercel production:** `ADMIN_PASSWORD` (set by
+Zaheen), plus `DATABASE_URL` and ~15 other `PG*`/`POSTGRES_*` variables
+injected automatically by the Neon integration. **`SESSION_SECRET` and
+`NEXT_PUBLIC_SITE_URL` are deliberately NOT set** — both derive themselves in
+code (sections 0b and 16). Do not "fix" this by adding them.
+
+**Trigger a rebuild without a code change** (e.g. after adding an env var):
+
+```bash
+git commit --allow-empty -m "chore: rebuild to pick up <VAR>" && git push
+```
 
 ---
 
 ## 12. Outstanding / next steps
 
-- [ ] **Register `zaheenzuberi.com`** and deploy (nothing is live yet)
-- [ ] **Change `ADMIN_PASSWORD`** from the weak dev default, and set a fresh
-      `SESSION_SECRET` in Vercel (see section 10)
-- [ ] **Google Search Console** — submit sitemap after launch. Without this,
-      the SEO work sits unindexed.
-- [ ] **Add real starting prices** to service-page FAQs — highest-leverage
-      remaining SEO/conversion win
-- [ ] **Real before/after or efficiency metrics** — asked for twice this
-      session, declined both times because Zaheen doesn't track this data
-      yet ("I've been exceptional but I don't keep track"). If he gets even
-      one real number from Umer Wazir / Lex Justitia / AB Juris (response
-      time, leads/month, hours saved), it's worth more than any invented
-      stat and should go into the FAQ/Contact copy immediately.
-- [ ] **Social links** — he has no professional accounts yet; Contact.tsx says
-      "Social channels coming soon" instead of dead links
-- [ ] **Instagram reel reference** — he wants a portfolio styled like a reel by
-      creator *Ruchit Patel*. **Never viewed.** The Claude-in-Chrome extension
-      would not connect all session despite him logging into Instagram. A
-      screen recording saved to disk is the reliable path; a logged-out fetch
-      of an Instagram URL returns nothing.
+**Blocked on Zaheen (purchases and account creation only):**
+
+- [ ] **Register `zaheenzuberi.com`.** He said he would do this "in the
+      morning" (15 Aug). Once bought: `npx vercel domains add`, he pastes the
+      DNS records at his registrar, then set `NEXT_PUBLIC_SITE_URL` to the
+      real domain and redeploy. Cheapest at Cloudflare; Namecheap is easier.
+- [ ] **A SECOND domain for cold outreach** (e.g. `getpatchbay.com`). This is
+      important and he agreed to it: cold email complaints damage the sending
+      domain's reputation, and if that is `zaheenzuberi.com` his real client
+      email starts landing in spam. Never send cold email from the main
+      domain.
+- [ ] **Resend account** (free, 3,000 emails/month) → set `RESEND_API_KEY` in
+      Vercel. This activates lead notifications, which are already built and
+      deployed (section 19). Same account later covers cold outreach.
+- [ ] **Google Search Console** — submit the sitemap. The SEO work sits
+      unindexed until this happens.
+
+**Not blocked — an agent can just do these:**
+
+- [ ] **Cold outreach system.** Agreed in principle. Scope: prospect tracker
+      in the existing admin panel, outreach copy, follow-up sequences,
+      throttled sending with unsubscribe handling. Needs the second domain
+      and the Resend key first. **Do not scrape addresses and mass-blast** —
+      it gets the domain blacklisted and reply rates are near zero. The
+      approach agreed was 20-30 genuinely researched emails a day.
+- [ ] **Tests.** There are none. Everything has been verified manually. A
+      future change could silently break lead capture or admin auth.
+- [ ] **Two more reviews.** One real review is live (Umer Wazir). Lex Justitia
+      and AB Juris would fill the 3-column desktop grid properly.
+- [ ] **Social links** — Contact.tsx still says "Social channels coming soon".
+      He has no professional accounts yet.
+- [ ] **Delete test rows** from `/admin` → Leads: `TEST LEAD - safe to delete`
+      and `PROD NOTIFY CHECK - delete me`, both created while verifying the
+      lead pipeline on production.
+- [ ] **Umer Wazir's review role field** reads "International mma boxer, Umer
+      Wazir", which duplicates his name since the name renders directly above
+      it. Trivial fix in `/admin`, but it is a real client's attribution so
+      ask before editing.
+
+**Standing decisions — do not re-litigate:**
+
+- [ ] **Real before/after or efficiency metrics.** Asked for repeatedly,
+      declined every time because Zaheen does not track this data ("I've been
+      exceptional but I don't keep track"). One real number from a client is
+      worth more than any invented stat. Keep declining.
+- [ ] **Prices.** He decided against listing them: pricing depends entirely on
+      the project because the goal is growing the client's business and
+      establishing fit. Both the voice bot and the homepage FAQ now say
+      exactly that and point to a conversation with Zaheen. Do not add price
+      ranges.
+- [ ] **No LLM API for the bots.** Offered and explicitly declined ("no need
+      for an api"). The chat and voice bots stay deterministic keyword
+      matchers. If coverage gaps appear, widen the keywords (section 17).
+- [ ] **Urdu** was built for the voice bot and then removed at his request.
+      Do not re-add.
 - [ ] Optional: business name "Patchbay" was chosen by Claude at his request —
       easy to rename (Nav, Footer, Hero, About, Milestones, `site-config.ts`)
 
@@ -521,3 +634,182 @@ no restart; edit, delete, and mark-contacted all persist; all admin endpoints
 media-query/matchMedia state, re-run all three checks above before
 considering it done** — this session hit a real hydration bug and a real
 lint-suppression trap doing exactly that (section 8).
+
+---
+
+## 16. Canonical URL derives itself — do not "fix" it
+
+`src/lib/site-config.ts` resolves the site origin in this order:
+
+1. `NEXT_PUBLIC_SITE_URL` — set this only when the real domain is live. It is
+   the only option visible to client components.
+2. `VERCEL_PROJECT_PRODUCTION_URL` — injected automatically by Vercel on every
+   deployment, no configuration needed, and **stable across deploys** (unlike
+   `VERCEL_URL`, which is per-deployment and would churn canonical tags).
+3. `http://localhost:3000` for local dev.
+
+**Why this exists:** the first production deploy emitted canonical tags, OG
+URLs, JSON-LD `@id`s, and all 8 sitemap entries pointing at
+`http://localhost:3000`, because `NEXT_PUBLIC_SITE_URL` was unset. A canonical
+tag pointing at localhost tells crawlers the authoritative page lives
+somewhere unreachable, which would have wasted the entire SEO effort and
+broken every social share preview. Deriving it means a fresh deploy is never
+silently wrong.
+
+Verified after the fix: zero occurrences of `localhost` in the live HTML or
+sitemap.
+
+**Caveat:** every consumer of `siteConfig.url` is a server component
+(verified). `VERCEL_PROJECT_PRODUCTION_URL` is server-only, so if you ever
+need `siteConfig.url` in a *client* component, set `NEXT_PUBLIC_SITE_URL`
+explicitly first.
+
+---
+
+## 17. Voice bot (`VoiceDemo.tsx` / `VoiceWidget.tsx`) — three fixed bugs
+
+English-only, deterministic keyword matching, no LLM, no API key. Speaks via
+the browser's `speechSynthesis` and listens via `webkitSpeechRecognition`.
+`prosody.ts` splits replies into clause-level segments with slight rate/pitch
+jitter (the Web Speech API has no SSML, so chaining short utterances is the
+only way to get pauses). `voice-selection.ts` scores installed voices to
+prefer premium/neural ones.
+
+**Bug 1 — speaking did nothing on mobile while typing worked.** The reported
+symptom, and the diagnostic clue that cracked it. `startMicAnalysis()` opened
+a **second** `getUserMedia` stream (purely to feed the visualizer, since
+`SpeechRecognition` exposes no audio data). Desktop tolerates two concurrent
+captures; mobile browsers frequently do not, and the second stream preempts
+the recognizer so `onresult` never fires. **Fix:** skip the analyser entirely
+on `(pointer: coarse)` devices and let the visualizer run its procedural
+animation. The visualizer is decoration; speech input is the feature.
+**Do not re-enable mic analysis on mobile.**
+
+**Bug 2 — every recognition failure was silent.** `onerror`/`onend` just set
+`listening = false` with no message, so permission denial, no-speech, and no
+network all looked identical to the bot ignoring you. Now mapped to plain
+explanations via `RECOGNITION_ERRORS`. `aborted` maps to an empty string on
+purpose — that is the user tapping stop, not a failure.
+
+**Bug 3 — the panel was see-through.** It used `bg-ink-2/60`, so at 60%
+opacity the page showed through when floating over content and read as a
+rendering fault. Now solid `bg-ink-2`, matching the chat widget.
+
+**Coverage gaps are fixed by widening keywords, not by adding an LLM.** Two
+real misses were reported and fixed this way: "how can i get more leads" and
+pricing questions. There is also a `LOOSE_FALLBACK` substring pass that runs
+**only after** every strict word-boundary check has failed, which catches
+messy real input like `"tell mehow can i get moreleads"` (words run together)
+without reintroducing false positives.
+
+---
+
+## 18. Lead capture spam protection
+
+`/api/leads` POST is public by necessity (the chat widget posts with no auth),
+making it the obvious thing to script against once indexed. Two defences,
+neither costing a service:
+
+1. **Per-IP rate limit** — 5 submissions per 10 minutes, held in memory on
+   `globalThis`. Honest limitation: serverless instances do not share memory,
+   so an attacker spraying cold starts gets more through. It stops casual
+   form-spam bots and double-submits, which is the realistic threat. A shared
+   store (Upstash/Redis) is the real fix if actual abuse appears.
+2. **Honeypot** — a `website` field the real widget never sends. Anything
+   arriving with it populated returns a normal-looking `200` so the bot does
+   not learn it was caught.
+
+Verified on production: 5 submissions succeeded, the 6th onward returned 429.
+
+---
+
+## 19. Lead notifications (`src/lib/notify.ts`) — built, dormant
+
+Sends an email the moment a lead is captured. **Currently inactive** because
+`RESEND_API_KEY` is not set. Setting that variable activates it with no code
+change.
+
+Three properties that matter more than the feature:
+
+1. **A notification failure can never cost a lead.** The row commits before
+   this runs, it is scheduled with `after()` from `next/server` so it executes
+   *after* the response is sent, and every path swallows its own errors.
+   **Verified with a deliberately invalid API key**: the submission still
+   returned 200, the lead still saved, and the failure appeared only as a
+   server log line.
+2. **A missing key is not an error**, it is "not configured yet" — matching
+   how `DATABASE_URL` and `SESSION_SECRET` already degrade.
+3. **Lead fields are HTML-escaped.** They are attacker-controlled free text
+   from a public endpoint.
+
+Uses plain `fetch` to `api.resend.com` rather than the SDK: one HTTP POST does
+not justify a dependency, and it keeps the provider swappable. `reply_to` is
+set to the prospect's address when it looks like an email, so replying from
+the inbox reaches them directly. Optional overrides: `LEAD_NOTIFY_TO`,
+`LEAD_NOTIFY_FROM` (needs a verified domain in Resend; defaults to their
+shared `onboarding@resend.dev` sender which works on a fresh account).
+
+---
+
+## 20. Admin auth — session key derives itself
+
+`SESSION_SECRET` falls back to a SHA-256 derived from `DATABASE_URL` when
+unset, so admin sessions work on a fresh deploy with no configuration.
+
+**Why this is not a quiet security downgrade:** the derived key is a hash of a
+high-entropy random credential, so its strength is fine. The question is blast
+radius, and there is none added — this cookie only guards the admin panel, and
+the admin panel only protects data living in that same database. Anyone
+holding `DATABASE_URL` can already read every lead directly. The one real
+tradeoff: rotating the database credential invalidates admin sessions, which
+means logging in again.
+
+`ADMIN_PASSWORD` genuinely cannot be derived and **is set in Vercel**. When it
+is missing the login route returns a 503 explaining the situation rather than
+an opaque 500 (which is what it did before, and which looks identical to a
+broken site).
+
+---
+
+## 21. Error pages
+
+- `not-found.tsx` — 404, branded, returns a real 404 status (verified, matters
+  for SEO).
+- `error.tsx` — runtime error boundary. Deliberately does **not** render `Nav`
+  or `Footer`: if the failure originated in a shared layout component,
+  rendering those again would throw inside the boundary itself. Surfaces
+  Vercel's error `digest` so a reported problem can be found in logs.
+
+---
+
+## 22. Analytics
+
+`@vercel/analytics` and `@vercel/speed-insights` are mounted in
+`src/app/layout.tsx`. Both cookieless, both no-op off Vercel, so no consent
+banner is required.
+
+**Verification gotcha that cost time:** Vercel serves these scripts from
+randomized paths like `/acf073f6ca7fd465/script.js` specifically so ad
+blockers cannot pattern-match them. Searching the HTML for `_vercel` returns
+nothing and looks like a failure. Check the **network panel** for a
+`/<hash>/script.js` request and a `POST /<hash>/view` instead.
+
+---
+
+## 23. Verification status (end of second 14 Aug 2026 session)
+
+`npm run lint`, `npx tsc --noEmit`, `npm run build` all clean.
+
+Verified **on production**, not locally, not assumed:
+
+- All 9 pages return 200; unknown routes return a real 404
+- 6 projects and 1 review load from Neon
+- Lead capture writes to the database and returns 200
+- Rate limit triggers at the 6th submission; honeypot silently absorbed
+- All admin write endpoints return 401 unauthenticated; `/admin` redirects
+- Admin login rejects a wrong password with 401 (so `ADMIN_PASSWORD` is live)
+- Notification path survives an invalid API key without losing the lead
+- Zero `localhost` in HTML or sitemap; canonical, OG, and JSON-LD all correct
+- OG image 200 (43KB PNG), favicon 200, `summary_large_image` card
+- Analytics and Speed Insights scripts loading, pageview POST firing
+- 375px: no horizontal scroll, zero sub-40px tap targets, review card fits
