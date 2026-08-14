@@ -34,11 +34,31 @@ type SpeechRecognitionLike = {
   lang: string;
   interimResults: boolean;
   maxAlternatives: number;
+  continuous?: boolean;
   onresult: ((e: { results: SpeechRecognitionResult[][] }) => void) | null;
   onend: (() => void) | null;
-  onerror: (() => void) | null;
+  onerror: ((e: { error?: string }) => void) | null;
   start: () => void;
   stop: () => void;
+};
+
+// Speech recognition fails in a lot of ordinary ways (permission denied, no
+// speech detected, no network, unsupported browser) and the API reports them
+// only through onerror. Previously every one of these just flipped the
+// button back to idle with no message, which is indistinguishable from the
+// agent ignoring you — the exact symptom reported: typing works, speaking
+// appears to do nothing.
+const RECOGNITION_ERRORS: Record<string, string> = {
+  "not-allowed":
+    "I could not access the microphone. Check that this site is allowed to use it in your browser settings, then tap the mic again.",
+  "service-not-allowed":
+    "Your browser blocked speech recognition. Try Chrome, or type your message instead.",
+  "no-speech": "I did not hear anything. Tap the mic and try again.",
+  "audio-capture":
+    "No microphone was found on this device. You can still type your message.",
+  network:
+    "Speech recognition needs a network connection and could not reach it. Typing still works.",
+  aborted: "",
 };
 type SpeechRecognitionCtor = new () => SpeechRecognitionLike;
 
@@ -186,13 +206,24 @@ export function VoiceDemo({ onClose }: { onClose?: () => void } = {}) {
   }
 
   async function startMicAnalysis() {
-    // Separate from SpeechRecognition's own internal mic capture — that API
-    // exposes no audio data at all, so this opens its own analyser purely
-    // for the visualizer. Once the browser has granted mic access once (for
-    // SpeechRecognition), a second getUserMedia call for the same purpose
-    // does not re-prompt. If it's blocked or unsupported, the visualizer
-    // just falls back to its placeholder listening animation — this is
-    // enhancement, not a requirement for the mic input itself to work.
+    // Opens a SECOND microphone stream, separate from the one
+    // SpeechRecognition holds internally, purely to drive the visualizer
+    // (the recognition API exposes no audio data at all).
+    //
+    // Desktop browsers tolerate two concurrent captures. Mobile browsers
+    // frequently do not: the second getUserMedia can preempt the
+    // recognizer's stream, so recognition either never fires onresult or
+    // aborts immediately. That is the reported bug — typing worked, speaking
+    // silently did nothing on a phone.
+    //
+    // The visualizer is decoration; speech input is the actual feature. So
+    // on touch/coarse-pointer devices we skip the analyser entirely and let
+    // the visualizer run its procedural listening animation instead.
+    const isCoarsePointer =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(pointer: coarse)").matches;
+    if (isCoarsePointer) return;
+
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: true,
@@ -265,6 +296,14 @@ export function VoiceDemo({ onClose }: { onClose?: () => void } = {}) {
     speak(GREETING);
   }
 
+  // Agent-side status message with no user turn preceding it, used for
+  // microphone problems. Deliberately not spoken aloud: if the mic just
+  // failed, the visitor is looking at the screen, and speaking an error
+  // over a failed voice interaction is more confusing than helpful.
+  function pushAgent(text: string) {
+    setTurns((t) => [...t, { role: "agent", text }]);
+  }
+
   function respondTo(userText: string) {
     const reply = craftReply(userText);
     setTurns((t) => [
@@ -306,15 +345,37 @@ export function VoiceDemo({ onClose }: { onClose?: () => void } = {}) {
     recognition.lang = "en-US";
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
+
+    // Tracked so onend can tell "user spoke and we handled it" apart from
+    // "session ended having heard nothing", which needs to say so rather
+    // than silently going idle.
+    let gotResult = false;
+    let reportedError = false;
+
     recognition.onresult = (e) => {
       const transcript = e.results[0]?.[0]?.transcript;
-      if (transcript) respondTo(transcript);
+      if (transcript && transcript.trim()) {
+        gotResult = true;
+        respondTo(transcript);
+      }
     };
-    recognition.onend = () => {
+    recognition.onerror = (e) => {
+      reportedError = true;
+      const code = e?.error ?? "";
+      // "aborted" maps to empty string: that is the user tapping stop, not a
+      // failure, so it should not produce a message.
+      const message =
+        code in RECOGNITION_ERRORS
+          ? RECOGNITION_ERRORS[code]
+          : "Something went wrong with the microphone. You can type your message instead.";
+      if (message) pushAgent(message);
       stopMicAnalysis();
       setListening(false);
     };
-    recognition.onerror = () => {
+    recognition.onend = () => {
+      if (!gotResult && !reportedError) {
+        pushAgent(RECOGNITION_ERRORS["no-speech"]);
+      }
       stopMicAnalysis();
       setListening(false);
     };
@@ -325,6 +386,12 @@ export function VoiceDemo({ onClose }: { onClose?: () => void } = {}) {
       setListening(true);
       void startMicAnalysis();
     } catch {
+      // start() throws if a session is already running, or if the browser
+      // refuses outright. Either way the user needs to know why nothing
+      // happened.
+      pushAgent(
+        "I could not start the microphone. Try again, or type your message instead.",
+      );
       setListening(false);
     }
   }
@@ -339,7 +406,11 @@ export function VoiceDemo({ onClose }: { onClose?: () => void } = {}) {
   const visualizerState = speaking ? "speaking" : listening ? "listening" : "idle";
 
   return (
-    <div className="rounded-2xl border border-line-strong bg-ink-2/60 p-6">
+    // Solid background, not bg-ink-2/60. At 60% opacity the page behind the
+    // panel showed straight through it, which looked like a rendering fault
+    // when the widget floats over content. The chat widget's panel has
+    // always been solid; this now matches.
+    <div className="rounded-2xl border border-line-strong bg-ink-2 p-6">
       <div className="flex items-center justify-between">
         <div>
           <p className="font-mono text-xs uppercase tracking-[0.15em] text-signal">
