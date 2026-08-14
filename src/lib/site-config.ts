@@ -1,10 +1,40 @@
+// Canonical origin, in priority order:
+//
+//   1. NEXT_PUBLIC_SITE_URL  - set this once the real domain is live. It is
+//      the only option available to client components, since Next only
+//      exposes NEXT_PUBLIC_* to the browser bundle.
+//   2. VERCEL_PROJECT_PRODUCTION_URL - injected automatically by Vercel on
+//      every deployment, no dashboard configuration needed, and stable
+//      across deploys (unlike VERCEL_URL, which changes per deployment and
+//      would churn canonical tags). Server-only, which is fine: every
+//      consumer of siteConfig.url (metadata, sitemap, robots, JSON-LD,
+//      Breadcrumbs) is a server component.
+//   3. localhost - local development.
+//
+// Without step 2 the first production deploy emitted canonical tags,
+// Open Graph URLs, JSON-LD @ids, and a full sitemap all pointing at
+// http://localhost:3000, which tells crawlers the real page lives at an
+// address they cannot reach. Deriving it automatically means a fresh deploy
+// is never silently wrong just because someone missed an env var.
+//
+// NOTE: if siteConfig.url is ever needed in a *client* component, option 2
+// resolves to undefined there and it would fall through to localhost. Set
+// NEXT_PUBLIC_SITE_URL explicitly before doing that.
+function resolveSiteUrl() {
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+  }
+  return "http://localhost:3000";
+}
+
 export const siteConfig = {
   name: "Patchbay",
   ownerName: "Zaheen Zuberi",
   title: "Zaheen Zuberi | Patchbay: AI Automation, Chatbots & Full-Stack Websites",
   description:
     "Zaheen Zuberi leads Patchbay in Islamabad: voice and calling agents, chatbots, automation, full-stack website development, and every service a marketing agency provides, from one accountable team.",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+  url: resolveSiteUrl(),
   locale: "en_US",
   contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "zaheenzuberi2@gmail.com",
   contactPhoneDisplay: process.env.NEXT_PUBLIC_CONTACT_PHONE_DISPLAY || "+92 346 1223692",
