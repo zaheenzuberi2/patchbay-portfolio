@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/lib/site-config";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { StructuredData } from "@/components/StructuredData";
 import { SiteBackgroundMount } from "@/components/three/SiteBackgroundMount";
 
@@ -90,6 +92,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           the finish review, the verdict, and DESIGN.md.
         */}
         {children}
+        {/* Traffic and Core Web Vitals. Both are no-ops off Vercel and
+            cookieless, so no consent banner is required. Until now there was
+            no way to tell whether anyone reached the site at all, let alone
+            which pages convert. */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
