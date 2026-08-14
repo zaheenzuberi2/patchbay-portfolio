@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import { after } from "next/server";
 import { getDb, listLeads } from "@/lib/db";
 import { getSession } from "@/lib/auth";
+import { sendLeadNotification } from "@/lib/notify";
 
 const MAX_LEN = 500;
 
@@ -98,6 +100,14 @@ export async function POST(request: NextRequest) {
     VALUES (${name}, ${contact}, ${interest || null}, ${budget || null},
             ${message || null}, 'chat', 'new')
   `;
+
+  // Scheduled with after() so it runs once the response has already been
+  // sent: the visitor never waits on an email provider, and a slow or dead
+  // provider cannot turn a captured lead into a failed submission. The lead
+  // row is committed above regardless of what happens here.
+  after(async () => {
+    await sendLeadNotification({ name, contact, interest, budget, message });
+  });
 
   return NextResponse.json({ ok: true });
 }
