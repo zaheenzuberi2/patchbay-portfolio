@@ -24,6 +24,7 @@ export function Faq({
   heading = "Common questions",
   id = "faq",
   filter = "",
+  dense = false,
 }: {
   items: ServiceFaq[];
   heading?: string;
@@ -32,6 +33,13 @@ export function Faq({
    *  unmounted: the answers have to stay in the DOM so the FAQPage schema
    *  keeps matching the page. With no query nothing is hidden at all. */
   filter?: string;
+  /** Tighter mobile-only spacing for /faq, where this renders back-to-back
+   *  8 times as one long list rather than as a single section among
+   *  visually distinct ones. The homepage and service pages use one Faq
+   *  each as a real section boundary, so they keep the roomier default;
+   *  changing the base spacing here would have flattened their rhythm too.
+   *  Only the mobile values move — sm and up are identical either way. */
+  dense?: boolean;
 }) {
   const [open, setOpen] = useState<number | null>(0);
   const reduced = useReducedMotion();
@@ -40,9 +48,9 @@ export function Faq({
 
   return (
     <section
-      className={`relative scroll-mt-28 overflow-hidden border-b border-line py-14 sm:py-24 ${
-        hasMatch ? "" : "hidden"
-      }`}
+      className={`relative scroll-mt-28 overflow-hidden border-b border-line ${
+        dense ? "py-8 sm:py-24" : "py-14 sm:py-24"
+      } ${hasMatch ? "" : "hidden"}`}
       id={id}
     >
       <SectionGlow color={SECTION_ACCENTS.faq} />
@@ -51,7 +59,9 @@ export function Faq({
           {heading}
         </h2>
 
-        <div className="mt-10 divide-y divide-line border-y border-line">
+        <div
+          className={`divide-y divide-line border-y border-line ${dense ? "mt-6 sm:mt-10" : "mt-10"}`}
+        >
           {items.map((item, i) => {
             const matched = faqMatches(item, filter);
             // While searching, matches open themselves. Someone who typed a
@@ -64,7 +74,9 @@ export function Faq({
                     onClick={() => setOpen(expanded ? null : i)}
                     aria-expanded={expanded}
                     whileTap={reduced ? undefined : { scale: 0.99 }}
-                    className="flex w-full items-start justify-between gap-6 py-5 text-left"
+                    className={`flex w-full items-start justify-between text-left ${
+                      dense ? "gap-4 py-4 sm:gap-6 sm:py-5" : "gap-6 py-5"
+                    }`}
                   >
                     <span className="text-lg font-medium tracking-[-0.01em] text-paper">
                       {item.q}
@@ -84,7 +96,11 @@ export function Faq({
                   style={{ gridTemplateRows: expanded ? "1fr" : "0fr" }}
                 >
                   <div className="overflow-hidden">
-                    <p className="max-w-2xl pb-6 text-sm leading-relaxed text-paper-dim">
+                    <p
+                      className={`max-w-2xl text-sm leading-relaxed text-paper-dim ${
+                        dense ? "pb-4 sm:pb-6" : "pb-6"
+                      }`}
+                    >
                       {item.a}
                     </p>
                   </div>

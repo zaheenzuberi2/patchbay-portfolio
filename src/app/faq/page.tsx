@@ -41,16 +41,16 @@ export default function FaqPage() {
       <Nav />
 
       <main className="flex flex-1 flex-col">
-        <section className="relative overflow-hidden border-b border-line pt-32 sm:pt-36">
+        <section className="relative overflow-hidden border-b border-line pt-32 pb-10 sm:pb-16 sm:pt-36">
           <div className="grid-veil pointer-events-none absolute inset-0" />
-          <div className="relative mx-auto max-w-6xl px-6 pb-16">
+          <div className="relative mx-auto max-w-6xl px-6">
             <Breadcrumbs
               trail={[
                 { name: "Home", href: "/" },
                 { name: "FAQ", href: "/faq" },
               ]}
             />
-            <div className="mt-8">
+            <div className="mt-6 sm:mt-8">
               <h1 className="text-balance text-4xl font-medium leading-[1.08] tracking-[-0.03em] sm:text-5xl">
                 Every question, answered.
               </h1>
@@ -68,10 +68,10 @@ export default function FaqPage() {
             category at once. */}
         <FaqLibrary categories={FAQ_CATEGORIES} />
 
-        <section className="py-14 sm:py-24">
+        <section className="py-10 sm:py-24">
           <div className="mx-auto max-w-6xl px-6">
             <Reveal>
-              <div className="relative rounded-2xl border border-line-strong bg-ink-2/60 px-6 py-16 text-center sm:px-16">
+              <div className="relative rounded-2xl border border-line-strong bg-ink-2/60 px-6 py-10 text-center sm:px-16 sm:py-16">
                 <h2 className="text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
                   Didn&apos;t see your question?
                 </h2>

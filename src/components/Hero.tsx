@@ -17,7 +17,12 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-screen items-center overflow-hidden border-b border-line pt-20 pb-16 sm:pt-24 sm:pb-14"
+      // Nav's mobile link row (Nav.tsx, `md:hidden`) makes the fixed header
+      // 137px tall through the sm breakpoint, not just below it. pt-32 (128px)
+      // plus the inner grid's py-6 (24px) totals 152px, clearing it with 15px
+      // to spare. Below sm was the only broken range: sm:pt-24 already
+      // matches the original safe total once sm:py-16 also applies.
+      className="relative flex min-h-screen items-center overflow-hidden border-b border-line pt-32 pb-16 sm:pt-24 sm:pb-14"
     >
       <SectionGlow color={SECTION_ACCENTS.top} />
 

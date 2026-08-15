@@ -28,7 +28,7 @@ export function FaqLibrary({ categories }: { categories: FaqCategory[] }) {
   return (
     <>
       <div className="border-b border-line">
-        <div className="mx-auto max-w-6xl px-6 py-6">
+        <div className="mx-auto max-w-6xl px-6 py-4 sm:py-6">
           <label htmlFor={inputId} className="sr-only">
             Search the questions
           </label>
@@ -83,7 +83,13 @@ export function FaqLibrary({ categories }: { categories: FaqCategory[] }) {
 
       {categories.map((cat) => (
         <Reveal key={cat.id}>
-          <Faq items={cat.faqs} heading={cat.label} id={cat.id} filter={q} />
+          <Faq
+            items={cat.faqs}
+            heading={cat.label}
+            id={cat.id}
+            filter={q}
+            dense
+          />
         </Reveal>
       ))}
 
