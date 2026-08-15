@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Reveal } from "./Reveal";
 import { FlipCard } from "./FlipCard";
+import { ChannelAccordion } from "./ChannelAccordion";
 import { SignalBars } from "./SignalBars";
 import { SectionGlow } from "./SectionGlow";
 import { SECTION_ACCENTS } from "@/lib/section-theme";
@@ -78,7 +79,15 @@ export function Channels() {
           </div>
         </Reveal>
 
-        <div className="mt-10 sm:mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Mobile gets collapsed rows, desktop keeps the flip cards. Same six
+            channels and the same six links to the service pages in both, which
+            is what actually matters for internal linking. This mirrors how
+            Nav.tsx already renders its links twice for the two layouts. */}
+        <div className="mt-10 sm:hidden">
+          <ChannelAccordion channels={CHANNELS} />
+        </div>
+
+        <div className="mt-10 hidden gap-5 sm:mt-14 sm:grid sm:grid-cols-2 lg:grid-cols-3">
           {CHANNELS.map((ch, i) => (
             <Reveal key={ch.id} delay={i * 60} variant="scale">
               <FlipCard

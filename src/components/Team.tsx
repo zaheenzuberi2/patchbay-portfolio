@@ -22,22 +22,27 @@ export function Team() {
           </p>
         </Reveal>
 
-        <div className="mt-10 sm:mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Two columns on a phone rather than one. Seven full-width cards ran
+            2.6 screens; paired and tightened they fit in well under half that.
+            Nothing is hidden at any width: mobile is the primary audience
+            here, so shrinking the type is the right trade and dropping the
+            detail would not be. */}
+        <div className="mt-10 grid grid-cols-2 gap-3 sm:mt-14 sm:gap-5 lg:grid-cols-3">
           {TEAM_ROLES.map((member, i) => (
             <Reveal key={member.key} delay={i * 60} variant="scale">
-              <div className="flex h-full flex-col justify-between rounded-2xl border border-line-strong bg-ink-2/60 p-6 transition-colors hover:border-signal/50">
+              <div className="flex h-full flex-col justify-between rounded-2xl border border-line-strong bg-ink-2/60 p-3 transition-colors hover:border-signal/50 sm:p-6">
                 <div>
                   <span className="font-mono text-xs text-signal">
                     OP.{String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="mt-3 text-xl font-medium tracking-[-0.01em] text-paper">
+                  <h3 className="mt-2 text-sm font-medium tracking-[-0.01em] text-paper sm:mt-3 sm:text-xl">
                     {member.title}
                   </h3>
-                  <p className="mt-1 font-mono text-xs sm:text-[11px] uppercase tracking-[0.1em] text-paper-dim">
+                  <p className="mt-1 font-mono text-xs uppercase tracking-[0.1em] text-paper-dim sm:text-[11px]">
                     {member.role}
                   </p>
                 </div>
-                <p className="mt-4 text-sm leading-relaxed text-paper-dim">
+                <p className="mt-2 text-xs leading-snug text-paper-dim sm:mt-4 sm:text-sm sm:leading-relaxed">
                   {member.focus}
                 </p>
               </div>
