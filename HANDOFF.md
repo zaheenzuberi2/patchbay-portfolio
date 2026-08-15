@@ -877,10 +877,22 @@ URL + all three JSON-LD `@id`s on the new domain, and **zero occurrences of
 
 ### Still open after this
 
-- **Google Search Console.** Nothing is indexed yet and this is the single
-  biggest remaining SEO gap. Zaheen creates the property (account action);
-  the agent can add the DNS TXT verification record via `vercel dns add` and
-  submit the sitemap.
+- ~~**Google Search Console.**~~ **DONE 15 Aug 2026.** Domain property
+  (`sc-domain:zaheenzuberi.com`, covers all subdomains and both protocols),
+  verified by DNS TXT, sitemap `https://zaheenzuberi.com/sitemap.xml`
+  submitted successfully.
+
+  ⚠️ **Do not delete the `google-site-verification=` TXT record on the apex.**
+  Removing it revokes Search Console ownership. It is in the Vercel-managed
+  zone and looks like a stray record if you don't know what it is:
+
+  ```
+  TXT  @  google-site-verification=CS5EytMv_fDo2OyGacQzaiEYKKJ6z1jctUC9A3bF3kk
+  ```
+
+  Note the agent **cannot** submit sitemaps or read Search Console data — that
+  needs Zaheen's Google account. The agent's reach stops at DNS. Don't promise
+  otherwise; this was mis-stated once mid-session and corrected.
 - **The second cold-outreach domain was never confirmed bought.** Asked twice,
   no answer. Do not send any cold email from `zaheenzuberi.com` — see
   section 12.
