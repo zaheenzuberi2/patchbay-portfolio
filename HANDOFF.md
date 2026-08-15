@@ -1046,11 +1046,23 @@ sizes (proving they are genuinely different images), `og:image` and
 
 ### Still open
 
-- **The hero photo has not been replaced.** Zaheen sent a new one in chat on
-  15 Aug and confirmed he wants it used, but an image pasted into chat cannot
-  be written to disk. It needs to land in `public/` before anything can be
-  done. **The advice given, and it still stands: his face is turned away and
-  soft in that shot**, which is the same weakness as the current
-  `zaheen.jpg` (section 14). He was told plainly and chose to proceed; that is
-  his call, and the crop should just be done well. Frame it as tight to the
-  upper body as the source allows.
+- ~~**The hero photo has not been replaced.**~~ **DONE 15 Aug 2026.** The
+  mirror selfie from section 14 is gone. New source was a full-length shot in
+  a green suit (`Documents/IMG_2985.JPG.jpeg`), cropped to **1040x1300, exactly
+  4:5**, which matches the hero's `aspect-[4/5]` container so `object-cover`
+  trims nothing. Filename kept as `public/zaheen.jpg`, so `Hero.tsx` and the
+  `Person` schema `image` needed no change. Verified live: served at 39KB,
+  natural and displayed ratios both 0.800.
+
+  **Do not re-open the crop with him.** He was told plainly that his face is
+  turned away and visibly soft in the source, most likely from an AI filter or
+  upscale, and that the damage is more obvious the tighter you crop. He was
+  shown a tight and a wide crop, the wide one was recommended for exactly that
+  reason, and **he chose the tight crop**. That is his call and it is settled.
+  A retake in the same suit and location, facing the camera and unfiltered,
+  remains the real fix whenever he wants it.
+
+  Cropping was done with PowerShell + `System.Drawing` (no ImageMagick, no
+  Python on this machine, no `sharp` in the project). Check EXIF tag 274 for
+  orientation first: it was 1 here, but a rotated source would need handling
+  since `System.Drawing` does not auto-rotate.
