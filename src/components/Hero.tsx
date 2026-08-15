@@ -17,7 +17,7 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative flex min-h-screen items-center overflow-hidden border-b border-line pt-24 pb-16 sm:pb-14"
+      className="relative flex min-h-screen items-center overflow-hidden border-b border-line pt-20 pb-16 sm:pt-24 sm:pb-14"
     >
       <SectionGlow color={SECTION_ACCENTS.top} />
 
@@ -29,7 +29,11 @@ export function Hero() {
 
       <div className="grid-veil pointer-events-none absolute inset-0" />
 
-      <div className="relative mx-auto grid w-full max-w-6xl gap-12 px-6 py-16 lg:grid-cols-[1.3fr_0.7fr] lg:items-end">
+      {/* py-6 / gap-8 on phones. At py-16 and gap-12 the hero ran 1.5 screens
+          before a visitor reached a single service, and that vertical air is
+          desktop styling being applied to a viewport that cannot spare it.
+          Both step back up at sm, so desktop is untouched. */}
+      <div className="relative mx-auto grid w-full max-w-6xl gap-8 px-6 py-6 sm:gap-12 sm:py-16 lg:grid-cols-[1.3fr_0.7fr] lg:items-end">
         <div>
           {/* text-4xl on the smallest screens, not text-5xl: at 375px the
               headline ran six lines and pushed both CTAs below the fold,
@@ -61,7 +65,12 @@ export function Hero() {
             the face, so no crop window isolates one from the other at hero
             width; every attempt showed mostly phone/hand. Revisit full-bleed
             only with a plain, face-forward photo that has nothing held up. */}
-        <div className="floaty overflow-hidden rounded-2xl border border-line-strong bg-ink-2">
+        {/* Capped and centred on phones. Full-bleed it was 327px wide and so
+            409px tall at 4:5, a third of the whole hero for one portrait.
+            Capping the width rather than changing the aspect ratio keeps the
+            face framed exactly as it is and leaves the overlay chrome room to
+            sit without colliding. Uncapped from lg where the grid takes over. */}
+        <div className="floaty mx-auto w-full max-w-[260px] overflow-hidden rounded-2xl border border-line-strong bg-ink-2 sm:max-w-[300px] lg:max-w-none">
           <div className="relative aspect-[4/5]">
             <Image
               src="/zaheen.jpg"
