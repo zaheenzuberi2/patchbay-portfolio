@@ -66,6 +66,10 @@ export default async function ServicePage(
     serviceType: service.name,
     description: service.metaDescription,
     url,
+    // Points at this page's own generated card, not the site-wide one, so a
+    // result or panel that pulls an image for this Service gets the card
+    // naming this service rather than the generic homepage one.
+    image: `${url}/opengraph-image`,
     provider: { "@id": `${siteConfig.url}/#business` },
     areaServed: [
       { "@type": "Country", name: "Pakistan" },
