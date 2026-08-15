@@ -1072,3 +1072,93 @@ sizes (proving they are genuinely different images), `og:image` and
   need no edit. Use PowerShell + `System.Drawing` (no ImageMagick, no Python on
   this machine, no `sharp` in the project), and check EXIF tag 274 for
   orientation first, since `System.Drawing` does not auto-rotate.
+
+---
+
+## 27. Tests, FAQ search, favicon — 15 Aug 2026
+
+### `npm test` exists now
+
+```bash
+npm test                              # against production
+BASE_URL=http://localhost:3000 npm test
+```
+
+`tests/contract.test.mjs`, **33 checks, zero dependencies** (`node:test` ships
+with Node, same reasoning as `notify.ts` using plain fetch over the Resend
+SDK). Note the script is `node --test "tests/**/*.test.mjs"`: passing a bare
+directory resolves as a *module* on Node 22.14 and fails with
+`MODULE_NOT_FOUND`.
+
+Covers: every page 200, real 404s, all 8 mutating admin endpoints 401
+unauthenticated, honeypot absorbed with a 200, no `localhost` in the HTML,
+canonical + `og:url` + JSON-LD sharing one origin, sitemap 8 URLs all
+on-origin, robots disallowing `/admin` and `/api`, the root `@graph` holding
+exactly Person + ProfessionalService + WebSite, service pages owning a Service
+entity with their own OG image and *not* duplicating the site-wide entities,
+and all 8 share cards decoding as real PNGs.
+
+**Confirmed the suite can fail**: pointed at `https://example.com` it fails 30
+of 33. If you extend it, re-check that — a suite that always passes is worse
+than none.
+
+**A real lead submission is deliberately untested.** It writes a row to the
+production database, and stale test rows from earlier manual checks are still
+in `/admin`. The honeypot path is tested instead, since it is specified to
+return 200 while storing nothing.
+
+### Measuring tap targets: use `offsetWidth`/`offsetHeight`, not `getBoundingClientRect`
+
+This produced a **false bug report** earlier in the session. `Reveal` wrappers
+sit at `transform: scale(0.94); opacity: 0` until they scroll into view, and
+`getBoundingClientRect` returns the *transformed* box: 44 x 0.94 = 41.4, which
+reads as a failing 41px tap target on an element that is genuinely 44px.
+Several "undersized tap targets" were this artifact. `offsetHeight` ignores
+transforms and reports layout size. Re-audited that way, the only genuine
+offender site-wide was the breadcrumb link (34px wide, now `px-2`).
+
+### FAQ search (`FaqLibrary.tsx`)
+
+`/faq` is 200 questions and ran 31.5 screens on a phone with only category
+jump links. Search filters across every category at once: **31.5 screens down
+to 6.3 for a typical query**, verified live.
+
+⚠️ **Filtering is CSS only and must stay that way.** Non-matching items get
+`hidden`; nothing unmounts. The answers have to remain in the DOM or the
+FAQPage schema stops matching the page, which is the same rule in section 7
+that governs expand/collapse. With an empty query nothing is hidden, and that
+is the state a crawler sees. Verified live: searching drops visible questions
+to 25 while **all 200 stay in the DOM**.
+
+`faqMatches()` in `Faq.tsx` is a plain substring test, deliberately *not* the
+scored matcher in `faq-search.ts`: that one picks the single best answer for
+the chat bot, where a filter needs every hit. Matches auto-expand while
+searching, and the category bar hides during a search because its jump links
+would point at hidden sections.
+
+### The favicon was Next's default until now
+
+`src/app/favicon.ico` was still the stock Next triangle, untouched since
+project creation (same `Aug 11 16:40` timestamp as `eslint.config.mjs`), so
+every browser tab showed Next's logo. Rebuilt from `public/logo-mark.png` as a
+multi-size ico (16/32/48/64, PNG-compressed frames). `icon.png` was a
+1024x1024 195KB file serving as a tab icon; now 256x256 / 19KB.
+
+**`System.Drawing` cannot decode PNG-compressed ICO frames.** `Icon.ToBitmap()`
+throws "Requested range extends past the end of the array" on a perfectly valid
+file. Do not treat that as corruption. The container was validated by parsing
+the bytes (header, per-frame offsets, PNG signatures, bounds) and then by
+decoding it in a real browser, which is the consumer that matters.
+
+### Mobile: measured state of every page
+
+| Page | Screens | Text under 12px | Tap targets under 44px |
+|---|---|---|---|
+| Homepage | 14.1 | 0 | 0 |
+| Service pages | 7.6 | 0 | 0 |
+| `/faq` | 31.5, or 6.3 while searching | 0 | 0 |
+
+Remaining length is content, not spacing, and cutting it is Zaheen's call. The
+candidates raised with him, in order: Milestones (1.6 screens), the hero (1.5
+screens before any service is visible), and Work's desktop-shaped three-column
+rows. **Performance is 872ms / 23KB / 19 requests. Do not trade that away.**
