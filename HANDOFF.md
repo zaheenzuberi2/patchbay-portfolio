@@ -22,11 +22,13 @@ it was not on the machine before.
 
 | What | Where |
 |---|---|
-| **Live site** | https://patchbay-portfolio.vercel.app |
+| **Live site** | **https://zaheenzuberi.com** (real domain, live 15 Aug 2026) |
+| **Old URL** | https://patchbay-portfolio.vercel.app — still serves, canonicals to the apex, kept as a fallback (section 24) |
 | **GitHub** | https://github.com/zaheenzuberi2/patchbay-portfolio |
 | **Vercel project** | `zaheen3/patchbay-portfolio` (Hobby/free plan) |
+| **Domain / DNS** | Registered at Namecheap; **DNS is managed by Vercel** via nameservers, so `npx vercel dns add` works (section 24) |
 | **Database** | Neon Postgres, `patchbay-db`, region `iad1`, free tier |
-| **Admin panel** | https://patchbay-portfolio.vercel.app/admin |
+| **Admin panel** | https://zaheenzuberi.com/admin |
 
 **Deployment is fully automatic: every push to `main` deploys to production.**
 There is no separate deploy step. `git push origin main`, wait ~90 seconds,
@@ -480,10 +482,18 @@ npx vercel logs <deployment-url>      # runtime logs
 ```
 
 **Env vars currently set in Vercel production:** `ADMIN_PASSWORD` (set by
-Zaheen), plus `DATABASE_URL` and ~15 other `PG*`/`POSTGRES_*` variables
-injected automatically by the Neon integration. **`SESSION_SECRET` and
-`NEXT_PUBLIC_SITE_URL` are deliberately NOT set** — both derive themselves in
-code (sections 0b and 16). Do not "fix" this by adding them.
+Zaheen), `NEXT_PUBLIC_SITE_URL` (set 15 Aug 2026, see section 24), plus
+`DATABASE_URL` and ~15 other `PG*`/`POSTGRES_*` variables injected
+automatically by the Neon integration. **`SESSION_SECRET` is deliberately NOT
+set** — it derives itself in code (sections 0b and 20). Do not "fix" that by
+adding it.
+
+`NEXT_PUBLIC_SITE_URL` *was* also deliberately unset while the site lived on
+`patchbay-portfolio.vercel.app`, because it self-derived correctly from
+`VERCEL_PROJECT_PRODUCTION_URL`. It is now set on purpose: section 16's
+resolution order says to set it explicitly once the real domain is live, and
+it is. **Do not remove it** thinking it is redundant — without it the
+canonical origin falls back to the `.vercel.app` hostname.
 
 **Trigger a rebuild without a code change** (e.g. after adding an env var):
 
@@ -497,10 +507,8 @@ git commit --allow-empty -m "chore: rebuild to pick up <VAR>" && git push
 
 **Blocked on Zaheen (purchases and account creation only):**
 
-- [ ] **Register `zaheenzuberi.com`.** He said he would do this "in the
-      morning" (15 Aug). Once bought: `npx vercel domains add`, he pastes the
-      DNS records at his registrar, then set `NEXT_PUBLIC_SITE_URL` to the
-      real domain and redeploy. Cheapest at Cloudflare; Namecheap is easier.
+- [x] ~~**Register `zaheenzuberi.com`.**~~ **DONE 15 Aug 2026.** Registered at
+      Namecheap, nameservers moved to Vercel, live on HTTPS. See section 24.
 - [ ] **A SECOND domain for cold outreach** (e.g. `getpatchbay.com`). This is
       important and he agreed to it: cold email complaints damage the sending
       domain's reputation, and if that is `zaheenzuberi.com` his real client
@@ -813,3 +821,80 @@ Verified **on production**, not locally, not assumed:
 - OG image 200 (43KB PNG), favicon 200, `summary_large_image` card
 - Analytics and Speed Insights scripts loading, pageview POST firing
 - 375px: no horizontal scroll, zero sub-40px tap targets, review card fits
+
+---
+
+## 24. The real domain went live — 15 Aug 2026
+
+**`https://zaheenzuberi.com` is the production site.** Registered at Namecheap
+that morning, live on HTTPS the same hour.
+
+**DNS is managed by Vercel, not Namecheap.** The nameservers were switched to
+`ns1.vercel-dns.com` / `ns2.vercel-dns.com`, which means **an agent can add
+DNS records directly with `npx vercel dns add`** and Zaheen never has to open
+the registrar again. This was chosen deliberately over pasting A records: he
+still needs DNS changes for Google Search Console verification and for
+Resend's SPF/DKIM/DMARC, and this way those cost him nothing.
+
+Zone baseline after the switch (everything else was added later, diff against
+this):
+
+```
+CAA    0 issue "pki.goog" / "sectigo.com" / "letsencrypt.org"
+*      ALIAS  cname.vercel-dns-017.com.
+       ALIAS  3d97f066efbab01a.vercel-dns-017.com
+```
+
+**A CLI inconsistency to know about.** `vercel domains inspect` recommended
+`A 76.76.21.21` while `vercel domains verify` returned `216.198.79.1` and
+`64.29.17.1` for the same domain at the same moment. The first is Vercel's
+older legacy anycast IP. Don't paste an A record from `inspect` on faith; the
+nameserver route avoids the question entirely. Also note `inspect` kept
+reporting the *old* registrar nameservers for several minutes after the
+registry and public resolvers had already updated, so it is not a reliable
+signal of whether propagation finished. Check the registry over RDAP or query
+a public resolver directly instead.
+
+**`www` redirects to the apex** via a `redirects()` entry in `next.config.ts`
+matching `has: [{ type: "host", value: "www.zaheenzuberi.com" }]`. Both
+hostnames are attached to the project, so without it every page served under
+two URLs. `permanent: true` emits a **308**, not a 301 — that is Next's
+deliberate choice to preserve the request method, and search engines treat
+them equivalently. Verified: 308 on both the root and deep paths, exactly one
+hop, no loop.
+
+**`patchbay-portfolio.vercel.app` still serves the site and that is fine.**
+It emits `canonical → https://zaheenzuberi.com` and its sitemap points at the
+real domain, so Google consolidates to the apex on its own. It was kept
+deliberately as a fallback if DNS ever breaks. A hard redirect was considered
+and judged unnecessary.
+
+**Verified on production after the switch, not assumed:** all 8 routes 200,
+unknown route a real 404, `/admin` 307, `robots.txt` / `opengraph-image` /
+`icon.png` all 200, all 8 sitemap entries on the new domain, canonical + OG
+URL + all three JSON-LD `@id`s on the new domain, and **zero occurrences of
+`localhost` or `patchbay-portfolio.vercel.app` in the served HTML**.
+
+### Still open after this
+
+- **Google Search Console.** Nothing is indexed yet and this is the single
+  biggest remaining SEO gap. Zaheen creates the property (account action);
+  the agent can add the DNS TXT verification record via `vercel dns add` and
+  submit the sitemap.
+- **The second cold-outreach domain was never confirmed bought.** Asked twice,
+  no answer. Do not send any cold email from `zaheenzuberi.com` — see
+  section 12.
+- **Namecheap showed an ALERT badge** on the domain the day it was registered,
+  most likely the ICANN registrant email verification. Unverified domains get
+  suspended after 15 days. Never confirmed as resolved.
+- **Backlinks are the real ranking constraint, not on-page work**, which is
+  finished. The highest-leverage available links are "built by" footer credits
+  on the sites he already controls: tryvoicely.com (his own, no permission
+  needed), lexjustitia.pk, abjuris.pk. He said he would add them. Google
+  Business Profile is the other free high-value item, since Islamabad local
+  intent is far less contested than the head terms.
+- **`sameAs` is missing from the JSON-LD `Person` and `ProfessionalService`
+  entities** — grep confirms it appears nowhere in `src/`. Once he has real
+  LinkedIn/GitHub profiles, wiring `sameAs` plus the visible Contact social
+  links is one pass and connects the site to his external identity. Contact.tsx
+  still says "Social channels coming soon".
