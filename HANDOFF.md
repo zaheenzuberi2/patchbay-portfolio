@@ -1046,23 +1046,29 @@ sizes (proving they are genuinely different images), `og:image` and
 
 ### Still open
 
-- ~~**The hero photo has not been replaced.**~~ **DONE 15 Aug 2026.** The
-  mirror selfie from section 14 is gone. New source was a full-length shot in
-  a green suit (`Documents/IMG_2985.JPG.jpeg`), cropped to **1040x1300, exactly
-  4:5**, which matches the hero's `aspect-[4/5]` container so `object-cover`
-  trims nothing. Filename kept as `public/zaheen.jpg`, so `Hero.tsx` and the
-  `Person` schema `image` needed no change. Verified live: served at 39KB,
-  natural and displayed ratios both 0.800.
+- **The hero photo was replaced and then reverted, same day. The original
+  mirror selfie from section 14 is what is live.** Do not treat this as
+  unfinished work.
 
-  **Do not re-open the crop with him.** He was told plainly that his face is
-  turned away and visibly soft in the source, most likely from an AI filter or
-  upscale, and that the damage is more obvious the tighter you crop. He was
-  shown a tight and a wide crop, the wide one was recommended for exactly that
-  reason, and **he chose the tight crop**. That is his call and it is settled.
-  A retake in the same suit and location, facing the camera and unfiltered,
-  remains the real fix whenever he wants it.
+  A full-length shot in a green suit (`Documents/IMG_2985.JPG.jpeg`) was
+  cropped to 1040x1300 and shipped, then Zaheen looked at it live and asked
+  for the old one back. Reverted from git, verified visually.
 
-  Cropping was done with PowerShell + `System.Drawing` (no ImageMagick, no
-  Python on this machine, no `sharp` in the project). Check EXIF tag 274 for
-  orientation first: it was 1 here, but a rotated source would need handling
-  since `System.Drawing` does not auto-rotate.
+  **He was right, and the reasoning is worth keeping.** The suit photo had
+  better styling, but its face had been destroyed by what looks like an AI
+  filter or upscale: smeared features, distorted hands. The current selfie has
+  his phone across part of his face, which section 14 correctly calls a
+  weakness, but **the face in it is sharp and readable**. A sharp face partly
+  obscured beats a fully visible one that has been smeared. If a future
+  session is tempted to swap in the suit photo, this is why it was rejected.
+
+  **The real fix is still a retake**, and the suit and location were genuinely
+  good: same outfit, same spot, facing the camera, someone else holding the
+  camera, no filter and no AI enhancement.
+
+  Practical notes if a swap is ever done: crop to exactly **4:5** to match the
+  hero's `aspect-[4/5]` container so `object-cover` trims nothing, and keep the
+  filename `public/zaheen.jpg` so `Hero.tsx` and the `Person` schema `image`
+  need no edit. Use PowerShell + `System.Drawing` (no ImageMagick, no Python on
+  this machine, no `sharp` in the project), and check EXIF tag 274 for
+  orientation first, since `System.Drawing` does not auto-rotate.
