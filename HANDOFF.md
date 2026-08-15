@@ -911,3 +911,87 @@ URL + all three JSON-LD `@id`s on the new domain, and **zero occurrences of
   LinkedIn/GitHub profiles, wiring `sameAs` plus the visible Contact social
   links is one pass and connects the site to his external identity. Contact.tsx
   still says "Social channels coming soon".
+
+---
+
+## 25. Mobile pass — 15 Aug 2026
+
+Zaheen's read was that mobile is where nearly all his visitors are and that
+it was not properly optimised. He was right, and the problems were found by
+measuring the live page at 375x812, not by eyeballing it.
+
+**Result: 17.9 screens of scrolling down to 14.1** (14,543px → 11,480px).
+
+| Section | Before | After |
+|---|---|---|
+| channels | 2.8 screens | **0.9** |
+| team | 2.7 | **1.6** |
+| everything else | unchanged | unchanged |
+
+Also: **85 elements rendering at 10-11px → 0**, and **8 tap targets under 44px
+→ 0**. Desktop is byte-for-byte unchanged; every fix is behind a mobile-only
+breakpoint and that was verified at 1280px afterwards.
+
+### A flip card cannot be made short
+
+This is the important lesson. The obvious fix for a tall card is to reduce its
+height, and it does not work here: `.flip-card`'s box has to fit the *taller*
+of its two faces, and the Channels back face carries a description, four tech
+tags and a link. Shrinking the height just pushes content into the back face's
+`overflow-y: auto` and creates a scroll inside a card, which is worse than the
+length problem. A first pass that only tightened padding moved the whole page
+by 816px, barely one screen, for exactly this reason.
+
+**`ChannelAccordion.tsx`** is the mobile answer: collapsed rows (56px each,
+above the tap-target floor) that expand on tap. Desktop still renders the flip
+grid. Channels renders both and switches with `sm:hidden` / `hidden sm:grid`,
+the same double-render `Nav.tsx` already uses for its two link rows.
+
+**Both layouts carry all six service-page links** (5 unique slugs; CH.05 and
+CH.06 both point at `marketing-and-social`). That is deliberate and must stay:
+section 7 notes those internal links are how the service pages get discovered.
+Verified on mobile that all 6 are in the DOM.
+
+**The accordion drops closed panels from the DOM, and `Faq.tsx` deliberately
+does not.** That is not an inconsistency to "fix". The FAQ must keep every
+answer rendered because its FAQPage structured data has to match visible
+content (section 7). Channels has no schema attached, so omitting closed
+panels is free and is what actually makes the page short.
+
+### Flip affordance
+
+The hint in Channels was `hidden sm:block` — shown to desktop, which can
+discover the flip by hovering, and hidden from phones, which cannot. Exactly
+backwards. `FlipCard` now renders its own badge, so Channels and Milestones
+both get it: **↻ TAP** under `(hover: none)`, **↻ HOVER** under
+`(hover: hover)`, swapped by **CSS media query, never a JS pointer check** —
+reading `matchMedia` during render is what caused the hydration bug in
+section 8. Verified: 10 cards, correct variant on both, zero leakage.
+
+Since Channels no longer flips on mobile, that badge is now load-bearing only
+for Milestones there. Keep it: Milestones still flips on every width.
+
+### Type and tap targets
+
+Mono labels were `text-[10px]` / `text-[11px]` flat. They are now
+`text-xs sm:text-[10px]` (and `sm:text-[11px]`), giving a 12px floor on mobile
+and the original size from `sm:` up. Applied across 20 public files;
+**`src/components/admin/` was deliberately skipped** — it is Zaheen's own
+tool, not a marketing surface, and section 9c already verified it at 375px.
+
+Nav links were only as wide as their text (`FAQ` was 26px). Padding moved into
+the link and the row gap shrank to compensate, so it looks the same.
+
+### Not done, and why
+
+Getting under ~14 screens means deleting a section, not tightening one. Work
+(2.2), About (2.0), Milestones (1.6) and FAQ (1.6) are all real content:
+proof, trust, credibility, and schema-bearing SEO copy respectively. **Do not
+cut them to chase a scroll-length number.** An earlier estimate in this
+session that padding alone would reach 10 screens was wrong; the measured
+ceiling for non-destructive work is roughly where it now sits.
+
+**Nothing is hidden from mobile users** anywhere in this pass. Team's role
+descriptions were a candidate for `hidden sm:block` and were kept, because
+mobile is the primary audience and hiding content from them to win scroll
+length is the wrong trade.
