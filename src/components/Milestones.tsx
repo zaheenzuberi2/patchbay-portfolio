@@ -28,9 +28,14 @@ const MILESTONES = [
 
 export function Milestones() {
   return (
+    // Dropped on mobile entirely, not just shrunk: at 1.6 screens of stacked
+    // flip cards it was the least essential section on the page there, and
+    // no schema is attached to it (checked: no JSON-LD in this file), unlike
+    // Faq.tsx where hiding content on any width would break FAQPage schema.
+    // No nav link points at #milestones either, so nothing goes dead.
     <section
       id="milestones"
-      className="relative scroll-mt-28 overflow-hidden border-b border-line py-16 sm:py-28"
+      className="relative hidden scroll-mt-28 overflow-hidden border-b border-line py-16 sm:block sm:py-28"
     >
       <SectionGlow color={SECTION_ACCENTS.milestones} />
       <div className="mx-auto max-w-6xl px-6">
