@@ -30,7 +30,7 @@ export function Milestones() {
   return (
     <section
       id="milestones"
-      className="relative scroll-mt-28 overflow-hidden border-b border-line py-28"
+      className="relative scroll-mt-28 overflow-hidden border-b border-line py-16 sm:py-28"
     >
       <SectionGlow color={SECTION_ACCENTS.milestones} />
       <div className="mx-auto max-w-6xl px-6">
@@ -40,14 +40,14 @@ export function Milestones() {
           </h2>
         </Reveal>
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-10 sm:mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {MILESTONES.map((m, i) => (
             <Reveal key={m.tag} delay={i * 60} variant="scale">
               <FlipCard
                 className="h-60 sm:h-52"
                 front={
                   <div className="flex h-full flex-col justify-between rounded-2xl border border-line-strong bg-ink-2/60 p-6 transition-colors group-hover:border-signal/50">
-                    <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-signal">
+                    <span className="font-mono text-xs sm:text-[10px] uppercase tracking-[0.15em] text-signal">
                       {m.tag}
                     </span>
                     <p className="text-xl font-medium leading-tight tracking-[-0.01em] text-paper">

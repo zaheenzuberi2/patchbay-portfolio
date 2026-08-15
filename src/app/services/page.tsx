@@ -73,7 +73,7 @@ export default function ServicesIndexPage() {
           </div>
         </section>
 
-        <section className="border-b border-line py-24">
+        <section className="border-b border-line py-14 sm:py-24">
           <div className="mx-auto max-w-6xl px-6">
             <div className="divide-y divide-line border-y border-line">
               {services.map((s, i) => (
@@ -96,7 +96,7 @@ export default function ServicesIndexPage() {
                         {s.stack.map((t) => (
                           <span
                             key={t}
-                            className="rounded-full border border-line-strong px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.08em] text-paper-dim"
+                            className="rounded-full border border-line-strong px-2.5 py-0.5 font-mono text-xs sm:text-[10px] uppercase tracking-[0.08em] text-paper-dim"
                           >
                             {t}
                           </span>

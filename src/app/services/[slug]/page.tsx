@@ -128,7 +128,7 @@ export default async function ServicePage(
               </div>
 
               <div className="floaty rounded-2xl border border-line-strong bg-ink-2/60 p-5">
-                <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.1em] text-paper-dim">
+                <div className="flex items-center justify-between font-mono text-xs sm:text-[11px] uppercase tracking-[0.1em] text-paper-dim">
                   <span>Channel</span>
                   <span className="flex items-center gap-1.5 text-online">
                     <span className="status-dot h-1.5 w-1.5 rounded-full bg-online" />
@@ -140,7 +140,7 @@ export default async function ServicePage(
                   {service.stack.map((s) => (
                     <span
                       key={s}
-                      className="rounded-full border border-line-strong px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.08em] text-paper-dim"
+                      className="rounded-full border border-line-strong px-2.5 py-0.5 font-mono text-xs sm:text-[10px] uppercase tracking-[0.08em] text-paper-dim"
                     >
                       {s}
                     </span>
@@ -152,7 +152,7 @@ export default async function ServicePage(
         </section>
 
         {/* Outcomes */}
-        <section className="border-b border-line py-24">
+        <section className="border-b border-line py-14 sm:py-24">
           <div className="mx-auto max-w-6xl px-6">
             <Reveal>
               <h2 className="text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
@@ -178,7 +178,7 @@ export default async function ServicePage(
 
         {/* Voice demo, only where it's actually relevant */}
         {service.slug === "ai-voice-agents" && (
-          <section className="border-b border-line py-24">
+          <section className="border-b border-line py-14 sm:py-24">
             <div className="mx-auto max-w-6xl px-6">
               <Reveal>
                 <h2 className="text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
@@ -199,7 +199,7 @@ export default async function ServicePage(
         )}
 
         {/* What's included */}
-        <section className="border-b border-line py-24">
+        <section className="border-b border-line py-14 sm:py-24">
           <div className="mx-auto max-w-6xl px-6">
             <Reveal>
               <h2 className="text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
@@ -226,7 +226,7 @@ export default async function ServicePage(
         </section>
 
         {/* Who's on this channel */}
-        <section className="border-b border-line py-24">
+        <section className="border-b border-line py-14 sm:py-24">
           <div className="mx-auto max-w-6xl px-6">
             <Reveal>
               <h2 className="text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
@@ -260,7 +260,7 @@ export default async function ServicePage(
         <Faq items={service.faqs} heading={`${service.name}: questions`} />
 
         {/* Other services */}
-        <section className="border-b border-line py-24">
+        <section className="border-b border-line py-14 sm:py-24">
           <div className="mx-auto max-w-6xl px-6">
             <Reveal>
               <h2 className="text-balance text-2xl font-medium tracking-[-0.02em] sm:text-3xl">
@@ -296,11 +296,11 @@ export default async function ServicePage(
         </section>
 
         {/* CTA */}
-        <section className="py-24">
+        <section className="py-14 sm:py-24">
           <div className="mx-auto max-w-6xl px-6">
             <Reveal>
               <div className="relative rounded-2xl border border-line-strong bg-ink-2/60 px-6 py-16 text-center sm:px-16">
-                <span className="absolute right-6 top-6 flex items-center gap-2 rounded-full border border-online/30 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-online">
+                <span className="absolute right-6 top-6 flex items-center gap-2 rounded-full border border-online/30 px-2.5 py-1 font-mono text-xs sm:text-[10px] uppercase tracking-[0.1em] text-online">
                   <span className="status-dot h-1.5 w-1.5 rounded-full bg-online" />
                   Channel open
                 </span>

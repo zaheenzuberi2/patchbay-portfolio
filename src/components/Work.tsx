@@ -21,7 +21,7 @@ export async function Work() {
   return (
     <section
       id="work"
-      className="relative scroll-mt-28 overflow-hidden border-b border-line py-28"
+      className="relative scroll-mt-28 overflow-hidden border-b border-line py-16 sm:py-28"
     >
       <SectionGlow color={SECTION_ACCENTS.work} />
       <div className="mx-auto max-w-6xl px-6">
@@ -33,11 +33,11 @@ export async function Work() {
           </div>
         </Reveal>
 
-        <div className="mt-12 divide-y divide-line border-y border-line font-mono">
+        <div className="mt-8 sm:mt-12 divide-y divide-line border-y border-line font-mono">
           {projects.map((p, i) => {
             const tags: string[] = JSON.parse(p.tags);
             const Row = (
-              <div className="group grid gap-x-6 gap-y-2 py-6 sm:grid-cols-[6rem_1fr_auto] sm:items-baseline">
+              <div className="group grid gap-x-6 gap-y-2 py-5 sm:py-6 sm:grid-cols-[6rem_1fr_auto] sm:items-baseline">
                 <span className="text-xs text-paper-dim">
                   SESSION
                   <br />
@@ -49,7 +49,7 @@ export async function Work() {
                     <h3 className="font-display text-xl font-medium tracking-[-0.01em] text-paper transition-colors group-hover:text-signal">
                       {p.name}
                     </h3>
-                    <span className="text-[11px] uppercase tracking-[0.08em] text-paper-dim">
+                    <span className="text-xs sm:text-[11px] uppercase tracking-[0.08em] text-paper-dim">
                       {p.client}
                     </span>
                   </div>
@@ -61,7 +61,7 @@ export async function Work() {
                       {tags.map((t) => (
                         <span
                           key={t}
-                          className="rounded-full border border-line-strong px-2.5 py-0.5 text-[10px] uppercase tracking-[0.08em] text-paper-dim"
+                          className="rounded-full border border-line-strong px-2.5 py-0.5 text-xs sm:text-[10px] uppercase tracking-[0.08em] text-paper-dim"
                         >
                           {t}
                         </span>
@@ -70,7 +70,7 @@ export async function Work() {
                   )}
                 </div>
 
-                <span className="justify-self-start rounded-full border border-online/40 px-2.5 py-1 text-[10px] uppercase tracking-[0.1em] text-online sm:justify-self-end">
+                <span className="justify-self-start rounded-full border border-online/40 px-2.5 py-1 text-xs sm:text-[10px] uppercase tracking-[0.1em] text-online sm:justify-self-end">
                   {p.status}
                 </span>
               </div>
@@ -98,7 +98,7 @@ export async function Work() {
             <Reveal key={slot.id} delay={(projects.length + i) * 60}>
               <a
                 href="#contact"
-                className="group grid gap-x-6 gap-y-2 py-6 opacity-60 transition-opacity hover:opacity-100 sm:grid-cols-[6rem_1fr_auto] sm:items-baseline"
+                className="group grid gap-x-6 gap-y-2 py-5 sm:py-6 opacity-60 transition-opacity hover:opacity-100 sm:grid-cols-[6rem_1fr_auto] sm:items-baseline"
               >
                 <span className="text-xs text-paper-dim">
                   SESSION
@@ -115,7 +115,7 @@ export async function Work() {
                     {slot.description}
                   </p>
                 </div>
-                <span className="justify-self-start rounded-full border border-line-strong px-2.5 py-1 text-[10px] uppercase tracking-[0.1em] text-paper-dim sm:justify-self-end">
+                <span className="justify-self-start rounded-full border border-line-strong px-2.5 py-1 text-xs sm:text-[10px] uppercase tracking-[0.1em] text-paper-dim sm:justify-self-end">
                   Open
                 </span>
               </a>

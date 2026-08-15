@@ -72,7 +72,7 @@ export function Hero() {
               priority
             />
 
-            <div className="absolute inset-x-0 top-0 flex items-center justify-between bg-gradient-to-b from-ink/85 to-transparent px-5 pb-10 pt-4 font-mono text-[11px] uppercase tracking-[0.1em]">
+            <div className="absolute inset-x-0 top-0 flex items-center justify-between bg-gradient-to-b from-ink/85 to-transparent px-5 pb-10 pt-4 font-mono text-xs sm:text-[11px] uppercase tracking-[0.1em]">
               <span className="text-paper">Signal</span>
               <span className="flex items-center gap-1.5 text-online">
                 <span className="status-dot h-1.5 w-1.5 rounded-full bg-online" />
@@ -82,7 +82,7 @@ export function Hero() {
 
             <div className="absolute inset-x-0 bottom-0 px-5 pb-5 pt-12">
               <SignalBars count={14} className="h-10" />
-              <p className="mt-3 font-mono text-[11px] leading-relaxed text-paper-dim">
+              <p className="mt-3 font-mono text-xs sm:text-[11px] leading-relaxed text-paper-dim">
                 Inbound call → intent detected → CRM updated → follow-up
                 queued. ~40ms.
               </p>
@@ -96,7 +96,7 @@ export function Hero() {
           taller stack ran underneath the photo caption. The section's own
           bottom padding reserves the space it occupies. */}
       <div className="absolute inset-x-0 bottom-0 border-t border-line bg-ink-2/60 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-6xl gap-x-8 overflow-x-auto px-6 py-3 font-mono text-[11px] tracking-[0.15em] text-paper-dim">
+        <div className="mx-auto flex max-w-6xl gap-x-8 overflow-x-auto px-6 py-3 font-mono text-xs sm:text-[11px] tracking-[0.15em] text-paper-dim">
           {CHANNELS.map((c, i) => (
             <span key={c} className="flex items-center gap-2 whitespace-nowrap">
               <span className="text-signal">

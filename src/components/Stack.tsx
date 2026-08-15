@@ -47,7 +47,7 @@ export function Stack() {
       <SectionGlow color={SECTION_ACCENTS.channels} />
       <div className="mx-auto max-w-6xl px-6">
         <Reveal>
-          <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-paper-dim">
+          <p className="font-mono text-xs sm:text-[11px] uppercase tracking-[0.15em] text-paper-dim">
             The stack behind it
           </p>
           <div className="mt-6 flex flex-wrap gap-2.5">

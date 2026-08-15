@@ -23,7 +23,7 @@ export function Faq({
 
   return (
     <section
-      className="relative scroll-mt-28 overflow-hidden border-b border-line py-24"
+      className="relative scroll-mt-28 overflow-hidden border-b border-line py-14 sm:py-24"
       id={id}
     >
       <SectionGlow color={SECTION_ACCENTS.faq} />

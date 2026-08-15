@@ -175,6 +175,28 @@ body {
   -webkit-backface-visibility: hidden;
 }
 
+/* Flip affordance. A phone cannot hover, so the card has to say out loud that
+   it opens on tap. Two variants swapped by pure CSS rather than a JS pointer
+   check: reading matchMedia during render is exactly what caused the
+   hydration mismatch in section 8 of HANDOFF, and this needs no state at all.
+   Both default to hidden so neither can flash before the query resolves. */
+.flip-hint-tap,
+.flip-hint-hover {
+  display: none;
+}
+
+@media (hover: none) {
+  .flip-hint-tap {
+    display: inline-flex;
+  }
+}
+
+@media (hover: hover) {
+  .flip-hint-hover {
+    display: inline-flex;
+  }
+}
+
 .flip-card-front {
   position: relative;
   z-index: 2;

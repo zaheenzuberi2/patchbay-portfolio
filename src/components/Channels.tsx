@@ -57,29 +57,28 @@ export function Channels() {
   return (
     <section
       id="channels"
-      className="relative scroll-mt-28 overflow-hidden border-b border-line py-28"
+      className="relative scroll-mt-28 overflow-hidden border-b border-line py-16 sm:py-28"
     >
       <SectionGlow color={SECTION_ACCENTS.channels} />
       <div className="mx-auto max-w-6xl px-6">
         <Reveal variant="blur">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <h2 className="max-w-2xl text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
-                Six channels, one board.
-              </h2>
-              <p className="mt-4 max-w-xl text-paper-dim">
-                Everything routes back to the same mixing board. Flip a
-                channel to see what runs through it, then open it for the
-                full detail.
-              </p>
-            </div>
-            <p className="hidden font-mono text-[11px] uppercase tracking-[0.1em] text-paper-dim sm:block">
-              Tap or hover to flip
+          {/* The old "Tap or hover to flip" hint lived here as `hidden
+              sm:block`, so it reached desktop (which can discover the flip by
+              hovering) and was hidden from phones (which cannot). Every card
+              now carries its own badge, which is both correct on mobile and
+              closer to the thing it describes. */}
+          <div>
+            <h2 className="max-w-2xl text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
+              Six channels, one board.
+            </h2>
+            <p className="mt-4 max-w-xl text-paper-dim">
+              Everything routes back to the same mixing board. Flip a channel
+              to see what runs through it, then open it for the full detail.
             </p>
           </div>
         </Reveal>
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 sm:mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {CHANNELS.map((ch, i) => (
             <Reveal key={ch.id} delay={i * 60} variant="scale">
               <FlipCard
@@ -112,7 +111,7 @@ export function Channels() {
                         {ch.stack.map((s) => (
                           <span
                             key={s}
-                            className="rounded-full border border-line-strong px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.08em] text-paper-dim"
+                            className="rounded-full border border-line-strong px-2.5 py-0.5 font-mono text-xs sm:text-[10px] uppercase tracking-[0.08em] text-paper-dim"
                           >
                             {s}
                           </span>
@@ -124,7 +123,7 @@ export function Channels() {
                           because the click navigates away regardless. */}
                       <Link
                         href={`/services/${ch.slug}`}
-                        className="mt-4 flex min-h-11 items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.1em] text-signal underline decoration-signal/30 underline-offset-4 transition-colors hover:decoration-signal"
+                        className="mt-4 flex min-h-12 items-center gap-1.5 font-mono text-xs sm:text-[11px] uppercase tracking-[0.1em] text-signal underline decoration-signal/30 underline-offset-4 transition-colors hover:decoration-signal"
                       >
                         See the detail
                         <span aria-hidden="true">&rarr;</span>

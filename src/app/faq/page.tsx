@@ -76,7 +76,7 @@ export default function FaqPage() {
           </Reveal>
         ))}
 
-        <section className="py-24">
+        <section className="py-14 sm:py-24">
           <div className="mx-auto max-w-6xl px-6">
             <Reveal>
               <div className="relative rounded-2xl border border-line-strong bg-ink-2/60 px-6 py-16 text-center sm:px-16">

@@ -23,7 +23,7 @@ export async function Reviews() {
   return (
     <section
       id="reviews"
-      className="relative scroll-mt-28 overflow-hidden border-b border-line py-28"
+      className="relative scroll-mt-28 overflow-hidden border-b border-line py-16 sm:py-28"
     >
       <SectionGlow color={SECTION_ACCENTS.reviews} />
       <div className="mx-auto max-w-6xl px-6">
@@ -64,7 +64,7 @@ export async function Reviews() {
                     <p className="text-sm font-medium text-paper">
                       {review.client_name}
                     </p>
-                    <p className="mt-0.5 font-mono text-[11px] uppercase tracking-[0.08em] text-paper-dim">
+                    <p className="mt-0.5 font-mono text-xs sm:text-[11px] uppercase tracking-[0.08em] text-paper-dim">
                       {review.client_role}
                       {service ? ` · ${service.name}` : ""}
                     </p>

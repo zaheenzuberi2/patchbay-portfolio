@@ -129,7 +129,7 @@ export function VoiceWidget() {
               onClick={openFromHook}
               className="block w-full rounded-2xl border border-signal/40 bg-ink-2 p-4 text-left shadow-[0_16px_48px_rgba(0,0,0,0.5)] transition-colors hover:border-signal/70"
             >
-              <span className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.1em] text-signal">
+              <span className="flex items-center gap-1.5 font-mono text-xs sm:text-[10px] uppercase tracking-[0.1em] text-signal">
                 <span className="status-dot h-1.5 w-1.5 rounded-full bg-signal" />
                 Voice agent
               </span>

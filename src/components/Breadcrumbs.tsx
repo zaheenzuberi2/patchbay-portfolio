@@ -24,7 +24,7 @@ export function Breadcrumbs({ trail }: { trail: Crumb[] }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
       <nav aria-label="Breadcrumb">
-        <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[11px] uppercase tracking-[0.1em] text-paper-dim">
+        <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-xs sm:text-[11px] uppercase tracking-[0.1em] text-paper-dim">
           {trail.map((c, i) => {
             const last = i === trail.length - 1;
             return (

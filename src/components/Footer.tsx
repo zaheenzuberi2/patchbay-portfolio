@@ -1,7 +1,7 @@
 export function Footer() {
   return (
     <footer className="border-t border-line py-8">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 font-mono text-[11px] uppercase tracking-[0.1em] text-paper-dim">
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 font-mono text-xs sm:text-[11px] uppercase tracking-[0.1em] text-paper-dim">
         <span>
           &copy; {new Date().getFullYear()} Patchbay, Zaheen Zuberi,
           Islamabad, PK

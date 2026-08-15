@@ -7,13 +7,13 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="relative scroll-mt-28 overflow-hidden py-28"
+      className="relative scroll-mt-28 overflow-hidden py-16 sm:py-28"
     >
       <SectionGlow color={SECTION_ACCENTS.contact} />
       <div className="mx-auto max-w-6xl px-6">
         <Reveal>
           <div className="relative rounded-2xl border border-line-strong bg-ink-2/60 px-6 py-16 text-center sm:px-16">
-            <span className="absolute right-6 top-6 flex items-center gap-2 rounded-full border border-online/30 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-online">
+            <span className="absolute right-6 top-6 flex items-center gap-2 rounded-full border border-online/30 px-2.5 py-1 font-mono text-xs sm:text-[10px] uppercase tracking-[0.1em] text-online">
               <span className="status-dot h-1.5 w-1.5 rounded-full bg-online" />
               Channel open
             </span>
@@ -34,7 +34,7 @@ export function Contact() {
             >
               Get my free AI &amp; marketing audit
             </a>
-            <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.1em] text-paper-dim">
+            <p className="mt-3 font-mono text-xs sm:text-[11px] uppercase tracking-[0.1em] text-paper-dim">
               No pitch. No pressure. Just a plan.
             </p>
 
@@ -65,7 +65,7 @@ export function Contact() {
               <span>{siteConfig.location}</span>
             </div>
 
-            <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.1em] text-paper-dim">
+            <p className="mt-10 font-mono text-xs sm:text-[11px] uppercase tracking-[0.1em] text-paper-dim">
               Social channels coming soon
             </p>
 

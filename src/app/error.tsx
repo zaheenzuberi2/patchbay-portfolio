@@ -61,7 +61,7 @@ export default function Error({
       {/* Vercel attaches a digest to server errors. Showing it means a
           reported problem can be found in the logs instead of guessed at. */}
       {error.digest && (
-        <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.1em] text-paper-dim">
+        <p className="mt-6 font-mono text-xs sm:text-[11px] uppercase tracking-[0.1em] text-paper-dim">
           Reference: {error.digest}
         </p>
       )}

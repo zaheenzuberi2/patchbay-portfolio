@@ -46,7 +46,7 @@ export function Nav() {
 
         <Link
           href="/#contact"
-          className="flex min-h-11 items-center gap-2 rounded-full border border-line-strong px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.1em] text-paper-dim transition-colors hover:border-online/50 hover:text-paper"
+          className="flex min-h-11 items-center gap-2 rounded-full border border-line-strong px-3 py-1.5 font-mono text-xs sm:text-[11px] uppercase tracking-[0.1em] text-paper-dim transition-colors hover:border-online/50 hover:text-paper"
         >
           <span className="status-dot h-1.5 w-1.5 rounded-full bg-online" />
           <span className="hidden sm:inline">Available for work</span>
@@ -54,12 +54,16 @@ export function Nav() {
         </Link>
       </div>
 
-      <nav className="flex items-center gap-6 overflow-x-auto border-t border-line px-6 md:hidden">
+      {/* Short labels like FAQ measured 26px wide, well under the 44px
+          minimum, because the tap area was only ever as wide as the text.
+          The padding moves into the link itself and the gap shrinks to
+          compensate, so the row looks the same but each target is bigger. */}
+      <nav className="flex items-center gap-3 overflow-x-auto border-t border-line px-4 md:hidden">
         {LINKS.map((link) => (
           <Link
             key={link.href}
             href={link.href}
-            className="flex min-h-11 shrink-0 items-center font-mono text-xs uppercase tracking-[0.12em] text-paper-dim transition-colors hover:text-paper"
+            className="flex min-h-11 min-w-11 shrink-0 items-center justify-center px-2 font-mono text-xs uppercase tracking-[0.12em] text-paper-dim transition-colors hover:text-paper"
           >
             {link.label}
           </Link>

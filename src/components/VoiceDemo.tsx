@@ -420,7 +420,7 @@ export function VoiceDemo({ onClose }: { onClose?: () => void } = {}) {
         </div>
         <div className="flex shrink-0 items-center gap-3">
           <span
-            className={`flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.1em] ${
+            className={`flex items-center gap-1.5 font-mono text-xs sm:text-[11px] uppercase tracking-[0.1em] ${
               speaking || listening ? "text-online" : "text-paper-dim"
             }`}
           >

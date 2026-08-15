@@ -24,7 +24,7 @@ export function CategoryMarquee({
             <a
               key={cat.id}
               href={`#${cat.id}`}
-              className="flex min-h-11 shrink-0 items-center rounded-full border border-line-strong px-3.5 py-2 font-mono text-[11px] uppercase tracking-[0.1em] text-paper-dim transition-colors hover:border-signal/50 hover:text-paper"
+              className="flex min-h-11 shrink-0 items-center rounded-full border border-line-strong px-3.5 py-2 font-mono text-xs sm:text-[11px] uppercase tracking-[0.1em] text-paper-dim transition-colors hover:border-signal/50 hover:text-paper"
             >
               {cat.label}
             </a>
@@ -43,7 +43,7 @@ export function CategoryMarquee({
             href={`#${cat.id}`}
             tabIndex={i < categories.length ? 0 : -1}
             aria-hidden={i >= categories.length}
-            className="flex min-h-11 shrink-0 items-center rounded-full border border-line-strong px-3.5 py-2 font-mono text-[11px] uppercase tracking-[0.1em] text-paper-dim transition-colors hover:border-signal/50 hover:text-paper"
+            className="flex min-h-11 shrink-0 items-center rounded-full border border-line-strong px-3.5 py-2 font-mono text-xs sm:text-[11px] uppercase tracking-[0.1em] text-paper-dim transition-colors hover:border-signal/50 hover:text-paper"
           >
             {cat.label}
           </a>

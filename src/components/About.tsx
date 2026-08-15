@@ -12,7 +12,7 @@ export function About() {
   return (
     <section
       id="about"
-      className="relative scroll-mt-28 overflow-hidden border-b border-line py-28"
+      className="relative scroll-mt-28 overflow-hidden border-b border-line py-16 sm:py-28"
     >
       <SectionGlow color={SECTION_ACCENTS.about} />
       <div className="mx-auto max-w-6xl px-6">
@@ -28,18 +28,18 @@ export function About() {
                   className="object-cover"
                 />
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink to-transparent px-5 pb-5 pt-10">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-signal">
+                  <p className="font-mono text-xs sm:text-[10px] uppercase tracking-[0.22em] text-signal">
                     {siteConfig.name}
                   </p>
                   <p className="mt-2 font-display text-xl font-medium tracking-[-0.01em] text-paper">
                     {siteConfig.ownerName}
                   </p>
-                  <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[11px] text-paper-dim">
+                  <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-xs sm:text-[11px] text-paper-dim">
                     <span>Founder</span>
                     <span className="text-line-strong">/</span>
                     <span>{siteConfig.location}</span>
                   </div>
-                  <p className="mt-3 border-t border-line-strong pt-3 font-mono text-[11px] tracking-[0.06em] text-signal">
+                  <p className="mt-3 border-t border-line-strong pt-3 font-mono text-xs sm:text-[11px] tracking-[0.06em] text-signal">
                     {siteHost}
                   </p>
                 </div>
@@ -81,7 +81,7 @@ export function About() {
 
             <Reveal delay={100}>
               <div className="mt-10 rounded-2xl border border-line-strong bg-ink-2/60 p-6">
-                <p className="mb-6 font-mono text-[11px] uppercase tracking-[0.1em] text-paper-dim">
+                <p className="mb-6 font-mono text-xs sm:text-[11px] uppercase tracking-[0.1em] text-paper-dim">
                   How a project runs
                 </p>
                 <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">

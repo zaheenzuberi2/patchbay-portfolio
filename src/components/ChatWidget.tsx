@@ -259,7 +259,7 @@ export function ChatWidget() {
                 <p className="font-mono text-xs uppercase tracking-[0.1em] text-signal">
                   Patchbay
                 </p>
-                <p className="flex items-center gap-1.5 font-mono text-[11px] text-online">
+                <p className="flex items-center gap-1.5 font-mono text-xs sm:text-[11px] text-online">
                   <span className="status-dot h-1.5 w-1.5 rounded-full bg-online" />
                   Front desk
                 </p>
@@ -313,7 +313,7 @@ export function ChatWidget() {
                       onClick={() => chooseInterest(option)}
                       whileHover={reduced ? undefined : { scale: 1.04 }}
                       whileTap={reduced ? undefined : { scale: 0.96 }}
-                      className="rounded-full border border-line-strong px-3 py-1.5 font-mono text-[11px] text-paper-dim transition-colors hover:border-signal/60 hover:text-signal"
+                      className="rounded-full border border-line-strong px-3 py-1.5 font-mono text-xs sm:text-[11px] text-paper-dim transition-colors hover:border-signal/60 hover:text-signal"
                     >
                       {option}
                     </motion.button>
@@ -329,7 +329,7 @@ export function ChatWidget() {
                       onClick={() => chooseBudget(option)}
                       whileHover={reduced ? undefined : { scale: 1.04 }}
                       whileTap={reduced ? undefined : { scale: 0.96 }}
-                      className="rounded-full border border-line-strong px-3 py-1.5 font-mono text-[11px] text-paper-dim transition-colors hover:border-signal/60 hover:text-signal"
+                      className="rounded-full border border-line-strong px-3 py-1.5 font-mono text-xs sm:text-[11px] text-paper-dim transition-colors hover:border-signal/60 hover:text-signal"
                     >
                       {option}
                     </motion.button>
@@ -358,7 +358,7 @@ export function ChatWidget() {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="flex min-h-11 items-center justify-center gap-1.5 border-t border-line bg-ink-3/60 font-mono text-[11px] uppercase tracking-[0.08em] text-paper-dim transition-colors hover:text-signal"
+                className="flex min-h-11 items-center justify-center gap-1.5 border-t border-line bg-ink-3/60 font-mono text-xs sm:text-[11px] uppercase tracking-[0.08em] text-paper-dim transition-colors hover:text-signal"
               >
                 Prefer WhatsApp instead? Skip straight there
                 <span aria-hidden="true">&rarr;</span>
@@ -391,7 +391,7 @@ export function ChatWidget() {
                   <button
                     type="button"
                     onClick={skipMessage}
-                    className="flex h-11 shrink-0 items-center font-mono text-[11px] uppercase tracking-[0.08em] text-paper-dim hover:text-paper"
+                    className="flex h-11 shrink-0 items-center font-mono text-xs sm:text-[11px] uppercase tracking-[0.08em] text-paper-dim hover:text-paper"
                   >
                     Skip
                   </button>
