@@ -9,21 +9,40 @@ import { SECTION_ACCENTS } from "@/lib/section-theme";
 // Answers stay in the DOM whether or not the item is expanded, so crawlers
 // read the full text and the FAQPage schema matches what is on the page.
 // Only the height is animated.
+/** Case-insensitive substring match over the question and its answer.
+ *  Deliberately not the scored matcher in faq-search.ts: that one picks the
+ *  single best answer for the chat bot, where a filter needs every hit. */
+export function faqMatches(item: ServiceFaq, query: string) {
+  if (!query) return true;
+  return (
+    item.q.toLowerCase().includes(query) || item.a.toLowerCase().includes(query)
+  );
+}
+
 export function Faq({
   items,
   heading = "Common questions",
   id = "faq",
+  filter = "",
 }: {
   items: ServiceFaq[];
   heading?: string;
   id?: string;
+  /** Lowercased query. Non-matching items are hidden with CSS, never
+   *  unmounted: the answers have to stay in the DOM so the FAQPage schema
+   *  keeps matching the page. With no query nothing is hidden at all. */
+  filter?: string;
 }) {
   const [open, setOpen] = useState<number | null>(0);
   const reduced = useReducedMotion();
 
+  const hasMatch = items.some((item) => faqMatches(item, filter));
+
   return (
     <section
-      className="relative scroll-mt-28 overflow-hidden border-b border-line py-14 sm:py-24"
+      className={`relative scroll-mt-28 overflow-hidden border-b border-line py-14 sm:py-24 ${
+        hasMatch ? "" : "hidden"
+      }`}
       id={id}
     >
       <SectionGlow color={SECTION_ACCENTS.faq} />
@@ -34,9 +53,12 @@ export function Faq({
 
         <div className="mt-10 divide-y divide-line border-y border-line">
           {items.map((item, i) => {
-            const expanded = open === i;
+            const matched = faqMatches(item, filter);
+            // While searching, matches open themselves. Someone who typed a
+            // question wants the answer, not another tap to reveal it.
+            const expanded = filter ? matched : open === i;
             return (
-              <div key={item.q}>
+              <div key={item.q} className={matched ? "" : "hidden"}>
                 <h3>
                   <motion.button
                     onClick={() => setOpen(expanded ? null : i)}

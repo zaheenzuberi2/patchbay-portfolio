@@ -5,9 +5,9 @@ import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ChatWidget } from "@/components/ChatWidget";
 import { VoiceWidget } from "@/components/VoiceWidget";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { Faq, FaqSchema } from "@/components/Faq";
+import { FaqSchema } from "@/components/Faq";
 import { Reveal } from "@/components/Reveal";
-import { CategoryMarquee } from "@/components/CategoryMarquee";
+import { FaqLibrary } from "@/components/FaqLibrary";
 import { siteConfig } from "@/lib/site-config";
 import { FAQ_CATEGORIES, allFaqsFlat, totalFaqCount } from "@/lib/all-faqs";
 
@@ -63,18 +63,10 @@ export default function FaqPage() {
           </div>
         </section>
 
-        <nav
-          aria-label="FAQ categories"
-          className="sticky top-[57px] z-20 border-b border-line bg-ink/90 backdrop-blur-md sm:top-[65px]"
-        >
-          <CategoryMarquee categories={FAQ_CATEGORIES} />
-        </nav>
-
-        {FAQ_CATEGORIES.map((cat) => (
-          <Reveal key={cat.id}>
-            <Faq items={cat.faqs} heading={cat.label} id={cat.id} />
-          </Reveal>
-        ))}
+        {/* Search, the category bar and all 200 questions now live together
+            in one client component, because the query has to reach every
+            category at once. */}
+        <FaqLibrary categories={FAQ_CATEGORIES} />
 
         <section className="py-14 sm:py-24">
           <div className="mx-auto max-w-6xl px-6">
