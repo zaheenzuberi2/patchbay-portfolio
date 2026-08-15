@@ -12,6 +12,24 @@ import { ImageResponse } from "next/og";
 export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_CONTENT_TYPE = "image/png";
 
+// These routes are already prerendered at build time (see each
+// opengraph-image.tsx), so the pixels never change between deploys. Vercel's
+// edge still revalidates a prerendered route on every request by default
+// (`max-age=0, must-revalidate`, confirmed on production before this was
+// added), which means a crawler or chat client re-fetches the same bytes on
+// every share. Explicit headers let the edge and the client actually hold the
+// image instead of re-checking it every time.
+//
+// 3 days requested. `s-maxage` governs Vercel's edge cache; plain `max-age`
+// governs what a client (Discord, Slack, a browser) is allowed to cache
+// without asking again. `must-revalidate` is dropped on purpose: it forces a
+// revalidation the instant the 3 days elapse, which is exactly the opposite
+// of "cache it for 3 days".
+const THREE_DAYS = 60 * 60 * 24 * 3;
+export const OG_CACHE_HEADERS = {
+  "Cache-Control": `public, max-age=${THREE_DAYS}, s-maxage=${THREE_DAYS}`,
+};
+
 const INK = "#0a0a0b";
 const PAPER = "#f3efe7";
 const PAPER_DIM = "#a3a19b";
@@ -121,7 +139,7 @@ export function renderOgImage({
         </div>
       </div>
     ),
-    { ...OG_SIZE },
+    { ...OG_SIZE, headers: OG_CACHE_HEADERS },
   );
 }
 
