@@ -13,6 +13,7 @@ import { Faq, FaqSchema } from "@/components/Faq";
 import { SignalBars } from "@/components/SignalBars";
 import { Reveal } from "@/components/Reveal";
 import { VoiceDemo } from "@/components/VoiceDemo";
+import { ServiceWork } from "@/components/ServiceWork";
 import { TEAM_ROLES } from "@/lib/team";
 
 export function generateStaticParams() {
@@ -228,6 +229,8 @@ export default async function ServicePage(
             </div>
           </div>
         </section>
+
+        <ServiceWork />
 
         {/* Who's on this channel */}
         <section className="border-b border-line py-14 sm:py-24">

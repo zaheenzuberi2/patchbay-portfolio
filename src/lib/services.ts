@@ -38,6 +38,8 @@ export const services: Service[] = [
       "calling agent development",
       "automated appointment booking",
       "Twilio voice agent developer",
+      "AI voice agent developer Islamabad",
+      "AI receptionist for small business",
     ],
     intro:
       "Most businesses lose work simply because nobody picked up. A voice agent answers on the first ring, every time, at 2am and on public holidays. It speaks naturally, understands why the person is calling, answers what it can, books what it should, and hands you a written summary of the ones that matter.",
@@ -112,6 +114,8 @@ export const services: Service[] = [
       "custom chatbot developer",
       "customer support automation",
       "RAG chatbot",
+      "chatbot developer Pakistan",
+      "AI chatbot for small business",
     ],
     intro:
       "The chatbots people hate are the ones that answer every question with a link to the contact page. A useful bot is trained on your actual content, gives the actual answer, and knows when to stop and fetch a human. That is the difference between deflecting customers and serving them.",
@@ -182,6 +186,8 @@ export const services: Service[] = [
       "Zapier automation expert",
       "CRM automation",
       "lead routing automation",
+      "business automation agency Pakistan",
+      "automation consultant for small business",
     ],
     intro:
       "Most businesses do not have a software problem, they have a plumbing problem. The lead arrives in one place, the calendar lives in another, the invoice lives in a third, and a person spends their week carrying data between them. Automation is just removing that person from the middle.",
@@ -248,6 +254,8 @@ export const services: Service[] = [
       "Next.js developer for hire",
       "custom web application development",
       "business website design",
+      "full-stack developer Islamabad",
+      "web developer for small business Pakistan",
     ],
     intro:
       "A website built on a page builder looks fine until it needs to do something: take a booking, sync to a CRM, handle a thousand visitors at once, or rank for anything. I build sites the whole way down, so the thing you can see and the thing running underneath are both yours and both fast.",
@@ -318,6 +326,8 @@ export const services: Service[] = [
       "brand identity design",
       "social media manager for business",
       "campaign reporting dashboard",
+      "social media agency for small business",
+      "brand and content agency Pakistan",
     ],
     intro:
       "Agencies split your work across an account manager, a designer, a copywriter, and a media buyer, then charge you for the coordination between them. I do the same work without the layer in between, which means fewer meetings and a shorter line between a decision and it being live.",
