@@ -1162,3 +1162,47 @@ Remaining length is content, not spacing, and cutting it is Zaheen's call. The
 candidates raised with him, in order: Milestones (1.6 screens), the hero (1.5
 screens before any service is visible), and Work's desktop-shaped three-column
 rows. **Performance is 872ms / 23KB / 19 requests. Do not trade that away.**
+
+### Hero tightened — 15 Aug 2026
+
+**1,248px to 1,052px on a 375px screen (1.5 to 1.3 screens).** Mobile-only
+padding and gap reductions, plus capping the portrait's width to 260px and
+centring it rather than letting it run full-bleed (327px wide meant 409px tall
+at 4:5, a third of the hero for one photo).
+
+**The width was capped instead of the aspect ratio changed, on purpose.**
+Squashing the box to 4:3 would save more, but `object-cover` then crops top and
+bottom off a portrait, and the overlay chrome (the Signal/Live badge and the
+process line) would collide inside the shorter box. Capping width keeps the
+face framed exactly as it was.
+
+Verified after: **ticker still a single non-wrapping row that scrolls
+horizontally, 56px tall, with 32px clearance above it.** That is the invariant
+from section 13, and it holds.
+
+What the remaining 1,052px is made of, measured:
+
+```
+photo card   325px
+paragraph    182px  (7 lines, 46 words)
+headline     153px  (4 lines)
+CTAs         104px
+ticker        56px
+padding etc  232px
+```
+
+**The only lever left is the 46-word paragraph.** Everything structural has
+been taken. Shortening it is a copy decision and belongs to Zaheen; do not
+trim it unilaterally. Note the hero copy is also the clearest statement of the
+team positioning from section 0, so any edit has to stay team-framed.
+
+⚠️ **Two false bug reports came from bad selectors this session.** Both looked
+real. `hero.querySelector('.absolute.inset-x-0.bottom-0')` matches the photo's
+*internal* bottom overlay before the ticker, making it look like the ticker
+overlaps the photo card. And `[position:fixed]` filtered to `button, a` finds
+nothing, because the floating chat/WhatsApp/voice controls are fixed on their
+wrapper `div`s. Select the ticker as a direct child of `#top`, and check
+`getComputedStyle(el).position` across all elements. Combined with the
+`getBoundingClientRect` transform trap above, that is three measurement
+artifacts in one session: **verify a suspicious DOM finding a second way
+before acting on it.**
