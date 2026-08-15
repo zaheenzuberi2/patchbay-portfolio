@@ -995,3 +995,62 @@ ceiling for non-destructive work is roughly where it now sits.
 descriptions were a candidate for `hidden sm:block` and were kept, because
 mobile is the primary audience and hiding content from them to win scroll
 length is the wrong trade.
+
+---
+
+## 26. Per-URL OG images — 15 Aug 2026
+
+Every page used to share the single homepage card, so a link to a specific
+service page previewed identically to a link to the site. There are now
+**8 cards, all prerendered**:
+
+```
+/opengraph-image                                 (homepage, pre-existing)
+/services/opengraph-image
+/faq/opengraph-image
+/services/<slug>/opengraph-image                 x5, one per service
+```
+
+**`src/lib/og-image.tsx` is the single template** behind all of them. Do not
+copy its markup into a new route; import `renderOgImage` instead, or the cards
+drift apart.
+
+Two constraints baked into that file, both real:
+
+1. **Satori is not a browser.** Any element with more than one child needs an
+   explicit `display: flex`, and unsupported CSS is dropped silently rather
+   than throwing. Keep the markup boring. Colours are the brand tokens written
+   as literals because Satori resolves neither CSS variables nor Tailwind.
+2. **Long titles overflow.** Service names run well past headline length, so
+   the template steps the font size down past 46 characters and `ogSubtitle()`
+   trims descriptions on a word boundary. There is no text balancing to lean on.
+
+`src/app/services/[slug]/opengraph-image.tsx` takes its
+`generateStaticParams` from the same `services` array the pages use, so **a
+sixth service gets a card with no edit here**.
+
+⚠️ **`params` is a `Promise` in this Next version**, in the image route as well
+as the page. The plain-object form from older versions typechecks against
+nothing and fails at runtime. Confirmed against
+`node_modules/next/dist/docs/01-app/03-api-reference/03-file-conventions/01-metadata/opengraph-image.md`.
+
+**Schema:** the page-level `Service` entity now carries `image` pointing at its
+own card rather than inheriting the site-wide one. The ownership split from
+section 7 is unchanged and was re-verified live: root layout emits the
+`@graph` (Person, ProfessionalService, WebSite), the page emits Service,
+FAQPage and BreadcrumbList.
+
+Verified on production: all 8 routes return `200 image/png` at distinct byte
+sizes (proving they are genuinely different images), `og:image` and
+`twitter:image` resolve per page, and the Service schema image is correct.
+
+### Still open
+
+- **The hero photo has not been replaced.** Zaheen sent a new one in chat on
+  15 Aug and confirmed he wants it used, but an image pasted into chat cannot
+  be written to disk. It needs to land in `public/` before anything can be
+  done. **The advice given, and it still stands: his face is turned away and
+  soft in that shot**, which is the same weakness as the current
+  `zaheen.jpg` (section 14). He was told plainly and chose to proceed; that is
+  his call, and the crop should just be done well. Frame it as tight to the
+  upper body as the source allows.
