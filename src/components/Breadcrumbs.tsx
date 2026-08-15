@@ -24,7 +24,10 @@ export function Breadcrumbs({ trail }: { trail: Crumb[] }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
       <nav aria-label="Breadcrumb">
-        <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-xs sm:text-[11px] uppercase tracking-[0.1em] text-paper-dim">
+        {/* gap-x-1 rather than gap-x-2 because each link now carries its own
+            px-2. Short crumbs like "Home" were 34px wide, under the 44px
+            minimum, since the tap area was only ever as wide as the word. */}
+        <ol className="flex flex-wrap items-center gap-x-1 gap-y-1 font-mono text-xs sm:text-[11px] uppercase tracking-[0.1em] text-paper-dim">
           {trail.map((c, i) => {
             const last = i === trail.length - 1;
             return (
@@ -36,7 +39,7 @@ export function Breadcrumbs({ trail }: { trail: Crumb[] }) {
                 ) : (
                   <Link
                     href={c.href}
-                    className="flex min-h-11 items-center transition-colors hover:text-paper"
+                    className="flex min-h-11 items-center justify-center px-2 transition-colors hover:text-paper"
                   >
                     {c.name}
                   </Link>
