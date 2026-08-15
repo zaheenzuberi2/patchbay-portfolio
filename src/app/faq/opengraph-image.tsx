@@ -4,7 +4,7 @@ export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 export const alt = "Frequently asked questions about working with Patchbay";
 
-export default function Image() {
+export default async function Image() {
   return renderOgImage({
     marker: "FAQ",
     title: "Questions, answered straight.",

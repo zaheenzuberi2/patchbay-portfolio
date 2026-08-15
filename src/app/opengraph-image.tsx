@@ -1,75 +1,19 @@
-import { ImageResponse } from "next/og";
+import { renderOgImage, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/og-image";
 
+// This file used to be a standalone, hand-written duplicate of the template
+// in src/lib/og-image.tsx, predating that shared module. It never got
+// migrated when the other four opengraph-image routes did, so the homepage
+// card, the one actually shared most often, silently drifted: no logo, no
+// 3-day cache headers, different layout from every other card on the site.
+export const size = OG_SIZE;
+export const contentType = OG_CONTENT_TYPE;
 export const alt = "Patchbay, AI Automation, Chatbots & Full-Stack Websites";
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
 
-export default function Image() {
-  return new ImageResponse(
-    (
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          background: "#0a0a0b",
-          padding: "80px",
-          color: "#f3efe7",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "flex-end", gap: 14 }}>
-          {[18, 34, 14, 44, 26, 38, 20, 30].map((h, i) => (
-            <div
-              key={i}
-              style={{
-                width: 14,
-                height: h,
-                background: "#ff5a1f",
-                borderRadius: 4,
-              }}
-            />
-          ))}
-        </div>
-
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <div
-            style={{
-              display: "flex",
-              fontSize: 96,
-              fontWeight: 700,
-              letterSpacing: -3,
-            }}
-          >
-            Patchbay
-          </div>
-          <div
-            style={{
-              display: "flex",
-              fontSize: 34,
-              color: "#a3a19b",
-              marginTop: 16,
-              maxWidth: 900,
-            }}
-          >
-            AI automation, chatbots and full-stack websites, run by Zaheen
-            Zuberi
-          </div>
-        </div>
-
-        <div
-          style={{
-            display: "flex",
-            fontSize: 24,
-            color: "#ff5a1f",
-            letterSpacing: 2,
-          }}
-        >
-          ISLAMABAD, PAKISTAN
-        </div>
-      </div>
-    ),
-    { ...size },
-  );
+export default async function Image() {
+  return renderOgImage({
+    marker: "HOME",
+    title: "One team. Every channel.",
+    subtitle:
+      "AI voice agents, chatbots, automation, and full-stack websites, run by Zaheen Zuberi in Islamabad.",
+  });
 }

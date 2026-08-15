@@ -9,7 +9,7 @@ export const contentType = OG_CONTENT_TYPE;
 export const alt =
   "Services: AI voice agents, chatbots, automation, websites, and social";
 
-export default function Image() {
+export default async function Image() {
   return renderOgImage({
     marker: "SERVICES",
     title: "Six channels, one board.",

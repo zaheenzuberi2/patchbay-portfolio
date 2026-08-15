@@ -1,4 +1,6 @@
 import { ImageResponse } from "next/og";
+import { join } from "node:path";
+import { readFile } from "node:fs/promises";
 
 // One template behind every opengraph-image route so the share cards stay a
 // single design instead of three copies that drift apart. Colours are the
@@ -35,10 +37,22 @@ const PAPER = "#f3efe7";
 const PAPER_DIM = "#a3a19b";
 const SIGNAL = "#ff5a1f";
 
-// Same waveform motif as the logo mark and the SignalBars component.
+// Every share card carried an abstract waveform motif but never the actual
+// logo, so nothing tied the card back to a recognizable mark. Read once at
+// module scope, per the Next docs pattern for opengraph-image.md: the file
+// doesn't depend on request data, so re-reading it per render would just be
+// wasted disk I/O on every prerendered route. Path is relative to the
+// project root (process.cwd()), not this file, per the same doc.
+const logoData = readFile(
+  join(process.cwd(), "public/logo-mark.png"),
+  "base64",
+);
+
+// Kept alongside the real logo as background texture, not standing in for
+// it anymore.
 const BARS = [18, 34, 14, 44, 26, 38, 20, 30];
 
-export function renderOgImage({
+export async function renderOgImage({
   marker,
   title,
   subtitle,
@@ -47,6 +61,8 @@ export function renderOgImage({
   title: string;
   subtitle: string;
 }) {
+  const logoSrc = `data:image/png;base64,${await logoData}`;
+
   return new ImageResponse(
     (
       <div
@@ -61,14 +77,68 @@ export function renderOgImage({
           color: PAPER,
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "flex-end", gap: 14 }}>
+        {/* Still exactly 3 top-level children under the outer space-between
+            (header block, title block, footer), so that layout is untouched.
+            The bars moved inside this block rather than becoming a 4th
+            sibling, which would have broken the space-between spacing. */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            {/* Logo paired with the wordmark, the same pairing Nav.tsx
+                renders for real. This is the one element every card shares
+                regardless of what page it's for, so it's the actual brand
+                anchor now rather than the abstract bars, which are kept
+                below only as background texture. */}
+            <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
+              {/* next/image renders via browser APIs Satori's server-side
+                  renderer doesn't have; a plain <img> with a base64 src is
+                  the pattern Next's own opengraph-image docs use for this
+                  exact case, so the next/image lint rule doesn't apply. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={logoSrc}
+                width={64}
+                height={64}
+                alt="Patchbay"
+                style={{ borderRadius: 9999 }}
+              />
+              <div
+                style={{
+                  display: "flex",
+                  fontSize: 30,
+                  fontWeight: 600,
+                  letterSpacing: 1,
+                  color: PAPER,
+                }}
+              >
+                PATCHBAY
+              </div>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                fontSize: 22,
+                color: SIGNAL,
+                letterSpacing: 3,
+              }}
+            >
+              {marker}
+            </div>
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              alignItems: "flex-end",
+              gap: 14,
+              opacity: 0.35,
+            }}
+          >
             {BARS.map((h, i) => (
               <div
                 key={i}
@@ -80,16 +150,6 @@ export function renderOgImage({
                 }}
               />
             ))}
-          </div>
-          <div
-            style={{
-              display: "flex",
-              fontSize: 22,
-              color: SIGNAL,
-              letterSpacing: 3,
-            }}
-          >
-            {marker}
           </div>
         </div>
 
