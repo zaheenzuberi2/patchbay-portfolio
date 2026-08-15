@@ -884,9 +884,10 @@ URL + all three JSON-LD `@id`s on the new domain, and **zero occurrences of
 - **The second cold-outreach domain was never confirmed bought.** Asked twice,
   no answer. Do not send any cold email from `zaheenzuberi.com` — see
   section 12.
-- **Namecheap showed an ALERT badge** on the domain the day it was registered,
-  most likely the ICANN registrant email verification. Unverified domains get
-  suspended after 15 days. Never confirmed as resolved.
+- ~~**Namecheap ALERT badge** on the domain the day it was registered.~~
+  **RESOLVED 15 Aug 2026** — it was the ICANN registrant contact verification.
+  Zaheen clicked the link in Namecheap's email. Registry status stayed clean
+  throughout (`client transfer prohibited` only, never a hold).
 - **Backlinks are the real ranking constraint, not on-page work**, which is
   finished. The highest-leverage available links are "built by" footer credits
   on the sites he already controls: tryvoicely.com (his own, no permission
