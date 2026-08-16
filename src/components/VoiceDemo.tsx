@@ -63,7 +63,7 @@ const RECOGNITION_ERRORS: Record<string, string> = {
 type SpeechRecognitionCtor = new () => SpeechRecognitionLike;
 
 const GREETING =
-  "Hey, thanks for calling Patchbay. I'm the AI voice agent, on call around the clock so no one hits voicemail. What can I help with today?";
+  "Hey, thanks for calling Patchbay. I'm Zaheen's Assistant, on call around the clock so no one hits voicemail. What can I help with today?";
 
 const REPLIES = {
   human:
@@ -73,9 +73,9 @@ const REPLIES = {
   hours:
     "I'm on call around the clock, including nights, weekends, and holidays. Nobody hits voicemail.",
   generalHelp:
-    "Patchbay runs voice agents like me, chatbots, automation, full-stack websites, and the marketing an agency would run, all from one team. Tell me more specifically what's costing you time or business and I can point you at the right one.",
+    "I'm Zaheen's Assistant, one of the voice agents Patchbay builds. The team also runs chatbots, automation, full-stack websites, and the marketing an agency would run, all from one team. Tell me more specifically what's costing you time or business and I can point you at the right one.",
   leads:
-    "More leads usually comes down to one of three things: more traffic, a faster response to the traffic you already get, or catching people who leave without buying. A voice agent like me covers the second one outright, since every call gets answered instead of missed. Tell Zaheen your numbers and he'll tell you honestly which lever actually moves for your business.",
+    "More leads usually comes down to one of three things: more traffic, a faster response to the traffic you already get, or catching people who leave without buying. Something like me covers the second one outright, since every call gets answered instead of missed. Tell Zaheen your numbers and he'll tell you honestly which lever actually moves for your business.",
   pricing:
     "Pricing depends entirely on what kind of project it is, because every business needs something different. The goal here is actually growing your business, not selling you a package, so the first step is working out whether we're the right fit for what you need. Have a quick conversation with Zaheen and you'll get a real quote for your specific project.",
   miss: "I didn't catch a clear request there. Try asking about booking, hours, pricing, or ask to talk to a person.",
@@ -414,7 +414,7 @@ export function VoiceDemo({ onClose }: { onClose?: () => void } = {}) {
       <div className="flex items-center justify-between">
         <div>
           <p className="font-mono text-xs uppercase tracking-[0.15em] text-signal">
-            Voice demo
+            Zaheen&apos;s Assistant
           </p>
           <p className="mt-1 text-sm text-paper-dim">{subtitle}</p>
         </div>
@@ -434,7 +434,7 @@ export function VoiceDemo({ onClose }: { onClose?: () => void } = {}) {
           {onClose && (
             <button
               onClick={onClose}
-              aria-label="Close voice demo"
+              aria-label="Close Zaheen's Assistant"
               className="flex h-6 w-6 items-center justify-center text-paper-dim hover:text-paper"
             >
               <svg

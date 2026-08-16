@@ -15,7 +15,7 @@ import { speakOnce } from "@/lib/speak";
 // invariant DESIGN.md documents for WhatsApp/Chat).
 
 const HOOK_LINE =
-  "Hey there! Welcome to Patchbay. Need a hand navigating my work, or want to know how I can build an AI voice agent for your business?";
+  "Welcome to Patchbay, by Zaheen. I'm Zaheen's Assistant. Need a hand finding something, or want to know how I can help your business?";
 const GREETED_SESSION_KEY = "patchbay_voice_hook_shown";
 
 export function VoiceWidget() {
@@ -131,7 +131,7 @@ export function VoiceWidget() {
             >
               <span className="flex items-center gap-1.5 font-mono text-xs sm:text-[10px] uppercase tracking-[0.1em] text-signal">
                 <span className="status-dot h-1.5 w-1.5 rounded-full bg-signal" />
-                Voice agent
+                Zaheen&apos;s Assistant
               </span>
               <span className="mt-2 block text-sm leading-relaxed text-paper">
                 {HOOK_LINE}
@@ -173,7 +173,7 @@ export function VoiceWidget() {
             setOpen(true);
             setEverOpened(true);
           }}
-          aria-label="Try the voice agent"
+          aria-label="Try Zaheen's Assistant"
           initial={reduced ? undefined : { scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.7 }}
