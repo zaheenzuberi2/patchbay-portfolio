@@ -182,6 +182,39 @@ describe("structured data", () => {
     assert.deepEqual(types, ["Person", "ProfessionalService", "WebSite"]);
   });
 
+  test("ProfessionalService carries a real aggregateRating, not a fabricated one", () => {
+    // A regression here would be invisible on the page itself: the star
+    // rating only shows in Google's own search result, never on the site.
+    // Reviews.tsx staying empty-safe when the table is empty is already
+    // covered by it rendering nothing; this locks in the schema side, where
+    // silently losing the property would just mean the snippet quietly
+    // stops appearing with no visible symptom anywhere.
+    const blocks = [
+      ...homeHtml.matchAll(
+        /<script type="application\/ld\+json">(.*?)<\/script>/gs,
+      ),
+    ].map((m) => JSON.parse(m[1]));
+    const graph = blocks.find((b) => b["@graph"]);
+    const business = graph["@graph"].find(
+      (n) => n["@type"] === "ProfessionalService",
+    );
+    assert.ok(business.aggregateRating, "no aggregateRating on the business");
+    assert.ok(
+      business.aggregateRating.reviewCount >= 1,
+      "aggregateRating.reviewCount should reflect at least one real review",
+    );
+    assert.ok(
+      business.aggregateRating.ratingValue >= 1 &&
+        business.aggregateRating.ratingValue <= 5,
+      "ratingValue out of the declared 1-5 scale",
+    );
+    assert.ok(Array.isArray(business.review), "no review array");
+    assert.ok(
+      business.review.every((r) => r.author?.name && r.reviewBody),
+      "a review entry is missing author or body",
+    );
+  });
+
   test("service pages own a Service entity carrying its own OG image", async () => {
     const html = await (
       await fetch(BASE + "/services/ai-voice-agents")

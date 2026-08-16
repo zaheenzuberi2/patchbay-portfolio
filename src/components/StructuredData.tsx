@@ -1,11 +1,67 @@
 import { siteConfig } from "@/lib/site-config";
 import { services } from "@/lib/services";
+import { listReviews, type ReviewRow } from "@/lib/db";
 
 // One @graph in the root layout describing the entities that exist on every
 // page: the person, the business, the website, and the service catalog.
 // Page-specific schema (Service, FAQPage, BreadcrumbList) is emitted by the
 // page that owns it, and refers back to these by @id.
-export function StructuredData() {
+export async function StructuredData() {
+  // aggregateRating and review both have to live as properties on the
+  // ProfessionalService node itself for Google to show a star-rating
+  // snippet, not as a separately linked node — an @id reference from a
+  // different script tag only works for relationships between nodes, it
+  // does not merge properties into a node defined elsewhere. That is why
+  // this lives here, in the one place the business entity itself is
+  // defined, rather than in Reviews.tsx where the data is fetched again for
+  // display.
+  //
+  // Same resilience contract as Work.tsx and Reviews.tsx: this component
+  // renders on every page including ones a database blip must never break,
+  // so a failed query just omits the rating fields rather than throwing.
+  // An empty table also omits them rather than a fabricated placeholder,
+  // matching Reviews.tsx exactly, since the table starts empty on purpose.
+  //
+  // Genuine customer reviews about your own business are exactly what
+  // Google's review-snippet guidelines permit self-serving markup for; the
+  // restriction is on reviews that are not genuinely about your own
+  // organization, not on real client testimonials.
+  let reviews: ReviewRow[] = [];
+  try {
+    reviews = await listReviews();
+  } catch (err) {
+    console.error(
+      "[StructuredData] could not load reviews, omitting rating schema:",
+      err,
+    );
+  }
+
+  const ratingSchema =
+    reviews.length > 0
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue:
+              reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length,
+            reviewCount: reviews.length,
+            bestRating: 5,
+            worstRating: 1,
+          },
+          review: reviews.map((r) => ({
+            "@type": "Review",
+            author: { "@type": "Person", name: r.client_name },
+            reviewRating: {
+              "@type": "Rating",
+              ratingValue: r.rating,
+              bestRating: 5,
+              worstRating: 1,
+            },
+            reviewBody: r.quote,
+            datePublished: new Date(r.created_at).toISOString().slice(0, 10),
+          })),
+        }
+      : {};
+
   const data = {
     "@context": "https://schema.org",
     "@graph": [
@@ -69,6 +125,7 @@ export function StructuredData() {
             },
           })),
         },
+        ...ratingSchema,
       },
       {
         "@type": "WebSite",
