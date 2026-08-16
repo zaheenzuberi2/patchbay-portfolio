@@ -73,6 +73,7 @@ export default async function ServicePage(
     image: `${url}/opengraph-image`,
     provider: { "@id": `${siteConfig.url}/#business` },
     areaServed: [
+      { "@type": "City", name: "Islamabad" },
       { "@type": "Country", name: "Pakistan" },
       { "@type": "Place", name: "Worldwide" },
     ],

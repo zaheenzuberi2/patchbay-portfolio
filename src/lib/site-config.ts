@@ -48,6 +48,8 @@ export const siteConfig = {
     "voice agent developer",
     "calling agent developer",
     "full-stack web developer Islamabad",
+    "web developer in Islamabad",
+    "web developers in Islamabad",
     "website development Pakistan",
     "full-stack websites",
     "marketing agency Islamabad",

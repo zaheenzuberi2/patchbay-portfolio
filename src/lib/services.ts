@@ -243,11 +243,18 @@ export const services: Service[] = [
     slug: "web-development",
     channel: "04",
     name: "Full-Stack Website Development",
-    h1: "Full-stack websites built to hold up under real use",
-    metaTitle: "Full-Stack Website Development | Next.js Developer, Islamabad",
+    // Rewritten to lead with the exact phrase "web developer in Islamabad"
+    // in the H1 and at the front of the title tag, both of which still
+    // carry real weight for a specific local commercial query. Everything
+    // claimed here was already true; this is a phrasing change, not a new
+    // claim.
+    h1: "A web developer in Islamabad who builds the whole stack",
+    metaTitle: "Web Developer in Islamabad | Full-Stack Website Development",
     metaDescription:
-      "Custom website and web app development, frontend to backend. Next.js, TypeScript, and PostgreSQL builds with real SEO, real speed, and no page-builder bloat.",
+      "Zaheen Zuberi is a full-stack web developer in Islamabad, building custom websites and web apps end to end. Next.js, TypeScript, and PostgreSQL, with real SEO, real speed, and no page-builder bloat.",
     keywords: [
+      "web developer in Islamabad",
+      "web developers in Islamabad",
       "full-stack website development",
       "website development Islamabad",
       "web developer Pakistan",
@@ -258,7 +265,7 @@ export const services: Service[] = [
       "web developer for small business Pakistan",
     ],
     intro:
-      "A website built on a page builder looks fine until it needs to do something: take a booking, sync to a CRM, handle a thousand visitors at once, or rank for anything. I build sites the whole way down, so the thing you can see and the thing running underneath are both yours and both fast.",
+      "Based in Islamabad, working with clients across Pakistan and internationally. A website built on a page builder looks fine until it needs to do something: take a booking, sync to a CRM, handle a thousand visitors at once, or rank for anything. I build sites the whole way down, so the thing you can see and the thing running underneath are both yours and both fast.",
     outcomes: [
       "A site that loads fast on a phone on mobile data, not just on your laptop",
       "SEO built in from the start, not bolted on later",
@@ -293,6 +300,10 @@ export const services: Service[] = [
     goodFor:
       "Law firms, clinics, agencies, and product teams who need the site to do a job, not just exist.",
     faqs: [
+      {
+        q: "Are you a web developer based in Islamabad?",
+        a: "Yes. Based in Islamabad, working in person with local clients and remotely with clients across Pakistan and internationally. Lex Justitia and AB Juris, both real law firm builds, are live sites you can visit, not case studies dressed up for a pitch.",
+      },
       {
         q: "How much does a website cost?",
         a: "It depends almost entirely on whether the site displays information or runs a process. A well-built brochure site for a small firm and a booking platform with accounts and dashboards are different projects with different numbers. Tell me what the site has to do and you get a fixed quote.",

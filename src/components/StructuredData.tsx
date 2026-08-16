@@ -106,7 +106,12 @@ export async function StructuredData() {
           addressLocality: "Islamabad",
           addressCountry: "PK",
         },
+        // City-level entry added specifically for local queries like "web
+        // developer Islamabad" — areaServed previously only named the
+        // country and "Worldwide", with no signal at the city level the
+        // business is actually based in and most wants to be found for.
         areaServed: [
+          { "@type": "City", name: "Islamabad" },
           { "@type": "Country", name: "Pakistan" },
           { "@type": "Place", name: "Worldwide" },
         ],
