@@ -53,7 +53,12 @@ export default function ServicesIndexPage() {
       <Nav />
 
       <main className="flex flex-1 flex-col">
-        <section className="relative overflow-hidden border-b border-line pt-32 sm:pt-36">
+        {/* pt-20: matches Hero.tsx and the other page heroes, sized against
+            Nav's 78px closed mobile header (Nav.tsx). pt-32 was tuned
+            against the header's old, taller always-visible mobile link row
+            and left a large visible gap once that row became a collapsed
+            dropdown menu. */}
+        <section className="relative overflow-hidden border-b border-line pt-20 sm:pt-36">
           <div className="grid-veil pointer-events-none absolute inset-0" />
           <div className="relative mx-auto max-w-6xl px-6 pb-20">
             <Breadcrumbs
