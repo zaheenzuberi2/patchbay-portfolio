@@ -37,9 +37,11 @@ export async function ServiceWork() {
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((p, i) => (
             <Reveal key={p.id} delay={i * 60}>
+              {/* No target="_blank" — see Work.tsx for why: it opens a
+                  fresh tab with empty history, so mobile's back gesture has
+                  nothing to return to and only the tab switcher works. */}
               <a
                 href={p.href ?? undefined}
-                target="_blank"
                 rel="noreferrer"
                 className="group flex h-full flex-col justify-between rounded-2xl border border-line-strong bg-ink-2/60 p-6 transition-colors hover:border-signal/50"
               >

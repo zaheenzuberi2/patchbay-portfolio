@@ -79,12 +79,14 @@ export async function Work() {
             return (
               <Reveal key={p.id} delay={i * 60}>
                 {p.href ? (
-                  <a
-                    href={p.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="block"
-                  >
+                  // No target="_blank": that opens a brand-new tab with its
+                  // own empty history, so on mobile the back gesture has
+                  // nothing to go back to and only the tab switcher, not the
+                  // back button, returns you to this page. Same-tab
+                  // navigation makes the native back gesture work the way a
+                  // visitor actually expects. rel="noreferrer" stays, it's
+                  // still meaningful without target.
+                  <a href={p.href} rel="noreferrer" className="block">
                     {Row}
                   </a>
                 ) : (
