@@ -6,6 +6,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { StructuredData } from "@/components/StructuredData";
 import { SiteBackgroundMount } from "@/components/three/SiteBackgroundMount";
+import { IntroAnimation } from "@/components/IntroAnimation";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -73,6 +74,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col bg-ink text-paper">
         <StructuredData />
         <SiteBackgroundMount />
+        <IntroAnimation />
         {/*
           THESIS: Zaheen leads the whole agency — Patchbay is what he calls the
           practice. One accountable team (Zaheen plus specialists in design, copy,
