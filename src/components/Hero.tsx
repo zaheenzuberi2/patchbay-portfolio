@@ -17,12 +17,17 @@ export function Hero() {
   return (
     <section
       id="top"
-      // Nav's mobile link row (Nav.tsx, `md:hidden`) makes the fixed header
-      // 137px tall through the sm breakpoint, not just below it. pt-32 (128px)
-      // plus the inner grid's py-6 (24px) totals 152px, clearing it with 15px
-      // to spare. Below sm was the only broken range: sm:pt-24 already
-      // matches the original safe total once sm:py-16 also applies.
-      className="relative flex min-h-screen items-center overflow-hidden border-b border-line pt-32 pb-16 sm:pt-24 sm:pb-14"
+      // Nav's mobile link row used to make the closed header 137px tall,
+      // hence a large pt here. That row is gone (Nav.tsx now uses a
+      // collapsed-by-default dropdown menu instead), and the header
+      // dropped to 78px closed. Left at the old value this rendered as a
+      // large, visibly empty gap before the headline, reported from a real
+      // phone screenshot. pt-20 (80px) plus the inner grid's py-6 (24px)
+      // totals 104px, clearing the 78px header with 26px to spare. Below sm
+      // was the only range this needed to change: sm:pt-24 already matches
+      // the original safe total once sm:py-16 also applies, and desktop's
+      // header was never affected by the mobile-only link row anyway.
+      className="relative flex min-h-screen items-center overflow-hidden border-b border-line pt-20 pb-16 sm:pt-24 sm:pb-14"
     >
       <SectionGlow color={SECTION_ACCENTS.top} />
 

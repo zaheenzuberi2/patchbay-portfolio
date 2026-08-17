@@ -2,7 +2,6 @@
 
 import { useState, useId } from "react";
 import { Faq, faqMatches } from "./Faq";
-import { Reveal } from "./Reveal";
 import { CategoryMarquee } from "./CategoryMarquee";
 import type { FaqCategory } from "@/lib/all-faqs";
 
@@ -81,16 +80,26 @@ export function FaqLibrary({ categories }: { categories: FaqCategory[] }) {
         </nav>
       )}
 
+      {/* No Reveal wrapper here on purpose, unlike the homepage's cards.
+          Reveal's IntersectionObserver uses a 12% threshold, and 12% of a
+          normal few-hundred-pixel card is a small, quick scroll. 12% of an
+          entire category (every question in it, 2000px+) is thirty-plus
+          questions from the top of the section, so the heading sat at
+          opacity 0 long after it had visibly scrolled onto screen. Confirmed
+          live: getComputedStyle reported opacity "0" on a heading whose own
+          getBoundingClientRect placed it inside the viewport. Reported from
+          a real phone, not just found here. A scroll-fade doesn't add much
+          to a list of questions being read anyway, so removing it here
+          fixes the bug and drops a fairly pointless animation together. */}
       {categories.map((cat) => (
-        <Reveal key={cat.id}>
-          <Faq
-            items={cat.faqs}
-            heading={cat.label}
-            id={cat.id}
-            filter={q}
-            dense
-          />
-        </Reveal>
+        <Faq
+          key={cat.id}
+          items={cat.faqs}
+          heading={cat.label}
+          id={cat.id}
+          filter={q}
+          dense
+        />
       ))}
 
       {q && matchCount === 0 && (
