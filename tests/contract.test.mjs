@@ -282,3 +282,28 @@ describe("security headers", () => {
     assert.equal(res.headers.get("x-frame-options"), "DENY");
   });
 });
+
+describe("theme toggle", () => {
+  test("toggle button ships in the served HTML with a real label", async () => {
+    // Defaults to dark, so the served (un-hydrated) markup should read
+    // "Switch to light mode" — the label a visitor would see before any
+    // client JS or localStorage has run.
+    assert.match(homeHtml, /aria-label="Switch to light mode"/);
+  });
+
+  test("the anti-flash init script ships inline, not as a separate request", async () => {
+    // If this ever moved to an external script or got deferred, a visitor
+    // who chose light mode would see one dark frame before it corrects —
+    // exactly the flash this script exists to prevent.
+    assert.match(homeHtml, /localStorage\.getItem/);
+  });
+
+  test("light-mode CSS actually shipped in the built stylesheet", async () => {
+    const cssHref = homeHtml.match(
+      /<link rel="stylesheet" href="([^"]+\.css)"/,
+    )?.[1];
+    assert.ok(cssHref, "no stylesheet link found in the homepage HTML");
+    const css = await (await fetch(BASE + cssHref)).text();
+    assert.match(css, /data-theme=.?light/);
+  });
+});

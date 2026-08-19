@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
 import { BackgroundErrorBoundary } from "./BackgroundErrorBoundary";
 import { useActiveSection } from "./useActiveSection";
+import { getStoredTheme, type Theme } from "@/lib/theme";
 
 // three.js never ships in the server bundle or blocks first paint; skipped
 // entirely on phones (the cursor-follow is the whole point and doesn't
@@ -25,6 +26,9 @@ export function SiteBackgroundMount() {
   const [allowed, setAllowed] = useState(false);
   const [reduced, setReduced] = useState(false);
   const [tabVisible, setTabVisible] = useState(true);
+  // Defaults "dark" to match the server (no localStorage there); corrected
+  // in the effect below, same default-then-effect pattern as `allowed`.
+  const [theme, setTheme] = useState<Theme>("dark");
   const { color: sectionColor, shape: sectionShape } = useActiveSection();
 
   useEffect(() => {
@@ -36,21 +40,38 @@ export function SiteBackgroundMount() {
     const small = window.innerWidth < 768;
     setAllowed(!(coarse && small));
 
+    setTheme(getStoredTheme());
+
     const onMotionChange = (e: MediaQueryListEvent) => setReduced(e.matches);
     motion.addEventListener("change", onMotionChange);
 
     const onVisibility = () => setTabVisible(!document.hidden);
     document.addEventListener("visibilitychange", onVisibility);
 
+    // ThemeToggle.tsx dispatches this on click rather than reaching into a
+    // shared context, so this needs to listen rather than just read once.
+    const onThemeChange = (e: Event) => {
+      setTheme((e as CustomEvent<Theme>).detail);
+    };
+    window.addEventListener("patchbay:theme", onThemeChange);
+
     return () => {
       motion.removeEventListener("change", onMotionChange);
       document.removeEventListener("visibilitychange", onVisibility);
+      window.removeEventListener("patchbay:theme", onThemeChange);
     };
   }, []);
 
   // Admin is a utility tool, not a marketing surface: no ambient background.
   if (pathname?.startsWith("/admin")) return null;
   if (!allowed) return null;
+  // The wireframe's palette (SECTION_THEME in lib/section-theme.ts) is tuned
+  // for a near-black canvas; on a light background the same colors would
+  // either wash out or clash rather than read as the intended console
+  // aesthetic. Hiding it is the same judgment call already made for mobile:
+  // this is ambience, not core content, so the safe default is off rather
+  // than a mismatched wireframe on a canvas it was never designed for.
+  if (theme === "light") return null;
 
   return (
     <div

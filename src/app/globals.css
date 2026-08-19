@@ -13,6 +13,43 @@
   --line-strong: rgba(243, 239, 231, 0.22);
 }
 
+/* Light mode: not a separate palette, an inversion of the same ten tokens
+   every component already references — `ink` and `paper` were already named
+   for exactly this pairing. Every value below was checked against WCAG AA
+   (4.5:1 for text) with the actual relative-luminance formula, not eyeballed:
+
+     signal   #ff5a1f on this bg   -> 2.86:1  (fails)
+     signal   #a63207 on this bg   -> 6.26:1  (passes, matches the 6.35:1
+                                                the dark theme's own signal-
+                                                on-ink pairing already has)
+     online   #6fcf7a on this bg   -> 1.77:1  (fails)
+     online   #2f7a3a on this bg   -> 4.86:1  (passes)
+     paper    #1a1a1c on this bg   -> 15.96:1
+     paper-dim #5c5a54 on this bg  -> 6.33:1
+
+   The darker signal also has to work as a *button fill* (bg-signal
+   text-ink is the CTA pattern site-wide), not just as text — checked that
+   pairing too: light-mode ink (#f7f5f1) as button text on #a63207 comes out
+   to 6.26:1, i.e. the same number, since it is the same two colors read the
+   other way round. One value serves both roles correctly, not two.
+
+   line / line-strong keep the existing pattern (the border color is the
+   text color at low opacity) but rebased onto the light-mode text color
+   instead of the dark-mode one, or borders would render as a paper-toned
+   line invisible against a paper-toned background. */
+:root[data-theme="light"] {
+  --ink: #f7f5f1;
+  --ink-2: #ece8e0;
+  --ink-3: #e3ddd2;
+  --paper: #1a1a1c;
+  --paper-dim: #5c5a54;
+  --signal: #a63207;
+  --signal-dim: #d9a688;
+  --online: #2f7a3a;
+  --line: rgba(26, 26, 28, 0.1);
+  --line-strong: rgba(26, 26, 28, 0.22);
+}
+
 @theme inline {
   --color-ink: var(--ink);
   --color-ink-2: var(--ink-2);

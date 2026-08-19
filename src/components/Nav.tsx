@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { siteConfig } from "@/lib/site-config";
 import { ScrollProgress } from "./ScrollProgress";
+import { ThemeToggle } from "./ThemeToggle";
 
 // Root-relative hrefs, not bare "#hash". Bare anchors do nothing on
 // /services/* pages; these navigate home and then jump to the section.
@@ -82,6 +83,12 @@ export function Nav() {
             <span className="hidden sm:inline">Available for work</span>
             <span className="sm:hidden">Available</span>
           </Link>
+
+          {/* One instance covers both desktop and mobile — nothing in this
+              wrapper div hides at any breakpoint, unlike LINKS below, which
+              genuinely needs two renders for two different layouts (an
+              inline row vs a dropdown). */}
+          <ThemeToggle />
 
           <button
             type="button"

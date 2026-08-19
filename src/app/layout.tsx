@@ -7,6 +7,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { StructuredData } from "@/components/StructuredData";
 import { SiteBackgroundMount } from "@/components/three/SiteBackgroundMount";
 import { IntroAnimation } from "@/components/IntroAnimation";
+import { THEME_INIT_SCRIPT } from "@/lib/theme";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -72,6 +73,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-ink text-paper">
+        {/* Sets data-theme on <html> before the browser paints, so a
+            visitor who chose light mode last time does not see one frame
+            of dark first. Must run before anything else in <body>. */}
+        <script
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }}
+        />
         <StructuredData />
         <SiteBackgroundMount />
         <IntroAnimation />
