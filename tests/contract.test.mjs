@@ -249,3 +249,36 @@ describe("share cards", () => {
     });
   }
 });
+
+describe("security headers", () => {
+  // A regression here is invisible on the page itself — the site looks and
+  // works identically with or without these, so nothing short of a test
+  // would ever catch one going missing after a future next.config.ts edit.
+  test("homepage carries the hardened header set", async () => {
+    const res = await fetch(BASE + "/");
+    assert.equal(res.headers.get("x-content-type-options"), "nosniff");
+    assert.equal(res.headers.get("x-frame-options"), "DENY");
+    assert.equal(
+      res.headers.get("referrer-policy"),
+      "strict-origin-when-cross-origin",
+    );
+    assert.ok(
+      res.headers.get("permissions-policy")?.includes("camera=()"),
+      "permissions-policy missing or does not restrict camera",
+    );
+    const csp = res.headers.get("content-security-policy");
+    assert.ok(csp, "no Content-Security-Policy header");
+    assert.match(csp, /frame-ancestors 'none'/);
+    assert.match(csp, /default-src 'self'/);
+  });
+
+  test("framework fingerprint is not disclosed", async () => {
+    const res = await fetch(BASE + "/");
+    assert.equal(res.headers.get("x-powered-by"), null);
+  });
+
+  test("headers apply past the homepage too, not just to /", async () => {
+    const res = await fetch(BASE + "/faq");
+    assert.equal(res.headers.get("x-frame-options"), "DENY");
+  });
+});

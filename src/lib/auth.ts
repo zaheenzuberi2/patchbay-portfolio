@@ -60,7 +60,23 @@ export function isValidSessionToken(token: string | undefined | null) {
   const a = Buffer.from(signature);
   const b = Buffer.from(expected);
   if (a.length !== b.length) return false;
-  return timingSafeEqual(a, b);
+  if (!timingSafeEqual(a, b)) return false;
+
+  // The signature alone never expires: a token is just a signed string, and
+  // a valid signature stays valid forever unless something also checks the
+  // embedded timestamp. Only the cookie's own maxAge limited a session
+  // before this, which is enforced by the browser, not the server — a token
+  // replayed directly (copied from a log, a proxy, browser history) with a
+  // hand-built Cookie header bypassed that entirely and was accepted no
+  // matter how old it was. createSessionToken already embeds Date.now() in
+  // the payload for exactly this check; it just was not being used.
+  const [, timestampStr] = payload.split(".");
+  const issuedAt = Number(timestampStr);
+  if (!Number.isFinite(issuedAt)) return false;
+  const ageMs = Date.now() - issuedAt;
+  if (ageMs < 0 || ageMs > SESSION_MAX_AGE_SECONDS * 1000) return false;
+
+  return true;
 }
 
 export function isAdminPasswordConfigured() {
