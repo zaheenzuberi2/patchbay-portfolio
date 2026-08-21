@@ -39,6 +39,20 @@ export function Hero() {
 
       <div className="grid-veil pointer-events-none absolute inset-0" />
 
+      {/* Centered, brighter amber glow behind the headline — sits above the
+          scrims (so it isn't dimmed out on the side where the headline
+          actually is) and below the content grid. Distinct from SectionGlow
+          above, which is a fixed corner accent shared by every section; this
+          one is hero-specific and breathes slowly via .hero-glow so mobile,
+          which never renders the 3D field, still has some ambient motion. */}
+      <div
+        aria-hidden="true"
+        className="hero-glow pointer-events-none absolute left-1/2 top-[42%] -z-10 h-[24rem] w-[24rem] rounded-full blur-[90px] sm:h-[32rem] sm:w-[32rem] lg:left-[30%] lg:top-1/2"
+        style={{
+          background: "radial-gradient(circle, var(--signal) 0%, transparent 70%)",
+        }}
+      />
+
       {/* py-6 / gap-8 on phones. At py-16 and gap-12 the hero ran 1.5 screens
           before a visitor reached a single service, and that vertical air is
           desktop styling being applied to a viewport that cannot spare it.
@@ -100,7 +114,10 @@ export function Hero() {
             </div>
 
             <div className="absolute inset-x-0 bottom-0 px-5 pb-5 pt-12">
-              <SignalBars count={14} className="h-10" />
+              <SignalBars
+                count={14}
+                className="h-10 drop-shadow-[0_0_6px_var(--signal)]"
+              />
               <p className="mt-3 font-mono text-xs sm:text-[11px] leading-relaxed text-paper-dim">
                 Inbound call → intent detected → CRM updated → follow-up
                 queued. ~40ms.
