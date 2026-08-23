@@ -31,9 +31,9 @@ function resolveSiteUrl() {
 export const siteConfig = {
   name: "Patchbay",
   ownerName: "Zaheen Zuberi",
-  title: "Zaheen Zuberi | Patchbay: AI Automation, Chatbots & Full-Stack Websites",
+  title: "Zaheen Zuberi | Patchbay: AI Automation & Web Dev, Islamabad",
   description:
-    "Zaheen Zuberi leads Patchbay in Islamabad: voice and calling agents, chatbots, automation, full-stack website development, and every service a marketing agency provides, from one accountable team.",
+    "AI voice agents, chatbots, automation, and full-stack websites — built by one team in Islamabad. See the work, get in touch today.",
   url: resolveSiteUrl(),
   locale: "en_US",
   contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "zaheenzuberi2@gmail.com",

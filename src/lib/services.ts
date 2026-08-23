@@ -28,9 +28,9 @@ export const services: Service[] = [
     channel: "01",
     name: "AI Voice & Calling Agents",
     h1: "AI voice agents that answer the phone and book the work",
-    metaTitle: "AI Voice Agent Development | AI Receptionist & Calling Agents",
+    metaTitle: "AI Voice Agent Development | Receptionist & Calling Agents",
     metaDescription:
-      "Custom AI voice agents and calling agents that answer inbound calls, qualify callers, book appointments, and log everything to your CRM. Built end to end by Zaheen Zuberi.",
+      "AI voice agents that answer calls, qualify callers, and book appointments automatically. Built end to end by Zaheen Zuberi. Get a demo today.",
     keywords: [
       "AI voice agent development",
       "AI receptionist",
@@ -106,7 +106,7 @@ export const services: Service[] = [
     h1: "Chatbots that resolve the question instead of deflecting it",
     metaTitle: "AI Chatbot Development | WhatsApp & Website Chatbots",
     metaDescription:
-      "Custom AI chatbot development for websites, WhatsApp, and Instagram. Bots that answer real questions from your own content, qualify leads, and escalate to a human when needed.",
+      "Custom AI chatbots for websites, WhatsApp, and Instagram — trained on your content, qualifying leads around the clock. See how it works.",
     keywords: [
       "AI chatbot development",
       "WhatsApp chatbot development",
@@ -251,7 +251,7 @@ export const services: Service[] = [
     h1: "A web developer in Islamabad who builds the whole stack",
     metaTitle: "Web Developer in Islamabad | Full-Stack Website Development",
     metaDescription:
-      "Zaheen Zuberi is a full-stack web developer in Islamabad, building custom websites and web apps end to end. Next.js, TypeScript, and PostgreSQL, with real SEO, real speed, and no page-builder bloat.",
+      "Full-stack websites built end to end by Zaheen Zuberi: Next.js, TypeScript, real SEO, real speed, no page-builder bloat. View recent projects.",
     keywords: [
       "web developer in Islamabad",
       "web developers in Islamabad",
@@ -329,7 +329,7 @@ export const services: Service[] = [
     h1: "The marketing an agency would run, without the agency",
     metaTitle: "Social Media Management & Content Marketing | Islamabad",
     metaDescription:
-      "Brand, content, and day-to-day social media management, plus the campaign reporting and attribution most agencies outsource. Run end to end by one accountable team.",
+      "Brand, content, and daily social media management, plus the reporting most agencies skip. Run end to end by one accountable team. Start today.",
     keywords: [
       "social media management Pakistan",
       "marketing agency Islamabad",

@@ -11,8 +11,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Reveal } from "@/components/Reveal";
 import { SignalBars } from "@/components/SignalBars";
 
-const title =
-  "Services: AI Automation, Chatbots, Voice Agents & Web Development";
+const title = "AI Automation, Chatbots & Web Dev Services | Patchbay";
 const description =
   "AI voice agents, chatbots, business automation, full-stack website development, and social media management. Built end to end by Zaheen Zuberi in Islamabad.";
 
