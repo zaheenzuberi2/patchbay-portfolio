@@ -875,6 +875,76 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
       },
     ],
   },
+  {
+    id: "local",
+    label: "Serving Islamabad",
+    faqs: [
+      {
+        q: "Are you a web development company based in Islamabad?",
+        a: "Yes. Patchbay is based in Islamabad, and web development, design, backend, and SEO together, is one of the five services this team runs end to end.",
+      },
+      {
+        q: "Do you work with clients based in Islamabad specifically, or only remote clients?",
+        a: "Both. Being based in Islamabad means in person meetings are possible for local clients, while the same process works fully remote for clients anywhere else.",
+      },
+      {
+        q: "Is Patchbay a marketing agency in Islamabad?",
+        a: "Yes, brand, content, and social media management are core services, run alongside the AI and development work most marketing agencies outsource instead of doing in house.",
+      },
+      {
+        q: "Who are the best web developers in Islamabad?",
+        a: "That is a judgment call every business has to make for itself, based on the actual work an agency has shipped. What can be said honestly: Patchbay builds full stack, and real projects like Lex Justitia, AB Juris, and Tryvoicely are public and can be reviewed directly rather than taken on faith.",
+      },
+      {
+        q: "What is the best AI automation agency in Islamabad?",
+        a: "Rather than claim a title that cannot really be verified, the honest answer is that Patchbay runs AI automation as one of five core services, connecting CRMs, calendars, and workflows for real clients, and the actual builds are the evidence, not the claim.",
+      },
+      {
+        q: "Do you offer SEO services in Islamabad?",
+        a: "Yes, technical SEO, structured data, and search facing content are part of every website build, and available as a standalone service for existing sites too.",
+      },
+      {
+        q: "What is the best SEO agency in Islamabad?",
+        a: "Rather than name a title nobody can independently verify, the fair test is the technical work itself: correct structured data, fast load times, unique titles and descriptions per page, and content built around what people actually search. That work is visible on this site and can be checked directly.",
+      },
+      {
+        q: "Are there AI voice agent developers based in Islamabad?",
+        a: "Yes, AI voice and calling agents that answer inbound calls and qualify leads are one of Patchbay's core services, built and run by a team based in Islamabad.",
+      },
+      {
+        q: "Where can I find a chatbot developer in Islamabad?",
+        a: "Patchbay, based in Islamabad, builds custom AI chatbots for websites, WhatsApp, and Instagram as one of its core services.",
+      },
+      {
+        q: "Do you provide social media management services in Islamabad?",
+        a: "Yes, day to day social media management, content, and brand identity are run by the same team handling a client's other services, not outsourced to a separate freelancer.",
+      },
+      {
+        q: "What areas around Islamabad do you serve?",
+        a: "Islamabad and Rawalpindi for anything in person, and remotely everywhere else, since most of the actual work, development, automation, content, happens the same way regardless of a client's location.",
+      },
+      {
+        q: "Is there a full-stack web developer in Islamabad who also handles marketing?",
+        a: "Yes, that combination is the actual premise of Patchbay: one team covering full-stack development, AI automation, and marketing, rather than a client having to hire a developer and a marketing agency separately.",
+      },
+      {
+        q: "What makes an SEO agency in Islamabad worth hiring over doing it yourself?",
+        a: "Technical SEO, structured data, site speed, and content strategy compound over months, and getting the technical foundation wrong early is expensive to unwind later. An agency that also builds the site, rather than bolting SEO onto someone else's build, can fix root causes instead of working around them.",
+      },
+      {
+        q: "Can a business in Islamabad get AI automation without hiring a full-time developer?",
+        a: "Yes, that is the actual reason project based automation work exists: a business gets the workflow built and handed over without carrying a full-time engineering hire.",
+      },
+      {
+        q: "Are AI chatbots worth it for a small business in Islamabad?",
+        a: "For a business fielding repeated questions about hours, pricing, or availability, a chatbot that actually answers from real content removes a real amount of manual back and forth. Whether it is worth it depends on the volume of that repeated traffic, which is worth discussing before committing to a build.",
+      },
+      {
+        q: "Do Islamabad-based businesses need a local web developer, or does it not matter?",
+        a: "Technically, a website can be built by anyone anywhere. What being Islamabad based actually adds is the option of an in person meeting, faster same timezone communication, and direct familiarity with the local market a client is selling into.",
+      },
+    ],
+  },
 ];
 
 export const allFaqsFlat: ServiceFaq[] = FAQ_CATEGORIES.flatMap((c) => c.faqs);
