@@ -28,7 +28,7 @@ export const services: Service[] = [
     channel: "01",
     name: "AI Voice & Calling Agents",
     h1: "AI voice agents that answer the phone and book the work",
-    metaTitle: "AI Voice Agent Development | Receptionist & Calling Agents",
+    metaTitle: "AI Voice Agent Development | Receptionist",
     metaDescription:
       "AI voice agents that answer calls, qualify callers, and book appointments automatically. Built end to end by Zaheen Zuberi. Get a demo today.",
     keywords: [
@@ -104,7 +104,7 @@ export const services: Service[] = [
     channel: "02",
     name: "AI Chatbots & Conversational AI",
     h1: "Chatbots that resolve the question instead of deflecting it",
-    metaTitle: "AI Chatbot Development | WhatsApp & Website Chatbots",
+    metaTitle: "AI Chatbot Development | WhatsApp & Web",
     metaDescription:
       "Custom AI chatbots for websites, WhatsApp, and Instagram — trained on your content, qualifying leads around the clock. See how it works.",
     keywords: [
@@ -176,7 +176,7 @@ export const services: Service[] = [
     channel: "03",
     name: "Automation & Workflows",
     h1: "Automation that removes the copy-paste from your week",
-    metaTitle: "Business Process Automation | n8n, Zapier & CRM Workflows",
+    metaTitle: "Business Process Automation | n8n, Zapier",
     metaDescription:
       "Workflow automation that connects your CRM, calendar, forms, and invoicing so nothing needs manual re-entry. n8n, Zapier, Make, and custom API integrations.",
     keywords: [
@@ -249,7 +249,7 @@ export const services: Service[] = [
     // claimed here was already true; this is a phrasing change, not a new
     // claim.
     h1: "A web developer in Islamabad who builds the whole stack",
-    metaTitle: "Web Developer in Islamabad | Full-Stack Website Development",
+    metaTitle: "Web Developer in Islamabad | Full-Stack",
     metaDescription:
       "Full-stack websites built end to end by Zaheen Zuberi: Next.js, TypeScript, real SEO, real speed, no page-builder bloat. View recent projects.",
     keywords: [
@@ -327,7 +327,7 @@ export const services: Service[] = [
     channel: "05",
     name: "Brand, Content & Social",
     h1: "The marketing an agency would run, without the agency",
-    metaTitle: "Social Media Management & Content Marketing | Islamabad",
+    metaTitle: "Social Media Management | Islamabad",
     metaDescription:
       "Brand, content, and daily social media management, plus the reporting most agencies skip. Run end to end by one accountable team. Start today.",
     keywords: [

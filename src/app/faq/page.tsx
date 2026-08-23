@@ -14,7 +14,7 @@ import { siteConfig } from "@/lib/site-config";
 import { FAQ_CATEGORIES, allFaqsFlat, totalFaqCount } from "@/lib/all-faqs";
 
 const url = `${siteConfig.url}/faq`;
-const title = `${totalFaqCount}+ Questions Answered | ${siteConfig.name} FAQ`;
+const title = `${totalFaqCount}+ Questions Answered — FAQ`;
 const description = `Answers on AI voice agents, chatbots, automation, web dev, pricing, and working with ${siteConfig.ownerName}'s team — everything you need before reaching out.`;
 
 export const metadata: Metadata = {
