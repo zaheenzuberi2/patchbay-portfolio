@@ -14,11 +14,19 @@ import { SignalBars } from "@/components/SignalBars";
 import { Reveal } from "@/components/Reveal";
 import { VoiceDemo } from "@/components/VoiceDemo";
 import { ServiceWork } from "@/components/ServiceWork";
+import { ServiceReviews } from "@/components/ServiceReviews";
 import { TEAM_ROLES } from "@/lib/team";
+import { listReviews } from "@/lib/db";
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
 }
+
+// Statically generated, but ServiceWork and ServiceReviews both read from
+// the database (projects, reviews). Without this, a review or project added
+// through /admin would never appear on these pages without a full redeploy,
+// since a static page with no revalidate is cached indefinitely.
+export const revalidate = 300;
 
 export async function generateMetadata(
   props: PageProps<"/services/[slug]">,
@@ -59,6 +67,50 @@ export default async function ServicePage(
   const url = `${siteConfig.url}/services/${service.slug}`;
   const others = services.filter((s) => s.slug !== service.slug);
 
+  // Same resilience contract as StructuredData.tsx and Reviews.tsx: a
+  // database blip must not break this page, and an empty result just omits
+  // the rating fields rather than fabricating one. Filtered to reviews
+  // tagged with this specific service, distinct from the site-wide rating
+  // on the ProfessionalService node, so this page's own Service entity can
+  // carry a star-rating snippet for the reviews that are actually about it.
+  let serviceReviews: Awaited<ReturnType<typeof listReviews>> = [];
+  try {
+    serviceReviews = (await listReviews()).filter(
+      (r) => r.service_slug === service.slug,
+    );
+  } catch (err) {
+    console.error(
+      "[ServicePage] could not load reviews, omitting rating schema:",
+      err,
+    );
+  }
+  const ratingSchema =
+    serviceReviews.length > 0
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue:
+              serviceReviews.reduce((sum, r) => sum + r.rating, 0) /
+              serviceReviews.length,
+            reviewCount: serviceReviews.length,
+            bestRating: 5,
+            worstRating: 1,
+          },
+          review: serviceReviews.map((r) => ({
+            "@type": "Review",
+            author: { "@type": "Person", name: r.client_name },
+            reviewRating: {
+              "@type": "Rating",
+              ratingValue: r.rating,
+              bestRating: 5,
+              worstRating: 1,
+            },
+            reviewBody: r.quote,
+            datePublished: new Date(r.created_at).toISOString().slice(0, 10),
+          })),
+        }
+      : {};
+
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -78,6 +130,7 @@ export default async function ServicePage(
       { "@type": "Place", name: "Worldwide" },
     ],
     audience: { "@type": "BusinessAudience", audienceType: service.goodFor },
+    ...ratingSchema,
   };
 
   return (
@@ -268,6 +321,8 @@ export default async function ServicePage(
             </div>
           </div>
         </section>
+
+        <ServiceReviews service={service} />
 
         <Faq items={service.faqs} heading={`${service.name}: questions`} />
 
