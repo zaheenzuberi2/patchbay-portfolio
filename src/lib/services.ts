@@ -40,6 +40,12 @@ export const services: Service[] = [
       "Twilio voice agent developer",
       "AI voice agent developer Islamabad",
       "AI receptionist for small business",
+      "AI answering service",
+      "virtual receptionist",
+      "24/7 phone answering AI",
+      "inbound call automation",
+      "AI call center agent",
+      "voicemail alternative for business",
     ],
     intro:
       "Most businesses lose work simply because nobody picked up. A voice agent answers on the first ring, every time, at 2am and on public holidays. It speaks naturally, understands why the person is calling, answers what it can, books what it should, and hands you a written summary of the ones that matter.",
@@ -96,6 +102,26 @@ export const services: Service[] = [
       {
         q: "How long does it take to build?",
         a: "A focused agent handling one clear job is a matter of days. Multi-workflow agents with deep CRM integration take longer. The first conversation gives you a real timeline, not a placeholder.",
+      },
+      {
+        q: "What is the difference between an AI voice agent and a regular answering service?",
+        a: "A regular answering service routes calls to a human operator following a script, with real per-minute staffing costs and hours the operator can actually work. An AI voice agent answers instantly at any hour, follows a script built around your business specifically, and writes structured data straight into your calendar or CRM instead of a message being relayed manually.",
+      },
+      {
+        q: "Is an AI receptionist better than voicemail?",
+        a: "Voicemail asks the caller to leave a message and wait, and a lot of callers who hit voicemail just hang up and call the next business instead. An AI receptionist answers live, so the call gets handled in the moment rather than becoming a callback that may never happen.",
+      },
+      {
+        q: "Can an AI voice agent handle a high call volume, like a busy clinic or salon?",
+        a: "Yes, handling volume is one of the real advantages over a human line, since the agent takes multiple calls at once with no hold queue, which a single receptionist physically cannot do during a rush.",
+      },
+      {
+        q: "What is the difference between an AI voice agent and an AI receptionist?",
+        a: "In practice both terms describe the same thing, a phone answering AI agent. Some businesses say receptionist because it maps to a role they already know, others say voice agent because it can also handle outbound calling and workflows beyond just answering. The build itself is the same either way.",
+      },
+      {
+        q: "Do AI call center agents replace human agents entirely?",
+        a: "Not usually, and that is not the recommendation here either. The agent handles first contact, qualification, and routine bookings, and hands anything needing judgment or an existing relationship to a person, so the escalation rules matter as much as the agent itself.",
       },
     ],
   },
