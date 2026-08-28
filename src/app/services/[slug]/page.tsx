@@ -12,7 +12,8 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Faq, FaqSchema } from "@/components/Faq";
 import { SignalBars } from "@/components/SignalBars";
 import { Reveal } from "@/components/Reveal";
-import { VoiceDemo } from "@/components/VoiceDemo";
+// Code-split and client-only; see VoiceDemoLazy.tsx for why.
+import { VoiceDemoLazy as VoiceDemo } from "@/components/VoiceDemoLazy";
 import { ServiceWork } from "@/components/ServiceWork";
 import { ServiceReviews } from "@/components/ServiceReviews";
 import { TEAM_ROLES } from "@/lib/team";

@@ -28,7 +28,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${siteConfig.url}/services/${s.slug}`,
       lastModified: now,
       changeFrequency: "monthly" as const,
-      priority: 0.8,
+      // ai-voice-agents gets a small edge over the other four: it's the
+      // service currently getting the most focused content and technical
+      // SEO work, so the sitemap hint should honestly reflect that instead
+      // of treating all five as equally important.
+      priority: s.slug === "ai-voice-agents" ? 0.85 : 0.8,
     })),
   ];
 }
