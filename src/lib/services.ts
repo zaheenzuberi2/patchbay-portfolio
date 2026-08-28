@@ -123,6 +123,14 @@ export const services: Service[] = [
         q: "Do AI call center agents replace human agents entirely?",
         a: "Not usually, and that is not the recommendation here either. The agent handles first contact, qualification, and routine bookings, and hands anything needing judgment or an existing relationship to a person, so the escalation rules matter as much as the agent itself.",
       },
+      {
+        q: "Who is the best AI calling agent developer in Islamabad?",
+        a: "Rather than claim a title nobody can independently verify, the honest test is the build itself: a real voice demo you can hear on this page, the actual escalation logic and CRM wiring explained rather than left vague, and a team based in Islamabad you can meet in person. Judge it on that, not on a claim.",
+      },
+      {
+        q: "Is there a voice agent developer based in Islamabad I can talk to directly?",
+        a: "Yes. Patchbay is based in Islamabad, and voice agent development is handled by the same team you would be talking to about the project, not handed off to an outsourced developer elsewhere.",
+      },
     ],
   },
   {
