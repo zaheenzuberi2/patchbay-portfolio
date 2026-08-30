@@ -240,23 +240,55 @@ export default async function ServicePage(
           </div>
         </section>
 
-        {/* Voice demo, only where it's actually relevant */}
+        {/* Voice demo, only where it's actually relevant. On phones the
+            card naturally fills most of the narrow viewport, so a single
+            stacked column already looks intentional. On desktop, that same
+            max-w-md card left-aligned inside max-w-6xl left roughly 700px
+            of empty space beside it, a real bug reported from a desktop
+            screen. Fixed with a two-column layout at lg: instead of
+            widening the card itself (which would stretch its internals
+            past what they were designed for), pair it with real supporting
+            content, prompts the demo can actually answer, since it matches
+            against the same FAQ library as the chat widget. */}
         {service.slug === "ai-voice-agents" && (
           <section className="border-b border-line py-14 sm:py-24">
             <div className="mx-auto max-w-6xl px-6">
-              <Reveal>
-                <h2 className="text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
-                  Hear it for yourself.
-                </h2>
-                <p className="mt-4 max-w-xl text-paper-dim">
-                  A real, working sample of the agent&apos;s voice, not a mockup.
-                  Runs in your browser, not a live phone system.
-                </p>
-              </Reveal>
-              <div className="mt-10 max-w-md">
-                <Reveal variant="scale">
-                  <VoiceDemo />
-                </Reveal>
+              <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+                <div>
+                  <Reveal>
+                    <h2 className="text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
+                      Hear it for yourself.
+                    </h2>
+                    <p className="mt-4 max-w-xl text-paper-dim">
+                      A real, working sample of the agent&apos;s voice, not a
+                      mockup. Runs in your browser, not a live phone system.
+                    </p>
+                  </Reveal>
+                  <Reveal delay={80}>
+                    <div className="mt-8 hidden lg:block">
+                      <p className="font-mono text-xs uppercase tracking-[0.15em] text-paper-dim">
+                        Try asking
+                      </p>
+                      <ul className="mt-4 space-y-3 text-sm text-paper-dim">
+                        <li className="border-l border-line-strong pl-4">
+                          &ldquo;How much does this cost?&rdquo;
+                        </li>
+                        <li className="border-l border-line-strong pl-4">
+                          &ldquo;Can you handle Urdu callers?&rdquo;
+                        </li>
+                        <li className="border-l border-line-strong pl-4">
+                          &ldquo;What happens if you can&apos;t answer
+                          something?&rdquo;
+                        </li>
+                      </ul>
+                    </div>
+                  </Reveal>
+                </div>
+                <div className="max-w-md lg:mx-auto lg:w-full">
+                  <Reveal variant="scale">
+                    <VoiceDemo />
+                  </Reveal>
+                </div>
               </div>
             </div>
           </section>
