@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AudioVisualizer } from "./AudioVisualizer";
 import { findFaqAnswer } from "@/lib/faq-search";
-import { buildProsodySegments } from "@/lib/prosody";
+import { buildProsodySegments, BASE_RATE } from "@/lib/prosody";
 import { pickBestVoice } from "@/lib/voice-selection";
 
 // Honest scope: there is no telephony wired into this project (no Twilio
@@ -178,6 +178,20 @@ export function VoiceDemo({ onClose }: { onClose?: () => void } = {}) {
     setSupported(typeof window !== "undefined" && "speechSynthesis" in window);
     setMicSupported(!!(w.webkitSpeechRecognition || w.SpeechRecognition));
 
+    // Chrome/Edge load the voice list asynchronously, and the FIRST ever
+    // call to getVoices() in a page's lifetime is often what kicks that
+    // loading off rather than returning a populated list — it can come
+    // back empty right at that moment. speak() already re-queries
+    // getVoices() fresh on every call, so this doesn't need to store
+    // anything; it just makes that first real call happen here, on mount,
+    // well before a user could plausibly click "Start the call", instead
+    // of it being the click itself. Otherwise pickBestVoice silently sees
+    // an empty list and utterance.voice never gets set, falling back to
+    // whatever the browser's own plainest default happens to be.
+    if (typeof window !== "undefined" && "speechSynthesis" in window) {
+      window.speechSynthesis.getVoices();
+    }
+
     return () => {
       if (typeof window !== "undefined" && "speechSynthesis" in window) {
         window.speechSynthesis.cancel();
@@ -266,9 +280,20 @@ export function VoiceDemo({ onClose }: { onClose?: () => void } = {}) {
       }
       const seg = segments[index];
       const utterance = new SpeechSynthesisUtterance(seg.text);
-      utterance.lang = "en-US";
+      // Bug: this hardcoded "en-US" regardless of which voice
+      // pickBestVoice actually chose. If the best-scoring voice was, say,
+      // "Google UK English Female" (lang en-GB), assigning it here while
+      // forcing lang to en-US is a mismatch some browsers resolve by
+      // silently falling back to their own default en-US voice instead of
+      // the one just picked — a very plausible reason the "carefully
+      // selected" voice still came out sounding like the generic default.
+      utterance.lang = voice ? voice.lang : "en-US";
       if (voice) utterance.voice = voice;
-      utterance.rate = Math.min(2, Math.max(0.5, seg.rateMul));
+      // Bug: rateMul/pitchMul are multipliers (see prosody.ts), not
+      // absolute values, but this used them directly as the rate/pitch —
+      // there was no base to multiply against, so BASE_RATE tuning (also
+      // fixed alongside this) had no effect at all.
+      utterance.rate = Math.min(2, Math.max(0.5, BASE_RATE * seg.rateMul));
       utterance.pitch = Math.min(2, Math.max(0, seg.pitchMul));
       utterance.onstart = () => {
         if (speakGenRef.current !== myGen) return;
