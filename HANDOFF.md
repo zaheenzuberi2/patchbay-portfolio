@@ -1,7 +1,8 @@
 # Patchbay Portfolio — Session Handoff
 
-Everything a new session needs to pick this up. Written 13 Aug 2026, updated
-14 Aug 2026 across two major sessions. **Read section 0 and 0b first.**
+Everything a new session needs to pick this up. Written 13 Aug 2026, last
+updated 31 Aug 2026. **Read section 0a first, then section 28** (the most
+recent work: SEO, theme, security, voice).
 
 **Project root:** `C:\Users\zaheen\claude\portfolio`
 
@@ -517,8 +518,9 @@ git commit --allow-empty -m "chore: rebuild to pick up <VAR>" && git push
 - [ ] **Resend account** (free, 3,000 emails/month) → set `RESEND_API_KEY` in
       Vercel. This activates lead notifications, which are already built and
       deployed (section 19). Same account later covers cold outreach.
-- [ ] **Google Search Console** — submit the sitemap. The SEO work sits
-      unindexed until this happens.
+- [x] ~~**Google Search Console** — submit the sitemap.~~ **DONE.** Connected
+      and indexing; 7 pages indexed and real click data by 28 Aug 2026. See
+      section 28.
 
 **Not blocked — an agent can just do these:**
 
@@ -528,8 +530,8 @@ git commit --allow-empty -m "chore: rebuild to pick up <VAR>" && git push
       and the Resend key first. **Do not scrape addresses and mass-blast** —
       it gets the domain blacklisted and reply rates are near zero. The
       approach agreed was 20-30 genuinely researched emails a day.
-- [ ] **Tests.** There are none. Everything has been verified manually. A
-      future change could silently break lead capture or admin auth.
+- [x] ~~**Tests.** There are none.~~ **DONE.** `npm test` runs 40 contract
+      tests against production. See section 28.
 - [ ] **Two more reviews.** One real review is live (Umer Wazir). Lex Justitia
       and AB Juris would fill the 3-column desktop grid properly.
 - [ ] **Social links** — Contact.tsx still says "Social channels coming soon".
@@ -1206,3 +1208,184 @@ wrapper `div`s. Select the ticker as a direct child of `#top`, and check
 `getBoundingClientRect` transform trap above, that is three measurement
 artifacts in one session: **verify a suspicious DOM finding a second way
 before acting on it.**
+
+---
+
+## 28. SEO, theme, security and voice pass — 15 to 31 Aug 2026
+
+Twenty-nine commits. The through-line was moving the site from "built and
+live" to "findable", plus a light/dark theme and a security pass. Everything
+below is deployed and was verified on production, not just locally.
+
+### The site is now indexed and getting real traffic
+
+Google Search Console is connected and the sitemap is submitted (this was the
+blocking item in section 12). As of 28 Aug: **7 pages indexed, 12 clicks, 81
+impressions, 14.8% CTR, average position 11.9**, all from a standing start of
+zero about two weeks earlier. The 4 "not indexed" pages are 3 redirects plus
+1 not-yet-crawled, both normal, neither a bug.
+
+Highest-clicked page after the homepage is `/services/web-development`, which
+is the page that got the most targeted SEO work. Early, but the effect is
+real.
+
+### Tests exist now (section 12 said they did not)
+
+`npm test` runs 40 contract tests across 8 suites against production
+(`tests/contract.test.mjs`, `node:test`, no framework). They cover page 200s,
+admin auth returning 401, canonical/OG/JSON-LD origin agreement, sitemap
+contents, OG images being real PNGs, security headers, and the theme toggle.
+Run them after any deploy.
+
+### Light/dark theme
+
+Real toggle, both breakpoints. `src/lib/theme.ts` owns the storage key and an
+anti-FOUC inline script that runs before paint; `ThemeToggle.tsx` dispatches a
+`patchbay:theme` CustomEvent rather than using React context, so
+`SiteBackgroundMount` can react without being a descendant. Light palette
+lives in `:root[data-theme="light"]` in `globals.css` and every value was
+checked against the real WCAG relative-luminance formula, not eyeballed.
+
+The 3D wireframe background is hidden in light mode, the same judgement
+already made for mobile: its palette is tuned for a near-black canvas.
+
+### Security
+
+`next.config.ts` now sets CSP, `X-Frame-Options: DENY`, `X-Content-Type-Options`,
+`Referrer-Policy` and `Permissions-Policy`, and `x-powered-by` is off.
+**Session tokens previously verified the signature but never checked the
+embedded timestamp**, so they never actually expired. Fixed in
+`src/lib/auth.ts`.
+
+CSP keeps `'unsafe-inline'` for both `script-src` (Next's inline hydration)
+and `style-src` (8 components use inline `style={{}}`). A nonce-based CSP was
+considered and deliberately rejected as disproportionate.
+
+### SEO work, in order of how much it mattered
+
+1. **Meta titles and descriptions** were over Google's truncation limits on
+   the homepage and 5 other pages. All rewritten to fit and to end on a CTA.
+2. **A local FAQ category** ("Serving Islamabad", 16 Q&As) targeting
+   "web developers in Islamabad", "AI automation agency Islamabad", "best
+   SEO services in Islamabad" and similar. FAQ library is now 216 questions.
+3. **The voice-agents page** gained comparison-intent FAQs (AI voice agent vs
+   answering service, vs voicemail, vs AI receptionist) and two explicit
+   local ones ("best AI calling agent developer in Islamabad").
+4. **Per-service reviews.** `ServiceReviews.tsx` renders reviews tagged to
+   that service and feeds the page's own `aggregateRating`, separate from the
+   site-wide one on `ProfessionalService`.
+5. **`revalidate = 300`** on service pages. They are statically generated, so
+   **anything added through `/admin` (reviews, projects) would never have
+   appeared without a redeploy.** That was a real latent bug, not a
+   theoretical one.
+6. **FAQ page linked to the service pages.** It had none: a visitor landing
+   there from search hit a dead end, and the page passed no link equity on.
+7. **A collapsed plain-language About block in the footer.** The brand voice
+   is metaphor-forward, which gives AI answer engines little literal text to
+   quote. This states the same facts plainly. It is a real `details` element,
+   visible to anyone who clicks, **not crawler-only text, which would be
+   cloaking.** That distinction was tested and is deliberate.
+
+### Voice demo, three real bugs
+
+All three were verified by intercepting `speechSynthesis.speak()` in a live
+browser and reading the actual utterance values, not by ear.
+
+1. `utterance.lang` was hardcoded `"en-US"` regardless of which voice
+   `pickBestVoice` selected. On a machine whose best voice was `en-GB`, that
+   mismatch can make a browser silently fall back to its own default voice,
+   which explains "the voice sounds generic".
+2. `rateMul`/`pitchMul` are *multipliers* but were assigned directly as
+   `utterance.rate`/`.pitch`, with no base to multiply. Added `BASE_RATE` in
+   `prosody.ts` and fixed the arithmetic.
+3. `getVoices()` was only ever called at speak time. Chrome/Edge load voices
+   asynchronously and the first call can return empty; now warmed on mount.
+
+Also cut the inter-clause pause 110ms to 40ms. Each clause is a separate
+utterance and Chrome adds its own startup delay per utterance, so the
+intended pause was compounding with platform overhead into audible gaps.
+
+**Ceiling worth knowing:** voice quality is capped by what is installed on the
+visitor's OS. A legacy non-neural voice will sound robotic no matter what.
+`voice-selection.ts` already prefers neural/"Natural" voices when present.
+
+**Urdu, precisely:** removed from the *VoiceDemo browser widget* (still true,
+do not re-add there). Urdu **is** claimed as a real service capability in
+`services.ts` FAQs, the footer About block, and `knowsLanguage: ["en","ur"]`.
+Those are different things; do not "fix" one into the other.
+
+### Other
+
+- `VoiceDemo` is code-split via `VoiceDemoLazy.tsx`. It is ~524 lines of
+  client JS on the page most targeted for ranking, and Core Web Vitals are a
+  ranking signal.
+- Hero has a pulsing amber glow (`.hero-glow`, 7s, respects reduced-motion).
+  The keyframe existed in `globals.css` but was never wired to anything.
+- The voice-demo section was left-aligned at `max-w-md` inside `max-w-6xl`,
+  leaving ~700px empty on desktop. Now a two-column layout at `lg:`.
+- Brand intro animation on a fresh session; real mobile menu with
+  active-page highlighting; header-height gap fixed on every page.
+
+### Google Business Profile, live
+
+Created and verified under `zaheenzuberi2@gmail.com`. Service-area business
+(address hidden, DHA Phase 2 Islamabad as the anchor), open 24 hours, five
+custom services matching the site, categories beyond the primary "Marketing
+agency", real desk photo plus logo. **Ad-graphic images were deliberately kept
+out of the Photos section**: Google's guidelines discourage promotional
+overlay text there, and those belong in Posts.
+
+Google Ads' $400 credit was declined. It is a spend-$400-get-$400 match, not
+free budget, and Zaheen's position is no spend until the site earns.
+
+### Gotchas from this session
+
+- **`layout.tsx` appends `" | Patchbay"` to every page title via the metadata
+  template.** The real budget for a page title is therefore ~49 characters,
+  not 60. Getting this wrong shipped `"...Services | Patchbay | Patchbay"` to
+  production for one deploy.
+- **`next/dynamic` with `ssr: false` is rejected inside a Server Component.**
+  It has to live in its own `"use client"` file.
+- **Vercel production secrets cannot be pulled back.** `vercel env pull`
+  returns `[SENSITIVE]` placeholders. A forgotten `ADMIN_PASSWORD` must be
+  *reset* in the dashboard, then **redeployed**, since env changes do not
+  affect the running deployment. This cost real time on 31 Aug.
+- **Local `.env.local` and Vercel env vars drift.** `ADMIN_PASSWORD` differed
+  between them, which is what made the admin panel reject the local password.
+- **The Browser pane does not composite frames when not displayed.**
+  Screenshots come back blank and `window.innerWidth` reads 0. Structural
+  checks (`getComputedStyle`, `getBoundingClientRect`, intercepting API calls)
+  are reliable; visual screenshots are not. Set an explicit viewport with
+  `resize_window` before trusting any measurement.
+
+### Still open
+
+- [ ] **A review from Suleman Rashid** (real estate consultant) who reacted to
+      the voice demo with "Very nice. This is what I want." Not yet added: it
+      needs his permission, and a fuller quote naming the problem it solves
+      would read far stronger. Add via `/admin` then Reviews, channel
+      **AI Voice & Calling Agents**.
+- [ ] **Instagram content is drafted and unused.** Seven ad graphics plus
+      captions, an account bio, and a collab poster for Umer Wazir all exist
+      but nothing has been posted.
+- [ ] **Google Posts.** A 4-week cadence was drafted (launch, voice agents,
+      chatbots, automation). Posts expire after 7 days, so this needs to be
+      habitual or it is not worth starting.
+- [ ] **A luxury colour direction was explored and parked.** Four prototypes
+      (brass/oxblood, emerald, sapphire, monochrome) with Fraunces as the
+      display face. Zaheen has not picked one. **Do not start re-skinning the
+      real site without an explicit decision**: the current amber identity is
+      deliberate and documented in section 2.
+- [ ] **Rotate `ADMIN_PASSWORD` again.** The current value passed through a
+      chat transcript on 31 Aug.
+- [ ] Bloom (trybloom.ai) has ~3 credits left in Zaheen's own workspace
+      (`Zaheen's Team`), brand `Patchbay` onboarded from the live site.
+
+### Standing decision added this session
+
+- **No cloaking, no keyword stuffing, no invisible crawler text.** Asked for
+  directly, declined, and the reasoning holds: hidden-but-indexed text is a
+  Search Essentials violation with real deindexing risk, and the `keywords`
+  meta tag has been ignored for ranking since 2009. The legitimate version of
+  that request is real content answering real search intent, which is what
+  the local FAQ category and the footer About block actually are.
