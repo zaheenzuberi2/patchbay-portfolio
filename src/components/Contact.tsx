@@ -1,7 +1,7 @@
 import { Reveal } from "./Reveal";
 import { SectionGlow } from "./SectionGlow";
 import { SECTION_ACCENTS } from "@/lib/section-theme";
-import { siteConfig, whatsappUrl } from "@/lib/site-config";
+import { siteConfig, whatsappUrl, instagramUrl } from "@/lib/site-config";
 
 export function Contact() {
   return (
@@ -65,9 +65,17 @@ export function Contact() {
               <span>{siteConfig.location}</span>
             </div>
 
-            <p className="mt-10 font-mono text-xs sm:text-[11px] uppercase tracking-[0.1em] text-paper-dim">
-              Social channels coming soon
-            </p>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-x-2 font-mono text-xs sm:text-[11px] uppercase tracking-[0.1em] text-paper-dim">
+              <span>Follow</span>
+              <a
+                href={instagramUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="flex min-h-11 items-center px-2 text-signal transition-colors hover:text-paper"
+              >
+                {`@${siteConfig.instagramHandle}`}
+              </a>
+            </div>
 
             <p className="mx-auto mt-6 max-w-lg border-t border-line-strong pt-6 text-xs leading-relaxed text-paper-dim">
               Your data stays yours. Anything processed through an AI model

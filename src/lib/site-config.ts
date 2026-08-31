@@ -39,6 +39,7 @@ export const siteConfig = {
   contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "zaheenzuberi2@gmail.com",
   contactPhoneDisplay: process.env.NEXT_PUBLIC_CONTACT_PHONE_DISPLAY || "+92 346 1223692",
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "923461223692",
+  instagramHandle: "patchbay.pk",
   location: "Islamabad, Pakistan",
   keywords: [
     "Zaheen Zuberi",
@@ -60,3 +61,5 @@ export const siteConfig = {
 };
 
 export const whatsappUrl = `https://wa.me/${siteConfig.whatsappNumber}`;
+
+export const instagramUrl = `https://www.instagram.com/${siteConfig.instagramHandle}/`;

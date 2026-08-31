@@ -1,4 +1,4 @@
-import { siteConfig } from "@/lib/site-config";
+import { siteConfig, instagramUrl } from "@/lib/site-config";
 import { services } from "@/lib/services";
 import { listReviews, type ReviewRow } from "@/lib/db";
 
@@ -117,6 +117,12 @@ export async function StructuredData() {
         ],
         priceRange: "$$",
         knowsLanguage: ["en", "ur"],
+        // sameAs is how a search engine confirms an off-site profile really
+        // belongs to this entity rather than being a coincidence of naming.
+        // It feeds entity resolution and knowledge-panel eligibility, so it
+        // is worth more than the outbound link alone. Business account, so
+        // it belongs on ProfessionalService, not on the Person node.
+        sameAs: [instagramUrl],
         hasOfferCatalog: {
           "@type": "OfferCatalog",
           name: "Services",
