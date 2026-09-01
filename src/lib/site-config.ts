@@ -36,7 +36,14 @@ export const siteConfig = {
     "AI voice agents, chatbots, automation, and full-stack websites — built by one team in Islamabad. See the work, get in touch today.",
   url: resolveSiteUrl(),
   locale: "en_US",
-  contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "zaheenzuberi2@gmail.com",
+  // Real mailbox on the domain, live since 1 Sep 2026. Forwards to
+  // zaheenzuberi2@gmail.com via ImprovMX (free tier), so mail still lands in
+  // the same Gmail inbox; MX and SPF records live in Vercel DNS. Kept as the
+  // in-code default rather than a Vercel-only env var deliberately: it is
+  // public information, not a secret, and a value that exists only in the
+  // dashboard is invisible to anyone reading the repo (see HANDOFF section
+  // 28 on ADMIN_PASSWORD drifting between local and Vercel).
+  contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@zaheenzuberi.com",
   contactPhoneDisplay: process.env.NEXT_PUBLIC_CONTACT_PHONE_DISPLAY || "+92 346 1223692",
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "923461223692",
   instagramHandle: "patchbay.pk",
