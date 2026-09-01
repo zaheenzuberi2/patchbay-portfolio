@@ -52,6 +52,14 @@ const PROTECTED = [
   { method: "DELETE", path: "/api/leads/1" },
   { method: "POST", path: "/api/reviews" },
   { method: "DELETE", path: "/api/reviews/1" },
+  // Prospects are outbound cold-outreach targets: people who never asked to
+  // be contacted. Unlike projects and reviews there is no public read here,
+  // so GET is listed too. A regression that exposed this would leak a list of
+  // third-party businesses and their contact addresses.
+  { method: "GET", path: "/api/prospects" },
+  { method: "POST", path: "/api/prospects" },
+  { method: "PATCH", path: "/api/prospects/1" },
+  { method: "DELETE", path: "/api/prospects/1" },
 ];
 
 const OG_IMAGES = [

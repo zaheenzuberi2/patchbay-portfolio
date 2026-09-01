@@ -101,6 +101,21 @@ export type ReviewRow = {
   created_at: string;
 };
 
+export type ProspectRow = {
+  id: number;
+  company: string;
+  email: string;
+  website: string;
+  country: string;
+  pitch: string;
+  signal: string;
+  email_status: string;
+  status: string;
+  notes: string;
+  last_checked_at: string | null;
+  created_at: string;
+};
+
 export type LeadRow = {
   id: number;
   name: string;
@@ -236,6 +251,51 @@ async function init() {
     )
   `;
 
+  // Cold outreach prospects. Deliberately separate from `leads`: a lead is
+  // inbound (someone contacted us and consented to contact), a prospect is
+  // outbound (we found them). Mixing the two would put people who never
+  // asked to hear from us into the same list as real enquiries, which is
+  // both a compliance problem and a way to lose track of who is who.
+  //
+  // email is UNIQUE so re-importing an overlapping scrape cannot create
+  // duplicates and mail the same person twice.
+  await sql`
+    CREATE TABLE IF NOT EXISTS prospects (
+      id SERIAL PRIMARY KEY,
+      company TEXT NOT NULL,
+      email TEXT NOT NULL UNIQUE,
+      website TEXT NOT NULL DEFAULT '',
+      country TEXT NOT NULL DEFAULT '',
+      -- Set by the qualifier: which pitch this prospect should receive.
+      -- 'voice' | 'web' | '' (unrouted)
+      pitch TEXT NOT NULL DEFAULT '',
+      -- The specific finding that justifies contacting them, e.g. "no mobile
+      -- viewport set". This becomes the opening line, and its absence is why
+      -- a prospect should not be contacted.
+      signal TEXT NOT NULL DEFAULT '',
+      -- 'unverified' | 'valid' | 'invalid'  (syntax + MX check)
+      email_status TEXT NOT NULL DEFAULT 'unverified',
+      -- 'new' | 'qualified' | 'rejected' | 'contacted' | 'replied' | 'unsubscribed'
+      status TEXT NOT NULL DEFAULT 'new',
+      notes TEXT NOT NULL DEFAULT '',
+      last_checked_at TIMESTAMPTZ,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    )
+  `;
+
+  // Every address that must never be contacted again: unsubscribes, bounces,
+  // and manual blocks. Kept as its own table rather than a prospect status so
+  // an opt-out survives the prospect row being deleted and re-imported from a
+  // later scrape. That re-import case is exactly how people get mailed after
+  // opting out, and it is the one compliance mistake with real legal weight.
+  await sql`
+    CREATE TABLE IF NOT EXISTS suppressions (
+      email TEXT PRIMARY KEY,
+      reason TEXT NOT NULL DEFAULT 'unsubscribed',
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    )
+  `;
+
   await sql`CREATE TABLE IF NOT EXISTS meta (key TEXT PRIMARY KEY)`;
 
   // Covers databases created before the budget column existed.
@@ -291,6 +351,30 @@ export async function listLeads(): Promise<LeadRow[]> {
   return (await sql`
     SELECT * FROM leads ORDER BY created_at DESC
   `) as LeadRow[];
+}
+
+export async function listProspects(): Promise<ProspectRow[]> {
+  const sql = await getDb();
+  return (await sql`
+    SELECT * FROM prospects ORDER BY created_at DESC, id DESC
+  `) as ProspectRow[];
+}
+
+export async function isSuppressed(email: string): Promise<boolean> {
+  const sql = await getDb();
+  const rows = (await sql`
+    SELECT email FROM suppressions WHERE email = ${email.toLowerCase()}
+  `) as { email: string }[];
+  return rows.length > 0;
+}
+
+export async function listSuppressions(): Promise<
+  { email: string; reason: string; created_at: string }[]
+> {
+  const sql = await getDb();
+  return (await sql`
+    SELECT * FROM suppressions ORDER BY created_at DESC
+  `) as { email: string; reason: string; created_at: string }[];
 }
 
 export async function listReviews(): Promise<ReviewRow[]> {
