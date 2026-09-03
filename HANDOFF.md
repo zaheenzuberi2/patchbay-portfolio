@@ -1389,3 +1389,94 @@ free budget, and Zaheen's position is no spend until the site earns.
   meta tag has been ignored for ranking since 2009. The legitimate version of
   that request is real content answering real search intent, which is what
   the local FAQ category and the footer About block actually are.
+
+
+## 29. Automated cold-outreach sending — 3 Sep 2026
+
+Built the actual send path for the `prospects` pipeline from section 28's
+tail end. Import and qualification already existed (`/admin` → Prospects);
+this is what turns a qualified prospect into a sent email with no manual
+step in between.
+
+### Why the sending identity changed mid-session
+
+The original plan was to send from a `mail.zaheenzuberi.com` subdomain via
+Brevo. Brevo permanently suspended the account for a ToS violation before a
+single real email went out — cold outreach is against the terms of every
+free-tier ESP, not just Brevo's, and that was a wrong recommendation on my
+part, caught after the fact rather than before.
+
+The replacement plan considered a brand-new disposable Gmail account, but
+Zaheen settled on something simpler: **send from `zaheen@tryvoicely.com`**, a
+Gmail-hosted mailbox he already actively uses (he'd already sent a few real
+emails from it). Explicit constraint: **no touching that domain's DNS at
+all** — no subdomain, no new records, nothing. That mailbox's existing
+Google Workspace SPF/DKIM is already correctly configured for Gmail's own
+sending servers, so authenticating straight to `smtp.gmail.com` with an app
+password needs zero domain changes on either `tryvoicely.com` or
+`zaheenzuberi.com`. This is a real advantage the Brevo/subdomain approach
+never had.
+
+### What was built
+
+- **`src/lib/outreach-mail.ts`** — the one deliberate dependency exception in
+  this project (`nodemailer`, pinned at `^9.1.1` after `npm audit` flagged
+  every `9.0.0`-and-earlier release). SMTP is a real wire protocol, not
+  something `fetch` can speak, so this is not the same "raw fetch beats an
+  SDK" call as `notify.ts`'s Resend integration. No-ops cleanly (matching
+  `notify.ts`'s pattern) until `OUTREACH_GMAIL_USER` and
+  `OUTREACH_GMAIL_APP_PASSWORD` are set.
+- **`src/lib/outreach-templates.ts`** — builds the actual email. The opening
+  line is always the prospect's own `qualify.ts` `signal`, verbatim.
+  `qualify.ts`'s signal strings were rewritten from third person ("Their
+  site...") to second person ("Your site...") for this reason — they were
+  always meant to double as the email's first line, per that file's own
+  header comment, but were only ever phrased for the admin panel until now.
+  **Refuses to build an email at all if `OUTREACH_POSTAL_ADDRESS` is unset**
+  — fail closed, not open, because that address is a US CAN-SPAM requirement
+  in every commercial email, not a nice-to-have.
+- **`src/lib/unsubscribe.ts`** — HMAC-signs `email` so the one-click
+  unsubscribe link can be verified with no login, same technique as the admin
+  session cookie in `auth.ts` but a separate function so the two never share
+  a signature namespace.
+- **`GET /api/outreach/send`** — the actual send batch. Pulls up to 8
+  `status = 'qualified' AND email_status = 'valid'` prospects, re-checks
+  `suppressions` at send time (not just at import — someone can unsubscribe
+  in between), sends with a random 3–8s pause between each so a batch never
+  looks like a burst, marks each `contacted` on success. Two ways to trigger
+  it: an admin session (manual testing) or `Authorization: Bearer
+  $CRON_SECRET` (Vercel Cron). Returns 503 rather than doing anything if
+  sending isn't configured yet.
+- **`GET /api/unsubscribe`** — the only intentionally public, unauthenticated
+  mutation endpoint in the project. Requires a valid signed token or it does
+  nothing (400). Writes to both `suppressions` (permanent) and flips the
+  matching `prospects` row to `unsubscribed`.
+- **`vercel.json`** — one daily cron, `0 14 * * *` (14:00 UTC ≈ late morning
+  US Eastern / mid-afternoon UK), hitting `/api/outreach/send`. Free on
+  Vercel's Hobby plan; adjust the hour if the actual open-time data says
+  otherwise once there's real send volume to look at.
+- Plain text only. No HTML, no tracking pixel, no link rewriting — see the
+  section 28-era research on why tracking actively hurts cold outreach
+  specifically (display/destination link mismatches are a phishing signal,
+  and untracked mail is what reads as human-written in the first place).
+
+### What is still needed before this sends anything
+
+Both are compliance/credential inputs I can't supply myself:
+
+- [ ] **`OUTREACH_GMAIL_APP_PASSWORD`** — generate at
+      `https://myaccount.google.com/apppasswords` on the Google account that
+      owns `zaheen@tryvoicely.com` (2-Step Verification has to be on first).
+      Paste into `.env.local` locally and into Vercel's env vars for
+      production; both need it independently (see section 28's note on
+      `ADMIN_PASSWORD` drifting between the two).
+- [ ] **`OUTREACH_POSTAL_ADDRESS`** — a real physical address, PO box, or
+      registered commercial mail-receiving address. Not fabricated on
+      purpose; `outreach-templates.ts` throws rather than sending without
+      one.
+- [ ] `CRON_SECRET` also needs setting in Vercel (a value already exists in
+      `.env.local`, generated this session) so the cron job authenticates
+      instead of getting a 401.
+- [ ] Not yet built: the Companies House check for UK sole-trader vs. limited
+      company (PECR/UK GDPR legitimate-interest gate), discussed in section
+      28 but out of scope for this pass.

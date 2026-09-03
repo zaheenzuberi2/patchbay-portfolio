@@ -60,6 +60,9 @@ const PROTECTED = [
   { method: "POST", path: "/api/prospects" },
   { method: "PATCH", path: "/api/prospects/1" },
   { method: "DELETE", path: "/api/prospects/1" },
+  // Triggers a real batch of cold emails. Must refuse anyone who isn't
+  // either an admin session or Vercel Cron with the right bearer secret.
+  { method: "GET", path: "/api/outreach/send" },
 ];
 
 const OG_IMAGES = [
@@ -115,6 +118,24 @@ describe("admin is not reachable without a session", () => {
       );
     });
   }
+});
+
+describe("unsubscribe is public but requires a real signed token", () => {
+  // Public by design (a real recipient clicks this with no session), but it
+  // must not do anything to an address without proof this server actually
+  // sent that address mail — otherwise it's an open tool for suppressing
+  // anyone's inbox.
+  test("no token at all is rejected", async () => {
+    const res = await fetch(BASE + "/api/unsubscribe?email=test@example.com");
+    assert.equal(res.status, 400);
+  });
+
+  test("a forged token is rejected", async () => {
+    const res = await fetch(
+      BASE + "/api/unsubscribe?email=test@example.com&token=0000000000000000000000000000000",
+    );
+    assert.equal(res.status, 400);
+  });
 });
 
 describe("lead capture spam protection", () => {

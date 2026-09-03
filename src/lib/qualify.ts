@@ -49,7 +49,7 @@ export async function qualify(website: string): Promise<Qualification> {
   if (!url) {
     return {
       pitch: "web",
-      signal: "No website found for this business.",
+      signal: "I couldn't find a website for your business when I looked.",
       status: "qualified",
     };
   }
@@ -74,7 +74,7 @@ export async function qualify(website: string): Promise<Qualification> {
     // specific thing to open with.
     return {
       pitch: "web",
-      signal: "Their website did not load (timed out or unreachable).",
+      signal: "Your website didn't load when I checked it just now (timed out or unreachable).",
       status: "qualified",
     };
   }
@@ -84,7 +84,7 @@ export async function qualify(website: string): Promise<Qualification> {
   if (res.status >= 400) {
     return {
       pitch: "web",
-      signal: `Their website returns an HTTP ${res.status} error.`,
+      signal: `Your website is returning an HTTP ${res.status} error right now.`,
       status: "qualified",
     };
   }
@@ -96,7 +96,7 @@ export async function qualify(website: string): Promise<Qualification> {
     return {
       pitch: "web",
       signal:
-        "Their site is served over HTTP, so browsers show a 'Not secure' warning.",
+        "Your site is served over plain HTTP, so browsers show visitors a 'Not secure' warning.",
       status: "qualified",
     };
   }
@@ -105,7 +105,7 @@ export async function qualify(website: string): Promise<Qualification> {
     return {
       pitch: "web",
       signal:
-        "Their site has no mobile viewport set, so it renders desktop-width on phones.",
+        "Your site has no mobile viewport set, so it renders desktop-width on phones.",
       status: "qualified",
     };
   }
@@ -113,7 +113,7 @@ export async function qualify(website: string): Promise<Qualification> {
   if (elapsed > 5000) {
     return {
       pitch: "web",
-      signal: `Their homepage took ${(elapsed / 1000).toFixed(1)}s to load.`,
+      signal: `Your homepage took ${(elapsed / 1000).toFixed(1)}s to load when I checked it.`,
       status: "qualified",
     };
   }
@@ -121,7 +121,7 @@ export async function qualify(website: string): Promise<Qualification> {
   if (!/<title[^>]*>[^<]{3,}<\/title>/i.test(html)) {
     return {
       pitch: "web",
-      signal: "Their homepage has no title tag, so search results show a bare URL.",
+      signal: "Your homepage has no title tag, so search results show a bare URL for it.",
       status: "qualified",
     };
   }
@@ -130,7 +130,7 @@ export async function qualify(website: string): Promise<Qualification> {
     return {
       pitch: "web",
       signal:
-        "Their homepage has no meta description, so Google writes its own snippet.",
+        "Your homepage has no meta description, so Google is writing its own snippet for it.",
       status: "qualified",
     };
   }
@@ -148,7 +148,7 @@ export async function qualify(website: string): Promise<Qualification> {
     return {
       pitch: "voice",
       signal:
-        "Phone is their only way in, with no online booking, so every missed call is a lost customer.",
+        "Phone looks like your only way in, with no online booking, so every missed call is a lost customer.",
       status: "qualified",
     };
   }
