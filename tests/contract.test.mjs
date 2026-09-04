@@ -120,20 +120,21 @@ describe("admin is not reachable without a session", () => {
   }
 });
 
-describe("unsubscribe is public but requires a real signed token", () => {
+describe("unsubscribe is public but requires a real signed link", () => {
   // Public by design (a real recipient clicks this with no session), but it
   // must not do anything to an address without proof this server actually
   // sent that address mail — otherwise it's an open tool for suppressing
-  // anyone's inbox.
-  test("no token at all is rejected", async () => {
-    const res = await fetch(BASE + "/api/unsubscribe?email=test@example.com");
+  // anyone's inbox. Lives at /u/<slug>, not a query string — see
+  // outreach-templates.ts on why a visible "?email=...&token=..." reads as
+  // mail-merge software.
+  test("a garbage slug is rejected", async () => {
+    const res = await fetch(BASE + "/u/not-a-real-slug");
     assert.equal(res.status, 400);
   });
 
-  test("a forged token is rejected", async () => {
-    const res = await fetch(
-      BASE + "/api/unsubscribe?email=test@example.com&token=0000000000000000000000000000000",
-    );
+  test("a well-formed but forged slug is rejected", async () => {
+    const fakeEmail = Buffer.from("test@example.com").toString("base64url");
+    const res = await fetch(BASE + `/u/${fakeEmail}.0000000000000000`);
     assert.equal(res.status, 400);
   });
 });

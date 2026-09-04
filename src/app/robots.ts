@@ -6,7 +6,9 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/admin", "/api"],
+      // /u/ is one-click unsubscribe links: real but single-use per
+      // recipient, never meant to be crawled or indexed.
+      disallow: ["/admin", "/api", "/u"],
     },
     sitemap: `${siteConfig.url}/sitemap.xml`,
   };

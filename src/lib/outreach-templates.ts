@@ -1,5 +1,5 @@
 import type { ProspectRow } from "./db";
-import { makeUnsubscribeToken } from "./unsubscribe";
+import { makeUnsubscribeSlug } from "./unsubscribe";
 
 // The opening line of every email is the prospect's own qualify.ts `signal`,
 // used verbatim — not a template variable dressed up, the actual sentence a
@@ -27,17 +27,18 @@ function footerLines(email: string, baseUrl: string): string[] {
     );
   }
 
-  const token = makeUnsubscribeToken(email);
-  const unsubUrl = `${baseUrl}/api/unsubscribe?email=${encodeURIComponent(email)}&token=${token}`;
+  const unsubUrl = `${baseUrl}/u/${makeUnsubscribeSlug(email)}`;
 
+  // Reads as a normal sign-off, not a bolted-on legal disclaimer: the
+  // address sits in the signature line itself (plenty of solo consultants
+  // list one there), and the opt-out is one soft sentence, not a
+  // "Don't want emails like this from me again?" notice.
   return [
     "",
     "Zaheen",
-    "Patchbay — https://zaheenzuberi.com",
+    `Patchbay · https://zaheenzuberi.com · ${address}`,
     "",
-    "—",
-    address,
-    `Don't want emails like this from me again? ${unsubUrl}`,
+    `Not interested? ${unsubUrl} — one click, no hard feelings.`,
   ];
 }
 
