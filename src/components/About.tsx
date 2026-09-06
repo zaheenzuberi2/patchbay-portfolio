@@ -72,9 +72,13 @@ export function About() {
                 </p>
                 <p>
                   I taught myself to build and shipped real, working
-                  products from there. A live tool used by creators
-                  (Tryvoicely), a client&apos;s entire web and social
-                  presence (Umer Wazir), and now Patchbay itself.
+                  products from there: a live tool used by creators
+                  (Tryvoicely), rent a car software for local showrooms
+                  (PakEngine), a client&apos;s entire web and social
+                  presence (Umer Wazir), and now Patchbay itself. Different
+                  problems, same underlying skill — I&apos;m a web app
+                  developer first, and the voice agents, chatbots, and
+                  automation work all get built on that same foundation.
                 </p>
               </div>
             </Reveal>
