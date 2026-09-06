@@ -5,15 +5,28 @@ import { sendOutreachEmail, outreachSendingConfigured } from "@/lib/outreach-mai
 import { buildOutreachEmail } from "@/lib/outreach-templates";
 import { siteConfig } from "@/lib/site-config";
 
-// Runs as a Vercel Cron job (see vercel.json) once a day. A small batch with
-// a random pause between sends, not a burst, is the point: a mailbox that
-// sends 8 emails a day spaced minutes apart looks like a person; the same 8
-// sent in one second looks like a script, which is exactly the signal that
-// gets a sender rate-limited or spam-boxed. maxDuration is raised because the
-// deliberate pauses below can otherwise outlast the platform's 10s default.
-export const maxDuration = 60;
+// Runs as a Vercel Cron job (see vercel.json) once a day — Hobby plan caps
+// cron at one run/day, so volume ramps by raising how much a single daily
+// run sends, not by running it more often. A small batch with a random pause
+// between sends, not a burst, is still the point: a mailbox that sends N
+// emails a day spaced minutes apart looks like a person; the same N sent in
+// one second looks like a script, which is exactly the signal that gets a
+// sender rate-limited or spam-boxed. maxDuration is raised well past the
+// platform's 10s default because the deliberate pauses below, times a full
+// batch, run long — 300 is the ceiling Vercel allows on Hobby (Fluid compute).
+export const maxDuration = 280;
 
-const BATCH_SIZE = 8;
+// Ramps automatically so nobody has to remember to come back and bump this:
+// 10/day for the first week, 20/day the second, 30/day from then on. Change
+// RAMP_START only if the ramp itself should restart from scratch.
+const RAMP_START = new Date("2026-09-06T00:00:00Z");
+function currentBatchSize() {
+  const daysIn = Math.floor((Date.now() - RAMP_START.getTime()) / 86_400_000);
+  if (daysIn < 7) return 10;
+  if (daysIn < 14) return 20;
+  return 30;
+}
+
 const MIN_DELAY_MS = 3000;
 const MAX_DELAY_MS = 8000;
 
@@ -46,6 +59,11 @@ export async function GET(request: NextRequest) {
       { status: 503 },
     );
   }
+
+  // Computed per-invocation, not at module load: a cron-triggered function
+  // can stay warm across days, and this must reflect "today", not whatever
+  // day the container first started.
+  const BATCH_SIZE = currentBatchSize();
 
   const sql = await getDb();
   const candidates = (await sql`
