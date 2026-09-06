@@ -32,7 +32,7 @@ export async function PATCH(
     ? body.tags
         .filter((t: unknown) => typeof t === "string")
         .map((t: string) => t.trim().slice(0, 40))
-        .slice(0, 8)
+        .slice(0, 9)
     : [];
 
   if (!name || !description) {
