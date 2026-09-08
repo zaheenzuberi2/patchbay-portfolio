@@ -466,13 +466,15 @@ export async function listCallLeads(): Promise<CallLeadRow[]> {
   // 10) silently produces garbage like "Tue Sep 08"). The admin UI's <input
   // type="date"> and its string-compare due-date filter both need the plain
   // form, so normalise both shapes here rather than in every consumer.
-  return rows.map((r) => ({
-    ...r,
-    callback_at: r.callback_at
-      ? (r.callback_at instanceof Date
-          ? r.callback_at.toISOString()
-          : String(r.callback_at)
-        ).slice(0, 10)
-      : null,
-  }));
+  return rows.map((r) => {
+    // CallLeadRow types callback_at as string | null (what it is after this
+    // normalisation), but the raw driver row can hand back a JS Date object
+    // at runtime — cast to unknown so the instanceof check is legal against
+    // what's actually there, not against the post-normalisation type.
+    const raw = r.callback_at as unknown;
+    return {
+      ...r,
+      callback_at: raw ? (raw instanceof Date ? raw.toISOString() : String(raw)).slice(0, 10) : null,
+    };
+  });
 }
