@@ -63,6 +63,17 @@ const PROTECTED = [
   // Triggers a real batch of cold emails. Must refuse anyone who isn't
   // either an admin session or Vercel Cron with the right bearer secret.
   { method: "GET", path: "/api/outreach/send" },
+  // Cold-calling CRM: real businesses and phone numbers Zaheen dials
+  // himself. Same "no public read" reasoning as prospects.
+  { method: "GET", path: "/api/call-campaigns" },
+  { method: "POST", path: "/api/call-campaigns" },
+  { method: "PATCH", path: "/api/call-campaigns/1" },
+  { method: "DELETE", path: "/api/call-campaigns/1" },
+  { method: "GET", path: "/api/call-leads" },
+  { method: "POST", path: "/api/call-leads" },
+  { method: "PATCH", path: "/api/call-leads/1" },
+  { method: "DELETE", path: "/api/call-leads/1" },
+  { method: "POST", path: "/api/call-leads/import" },
 ];
 
 const OG_IMAGES = [

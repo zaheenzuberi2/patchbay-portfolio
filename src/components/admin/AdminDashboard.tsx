@@ -6,6 +6,7 @@ import type { LeadRow, ProjectRow, ReviewRow } from "@/lib/db";
 import { ProjectForm, type ProjectFormValues } from "./ProjectForm";
 import { ReviewForm, type ReviewFormValues } from "./ReviewForm";
 import { ProspectsPanel } from "./ProspectsPanel";
+import { CallCrmPanel } from "./CallCrmPanel";
 
 const dateFormatter = new Intl.DateTimeFormat("en-GB", {
   day: "2-digit",
@@ -30,7 +31,9 @@ export function AdminDashboard({
   initialReviews: ReviewRow[];
 }) {
   const router = useRouter();
-  const [tab, setTab] = useState<"leads" | "projects" | "reviews" | "prospects">("leads");
+  const [tab, setTab] = useState<
+    "leads" | "projects" | "reviews" | "prospects" | "calls"
+  >("leads");
   const [leads, setLeads] = useState(initialLeads);
   const [projects, setProjects] = useState(initialProjects);
   const [reviews, setReviews] = useState(initialReviews);
@@ -187,14 +190,31 @@ export function AdminDashboard({
           >
             Prospects
           </button>
+          <button
+            onClick={() => setTab("calls")}
+            className={`flex min-h-11 items-center px-4 py-2 font-mono text-xs uppercase tracking-[0.1em] ${
+              tab === "calls"
+                ? "border-b-2 border-signal text-signal"
+                : "text-paper-dim"
+            }`}
+          >
+            Cold Call CRM
+          </button>
         </div>
 
         {/* Outbound, unlike the other three tabs. ProspectsPanel loads its own
             data on mount rather than being handed initial rows, so the list is
-            never shipped to someone who does not open this tab. */}
+            never shipped to someone who does not open this tab. Same reason
+            CallCrmPanel loads its own campaigns/leads. */}
         {tab === "prospects" && (
           <div className="mt-8">
             <ProspectsPanel />
+          </div>
+        )}
+
+        {tab === "calls" && (
+          <div className="mt-8">
+            <CallCrmPanel />
           </div>
         )}
 

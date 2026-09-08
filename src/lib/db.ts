@@ -128,6 +128,35 @@ export type LeadRow = {
   created_at: string;
 };
 
+export type CallCampaignRow = {
+  id: number;
+  name: string;
+  niche: string;
+  // 'pk' | 'overseas' — the two markets Zaheen calls into, split because the
+  // pitch, language, and even what counts as a good phone number differ
+  // enough that mixing them into one list would make either one harder to
+  // scan while actually dialing.
+  market: string;
+  created_at: string;
+};
+
+export type CallLeadRow = {
+  id: number;
+  campaign_id: number;
+  company: string;
+  contact_name: string;
+  phone: string;
+  email: string;
+  niche: string;
+  notes: string;
+  // 'not_called' | 'no_answer' | 'voicemail' | 'not_interested' | 'interested'
+  // | 'follow_up' | 'closed'
+  status: string;
+  callback_at: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
 const SEED_PROJECTS = [
   {
     session_id: "0001",
@@ -296,6 +325,40 @@ async function init() {
     )
   `;
 
+  // Cold-calling CRM: leads you dial yourself rather than email. Separate
+  // from `prospects` (email outreach, auto-sent) because the workflow is
+  // different in kind, not just channel — no sending pipeline, no
+  // qualification algorithm, just a place to hold what you're calling
+  // through and what happened last time you dialed. Campaigns group leads by
+  // batch/niche and carry the pk/overseas split; ON DELETE CASCADE means
+  // deleting a campaign takes its leads with it rather than leaving orphans.
+  await sql`
+    CREATE TABLE IF NOT EXISTS call_campaigns (
+      id SERIAL PRIMARY KEY,
+      name TEXT NOT NULL,
+      niche TEXT NOT NULL DEFAULT '',
+      market TEXT NOT NULL DEFAULT 'overseas',
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    )
+  `;
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS call_leads (
+      id SERIAL PRIMARY KEY,
+      campaign_id INTEGER NOT NULL REFERENCES call_campaigns(id) ON DELETE CASCADE,
+      company TEXT NOT NULL,
+      contact_name TEXT NOT NULL DEFAULT '',
+      phone TEXT NOT NULL,
+      email TEXT NOT NULL DEFAULT '',
+      niche TEXT NOT NULL DEFAULT '',
+      notes TEXT NOT NULL DEFAULT '',
+      status TEXT NOT NULL DEFAULT 'not_called',
+      callback_at DATE,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    )
+  `;
+
   await sql`CREATE TABLE IF NOT EXISTS meta (key TEXT PRIMARY KEY)`;
 
   // Covers databases created before the budget column existed.
@@ -382,4 +445,34 @@ export async function listReviews(): Promise<ReviewRow[]> {
   return (await sql`
     SELECT * FROM reviews ORDER BY sort_order ASC, id ASC
   `) as ReviewRow[];
+}
+
+export async function listCallCampaigns(): Promise<CallCampaignRow[]> {
+  const sql = await getDb();
+  return (await sql`
+    SELECT * FROM call_campaigns ORDER BY created_at DESC, id DESC
+  `) as CallCampaignRow[];
+}
+
+export async function listCallLeads(): Promise<CallLeadRow[]> {
+  const sql = await getDb();
+  const rows = (await sql`
+    SELECT * FROM call_leads ORDER BY created_at DESC, id DESC
+  `) as CallLeadRow[];
+  // A DATE column doesn't come back as a bare "YYYY-MM-DD" from either
+  // driver: Neon hands back a full ISO timestamp string
+  // ("2026-09-08T00:00:00.000Z"), PGlite hands back an actual JS Date object
+  // (whose .toString() is locale-formatted, not ISO — String(date).slice(0,
+  // 10) silently produces garbage like "Tue Sep 08"). The admin UI's <input
+  // type="date"> and its string-compare due-date filter both need the plain
+  // form, so normalise both shapes here rather than in every consumer.
+  return rows.map((r) => ({
+    ...r,
+    callback_at: r.callback_at
+      ? (r.callback_at instanceof Date
+          ? r.callback_at.toISOString()
+          : String(r.callback_at)
+        ).slice(0, 10)
+      : null,
+  }));
 }
