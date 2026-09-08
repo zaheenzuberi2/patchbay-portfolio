@@ -72,6 +72,22 @@ export async function PATCH(
     await sql`UPDATE call_leads SET company = ${company} WHERE id = ${leadId}`;
     touched = true;
   }
+  // Reassigning a lead to a different campaign — e.g. moving a batch that
+  // landed in the wrong campaign, or merging two. Checked against
+  // call_campaigns rather than trusted blindly: campaign_id is a foreign
+  // key, so a bad id would otherwise fail the UPDATE with a raw constraint
+  // error instead of a clean 400.
+  if (body.campaign_id !== undefined) {
+    const campaignId = Number(body.campaign_id);
+    const exists = (await sql`
+      SELECT id FROM call_campaigns WHERE id = ${campaignId}
+    `) as { id: number }[];
+    if (!campaignId || exists.length === 0) {
+      return NextResponse.json({ error: "Campaign not found" }, { status: 400 });
+    }
+    await sql`UPDATE call_leads SET campaign_id = ${campaignId} WHERE id = ${leadId}`;
+    touched = true;
+  }
   // callback_at is nullable by design (clearing a follow-up date once it's
   // been handled is a normal action), so "" is accepted and stored as NULL
   // rather than rejected the way a blank phone/company is.

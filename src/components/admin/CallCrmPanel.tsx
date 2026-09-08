@@ -253,6 +253,7 @@ export function CallCrmPanel() {
         <CampaignDetail
           campaign={activeCampaign}
           leads={leads.filter((l) => l.campaign_id === activeCampaign.id)}
+          otherCampaigns={campaigns.filter((c) => c.id !== activeCampaign.id)}
           onBack={() => setView({ kind: "campaigns" })}
           onDeleteCampaign={() => deleteCampaign(activeCampaign.id)}
           onChanged={refresh}
@@ -379,12 +380,14 @@ function FollowUpsView({
 function CampaignDetail({
   campaign,
   leads,
+  otherCampaigns,
   onBack,
   onDeleteCampaign,
   onChanged,
 }: {
   campaign: CallCampaignRow;
   leads: CallLeadRow[];
+  otherCampaigns: CallCampaignRow[];
   onBack: () => void;
   onDeleteCampaign: () => void;
   onChanged: () => void;
@@ -483,6 +486,15 @@ function CampaignDetail({
   async function removeLead(id: number) {
     if (!confirm("Delete this lead?")) return;
     await fetch(`/api/call-leads/${id}`, { method: "DELETE" });
+    onChanged();
+  }
+
+  async function moveLead(id: number, campaignId: number) {
+    await fetch(`/api/call-leads/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ campaign_id: campaignId }),
+    });
     onChanged();
   }
 
@@ -631,9 +643,11 @@ function CampaignDetail({
           <LeadRow
             key={l.id}
             lead={l}
+            otherCampaigns={otherCampaigns}
             onStatus={(s) => setStatus(l.id, s)}
             onNotes={(n) => setNotes(l.id, n)}
             onCallback={(d) => setCallback(l.id, d)}
+            onMove={(campaignId) => moveLead(l.id, campaignId)}
             onDelete={() => removeLead(l.id)}
           />
         ))}
@@ -644,15 +658,19 @@ function CampaignDetail({
 
 function LeadRow({
   lead,
+  otherCampaigns,
   onStatus,
   onNotes,
   onCallback,
+  onMove,
   onDelete,
 }: {
   lead: CallLeadRow;
+  otherCampaigns: CallCampaignRow[];
   onStatus: (status: string) => void;
   onNotes: (notes: string) => void;
   onCallback: (date: string) => void;
+  onMove: (campaignId: number) => void;
   onDelete: () => void;
 }) {
   const [notes, setNotes] = useState(lead.notes);
@@ -699,6 +717,22 @@ function LeadRow({
             />
           </div>
           <StatusSelect value={lead.status} onChange={onStatus} />
+          {otherCampaigns.length > 0 && (
+            <select
+              value=""
+              onChange={(e) => {
+                if (e.target.value) onMove(Number(e.target.value));
+              }}
+              className="min-h-11 rounded-lg border border-line-strong bg-ink px-2 font-mono text-[11px] text-paper-dim outline-none focus:border-signal"
+            >
+              <option value="">Move to...</option>
+              {otherCampaigns.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+          )}
           <button
             onClick={onDelete}
             className="flex min-h-11 items-center px-2 font-mono text-[11px] uppercase tracking-[0.08em] text-paper-dim transition-colors hover:text-signal"
