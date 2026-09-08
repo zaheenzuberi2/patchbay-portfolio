@@ -74,6 +74,9 @@ const PROTECTED = [
   { method: "PATCH", path: "/api/call-leads/1" },
   { method: "DELETE", path: "/api/call-leads/1" },
   { method: "POST", path: "/api/call-leads/import" },
+  { method: "GET", path: "/api/call-team-members" },
+  { method: "POST", path: "/api/call-team-members" },
+  { method: "DELETE", path: "/api/call-team-members/1" },
 ];
 
 const OG_IMAGES = [

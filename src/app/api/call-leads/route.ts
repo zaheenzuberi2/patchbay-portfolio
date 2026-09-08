@@ -44,14 +44,15 @@ export async function POST(request: NextRequest) {
   const notes = clean(body.notes, 2000);
   const status = isCallStatus(body.status) ? body.status : "not_called";
   const callbackAt = cleanCallbackDate(body.callback_at);
+  const assignedTo = clean(body.assigned_to, 80);
 
   const sql = await getDb();
   const inserted = (await sql`
     INSERT INTO call_leads
-      (campaign_id, company, contact_name, phone, email, niche, notes, status, callback_at)
+      (campaign_id, company, contact_name, phone, email, niche, notes, status, callback_at, assigned_to)
     VALUES
       (${campaignId}, ${company}, ${contactName}, ${phone}, ${email},
-       ${niche}, ${notes}, ${status}, ${callbackAt})
+       ${niche}, ${notes}, ${status}, ${callbackAt}, ${assignedTo})
     RETURNING id
   `) as { id: number }[];
 

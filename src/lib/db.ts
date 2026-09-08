@@ -153,8 +153,18 @@ export type CallLeadRow = {
   // | 'follow_up' | 'closed'
   status: string;
   callback_at: string | null;
+  // Free text, but only ever set from the team_members list via a dropdown
+  // in the UI — a lead's "portion", i.e. whose queue it's in to call. '' is
+  // unassigned, not a member named "".
+  assigned_to: string;
   created_at: string;
   updated_at: string;
+};
+
+export type CallTeamMemberRow = {
+  id: number;
+  name: string;
+  created_at: string;
 };
 
 const SEED_PROJECTS = [
@@ -354,8 +364,23 @@ async function init() {
       notes TEXT NOT NULL DEFAULT '',
       status TEXT NOT NULL DEFAULT 'not_called',
       callback_at DATE,
+      assigned_to TEXT NOT NULL DEFAULT '',
       created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
       updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    )
+  `;
+  // Covers the call_leads table created before assigned_to existed.
+  await sql`ALTER TABLE call_leads ADD COLUMN IF NOT EXISTS assigned_to TEXT NOT NULL DEFAULT ''`;
+
+  // Who's on the calling team. A separate small table rather than a fixed
+  // code list so Zaheen can add/remove people without a deploy — but still a
+  // controlled list (not free text on the lead itself), so "Wajih" and
+  // "wajih" can never end up as two different portions.
+  await sql`
+    CREATE TABLE IF NOT EXISTS call_team_members (
+      id SERIAL PRIMARY KEY,
+      name TEXT NOT NULL UNIQUE,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now()
     )
   `;
 
@@ -445,6 +470,13 @@ export async function listReviews(): Promise<ReviewRow[]> {
   return (await sql`
     SELECT * FROM reviews ORDER BY sort_order ASC, id ASC
   `) as ReviewRow[];
+}
+
+export async function listCallTeamMembers(): Promise<CallTeamMemberRow[]> {
+  const sql = await getDb();
+  return (await sql`
+    SELECT * FROM call_team_members ORDER BY name ASC
+  `) as CallTeamMemberRow[];
 }
 
 export async function listCallCampaigns(): Promise<CallCampaignRow[]> {

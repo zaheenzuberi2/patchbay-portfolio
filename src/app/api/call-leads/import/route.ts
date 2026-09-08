@@ -25,6 +25,10 @@ export async function POST(request: NextRequest) {
   }
 
   const rows = parseCallLeadsPaste(clean(body.paste, 200_000));
+  // One assignee for the whole pasted batch, not per row — this is meant to
+  // match "here's my portion" / "here's Wajih's portion" imports, not a
+  // spreadsheet that already has a per-row owner column.
+  const assignedTo = clean(body.assigned_to, 80);
 
   if (rows.length === 0) {
     return NextResponse.json(
@@ -52,9 +56,9 @@ export async function POST(request: NextRequest) {
 
   for (const row of rows) {
     await sql`
-      INSERT INTO call_leads (campaign_id, company, contact_name, phone, email, niche, notes)
+      INSERT INTO call_leads (campaign_id, company, contact_name, phone, email, niche, notes, assigned_to)
       VALUES (${campaignId}, ${row.company}, ${row.contact_name}, ${row.phone},
-              ${row.email}, ${row.niche}, ${row.notes})
+              ${row.email}, ${row.niche}, ${row.notes}, ${assignedTo})
     `;
   }
 

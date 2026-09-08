@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import type { CallCampaignRow, CallLeadRow } from "@/lib/db";
+import type { CallCampaignRow, CallLeadRow, CallTeamMemberRow } from "@/lib/db";
 
 // Self-contained like ProspectsPanel: fetches its own data rather than being
 // handed initial rows through /admin, since this list is admin-only and no
@@ -62,6 +62,7 @@ type View = { kind: "campaigns" } | { kind: "campaign"; id: number } | { kind: "
 export function CallCrmPanel() {
   const [campaigns, setCampaigns] = useState<CallCampaignRow[]>([]);
   const [leads, setLeads] = useState<CallLeadRow[]>([]);
+  const [members, setMembers] = useState<CallTeamMemberRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [market, setMarket] = useState<"pk" | "overseas">("pk");
   const [view, setView] = useState<View>({ kind: "campaigns" });
@@ -70,12 +71,14 @@ export function CallCrmPanel() {
   const [creatingCampaign, setCreatingCampaign] = useState(false);
 
   const refresh = useCallback(async () => {
-    const [campaignsRes, leadsRes] = await Promise.all([
+    const [campaignsRes, leadsRes, membersRes] = await Promise.all([
       fetch("/api/call-campaigns"),
       fetch("/api/call-leads"),
+      fetch("/api/call-team-members"),
     ]);
     if (campaignsRes.ok) setCampaigns((await campaignsRes.json()).campaigns);
     if (leadsRes.ok) setLeads((await leadsRes.json()).leads);
+    if (membersRes.ok) setMembers((await membersRes.json()).members);
     setLoading(false);
   }, []);
 
@@ -83,9 +86,10 @@ export function CallCrmPanel() {
     let cancelled = false;
     (async () => {
       try {
-        const [campaignsRes, leadsRes] = await Promise.all([
+        const [campaignsRes, leadsRes, membersRes] = await Promise.all([
           fetch("/api/call-campaigns"),
           fetch("/api/call-leads"),
+          fetch("/api/call-team-members"),
         ]);
         if (cancelled) return;
         if (campaignsRes.ok) {
@@ -95,6 +99,10 @@ export function CallCrmPanel() {
         if (leadsRes.ok) {
           const data = await leadsRes.json();
           if (!cancelled) setLeads(data.leads);
+        }
+        if (membersRes.ok) {
+          const data = await membersRes.json();
+          if (!cancelled) setMembers(data.members);
         }
       } finally {
         if (!cancelled) setLoading(false);
@@ -173,6 +181,8 @@ export function CallCrmPanel() {
           Follow-ups ({dueLeads.length})
         </button>
       </div>
+
+      {!loading && <TeamMembers members={members} onChanged={refresh} />}
 
       {loading && <p className="mt-6 font-mono text-xs text-paper-dim">Loading...</p>}
 
@@ -254,6 +264,7 @@ export function CallCrmPanel() {
           campaign={activeCampaign}
           leads={leads.filter((l) => l.campaign_id === activeCampaign.id)}
           otherCampaigns={campaigns.filter((c) => c.id !== activeCampaign.id)}
+          members={members}
           onBack={() => setView({ kind: "campaigns" })}
           onDeleteCampaign={() => deleteCampaign(activeCampaign.id)}
           onChanged={refresh}
@@ -284,6 +295,112 @@ function StatusSelect({
         </option>
       ))}
     </select>
+  );
+}
+
+function AssignedSelect({
+  members,
+  value,
+  onChange,
+}: {
+  members: CallTeamMemberRow[];
+  value: string;
+  onChange: (name: string) => void;
+}) {
+  return (
+    <select
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      className="min-h-11 rounded-lg border border-line-strong bg-ink px-2 font-mono text-[11px] text-paper-dim outline-none focus:border-signal"
+    >
+      <option value="">Unassigned</option>
+      {members.map((m) => (
+        <option key={m.id} value={m.name} className="text-paper">
+          {m.name}
+        </option>
+      ))}
+    </select>
+  );
+}
+
+// Sits above every view (campaigns, a campaign, follow-ups) rather than
+// inside one of them, because who's on the team is not scoped to a market
+// or a campaign — the same list feeds every "assign to" dropdown everywhere
+// in this panel.
+function TeamMembers({
+  members,
+  onChanged,
+}: {
+  members: CallTeamMemberRow[];
+  onChanged: () => void;
+}) {
+  const [name, setName] = useState("");
+  const [adding, setAdding] = useState(false);
+  const [error, setError] = useState("");
+
+  async function addMember() {
+    if (!name.trim()) return;
+    setAdding(true);
+    setError("");
+    const res = await fetch("/api/call-team-members", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name }),
+    });
+    setAdding(false);
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      setError(data.error || "Could not add that name.");
+      return;
+    }
+    setName("");
+    onChanged();
+  }
+
+  async function removeMember(id: number) {
+    if (!confirm("Remove this team member? Leads already assigned to them keep the name.")) return;
+    await fetch(`/api/call-team-members/${id}`, { method: "DELETE" });
+    onChanged();
+  }
+
+  return (
+    <div className="mt-6 flex flex-wrap items-center gap-2 border-b border-line pb-6">
+      <span className="font-mono text-[10px] uppercase tracking-[0.08em] text-paper-dim">
+        Team
+      </span>
+      {members.map((m) => (
+        <span
+          key={m.id}
+          className="flex items-center gap-2 rounded-full border border-line-strong px-3 py-1 font-mono text-[11px] text-paper-dim"
+        >
+          {m.name}
+          <button
+            onClick={() => removeMember(m.id)}
+            aria-label={`Remove ${m.name} from the team`}
+            className="text-paper-dim/60 hover:text-signal"
+          >
+            ×
+          </button>
+        </span>
+      ))}
+      <input
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") addMember();
+        }}
+        placeholder="Add team member"
+        className="min-h-11 w-40 rounded-lg border border-line-strong bg-ink px-3 font-mono text-xs text-paper outline-none focus:border-signal"
+      />
+      <button
+        onClick={addMember}
+        disabled={adding || !name.trim()}
+        className="flex min-h-11 items-center rounded-full border border-line-strong px-3 py-1 font-mono text-[11px] uppercase tracking-[0.08em] text-paper-dim hover:text-paper disabled:opacity-50"
+      >
+        + Add
+      </button>
+      {error && <span className="font-mono text-[11px] text-signal">{error}</span>}
+    </div>
   );
 }
 
@@ -347,6 +464,11 @@ function FollowUpsView({
                         {campaign.name}
                       </span>
                     )}
+                    {l.assigned_to && (
+                      <span className="rounded-full border border-line-strong px-2 py-0.5 font-mono text-[10px] text-paper-dim">
+                        {l.assigned_to}
+                      </span>
+                    )}
                   </div>
                   <p className="mt-1 font-mono text-xs text-paper-dim">
                     {l.contact_name ? `${l.contact_name} · ` : ""}
@@ -381,6 +503,7 @@ function CampaignDetail({
   campaign,
   leads,
   otherCampaigns,
+  members,
   onBack,
   onDeleteCampaign,
   onChanged,
@@ -388,16 +511,19 @@ function CampaignDetail({
   campaign: CallCampaignRow;
   leads: CallLeadRow[];
   otherCampaigns: CallCampaignRow[];
+  members: CallTeamMemberRow[];
   onBack: () => void;
   onDeleteCampaign: () => void;
   onChanged: () => void;
 }) {
   const [paste, setPaste] = useState("");
+  const [importAssignee, setImportAssignee] = useState("");
   const [importing, setImporting] = useState(false);
   const [importMsg, setImportMsg] = useState("");
   const [importErr, setImportErr] = useState("");
   const [showAddForm, setShowAddForm] = useState(false);
   const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [assigneeFilter, setAssigneeFilter] = useState<string>("all");
   const [addValues, setAddValues] = useState({
     company: "",
     contact_name: "",
@@ -405,6 +531,7 @@ function CampaignDetail({
     email: "",
     niche: campaign.niche,
     notes: "",
+    assigned_to: "",
   });
   const [addSaving, setAddSaving] = useState(false);
 
@@ -419,7 +546,7 @@ function CampaignDetail({
     const res = await fetch("/api/call-leads/import", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ campaign_id: campaign.id, paste }),
+      body: JSON.stringify({ campaign_id: campaign.id, paste, assigned_to: importAssignee }),
     });
     setImporting(false);
     if (!res.ok) {
@@ -450,6 +577,7 @@ function CampaignDetail({
         email: "",
         niche: campaign.niche,
         notes: "",
+        assigned_to: "",
       });
       setShowAddForm(false);
       onChanged();
@@ -498,8 +626,25 @@ function CampaignDetail({
     onChanged();
   }
 
-  const visible = statusFilter === "all" ? leads : leads.filter((l) => l.status === statusFilter);
+  async function setAssigned(id: number, assigned_to: string) {
+    await fetch(`/api/call-leads/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ assigned_to }),
+    });
+    onChanged();
+  }
+
+  const byStatus = statusFilter === "all" ? leads : leads.filter((l) => l.status === statusFilter);
+  const visible =
+    assigneeFilter === "all"
+      ? byStatus
+      : assigneeFilter === "unassigned"
+        ? byStatus.filter((l) => !l.assigned_to)
+        : byStatus.filter((l) => l.assigned_to === assigneeFilter);
   const counts = STATUS_ORDER.map((s) => ({ status: s, n: leads.filter((l) => l.status === s).length }));
+  const assignedNames = Array.from(new Set(leads.map((l) => l.assigned_to).filter(Boolean)));
+  const unassignedCount = leads.filter((l) => !l.assigned_to).length;
 
   return (
     <div className="mt-8">
@@ -541,6 +686,12 @@ function CampaignDetail({
           className="mt-4 w-full rounded-lg border border-line-strong bg-ink px-3 py-2 font-mono text-xs text-paper outline-none focus:border-signal"
         />
         <div className="mt-4 flex flex-wrap items-center gap-3">
+          <div className="flex flex-col items-start gap-1">
+            <label className="font-mono text-[10px] uppercase tracking-[0.08em] text-paper-dim">
+              Assign this batch to
+            </label>
+            <AssignedSelect members={members} value={importAssignee} onChange={setImportAssignee} />
+          </div>
           <button
             onClick={runImport}
             disabled={importing}
@@ -596,6 +747,11 @@ function CampaignDetail({
               placeholder="Notes"
               className="min-h-11 rounded-lg border border-line-strong bg-ink px-3 font-mono text-xs text-paper outline-none focus:border-signal"
             />
+            <AssignedSelect
+              members={members}
+              value={addValues.assigned_to}
+              onChange={(name) => setAddValues((v) => ({ ...v, assigned_to: name }))}
+            />
             <button
               onClick={addLead}
               disabled={addSaving || !addValues.company.trim() || !addValues.phone.trim()}
@@ -633,6 +789,46 @@ function CampaignDetail({
         ))}
       </div>
 
+      {(assignedNames.length > 0 || unassignedCount > 0) && (
+        <div className="mt-3 flex flex-wrap gap-2">
+          <button
+            onClick={() => setAssigneeFilter("all")}
+            className={`flex min-h-11 items-center rounded-full border px-4 font-mono text-[11px] uppercase tracking-[0.08em] transition-colors ${
+              assigneeFilter === "all"
+                ? "border-signal text-signal"
+                : "border-line-strong text-paper-dim hover:text-paper"
+            }`}
+          >
+            Everyone
+          </button>
+          {assignedNames.map((n) => (
+            <button
+              key={n}
+              onClick={() => setAssigneeFilter(n)}
+              className={`flex min-h-11 items-center rounded-full border px-4 font-mono text-[11px] uppercase tracking-[0.08em] transition-colors ${
+                assigneeFilter === n
+                  ? "border-signal text-signal"
+                  : "border-line-strong text-paper-dim hover:text-paper"
+              }`}
+            >
+              {n} ({leads.filter((l) => l.assigned_to === n).length})
+            </button>
+          ))}
+          {unassignedCount > 0 && (
+            <button
+              onClick={() => setAssigneeFilter("unassigned")}
+              className={`flex min-h-11 items-center rounded-full border px-4 font-mono text-[11px] uppercase tracking-[0.08em] transition-colors ${
+                assigneeFilter === "unassigned"
+                  ? "border-signal text-signal"
+                  : "border-line-strong text-paper-dim hover:text-paper"
+              }`}
+            >
+              Unassigned ({unassignedCount})
+            </button>
+          )}
+        </div>
+      )}
+
       <div className="mt-6 divide-y divide-line border-t border-line">
         {visible.length === 0 && (
           <p className="py-6 text-sm text-paper-dim">
@@ -644,10 +840,12 @@ function CampaignDetail({
             key={l.id}
             lead={l}
             otherCampaigns={otherCampaigns}
+            members={members}
             onStatus={(s) => setStatus(l.id, s)}
             onNotes={(n) => setNotes(l.id, n)}
             onCallback={(d) => setCallback(l.id, d)}
             onMove={(campaignId) => moveLead(l.id, campaignId)}
+            onAssign={(name) => setAssigned(l.id, name)}
             onDelete={() => removeLead(l.id)}
           />
         ))}
@@ -659,18 +857,22 @@ function CampaignDetail({
 function LeadRow({
   lead,
   otherCampaigns,
+  members,
   onStatus,
   onNotes,
   onCallback,
   onMove,
+  onAssign,
   onDelete,
 }: {
   lead: CallLeadRow;
   otherCampaigns: CallCampaignRow[];
+  members: CallTeamMemberRow[];
   onStatus: (status: string) => void;
   onNotes: (notes: string) => void;
   onCallback: (date: string) => void;
   onMove: (campaignId: number) => void;
+  onAssign: (name: string) => void;
   onDelete: () => void;
 }) {
   const [notes, setNotes] = useState(lead.notes);
@@ -684,6 +886,11 @@ function LeadRow({
             {lead.niche && (
               <span className="rounded-full border border-line-strong px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.08em] text-paper-dim">
                 {lead.niche}
+              </span>
+            )}
+            {lead.assigned_to && (
+              <span className="rounded-full border border-line-strong px-2 py-0.5 font-mono text-[10px] text-paper-dim">
+                {lead.assigned_to}
               </span>
             )}
           </div>
@@ -717,6 +924,7 @@ function LeadRow({
             />
           </div>
           <StatusSelect value={lead.status} onChange={onStatus} />
+          <AssignedSelect members={members} value={lead.assigned_to} onChange={onAssign} />
           {otherCampaigns.length > 0 && (
             <select
               value=""

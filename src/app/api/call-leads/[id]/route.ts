@@ -95,6 +95,10 @@ export async function PATCH(
     await sql`UPDATE call_leads SET callback_at = ${cleanCallbackDate(body.callback_at)} WHERE id = ${leadId}`;
     touched = true;
   }
+  if (body.assigned_to !== undefined) {
+    await sql`UPDATE call_leads SET assigned_to = ${clean(body.assigned_to, 80)} WHERE id = ${leadId}`;
+    touched = true;
+  }
 
   if (!touched) {
     return NextResponse.json({ error: "Nothing to update" }, { status: 400 });
