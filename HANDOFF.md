@@ -1480,3 +1480,130 @@ Both are compliance/credential inputs I can't supply myself:
 - [ ] Not yet built: the Companies House check for UK sole-trader vs. limited
       company (PECR/UK GDPR legitimate-interest gate), discussed in section
       28 but out of scope for this pass.
+
+---
+
+## 30. FAQ hub and spokes, backlink audit — 9 Sep 2026
+
+On-page SEO was genuinely finished (section 28 holds up: every meta title
+and description is within Google's limits, one H1 per page, descriptive alt
+text, canonical/OG/JSON-LD/sitemap/robots all correct, `sameAs` now wired to
+Instagram, 8 per-URL OG cards, TTFB 0.4 to 0.8s). The two things left were
+structural, and only one of them is an agent's to fix.
+
+### The site had 8 indexable URLs. Now it has 19.
+
+All 216 FAQ answers lived on `/faq` alone, so 11 distinct query clusters
+competed for one page's worth of ranking while average position sat at 11.9,
+which is page 2. Each category now has its own page:
+
+| URL | Qs | | URL | Qs |
+|---|---|---|---|---|
+| `/faq/pricing` | 22 | | `/faq/marketing-and-social` | 20 |
+| `/faq/process` | 22 | | `/faq/working-together` | 20 |
+| `/faq/ai-voice-agents` | 20 | | `/faq/technical-and-security` | 20 |
+| `/faq/ai-chatbots` | 20 | | `/faq/hiring-remotely` | 16 |
+| `/faq/business-automation` | 20 | | `/faq/islamabad` | 16 |
+| `/faq/web-development` | 20 | | | |
+
+Every one is 16 to 22 questions, so none is thin content, and **every answer
+already existed** — nothing was written to fill a page. `/faq/pricing` and
+`/faq/islamabad` are the two carrying the most weight (cost queries are the
+highest-volume commercial searches in this space per section 7's research,
+and local intent is the least contested per section 24).
+
+**`src/lib/faq-categories.ts` is the join.** Page metadata (slug, meta title,
+H1, intro, related services) is keyed by category id and kept out of
+`all-faqs.ts`, which stays a pure content file. It **throws at module load**
+if a category in `all-faqs.ts` has no entry here, so adding a category
+without a slug fails the build instead of shipping a hub card linking to a
+404.
+
+### The hub/spoke rule, and the one place section 27's invariant stops
+
+**No answer exists at two URLs.** `/faq` emits no FAQPage schema and renders
+no answer text with an empty query; each spoke owns its own FAQPage,
+BreadcrumbList and OG card. Two contract tests enforce exactly this.
+
+⚠️ Section 27's **"filtering is CSS only, nothing unmounts"** rule still
+governs the spoke pages, where `Faq` renders unfiltered and every answer
+stays mounted. It **deliberately no longer applies to the hub**, and this is
+the only place that is true. That rule existed because `/faq` emitted
+FAQPage structured data that had to match visible content. It emits none now,
+so there is nothing for hidden answers to contradict, and rendering matches
+only is what keeps the hub free of duplicate copy. Do not "restore
+consistency" by putting the answers back on `/faq`: that recreates the exact
+self-competition this change removed.
+
+**This is not cloaking.** A crawler and a person who has not typed see the
+same category cards. Nothing keys off the user agent, and typing a query is
+an ordinary interaction available to anyone. Section 28's standing decision
+against crawler-only text is intact.
+
+### Backlinks: two of five are done, and the gap is not where section 24 assumed
+
+Checked all five sites Zaheen controls or built, by fetching them:
+
+| Site | Links back? |
+|---|---|
+| `pakengine.com` | **Yes.** Footer "A project by Zaheen Zuberi" plus a JSON-LD `founder.url` |
+| `adrealestate.pk` | **Yes.** Footer "Designed & built by Zaheen Zuberi" (`developer` in its own `src/lib/site.ts`) |
+| `tryvoicely.com` | **No.** Zero mentions |
+| `lexjustitia.pk` | **No.** Zero mentions |
+| `abjuris.pk` | **No.** Zero mentions |
+
+Both live links are dofollow (`rel="noopener noreferrer"` only). All three
+missing sites return 200 with real content, so it is not a fetch artifact.
+
+**None of those three repos are on this machine**, so an agent cannot add
+them. `tryvoicely.com` is Zaheen's own product and needs no permission;
+the two law firms need a quick ask. This stays the single biggest ranking
+constraint and it is still mostly his action, not an agent's.
+
+Worth knowing when it comes up: links from sites you built yourself are
+self-made rather than editorial, so Google discounts them. They are standard
+agency practice and worth having, but three more will not alone move the site
+off page 2. An independent site choosing to link is what does.
+
+### Smaller fixes in the same pass
+
+- **Breadcrumb links now carry `min-w-11`.** Making FAQ a *middle* crumb
+  turned it into a 41px tap target on the new pages. Section 27 fixed this
+  once with `px-2` sized against "Home"; a floor is exact at any word length
+  where padding is a guess that has now missed twice.
+- **Em dashes removed** from the homepage meta description, the
+  `ai-chatbots` meta description, the old `/faq` title, and one About
+  paragraph. Meta text renders directly in search results, which is the most
+  visible possible place to break section 2's rule. Verified zero remain in
+  any live title or description.
+- `FaqResults.tsx` was replaced by `FaqHub.tsx` and deleted.
+  `CategoryMarquee` links are now real routes (`next/link`), not `#id`
+  anchors.
+
+### Verification
+
+`npx tsc --noEmit`, `npm run lint`, `npm run build` (57 static pages, was 35)
+all clean. **83 contract tests pass against production**, up from 40, adding
+the 11 pages, their 11 OG cards, the sitemap-completeness check, and the two
+hub/spoke schema tests.
+
+Measured live at 375px before pushing: **the hub is 6.0 screens where `/faq`
+was 31.5**, zero tap targets under 44px, zero text under 12px, no horizontal
+scroll. Search still covers all 216 and groups matches by category.
+
+Note the two tests that fail against a *local* dev server and pass on
+production are expected: "no localhost in the HTML" (you are testing
+localhost) and the `aggregateRating` check (local PGlite has no reviews
+seeded). Do not "fix" either.
+
+### Still open after this
+
+- [ ] **The three missing backlinks above.** Highest-leverage item on the
+      whole list and unchanged since section 24.
+- [ ] Nothing has been submitted to Search Console for the 11 new URLs. They
+      are in `sitemap.xml`, which Google re-reads on its own, but a manual
+      "Request indexing" on `/faq/pricing` and `/faq/islamabad` would be
+      faster. Agent cannot do this; it needs Zaheen's Google account.
+- [ ] Everything still listed under section 28's "Still open" (Suleman
+      Rashid's review, Instagram content, Google Posts, the parked luxury
+      palette, rotating `ADMIN_PASSWORD`).
