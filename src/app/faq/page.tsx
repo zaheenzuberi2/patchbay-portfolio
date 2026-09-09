@@ -6,18 +6,18 @@ import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ChatWidget } from "@/components/ChatWidget";
 import { VoiceWidget } from "@/components/VoiceWidget";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import { FaqSchema } from "@/components/Faq";
 import { Reveal } from "@/components/Reveal";
 import { FaqSearchBar } from "@/components/FaqSearchBar";
-import { FaqResults } from "@/components/FaqResults";
+import { FaqHub } from "@/components/FaqHub";
 import { FaqQueryProvider } from "@/lib/faq-query-context";
 import { siteConfig } from "@/lib/site-config";
 import { services } from "@/lib/services";
-import { FAQ_CATEGORIES, allFaqsFlat, totalFaqCount } from "@/lib/all-faqs";
+import { totalFaqCount } from "@/lib/all-faqs";
+import { faqCategoryPages } from "@/lib/faq-categories";
 
 const url = `${siteConfig.url}/faq`;
-const title = `${totalFaqCount}+ Questions Answered — FAQ`;
-const description = `Answers on AI voice agents, chatbots, automation, web dev, pricing, and working with ${siteConfig.ownerName}'s team — everything you need before reaching out.`;
+const title = `FAQ: ${totalFaqCount} Answers on AI, Web & Social`;
+const description = `Search ${totalFaqCount} answers on AI voice agents, chatbots, automation, web development, pricing, and working with ${siteConfig.ownerName}'s team in Islamabad.`;
 
 export const metadata: Metadata = {
   title,
@@ -38,28 +38,24 @@ export const metadata: Metadata = {
   },
 };
 
+// This page is a hub. It deliberately emits no FAQPage schema and repeats no
+// answers: each of the 11 categories owns its own page, its own questions and
+// its own structured data (see faq-categories.ts for why). Search still
+// covers all of them, and FaqHub.tsx explains what that means for the
+// "answers stay in the DOM" rule this page used to be governed by.
 export default function FaqPage() {
   return (
     <div className="flex flex-1 flex-col">
-      <FaqSchema items={allFaqsFlat} />
       <Nav />
 
       <main className="flex flex-1 flex-col">
         <FaqQueryProvider>
-          {/* Search and the category marquee moved to the very top of the
-              page, ahead of the heading and breadcrumb, so a visitor can
-              search or jump to a category before scrolling past any copy.
-              The actual results (FaqResults) stay in their original
-              position below the intro rather than moving up too — a page
-              opening straight into 200 questions with the H1 buried after
-              all of them read badly, so only the controls moved, not the
-              content they control. The two share query state through
-              FaqQueryContext since they're no longer siblings in one
-              render tree. pt-20 clears the fixed header (Nav.tsx, 78px
-              closed on mobile), the same value Hero.tsx and the other page
-              heroes use for the same header height. */}
+          {/* Search sits above the page's own heading so a visitor can search
+              or jump to a category before scrolling past any copy. pt-20
+              clears the fixed header (Nav.tsx, 78px closed on mobile), the
+              same value Hero.tsx and the other page heroes use. */}
           <div className="pt-20 sm:pt-24">
-            <FaqSearchBar categories={FAQ_CATEGORIES} />
+            <FaqSearchBar categories={faqCategoryPages} />
           </div>
 
           <section className="relative overflow-hidden border-b border-line py-10 sm:py-16">
@@ -76,15 +72,16 @@ export default function FaqPage() {
                   Every question, answered.
                 </h1>
                 <p className="mt-6 max-w-2xl text-lg leading-relaxed text-paper-dim">
-                  {totalFaqCount} real questions across pricing, process,
-                  every channel we run, and what it is actually like working
-                  with this team. No invented numbers, no filler.
+                  {totalFaqCount} real questions across pricing, process, every
+                  channel we run, and what it is actually like working with this
+                  team. Search all of them, or pick a category below. No
+                  invented numbers, no filler.
                 </p>
               </div>
             </div>
           </section>
 
-          <FaqResults categories={FAQ_CATEGORIES} />
+          <FaqHub categories={faqCategoryPages} />
         </FaqQueryProvider>
 
         <section className="py-10 sm:py-24">
@@ -104,21 +101,16 @@ export default function FaqPage() {
                   {siteConfig.contactEmail}
                 </a>
 
-                {/* This page had no link to any service page at all: a
-                    visitor landing here from search (the "Serving
-                    Islamabad" and voice-agent questions rank for real
-                    queries) could read an answer and then had nowhere to go
-                    but the nav or the back button. Anchor text is each
-                    service's own name from services.ts rather than a
-                    generic "learn more", both because descriptive anchors
-                    are what actually describe the target page to a crawler
-                    and so these can never drift out of sync with the real
-                    service names.
+                {/* Anchor text is each service's own name from services.ts
+                    rather than a generic "learn more", both because
+                    descriptive anchors are what actually describe the target
+                    page to a crawler and so these can never drift out of sync
+                    with the real service names.
 
-                    Deliberately one grouped row here rather than links
-                    scattered inline through the 200+ answers: that reads as
-                    SEO filler in the copy, and hundreds of links pointing
-                    at five pages dilutes rather than concentrates. */}
+                    Deliberately one grouped row rather than links scattered
+                    inline through the answers: that reads as SEO filler in
+                    the copy, and hundreds of links pointing at five pages
+                    dilutes rather than concentrates. */}
                 <div className="mt-10 border-t border-line pt-8">
                   <p className="font-mono text-xs uppercase tracking-[0.15em] text-paper-dim sm:text-[11px]">
                     Or go straight to a channel

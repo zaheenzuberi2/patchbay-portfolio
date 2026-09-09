@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/site-config";
 import { services } from "@/lib/services";
+import { faqCategoryPages } from "@/lib/faq-categories";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -33,6 +34,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       // SEO work, so the sitemap hint should honestly reflect that instead
       // of treating all five as equally important.
       priority: s.slug === "ai-voice-agents" ? 0.85 : 0.8,
+    })),
+    // The 11 FAQ category pages. Priority 0.7: below the service pages,
+    // which are the commercial-intent entry points, but above nothing, since
+    // several of these target real query clusters of their own (cost
+    // questions and the Islamabad ones especially). Pricing and Islamabad
+    // get the small edge for the same honest reason ai-voice-agents does
+    // above: they are the two doing the most work.
+    ...faqCategoryPages.map((c) => ({
+      url: `${siteConfig.url}/faq/${c.slug}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: c.slug === "pricing" || c.slug === "islamabad" ? 0.75 : 0.7,
     })),
   ];
 }

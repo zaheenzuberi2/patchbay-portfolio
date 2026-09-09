@@ -1,7 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useReducedMotion } from "motion/react";
-import type { FaqCategory } from "@/lib/all-faqs";
+import type { FaqCategoryPage } from "@/lib/faq-categories";
 
 // Auto-scrolling marquee instead of a manually-scrollable chip row. The list
 // is rendered twice back to back so a CSS translateX(-50%) loop is seamless;
@@ -9,10 +10,14 @@ import type { FaqCategory } from "@/lib/all-faqs";
 // clickable despite the constant motion. Under prefers-reduced-motion this
 // falls back to the original static, manually-scrollable row rather than a
 // single frozen half-loop.
+//
+// These were same-page `#id` anchors while /faq held all 216 answers. Each
+// category now has its own page, so they are real routes and use Link for
+// client-side navigation and prefetching.
 export function CategoryMarquee({
   categories,
 }: {
-  categories: FaqCategory[];
+  categories: FaqCategoryPage[];
 }) {
   const reduced = useReducedMotion();
 
@@ -39,13 +44,13 @@ export function CategoryMarquee({
       <div className="w-[calc(100%-5rem)] overflow-x-auto sm:w-[calc(100%-6rem)]">
         <div className="mx-auto flex max-w-6xl gap-2 px-6 py-3">
           {categories.map((cat) => (
-            <a
+            <Link
               key={cat.id}
-              href={`#${cat.id}`}
+              href={`/faq/${cat.slug}`}
               className="flex min-h-11 shrink-0 items-center rounded-full border border-line-strong px-3.5 py-2 font-mono text-xs sm:text-[11px] uppercase tracking-[0.1em] text-paper-dim transition-colors hover:border-signal/50 hover:text-paper"
             >
               {cat.label}
-            </a>
+            </Link>
           ))}
         </div>
       </div>
@@ -56,15 +61,15 @@ export function CategoryMarquee({
     <div className="marquee w-[calc(100%-5rem)] overflow-hidden sm:w-[calc(100%-6rem)]">
       <div className="marquee-track flex w-max gap-2 py-3 pl-6">
         {[...categories, ...categories].map((cat, i) => (
-          <a
+          <Link
             key={`${cat.id}-${i}`}
-            href={`#${cat.id}`}
+            href={`/faq/${cat.slug}`}
             tabIndex={i < categories.length ? 0 : -1}
             aria-hidden={i >= categories.length}
             className="flex min-h-11 shrink-0 items-center rounded-full border border-line-strong px-3.5 py-2 font-mono text-xs sm:text-[11px] uppercase tracking-[0.1em] text-paper-dim transition-colors hover:border-signal/50 hover:text-paper"
           >
             {cat.label}
-          </a>
+          </Link>
         ))}
       </div>
     </div>

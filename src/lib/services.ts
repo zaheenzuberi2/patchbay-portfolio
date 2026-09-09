@@ -140,7 +140,7 @@ export const services: Service[] = [
     h1: "Chatbots that resolve the question instead of deflecting it",
     metaTitle: "AI Chatbot Development | WhatsApp & Web",
     metaDescription:
-      "Custom AI chatbots for websites, WhatsApp, and Instagram — trained on your content, qualifying leads around the clock. See how it works.",
+      "Custom AI chatbots for websites, WhatsApp, and Instagram, trained on your content, qualifying leads around the clock. See how it works.",
     keywords: [
       "AI chatbot development",
       "WhatsApp chatbot development",

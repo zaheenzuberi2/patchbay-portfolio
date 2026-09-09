@@ -29,6 +29,24 @@ const BASE = (process.env.BASE_URL || "https://zaheenzuberi.com").replace(
   "",
 );
 
+// The 11 FAQ category pages. /faq is a hub that links to these and repeats
+// none of their answers, so each question lives at exactly one URL. Kept as
+// its own list because several assertions below care specifically about the
+// hub/spoke split rather than about pages in general.
+const FAQ_CATEGORY_PAGES = [
+  "/faq/pricing",
+  "/faq/process",
+  "/faq/ai-voice-agents",
+  "/faq/ai-chatbots",
+  "/faq/business-automation",
+  "/faq/web-development",
+  "/faq/marketing-and-social",
+  "/faq/working-together",
+  "/faq/technical-and-security",
+  "/faq/hiring-remotely",
+  "/faq/islamabad",
+];
+
 const PAGES = [
   "/",
   "/services",
@@ -38,6 +56,7 @@ const PAGES = [
   "/services/business-automation",
   "/services/web-development",
   "/services/marketing-and-social",
+  ...FAQ_CATEGORY_PAGES,
 ];
 
 // Every endpoint that mutates data or reveals leads. All must refuse an
@@ -86,6 +105,7 @@ const OG_IMAGES = [
   ...PAGES.filter((p) => p.startsWith("/services/")).map(
     (p) => `${p}/opengraph-image`,
   ),
+  ...FAQ_CATEGORY_PAGES.map((p) => `${p}/opengraph-image`),
 ];
 
 let homeHtml = "";
@@ -195,14 +215,24 @@ describe("canonical identity", () => {
     );
   });
 
-  test("sitemap lists 8 URLs, all on the canonical origin", async () => {
+  test("sitemap lists every page, all on the canonical origin", async () => {
     const canonical = homeHtml.match(/rel="canonical"\s+href="([^"]+)"/)?.[1];
     const origin = new URL(canonical).origin;
     const xml = await (await fetch(BASE + "/sitemap.xml")).text();
     const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
-    assert.equal(locs.length, 8, `sitemap had ${locs.length} URLs`);
+    assert.equal(
+      locs.length,
+      PAGES.length,
+      `sitemap had ${locs.length} URLs, expected ${PAGES.length}`,
+    );
     for (const loc of locs) {
       assert.equal(new URL(loc).origin, origin, `${loc} is off-origin`);
+    }
+    // A page that exists but is missing from the sitemap is the failure mode
+    // that actually happens: adding a route and forgetting sitemap.ts.
+    const paths = locs.map((l) => new URL(l).pathname.replace(/\/$/, "") || "/");
+    for (const page of PAGES) {
+      assert.ok(paths.includes(page), `${page} is missing from the sitemap`);
     }
   });
 
@@ -279,6 +309,58 @@ describe("structured data", () => {
       !blocks.some((b) => b["@type"] === "ProfessionalService"),
       "ProfessionalService is duplicated on a service page",
     );
+  });
+
+  // The hub/spoke split is the whole reason /faq stopped listing its own
+  // answers. If a regression puts the answers back on /faq, every question
+  // exists at two URLs again and the 11 category pages start competing with
+  // their own hub for the same queries. These two tests are what catch that.
+  test("/faq is a hub: it owns no FAQPage and repeats no answers", async () => {
+    const html = await (await fetch(BASE + "/faq")).text();
+    const blocks = [
+      ...html.matchAll(
+        /<script type="application\/ld\+json">(.*?)<\/script>/gs,
+      ),
+    ].map((m) => JSON.parse(m[1]));
+    assert.ok(
+      !blocks.some((b) => b["@type"] === "FAQPage"),
+      "/faq emitted FAQPage schema; the category pages own that now",
+    );
+    for (const path of FAQ_CATEGORY_PAGES) {
+      assert.ok(html.includes(`href="${path}"`), `/faq does not link ${path}`);
+    }
+  });
+
+  test("each FAQ category page owns a FAQPage with its answers in the DOM", async () => {
+    const html = await (await fetch(BASE + "/faq/pricing")).text();
+    const blocks = [
+      ...html.matchAll(
+        /<script type="application\/ld\+json">(.*?)<\/script>/gs,
+      ),
+    ].map((m) => JSON.parse(m[1]));
+    const faq = blocks.find((b) => b["@type"] === "FAQPage");
+    assert.ok(faq, "no FAQPage entity on /faq/pricing");
+    assert.ok(
+      faq.mainEntity.length >= 15,
+      `only ${faq.mainEntity.length} questions, expected a real page's worth`,
+    );
+    assert.ok(
+      blocks.some((b) => b["@type"] === "BreadcrumbList"),
+      "no BreadcrumbList on a FAQ category page",
+    );
+    assert.ok(
+      !blocks.some((b) => b["@type"] === "ProfessionalService"),
+      "ProfessionalService is duplicated on a FAQ category page",
+    );
+    // Schema has to match visible content: every answer it claims must
+    // actually be rendered, expanded or not (HANDOFF section 7 and 27).
+    for (const entry of faq.mainEntity) {
+      const answer = entry.acceptedAnswer.text.slice(0, 40);
+      assert.ok(
+        html.includes(answer.replace(/&/g, "&amp;")) || html.includes(answer),
+        `answer missing from the DOM: "${entry.name}"`,
+      );
+    }
   });
 });
 

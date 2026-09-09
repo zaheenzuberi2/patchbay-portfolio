@@ -4,16 +4,19 @@ import { useId } from "react";
 import { faqMatches } from "./Faq";
 import { CategoryMarquee } from "./CategoryMarquee";
 import { useFaqQuery } from "@/lib/faq-query-context";
-import type { FaqCategory } from "@/lib/all-faqs";
+import type { FaqCategoryPage } from "@/lib/faq-categories";
 
-// The top-of-page half of what FaqLibrary.tsx used to be in one piece: the
-// search input, the live match count, and the category marquee. Placed
-// above the page's own heading so a visitor can search or jump to a
-// category before scrolling past any copy. FaqResults.tsx is the other
-// half, rendered lower on the page in its original position, sharing state
-// through FaqQueryContext rather than through props, since the two are no
-// longer siblings in one render tree.
-export function FaqSearchBar({ categories }: { categories: FaqCategory[] }) {
+// The top-of-page half of /faq: the search input, the live match count, and
+// the category marquee. Placed above the page's own heading so a visitor can
+// search or jump to a category before scrolling past any copy. FaqHub.tsx is
+// the other half, rendered lower on the page, sharing state through
+// FaqQueryContext rather than through props, since the two are not siblings
+// in one render tree.
+export function FaqSearchBar({
+  categories,
+}: {
+  categories: FaqCategoryPage[];
+}) {
   const { query, setQuery } = useFaqQuery();
   const inputId = useId();
   const q = query.trim().toLowerCase();
@@ -41,7 +44,7 @@ export function FaqSearchBar({ categories }: { categories: FaqCategory[] }) {
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search 200 questions"
+              placeholder={`Search ${categories.reduce((n, c) => n + c.faqs.length, 0)} questions`}
               className="min-h-12 w-full bg-transparent text-base text-paper outline-none placeholder:text-paper-dim"
             />
             {q && (
@@ -70,8 +73,11 @@ export function FaqSearchBar({ categories }: { categories: FaqCategory[] }) {
         </div>
       </div>
 
-      {/* The category bar jumps to sections. While a search is active most of
-          those are hidden, so the links would scroll to nothing. */}
+      {/* The category bar now links to the per-category pages rather than
+          jumping to sections of this one. Still hidden during a search: the
+          results below are already grouped by category and each row says
+          which category it belongs to, so a second, competing set of
+          category links on screen at the same time is noise. */}
       {!q && (
         <nav
           aria-label="FAQ categories"
