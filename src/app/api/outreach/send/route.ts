@@ -16,15 +16,9 @@ import { siteConfig } from "@/lib/site-config";
 // batch, run long — 300 is the ceiling Vercel allows on Hobby (Fluid compute).
 export const maxDuration = 280;
 
-// Ramps automatically so nobody has to remember to come back and bump this:
-// 10/day for the first week, 20/day the second, 30/day from then on. Change
-// RAMP_START only if the ramp itself should restart from scratch.
-const RAMP_START = new Date("2026-09-06T00:00:00Z");
+// Flat daily send volume. Was a 10/20/30 ramp; fixed at 20/day now.
 function currentBatchSize() {
-  const daysIn = Math.floor((Date.now() - RAMP_START.getTime()) / 86_400_000);
-  if (daysIn < 7) return 10;
-  if (daysIn < 14) return 20;
-  return 30;
+  return 20;
 }
 
 const MIN_DELAY_MS = 3000;
