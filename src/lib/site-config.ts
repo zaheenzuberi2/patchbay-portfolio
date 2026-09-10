@@ -64,6 +64,10 @@ export const siteConfig = {
     "social media management Pakistan",
     "n8n automation developer",
     "Next.js developer Pakistan",
+    "web developer in Lahore",
+    "web developer in Karachi",
+    "software developer for businesses",
+    "AI voice agents for businesses",
   ],
 };
 

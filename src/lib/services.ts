@@ -46,6 +46,8 @@ export const services: Service[] = [
       "inbound call automation",
       "AI call center agent",
       "voicemail alternative for business",
+      "AI voice agents for businesses",
+      "AI voice agent developer Pakistan",
     ],
     intro:
       "Most businesses lose work simply because nobody picked up. A voice agent answers on the first ring, every time, at 2am and on public holidays. It speaks naturally, understands why the person is calling, answers what it can, books what it should, and hands you a written summary of the ones that matter.",
@@ -122,6 +124,10 @@ export const services: Service[] = [
       {
         q: "Do AI call center agents replace human agents entirely?",
         a: "Not usually, and that is not the recommendation here either. The agent handles first contact, qualification, and routine bookings, and hands anything needing judgment or an existing relationship to a person, so the escalation rules matter as much as the agent itself.",
+      },
+      {
+        q: "Are AI voice agents only worth it for large companies?",
+        a: "No. AI voice agents for businesses scale down as cleanly as they scale up: a single-location clinic or salon gets the same never-miss-a-call coverage as a larger team, just with a smaller call volume and a smaller monthly cost to match.",
       },
       {
         q: "Who is the best AI calling agent developer in Islamabad?",
@@ -297,6 +303,10 @@ export const services: Service[] = [
       "business website design",
       "full-stack developer Islamabad",
       "web developer for small business Pakistan",
+      "web developer in Lahore",
+      "web developer in Karachi",
+      "software developer for businesses",
+      "remote web developer Pakistan",
     ],
     intro:
       "Based in Islamabad, working with clients across Pakistan and internationally. A website built on a page builder looks fine until it needs to do something: take a booking, sync to a CRM, handle a thousand visitors at once, or rank for anything. I build sites the whole way down, so the thing you can see and the thing running underneath are both yours and both fast.",
@@ -337,6 +347,10 @@ export const services: Service[] = [
       {
         q: "Are you a web developer based in Islamabad?",
         a: "Yes. Based in Islamabad, working in person with local clients and remotely with clients across Pakistan and internationally. Lex Justitia and AB Juris, both real law firm builds, are live sites you can visit, not case studies dressed up for a pitch.",
+      },
+      {
+        q: "Do you work with businesses in Lahore or Karachi, not just Islamabad?",
+        a: "Yes. The base is Islamabad, but the work itself is remote-friendly end to end: calls, a shared project board, and a live preview link instead of in-person meetings. Clients in Lahore and Karachi are handled the same way as clients abroad, as a software developer for businesses anywhere in Pakistan, not just the city the team happens to sit in.",
       },
       {
         q: "How much does a website cost?",

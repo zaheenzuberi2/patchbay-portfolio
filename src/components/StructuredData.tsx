@@ -106,12 +106,17 @@ export async function StructuredData() {
           addressLocality: "Islamabad",
           addressCountry: "PK",
         },
-        // City-level entry added specifically for local queries like "web
-        // developer Islamabad" — areaServed previously only named the
-        // country and "Worldwide", with no signal at the city level the
-        // business is actually based in and most wants to be found for.
+        // City-level entries for local queries like "web developer
+        // Islamabad" / "Lahore" / "Karachi". Islamabad is where the
+        // business is based; Lahore and Karachi are added on top of that
+        // because the work is genuinely remote-friendly and existing
+        // clients are already served outside Islamabad (see the "Do you
+        // work with clients in Lahore or Karachi" FAQ on the web
+        // development page) — not a claim of a physical office there.
         areaServed: [
           { "@type": "City", name: "Islamabad" },
+          { "@type": "City", name: "Lahore" },
+          { "@type": "City", name: "Karachi" },
           { "@type": "Country", name: "Pakistan" },
           { "@type": "Place", name: "Worldwide" },
         ],
