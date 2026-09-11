@@ -14,21 +14,7 @@ import { makeUnsubscribeSlug } from "./unsubscribe";
 // signal, and it's what makes an email read as machine-sent in the first
 // place).
 
-function footerLines(email: string, baseUrl: string): string[] {
-  const address = process.env.OUTREACH_POSTAL_ADDRESS;
-  if (!address) {
-    // Fail closed, not open. US CAN-SPAM requires a real physical postal
-    // address in every commercial email; sending without one is not a
-    // formatting gap, it's a compliance gap, so this refuses outright rather
-    // than quietly shipping a footer with a hole in it.
-    throw new Error(
-      "OUTREACH_POSTAL_ADDRESS is not set — refusing to build an outreach " +
-        "email without the CAN-SPAM-required physical address.",
-    );
-  }
-
-  const unsubUrl = `${baseUrl}/u/${makeUnsubscribeSlug(email)}`;
-
+function footerLines(unsubUrl: string, address: string): string[] {
   // Reads as a normal sign-off, not a bolted-on legal disclaimer: the
   // address sits in the signature line itself (plenty of solo consultants
   // list one there), and the opt-out is one soft sentence, not a
@@ -43,7 +29,20 @@ function footerLines(email: string, baseUrl: string): string[] {
 }
 
 export function buildOutreachEmail(prospect: ProspectRow, baseUrl: string) {
+  const address = process.env.OUTREACH_POSTAL_ADDRESS;
+  if (!address) {
+    // Fail closed, not open. US CAN-SPAM requires a real physical postal
+    // address in every commercial email; sending without one is not a
+    // formatting gap, it's a compliance gap, so this refuses outright rather
+    // than quietly shipping a footer with a hole in it.
+    throw new Error(
+      "OUTREACH_POSTAL_ADDRESS is not set — refusing to build an outreach " +
+        "email without the CAN-SPAM-required physical address.",
+    );
+  }
+
   const isVoice = prospect.pitch === "voice";
+  const unsubscribeUrl = `${baseUrl}/u/${makeUnsubscribeSlug(prospect.email)}`;
 
   const pitchLines = isVoice
     ? [
@@ -68,7 +67,7 @@ export function buildOutreachEmail(prospect: ProspectRow, baseUrl: string) {
     prospect.signal,
     "",
     ...pitchLines,
-    ...footerLines(prospect.email, baseUrl),
+    ...footerLines(unsubscribeUrl, address),
   ];
 
   return {
@@ -76,5 +75,11 @@ export function buildOutreachEmail(prospect: ProspectRow, baseUrl: string) {
       ? `Missed calls at ${prospect.company}`
       : `Quick note on ${prospect.company}'s website`,
     text: lines.join("\n"),
+    // Surfaced separately from the body text so the caller can also set the
+    // List-Unsubscribe header — mail-tester flagged its absence: without it,
+    // Gmail/Outlook have no machine-readable opt-out to point their native
+    // "Unsubscribe" button at, which is both a missed trust signal and,
+    // since 2024, part of Gmail/Yahoo's bulk-sender requirements.
+    unsubscribeUrl,
   };
 }

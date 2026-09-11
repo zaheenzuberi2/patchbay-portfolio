@@ -108,6 +108,7 @@ export async function sendOutreachEmail(opts: {
   to: string;
   subject: string;
   text: string;
+  unsubscribeUrl: string;
 }): Promise<{ ok: true } | { ok: false; error: string }> {
   const transport = getTransport(opts.mailbox);
 
@@ -117,6 +118,19 @@ export async function sendOutreachEmail(opts: {
       to: opts.to,
       subject: opts.subject,
       text: opts.text,
+      // RFC 8058 one-click unsubscribe: gives Gmail/Outlook's native
+      // "Unsubscribe" button a real machine-readable target instead of only
+      // the link in the body text. Safe to wire up as strict one-click
+      // because /u/[slug]'s POST handler already unsubscribes unconditionally
+      // on any POST — see that file for why GET was split off from POST in
+      // the first place (a security scanner pre-fetching a GET-triggers-unsub
+      // link once cost real prospects a false-positive suppression).
+      list: {
+        unsubscribe: opts.unsubscribeUrl,
+      },
+      headers: {
+        "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+      },
     });
     return { ok: true };
   } catch (err) {

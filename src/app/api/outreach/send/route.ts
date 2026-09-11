@@ -132,7 +132,7 @@ export async function GET(request: NextRequest) {
       continue;
     }
 
-    let built: { subject: string; text: string };
+    let built: { subject: string; text: string; unsubscribeUrl: string };
     try {
       built = buildOutreachEmail(prospect, siteConfig.url);
     } catch (err) {
@@ -153,6 +153,7 @@ export async function GET(request: NextRequest) {
       to: prospect.email,
       subject: built.subject,
       text: built.text,
+      unsubscribeUrl: built.unsubscribeUrl,
     });
 
     if (outcome.ok) {
