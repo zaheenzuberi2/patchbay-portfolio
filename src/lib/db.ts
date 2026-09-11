@@ -384,6 +384,18 @@ async function init() {
     )
   `;
 
+  // One row per outreach mailbox, written the first time it ever sends.
+  // first_sent_at anchors that mailbox's own warm-up ramp (see
+  // outreach-mail.ts), so a mailbox added later — e.g. a Zoho inbox whose
+  // env vars get set weeks after tryvoicely.com's — starts its own ramp from
+  // its actual first send instead of inheriting another mailbox's clock.
+  await sql`
+    CREATE TABLE IF NOT EXISTS outreach_mailbox_state (
+      id TEXT PRIMARY KEY,
+      first_sent_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    )
+  `;
+
   await sql`CREATE TABLE IF NOT EXISTS meta (key TEXT PRIMARY KEY)`;
 
   // Covers databases created before the budget column existed.
@@ -446,6 +458,22 @@ export async function listProspects(): Promise<ProspectRow[]> {
   return (await sql`
     SELECT * FROM prospects ORDER BY created_at DESC, id DESC
   `) as ProspectRow[];
+}
+
+// Returns when this mailbox first sent outreach, inserting "now" the first
+// time it's asked about — that insert only ever happens once per mailbox
+// because of the primary key, so a mailbox's warm-up clock starts on its
+// true first send and stays fixed after that no matter how often this runs.
+export async function getMailboxWarmupStart(mailboxId: string): Promise<Date> {
+  const sql = await getDb();
+  await sql`
+    INSERT INTO outreach_mailbox_state (id) VALUES (${mailboxId})
+    ON CONFLICT (id) DO NOTHING
+  `;
+  const rows = (await sql`
+    SELECT first_sent_at FROM outreach_mailbox_state WHERE id = ${mailboxId}
+  `) as { first_sent_at: string }[];
+  return new Date(rows[0].first_sent_at);
 }
 
 export async function isSuppressed(email: string): Promise<boolean> {
