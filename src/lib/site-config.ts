@@ -74,3 +74,5 @@ export const siteConfig = {
 export const whatsappUrl = `https://wa.me/${siteConfig.whatsappNumber}`;
 
 export const instagramUrl = `https://www.instagram.com/${siteConfig.instagramHandle}/`;
+
+export const linkedinUrl = "https://www.linkedin.com/in/zaheenzuberi/";
