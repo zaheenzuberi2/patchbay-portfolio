@@ -27,7 +27,7 @@ export const services: Service[] = [
     slug: "ai-voice-agents",
     channel: "01",
     name: "AI Voice & Calling Agents",
-    h1: "AI voice agents that answer the phone and book the work",
+    h1: "An AI receptionist that answers, qualifies, and books 24/7",
     metaTitle: "AI Voice Agent Development | Receptionist",
     metaDescription:
       "AI voice agents that answer calls, qualify callers, and book appointments automatically. Built end to end by Zaheen Zuberi. Get a demo today.",
@@ -50,7 +50,7 @@ export const services: Service[] = [
       "AI voice agent developer Pakistan",
     ],
     intro:
-      "Most businesses lose work simply because nobody picked up. A voice agent answers on the first ring, every time, at 2am and on public holidays. It speaks naturally, understands why the person is calling, answers what it can, books what it should, and hands you a written summary of the ones that matter.",
+      "Most businesses lose work simply because nobody picked up. An AI receptionist answers on the first ring, 24/7, weekends and public holidays included. It speaks naturally, qualifies the caller against your own script, books what it should straight into your calendar, and follows up automatically on anything left open, then hands you a written summary of the ones that matter.",
     outcomes: [
       "Every inbound call answered, including after hours and weekends",
       "Callers qualified against your own script before they reach you",
