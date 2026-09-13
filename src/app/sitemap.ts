@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/site-config";
 import { services } from "@/lib/services";
+import { caseStudies } from "@/lib/case-studies";
 import { faqCategoryPages } from "@/lib/faq-categories";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -34,6 +35,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       // SEO work, so the sitemap hint should honestly reflect that instead
       // of treating all five as equally important.
       priority: s.slug === "ai-voice-agents" ? 0.85 : 0.8,
+    })),
+    ...caseStudies.map((c) => ({
+      url: `${siteConfig.url}/work/${c.slug}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.75,
     })),
     // The 11 FAQ category pages. Priority 0.7: below the service pages,
     // which are the commercial-intent entry points, but above nothing, since
