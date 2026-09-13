@@ -24,7 +24,7 @@ function footerLines(unsubUrl: string, address: string): string[] {
     "Zaheen",
     `Patchbay · https://zaheenzuberi.com · ${address}`,
     "",
-    `Not interested? ${unsubUrl} — one click, no hard feelings.`,
+    `Not interested? ${unsubUrl}, one click and you're off the list.`,
   ];
 }
 
@@ -46,12 +46,11 @@ export function buildOutreachEmail(prospect: ProspectRow, baseUrl: string) {
 
   const pitchLines = isVoice
     ? [
-        `I build AI phone agents that pick up when a business can't get to ` +
-          `the phone, and book the appointment right there — so nothing ` +
-          `depends on someone being free to answer. Might be worth a look ` +
-          `for ${prospect.company} given how much comes in by phone.`,
+        `Most of those calls are probably people who just found you on Google. Miss it, and they just call the next name down the list.`,
         "",
-        "Happy to send a short recording of one handling a real call, if useful. No obligation either way.",
+        `I build AI phone agents that pick up, qualify the caller, and book them in right there. Usually means catching an extra 5-10 bookings a month that used to just ring out.`,
+        "",
+        "Got a short recording of one handling a real call if you want to hear it. No pressure either way.",
       ]
     : [
         `I build and rebuild small business websites. Flagging this in case ` +
