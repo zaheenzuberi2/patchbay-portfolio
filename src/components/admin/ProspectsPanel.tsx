@@ -131,6 +131,15 @@ export function ProspectsPanel() {
     n: prospects.filter((p) => p.status === s).length,
   }));
 
+  // What /api/outreach/send actually queries: qualified AND a verified
+  // email. That second condition matters — a handful of "qualified" rows can
+  // still have an unverified/invalid email if verification was skipped or
+  // changed after import, and those never go out, so counting status alone
+  // would overstate the real queue.
+  const readyToSend = prospects.filter(
+    (p) => p.status === "qualified" && p.email_status === "valid",
+  ).length;
+
   return (
     <div>
       {/* Import */}
@@ -183,8 +192,16 @@ export function ProspectsPanel() {
         )}
       </div>
 
+      {/* Send queue */}
+      <div className="mt-8 flex items-baseline gap-2 font-mono text-xs text-paper-dim">
+        <span className="text-2xl font-semibold text-paper">{readyToSend}</span>
+        <span>
+          {readyToSend === 1 ? "prospect" : "prospects"} left to send mail to
+        </span>
+      </div>
+
       {/* Filters */}
-      <div className="mt-8 flex flex-wrap gap-2">
+      <div className="mt-4 flex flex-wrap gap-2">
         <button
           onClick={() => setFilter("all")}
           className={`flex min-h-11 items-center rounded-full border px-4 font-mono text-[11px] uppercase tracking-[0.08em] transition-colors ${
