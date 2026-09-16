@@ -125,6 +125,19 @@ export type LeadRow = {
   message: string | null;
   source: string;
   status: string;
+  ip: string | null;
+  created_at: string;
+};
+
+export type VisitRow = {
+  id: number;
+  path: string;
+  ip: string | null;
+  country: string | null;
+  region: string | null;
+  city: string | null;
+  referrer: string | null;
+  user_agent: string | null;
   created_at: string;
 };
 
@@ -257,6 +270,7 @@ async function init() {
       message TEXT,
       source TEXT NOT NULL DEFAULT 'chat',
       status TEXT NOT NULL DEFAULT 'new',
+      ip TEXT,
       created_at TIMESTAMPTZ NOT NULL DEFAULT now()
     )
   `;
@@ -396,10 +410,38 @@ async function init() {
     )
   `;
 
+  // One row per page view, written from proxy.ts on the Node runtime (not a
+  // route handler), so it captures every visitor, not just the ones who
+  // submit the lead form. Same honesty rule as the leads.ip column: this is
+  // request metadata (IP, Vercel's own edge geolocation headers, referrer,
+  // user agent), never a person's identity. Logging every visitor's IP does
+  // mean the site should carry a privacy notice disclosing it — that's a
+  // policy/content decision for Zaheen, not something this table does for
+  // him. No retention/pruning yet: fine at current traffic (~100
+  // visitors/week per Vercel Analytics), revisit if it ever grows enough to
+  // matter on Neon's free tier.
+  await sql`
+    CREATE TABLE IF NOT EXISTS visits (
+      id SERIAL PRIMARY KEY,
+      path TEXT NOT NULL,
+      ip TEXT,
+      country TEXT,
+      region TEXT,
+      city TEXT,
+      referrer TEXT,
+      user_agent TEXT,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    )
+  `;
+
   await sql`CREATE TABLE IF NOT EXISTS meta (key TEXT PRIMARY KEY)`;
 
   // Covers databases created before the budget column existed.
   await sql`ALTER TABLE leads ADD COLUMN IF NOT EXISTS budget TEXT`;
+  // Covers databases created before the ip column existed. Best-effort
+  // context only (see the api/leads/route.ts comment on why this can never
+  // be more than "who to call back", not a real visitor-identity system).
+  await sql`ALTER TABLE leads ADD COLUMN IF NOT EXISTS ip TEXT`;
 
   // Claim the right to seed with a single atomic insert against a primary key.
   // Exactly one caller can win, so concurrent serverless cold starts on a fresh
@@ -444,6 +486,38 @@ export async function listProjects(): Promise<ProjectRow[]> {
   return (await sql`
     SELECT * FROM projects ORDER BY sort_order ASC, id ASC
   `) as ProjectRow[];
+}
+
+// Called from proxy.ts via event.waitUntil, so it must never throw into the
+// request path — a logging failure must not turn into a broken page. Same
+// resilience contract as Work.tsx's DB-failure handling, just inverted: that
+// one drops a section on failure, this one drops the whole write silently.
+export async function logVisit(entry: {
+  path: string;
+  ip: string | null;
+  country: string | null;
+  region: string | null;
+  city: string | null;
+  referrer: string | null;
+  userAgent: string | null;
+}) {
+  try {
+    const sql = await getDb();
+    await sql`
+      INSERT INTO visits (path, ip, country, region, city, referrer, user_agent)
+      VALUES (${entry.path}, ${entry.ip}, ${entry.country}, ${entry.region},
+              ${entry.city}, ${entry.referrer}, ${entry.userAgent})
+    `;
+  } catch (err) {
+    console.error("[logVisit] could not write visit row:", err);
+  }
+}
+
+export async function listVisits(limit = 300): Promise<VisitRow[]> {
+  const sql = await getDb();
+  return (await sql`
+    SELECT * FROM visits ORDER BY created_at DESC LIMIT ${limit}
+  `) as VisitRow[];
 }
 
 export async function listLeads(): Promise<LeadRow[]> {

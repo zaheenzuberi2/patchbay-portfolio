@@ -25,6 +25,14 @@ function clean(value: unknown, maxLen = MAX_LEN) {
 // 2. A honeypot field. Bots fill every input they find; the real widget never
 //    sends this one, so anything arriving with it populated is automated.
 //    Returns a normal-looking success so the bot does not learn it was caught.
+//
+// The submitter's IP is also persisted on the row now (see the `ip` column),
+// purely as follow-up context for a lead that left no usable contact detail —
+// e.g. a rough sense of country. It is not a visitor-identity system: the
+// x-forwarded-for header is client-reported and trivially spoofable, a phone
+// or shared/office network can put several real people behind one IP, and it
+// resolves to a location or ISP at best, never a person. Treat it the same
+// way as the budget field: one more low-confidence clue, not a lookup.
 const SUBMISSION_LIMIT = 5;
 const WINDOW_MS = 10 * 60 * 1000;
 
@@ -96,9 +104,9 @@ export async function POST(request: NextRequest) {
 
   const sql = await getDb();
   await sql`
-    INSERT INTO leads (name, contact, interest, budget, message, source, status)
+    INSERT INTO leads (name, contact, interest, budget, message, source, status, ip)
     VALUES (${name}, ${contact}, ${interest || null}, ${budget || null},
-            ${message || null}, 'chat', 'new')
+            ${message || null}, 'chat', 'new', ${ip})
   `;
 
   // Scheduled with after() so it runs once the response has already been

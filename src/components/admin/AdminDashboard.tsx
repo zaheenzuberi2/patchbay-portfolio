@@ -7,6 +7,7 @@ import { ProjectForm, type ProjectFormValues } from "./ProjectForm";
 import { ReviewForm, type ReviewFormValues } from "./ReviewForm";
 import { ProspectsPanel } from "./ProspectsPanel";
 import { CallCrmPanel } from "./CallCrmPanel";
+import { VisitorsPanel } from "./VisitorsPanel";
 
 const dateFormatter = new Intl.DateTimeFormat("en-GB", {
   day: "2-digit",
@@ -32,7 +33,7 @@ export function AdminDashboard({
 }) {
   const router = useRouter();
   const [tab, setTab] = useState<
-    "leads" | "projects" | "reviews" | "prospects" | "calls"
+    "leads" | "projects" | "reviews" | "prospects" | "calls" | "visitors"
   >("leads");
   const [leads, setLeads] = useState(initialLeads);
   const [projects, setProjects] = useState(initialProjects);
@@ -200,6 +201,16 @@ export function AdminDashboard({
           >
             Cold Call CRM
           </button>
+          <button
+            onClick={() => setTab("visitors")}
+            className={`flex min-h-11 items-center px-4 py-2 font-mono text-xs uppercase tracking-[0.1em] ${
+              tab === "visitors"
+                ? "border-b-2 border-signal text-signal"
+                : "text-paper-dim"
+            }`}
+          >
+            Visitors
+          </button>
         </div>
 
         {/* Outbound, unlike the other three tabs. ProspectsPanel loads its own
@@ -215,6 +226,12 @@ export function AdminDashboard({
         {tab === "calls" && (
           <div className="mt-8">
             <CallCrmPanel />
+          </div>
+        )}
+
+        {tab === "visitors" && (
+          <div className="mt-8">
+            <VisitorsPanel />
           </div>
         )}
 
@@ -256,6 +273,7 @@ export function AdminDashboard({
                     )}
                     <p className="mt-2 font-mono text-[11px] text-paper-dim">
                       {formatDate(lead.created_at)}
+                      {lead.ip ? ` · ${lead.ip}` : ""}
                     </p>
                   </div>
                   <div className="flex shrink-0 gap-2">
