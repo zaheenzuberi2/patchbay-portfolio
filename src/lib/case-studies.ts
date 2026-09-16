@@ -195,9 +195,9 @@ export const caseStudies: CaseStudy[] = [
     kind: "Client",
     status: "LIVE",
     h1: "An Islamabad law practice's website, built multilingual and bookable from day one",
-    metaTitle: "Lex Justitia Case Study | Law Firm Website Developer, Islamabad",
+    metaTitle: "Lex Justitia: Law Firm Website, Islamabad",
     metaDescription:
-      "How Lex Justitia (lexjustitia.pk), an Islamabad law practice, got a full-stack website with multilingual intake and secure consultation booking, built end to end by Zaheen Zuberi.",
+      "Full-stack website for Lex Justitia, an Islamabad law practice: multilingual intake and secure consultation booking, built end to end by Zaheen Zuberi.",
     keywords: [
       "Lex Justitia case study",
       "law firm website developer Islamabad",
@@ -249,9 +249,9 @@ export const caseStudies: CaseStudy[] = [
     kind: "Client",
     status: "LIVE",
     h1: "A full-service Islamabad law firm's site, with real case-record stats and consultation scheduling",
-    metaTitle: "AB Juris Case Study | Law Firm Website Developer, Islamabad",
+    metaTitle: "AB Juris: Law Firm Website, Islamabad",
     metaDescription:
-      "How AB Juris (abjuris.pk), a full-service Islamabad law firm, got a full-stack website with eight practice areas, case-record stats, and consultation scheduling, built end to end by Zaheen Zuberi.",
+      "Full-stack website for AB Juris, an Islamabad law firm: eight practice areas, case-record stats, and consultation scheduling, built by Zaheen Zuberi.",
     keywords: [
       "AB Juris case study",
       "law firm website developer Islamabad",
