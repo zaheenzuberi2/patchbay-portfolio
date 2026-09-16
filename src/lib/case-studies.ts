@@ -25,6 +25,11 @@ export type CaseStudy = {
   outcome: string[];
   stack: string[];
   goodFor: string;
+  /** Service slugs this build is real proof for, same convention as
+   *  faq-categories.ts's relatedServices: a visitor who just read how a
+   *  case study was built is one click from the service page that sells it,
+   *  and the link tells a crawler what the case study is evidence of. */
+  relatedServices: string[];
 };
 
 export const caseStudies: CaseStudy[] = [
@@ -81,6 +86,7 @@ export const caseStudies: CaseStudy[] = [
     stack: ["Next.js", "Google Cloud Vertex AI", "Chirp3-HD", "TypeScript"],
     goodFor:
       "Creators, editors, and small studios who need a fast Urdu, Hindi, or English voiceover without recording it themselves or paying for an enterprise TTS seat.",
+    relatedServices: ["web-development"],
   },
   {
     slug: "pakengine",
@@ -134,6 +140,7 @@ export const caseStudies: CaseStudy[] = [
     stack: ["JavaScript", "Tailwind", "Service Worker / PWA", "Web Crypto"],
     goodFor:
       "Single-location and small multi-location rent-a-car showrooms in Pakistan replacing a paper register or a spreadsheet, without needing reliable internet at the counter.",
+    relatedServices: ["web-development", "business-automation"],
   },
   {
     slug: "ad-real-estate",
@@ -187,6 +194,7 @@ export const caseStudies: CaseStudy[] = [
     stack: ["Next.js", "Sanity CMS", "TypeScript", "Vercel"],
     goodFor:
       "A property agency or advisory that needs listings, leads, and content to work as a real system instead of a static brochure page.",
+    relatedServices: ["web-development"],
   },
   {
     slug: "lex-justitia",
@@ -241,6 +249,7 @@ export const caseStudies: CaseStudy[] = [
     stack: ["Next.js", "Full-Stack", "Legal"],
     goodFor:
       "Law firms and legal practices that need real client intake and booking, not just a page listing what they do.",
+    relatedServices: ["web-development"],
   },
   {
     slug: "ab-juris",
@@ -295,6 +304,7 @@ export const caseStudies: CaseStudy[] = [
     stack: ["Full-Stack", "Web Design", "Legal"],
     goodFor:
       "Law firms and legal practices that need to show real breadth and real numbers, not just a page claiming both.",
+    relatedServices: ["web-development"],
   },
 ];
 

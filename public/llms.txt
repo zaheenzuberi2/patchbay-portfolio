@@ -1,0 +1,23 @@
+# Patchbay
+
+> Patchbay is an AI automation and web development agency based in Islamabad, Pakistan, founded and run by Zaheen Zuberi and a team of specialists in design, copy, SEO, and development.
+
+Patchbay builds AI voice agents and calling agents that answer inbound calls, qualify callers, and book appointments, with bilingual English and Urdu handling. It builds AI chatbots for websites, WhatsApp, and Instagram, trained on a business's own content. It works as an n8n developer and workflow automation agency, connecting CRMs, calendars, forms, and invoicing. It builds full-stack websites and web apps in Next.js and TypeScript with server-side rendering and technical SEO built in. It also runs brand, content, and day-to-day social media management. Patchbay works with clients across Pakistan and remotely worldwide.
+
+Zaheen Zuberi is the founder, based in Islamabad, and is a software developer first; the voice agents, chatbots, and automation work are all built on that same foundation.
+
+## Pages
+
+- [About](https://zaheenzuberi.com/about): who Patchbay and Zaheen Zuberi are, what the agency builds, how a project runs.
+- [Services](https://zaheenzuberi.com/services): all five service lines Patchbay runs.
+- [AI Voice & Calling Agents](https://zaheenzuberi.com/services/ai-voice-agents): AI receptionists and calling agents that answer, qualify, and book.
+- [AI Chatbots & Conversational AI](https://zaheenzuberi.com/services/ai-chatbots): chatbots for websites, WhatsApp, and Instagram.
+- [Automation & Workflows](https://zaheenzuberi.com/services/business-automation): n8n, Zapier, Make, and custom API integrations.
+- [Full-Stack Website Development](https://zaheenzuberi.com/services/web-development): full-stack websites built by a web developer in Islamabad.
+- [Brand, Content & Social](https://zaheenzuberi.com/services/marketing-and-social): brand, content, and social media management.
+- [Work](https://zaheenzuberi.com/#work): real, live projects, including Voicely, PakEngine Rent Ledger, Lex Justitia, AB Juris, and AD Real Estate.
+- [FAQ](https://zaheenzuberi.com/faq): questions people ask before hiring, organized by topic.
+
+## Notes
+
+This file restates facts already published as plain text and structured data (schema.org Person, ProfessionalService, Service, FAQPage) on the pages above. It does not contain any claim that isn't also stated on the live site.
