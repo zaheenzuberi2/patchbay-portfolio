@@ -188,6 +188,114 @@ export const caseStudies: CaseStudy[] = [
     goodFor:
       "A property agency or advisory that needs listings, leads, and content to work as a real system instead of a static brochure page.",
   },
+  {
+    slug: "lex-justitia",
+    sessionId: "0002",
+    name: "Lex Justitia",
+    kind: "Client",
+    status: "LIVE",
+    h1: "An Islamabad law practice's website, built multilingual and bookable from day one",
+    metaTitle: "Lex Justitia Case Study | Law Firm Website Developer, Islamabad",
+    metaDescription:
+      "How Lex Justitia (lexjustitia.pk), an Islamabad law practice, got a full-stack website with multilingual intake and secure consultation booking, built end to end by Zaheen Zuberi.",
+    keywords: [
+      "Lex Justitia case study",
+      "law firm website developer Islamabad",
+      "legal website development Pakistan",
+      "law firm web design Pakistan",
+      "multilingual law firm website",
+      "Zaheen Zuberi client work",
+      "consultation booking website",
+    ],
+    liveUrl: "https://lexjustitia.pk",
+    liveLabel: "lexjustitia.pk",
+    intro:
+      "A law practice's website is often the first contact a prospective client has with the firm, sometimes before they have decided whether to call at all. For an Islamabad practice covering eight areas of law, that first page had to work in more than one language and let someone book a consultation without picking up the phone.",
+    problem:
+      "Legal sites commonly ship as a single-language brochure: a services list, a phone number, and a contact form that emails a partner who may not see it for days. That loses two kinds of client: the one who is more comfortable reading in Urdu or Roman Urdu than English, and the one who would book a consultation right now if the option existed, but calls a competitor instead of waiting on a callback.",
+    approach: [
+      {
+        title: "Eight practice areas, not one shared services page",
+        body: "Each of the firm's practice areas gets its own page, so a search or a click lands on the exact area someone needs rather than a paragraph shared across all eight.",
+      },
+      {
+        title: "Multilingual intake by design",
+        body: "Intake runs in Urdu, Roman Urdu, and English, matching how clients in Islamabad actually write, instead of assuming English is the only option and losing the people who would rather explain their case in their own language.",
+      },
+      {
+        title: "Consultation booking, not just a contact form",
+        body: "A prospective client books a consultation directly and securely, so the firm gets a scheduled meeting on the calendar instead of an email waiting to be read.",
+      },
+      {
+        title: "Full-stack, frontend to backend",
+        body: "Built end to end rather than assembled from a template and a form plugin, so the booking flow, intake handling, and page structure are one coherent system instead of three tools stitched together.",
+      },
+    ],
+    outcome: [
+      "Eight dedicated practice-area pages instead of one shared services list",
+      "Intake available in Urdu, Roman Urdu, and English",
+      "Secure online consultation booking, no phone call required to get on the calendar",
+      "Full-stack build: frontend, backend, and booking flow, one system",
+      "Live at lexjustitia.pk",
+    ],
+    stack: ["Next.js", "Full-Stack", "Legal"],
+    goodFor:
+      "Law firms and legal practices that need real client intake and booking, not just a page listing what they do.",
+  },
+  {
+    slug: "ab-juris",
+    sessionId: "0003",
+    name: "AB Juris",
+    kind: "Client",
+    status: "LIVE",
+    h1: "A full-service Islamabad law firm's site, with real case-record stats and consultation scheduling",
+    metaTitle: "AB Juris Case Study | Law Firm Website Developer, Islamabad",
+    metaDescription:
+      "How AB Juris (abjuris.pk), a full-service Islamabad law firm, got a full-stack website with eight practice areas, case-record stats, and consultation scheduling, built end to end by Zaheen Zuberi.",
+    keywords: [
+      "AB Juris case study",
+      "law firm website developer Islamabad",
+      "legal website development Pakistan",
+      "law firm web design Pakistan",
+      "full-service law firm website",
+      "Zaheen Zuberi client work",
+      "consultation scheduling website",
+    ],
+    liveUrl: "https://abjuris.pk",
+    liveLabel: "abjuris.pk",
+    intro:
+      "AB Juris is a full-service Islamabad law firm covering eight practice areas. The site had to carry that breadth clearly, back it with real numbers instead of vague claims of experience, and let a prospective client schedule a consultation without a phone call.",
+    problem:
+      "A firm covering eight practice areas has an organisation problem before it has a design problem: cram everything onto one page and nothing stands out, or split it out properly and give visitors and search engines eight specific, findable answers instead of one crowded one. Most firm sites also assert experience in prose rather than showing it, which reads as marketing copy rather than evidence.",
+    approach: [
+      {
+        title: "Eight practice areas, structured properly",
+        body: "Each area of law gets its own page rather than a shared paragraph, so both a visitor and a search engine can land on the specific area they actually need.",
+      },
+      {
+        title: "Case-record stats instead of prose claims",
+        body: "Real case-record figures are shown directly rather than described in adjectives, giving a prospective client something concrete to judge the firm by.",
+      },
+      {
+        title: "Consultation scheduling built in",
+        body: "A prospective client schedules a consultation directly through the site, so the firm captures the appointment instead of losing the moment someone decided to reach out.",
+      },
+      {
+        title: "Full-stack, end to end",
+        body: "Built the whole way down rather than templated, so the scheduling flow and the practice-area structure are one system, not plugins stitched together.",
+      },
+    ],
+    outcome: [
+      "Eight dedicated practice-area pages, structured for both visitors and search",
+      "Real case-record stats shown directly rather than claimed in prose",
+      "Consultation scheduling built into the site itself",
+      "Full-stack build: frontend to backend, one system",
+      "Live at abjuris.pk",
+    ],
+    stack: ["Full-Stack", "Web Design", "Legal"],
+    goodFor:
+      "Law firms and legal practices that need to show real breadth and real numbers, not just a page claiming both.",
+  },
 ];
 
 export function getCaseStudy(slug: string) {
