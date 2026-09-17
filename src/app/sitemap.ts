@@ -60,5 +60,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: c.slug === "pricing" || c.slug === "islamabad" ? 0.75 : 0.7,
     })),
+    // Standalone non-branded commercial-intent landing pages, each targeting
+    // one specific query cluster that neither the service pages nor the FAQ
+    // hub/spoke pages own on their own (see each page's own top-of-file
+    // comment for why it does not duplicate an existing answer).
+    {
+      url: `${siteConfig.url}/hire-nextjs-developer-pakistan`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.75,
+    },
+    {
+      url: `${siteConfig.url}/ai-agency-vs-traditional-marketing-agency`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.72,
+    },
+    {
+      url: `${siteConfig.url}/ai-voice-agent-real-estate`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.78,
+    },
   ];
 }

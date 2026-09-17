@@ -156,6 +156,8 @@ export const services: Service[] = [
       "RAG chatbot",
       "chatbot developer Pakistan",
       "AI chatbot for small business",
+      "AI chatbot developer Islamabad",
+      "chatbot vs live chat software",
     ],
     intro:
       "The chatbots people hate are the ones that answer every question with a link to the contact page. A useful bot is trained on your actual content, gives the actual answer, and knows when to stop and fetch a human. That is the difference between deflecting customers and serving them.",
@@ -209,6 +211,18 @@ export const services: Service[] = [
         q: "Do I need to maintain it myself?",
         a: "No. When your content changes, the knowledge base needs updating, and that can either sit with me or be handed over with instructions so your team can do it. Your call.",
       },
+      {
+        q: "Is a chatbot better than live chat software?",
+        a: "Live chat software still needs a person on the other end during working hours, or a queue when nobody is. A trained chatbot answers instantly at any hour from your actual content, and only hands off to a person for the questions that genuinely need one, so the live chat window stops being a second inbox to staff.",
+      },
+      {
+        q: "Do I still need a chatbot if I already have a support team?",
+        a: "Usually yes, for the repeat questions rather than to replace the team. Most support inboxes are the same twenty questions asked on a loop. A chatbot clears those instantly so your team spends its time on the conversations that actually need a person's judgment.",
+      },
+      {
+        q: "Is there a chatbot developer based in Islamabad I can talk to directly?",
+        a: "Yes. Patchbay is based in Islamabad, and chatbot development is handled by the same team you would be talking to about the project, not handed off to an outsourced developer elsewhere.",
+      },
     ],
   },
   {
@@ -228,6 +242,8 @@ export const services: Service[] = [
       "lead routing automation",
       "business automation agency Pakistan",
       "automation consultant for small business",
+      "business automation agency Islamabad",
+      "n8n vs Zapier",
     ],
     intro:
       "Most businesses do not have a software problem, they have a plumbing problem. The lead arrives in one place, the calendar lives in another, the invoice lives in a third, and a person spends their week carrying data between them. Automation is just removing that person from the middle.",
@@ -276,6 +292,18 @@ export const services: Service[] = [
       {
         q: "Do I own the automations?",
         a: "Yes. They run in your accounts, on your subscriptions, documented. If you stop working with me, they keep running.",
+      },
+      {
+        q: "Is automation cheaper than hiring a virtual assistant?",
+        a: "A virtual assistant is an ongoing salary for tasks that still depend on them showing up. An automation is a one-time build cost plus a small running cost from the tools it connects, and it does not call in sick, get slower on a repetitive task, or need re-training when it changes. It is not a fit for judgment calls, only for the mechanical, repeatable part of the work.",
+      },
+      {
+        q: "Should I use n8n or Zapier for my business?",
+        a: "Zapier is faster to stand up for common apps and their ready-made integrations. n8n costs less to run at real volume and handles custom logic Zapier is not built for. Which one fits depends on what you are connecting and how much volume runs through it, not a blanket answer either way.",
+      },
+      {
+        q: "Is there a business automation agency based in Islamabad I can talk to directly?",
+        a: "Yes. Patchbay is based in Islamabad, and automation builds are handled by the same team you would be talking to about the project, not handed off to an outsourced developer elsewhere.",
       },
     ],
   },
@@ -387,6 +415,8 @@ export const services: Service[] = [
       "campaign reporting dashboard",
       "social media agency for small business",
       "brand and content agency Pakistan",
+      "social media agency Islamabad",
+      "AI marketing agency vs traditional agency",
     ],
     intro:
       "Agencies split your work across an account manager, a designer, a copywriter, and a media buyer, then charge you for the coordination between them. I do the same work without the layer in between, which means fewer meetings and a shorter line between a decision and it being live.",
@@ -430,6 +460,18 @@ export const services: Service[] = [
       {
         q: "Can I start with just one channel?",
         a: "Yes, and I would usually recommend it. Doing one channel properly beats spreading thin across four.",
+      },
+      {
+        q: "Is this cheaper than hiring an in-house social media manager?",
+        a: "An in-house hire is a full salary regardless of how much content a given month actually needs. A retainer scales with the work agreed, and it comes with the design, copy, and technical build skills an in-house hire usually does not have on their own, without adding separate headcount for each.",
+      },
+      {
+        q: "How is this actually different from a traditional marketing agency?",
+        a: "A traditional agency is an account manager coordinating a design studio, a copywriter, and a developer who often do not talk to each other directly, and you pay for that coordination layer. Patchbay is one accountable team doing all of it, so a campaign that needs a landing page, a chatbot, and content gets built as one system instead of three vendors handing work back and forth.",
+      },
+      {
+        q: "Is there a social media agency based in Islamabad I can talk to directly?",
+        a: "Yes. Patchbay is based in Islamabad, and brand, content, and social work is handled by the same team you would be talking to about the project, not subcontracted to a separate studio.",
       },
     ],
   },
