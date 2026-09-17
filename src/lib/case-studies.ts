@@ -140,7 +140,7 @@ export const caseStudies: CaseStudy[] = [
     stack: ["JavaScript", "Tailwind", "Service Worker / PWA", "Web Crypto"],
     goodFor:
       "Single-location and small multi-location rent-a-car showrooms in Pakistan replacing a paper register or a spreadsheet, without needing reliable internet at the counter.",
-    relatedServices: ["web-development", "business-automation"],
+    relatedServices: ["software-development", "web-development", "business-automation"],
   },
   {
     slug: "ad-real-estate",
@@ -194,7 +194,7 @@ export const caseStudies: CaseStudy[] = [
     stack: ["Next.js", "Sanity CMS", "TypeScript", "Vercel"],
     goodFor:
       "A property agency or advisory that needs listings, leads, and content to work as a real system instead of a static brochure page.",
-    relatedServices: ["web-development"],
+    relatedServices: ["web-development", "software-development"],
   },
   {
     slug: "lex-justitia",

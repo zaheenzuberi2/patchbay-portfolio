@@ -11,9 +11,9 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Reveal } from "@/components/Reveal";
 import { SignalBars } from "@/components/SignalBars";
 
-const title = "AI Automation, Chatbots & Web Dev Services";
+const title = "AI, Software & Web Development Services";
 const description =
-  "AI voice agents, chatbots, business automation, full-stack website development, and social media management. Built end to end by Zaheen Zuberi in Islamabad.";
+  "AI voice agents, chatbots, business automation, custom software, full-stack websites, and social media management. Built end to end by Zaheen Zuberi in Islamabad.";
 
 export const metadata: Metadata = {
   title,
@@ -71,7 +71,7 @@ export default function ServicesIndexPage() {
               they outsource.
             </h1>
             <p className="mt-7 max-w-2xl text-lg leading-relaxed text-paper-dim">
-              Five services, one team accountable for all of them. Pick the
+              Six services, one team accountable for all of them. Pick the
               channel that matches what you need built.
             </p>
           </div>

@@ -47,10 +47,10 @@ const CHANNELS = [
   },
   {
     id: "06",
-    name: "Growth & Paid Systems",
-    desc: "Campaign ops, attribution, and reporting wired into your stack instead of living in a spreadsheet.",
-    stack: ["Analytics", "Ads", "Dashboards", "CRM Ops"],
-    slug: "marketing-and-social",
+    name: "Custom Software & SaaS",
+    desc: "The system behind the business: admin panels, internal tools, and SaaS products, built from the database up instead of bent from a template.",
+    stack: ["Next.js", "TypeScript", "PostgreSQL", "PWA"],
+    slug: "software-development",
   },
 ];
 

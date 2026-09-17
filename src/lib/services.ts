@@ -475,6 +475,92 @@ export const services: Service[] = [
       },
     ],
   },
+  {
+    slug: "software-development",
+    channel: "06",
+    name: "Custom Software & SaaS Development",
+    h1: "A software development company in Islamabad that builds what runs behind the scenes",
+    metaTitle: "Custom Software Development | Islamabad",
+    metaDescription:
+      "Custom business software, internal tools, and SaaS products built end to end by Zaheen Zuberi. Not a templated app guessing at your workflow. Get a quote today.",
+    keywords: [
+      "software development company Islamabad",
+      "software development company Pakistan",
+      "custom software development",
+      "custom software development Pakistan",
+      "software house Islamabad",
+      "software house Pakistan",
+      "SaaS development company",
+      "custom SaaS development",
+      "business software development",
+      "custom business software",
+      "internal tools developer",
+      "application development company Pakistan",
+      "software developer for businesses",
+      "custom software development company Islamabad",
+    ],
+    intro:
+      "A website is what visitors see. Software is what your business actually runs on: the system that tracks the fleet, the panel that manages the leads, the tool that replaces the spreadsheet three people are editing at once. I build that layer from the database up, scoped to how your business actually works instead of a template it has to bend around.",
+    outcomes: [
+      "A system built around how your business actually works, not a generic template",
+      "Real, searchable data with a backup, instead of a spreadsheet held together by habit",
+      "An admin panel your own team can run day to day without calling a developer for every change",
+      "Works even where the internet doesn't, when the job calls for it",
+      "Code and data you own outright, no vendor lock-in",
+    ],
+    includes: [
+      {
+        title: "Systems design",
+        body: "The data model and workflow mapped out before anything is built, so the software fits the job instead of forcing the job to fit an off-the-shelf tool.",
+      },
+      {
+        title: "Backend and database",
+        body: "A real schema behind it: search, backup, and history, not a form that emails someone and forgets everything else.",
+      },
+      {
+        title: "Admin tools and dashboards",
+        body: "The internal panel that runs the business day to day, built for the people who will actually use it every shift.",
+      },
+      {
+        title: "Offline and licensing, where it fits",
+        body: "For businesses that can't rely on the internet at the counter, software that keeps working locally and syncs or licenses itself without needing a server to stay online.",
+      },
+      {
+        title: "Handover",
+        body: "Deployed, documented, and explained, so your team can run and extend it without staying dependent on me.",
+      },
+    ],
+    stack: ["Next.js", "TypeScript", "PostgreSQL", "PWA"],
+    roles: ["lead", "dev"],
+    goodFor:
+      "Businesses that need a real system behind the scenes, not just a website in front of one: rental fleets, service businesses, and teams still running on spreadsheets or a paper register.",
+    faqs: [
+      {
+        q: "How much does custom software cost?",
+        a: "It depends entirely on scope: what the system has to track, how many people use it, and whether it needs to work offline or integrate with other tools. A single-purpose internal tool and a full multi-user platform are different projects with different numbers. Tell me what it needs to do and you get a fixed quote, not a range that fits nobody.",
+      },
+      {
+        q: "How is this different from just building me a website?",
+        a: "A website is public-facing: pages, content, forms. Software is the system behind it, or standalone entirely: the database, the logic, the admin panel your team actually works in. Some projects need both, wired together; some need only one. If you're not sure which one you need, describe the problem and I'll tell you honestly.",
+      },
+      {
+        q: "Can it work without a reliable internet connection?",
+        a: "Where the job calls for it, yes. PakEngine Rent Ledger, a rent-a-car management product I built and run myself, is offline-first by design: the whole fleet list, rental history, and damage records live in the browser and keep working with no connection at all, which matters at a counter where signal isn't guaranteed.",
+      },
+      {
+        q: "Do I own the software?",
+        a: "Yes. It runs on your infrastructure or a service you control, fully documented. If you stop working with me, it keeps running and your own developer can pick it up from the documentation.",
+      },
+      {
+        q: "I already have a website. Can you add software to it instead of rebuilding it?",
+        a: "Often, yes. If the front end is worth keeping, the admin panel, database, or internal tool can be built to sit behind or alongside it rather than as a full rebuild. I'll look at what's there before recommending either path.",
+      },
+      {
+        q: "Is there a software development company based in Islamabad I can talk to directly?",
+        a: "Yes. Patchbay is based in Islamabad, and custom software builds are handled by the same team you would be talking to about the project, not outsourced to a separate development shop.",
+      },
+    ],
+  },
 ];
 
 export function getService(slug: string) {
