@@ -50,12 +50,22 @@ const FAQ_CATEGORY_PAGES = [
 const PAGES = [
   "/",
   "/services",
+  "/about",
   "/faq",
   "/services/ai-voice-agents",
   "/services/ai-chatbots",
   "/services/business-automation",
   "/services/web-development",
   "/services/marketing-and-social",
+  "/services/software-development",
+  "/work/tryvoicely",
+  "/work/pakengine",
+  "/work/ad-real-estate",
+  "/work/lex-justitia",
+  "/work/ab-juris",
+  "/hire-nextjs-developer-pakistan",
+  "/ai-agency-vs-traditional-marketing-agency",
+  "/ai-voice-agent-real-estate",
   ...FAQ_CATEGORY_PAGES,
 ];
 
