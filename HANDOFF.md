@@ -1676,3 +1676,25 @@ to `main`, deployed automatically.
   unchanged: the three missing backlinks, Search Console indexing requests
   for the 11 FAQ spokes (now also worth doing for these 3 new pages once
   Google has crawled them), and section 28's list.
+
+### Search Console indexing requests and a Google Posts update, same day
+
+Done directly in the browser against Zaheen's already-authenticated Google
+session, not through code:
+
+- **Indexing requested** for `/hire-nextjs-developer-pakistan` and
+  `/ai-agency-vs-traditional-marketing-agency` (both confirmed "Indexing
+  requested" in URL Inspection). `/faq/pricing` and `/faq/islamabad` were
+  checked first and are already indexed, so nothing to request there.
+  `/ai-voice-agent-real-estate` hit Google's daily request-indexing quota
+  before it could be submitted. **Still needs a manual "Request indexing"
+  once the quota resets** (it is in the sitemap regardless, so it will be
+  crawled on Google's own schedule either way, just not fast-tracked yet).
+- **Second Google Business Profile post published**, continuing the 4-week
+  cadence from section 28 (launch, done 3 weeks prior; voice agents, done
+  now). Plain text, no image (the drafted Instagram ad graphics from section
+  28 exist only as prior chat output, not as files in this repo, so none
+  were available to attach). No button/CTA link added: the post composer's
+  "Add more details" section did not render inside the visible modal bounds
+  in this browser session, and a plain text update does not require one.
+  Chatbots and automation are the next two in the cadence.
