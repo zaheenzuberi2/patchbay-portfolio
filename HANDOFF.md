@@ -1607,3 +1607,72 @@ seeded). Do not "fix" either.
 - [ ] Everything still listed under section 28's "Still open" (Suleman
       Rashid's review, Instagram content, Google Posts, the parked luxury
       palette, rotating `ADMIN_PASSWORD`).
+
+---
+
+## 31. Three new landing pages, service-page FAQ parity — 17 Sep 2026
+
+Site now has 22 indexable URLs, up from 19. Two things, both aimed at
+non-branded commercial queries no existing page owned.
+
+### FAQ parity across the three services that hadn't had it
+
+`ai-voice-agents` and `web-development` had already earned comparison-intent
+and local-intent FAQs (section 28). `ai-chatbots`, `business-automation`, and
+`marketing-and-social` had not, so they were four-question pages with no
+"vs" framing and no explicit Islamabad line. Each now has the same three
+additions: one comparison FAQ, one against-the-alternative FAQ, one
+"is there a [x] developer/agency based in Islamabad" FAQ. Matching keyword
+phrases added to each service's `keywords` array. Same copy rules as
+everywhere: no invented numbers, no em dashes, team-framed.
+
+### Three new standalone pages for query clusters nothing else owned
+
+| URL | Query it owns |
+|---|---|
+| `/hire-nextjs-developer-pakistan` | "hire Next.js developer Pakistan" |
+| `/ai-agency-vs-traditional-marketing-agency` | integrated-team vs traditional-agency comparison |
+| `/ai-voice-agent-real-estate` | vertical-specific voice agent buyer intent |
+
+**None of these duplicate an existing FAQ answer.** Checked against
+`all-faqs.ts` and every service's own `faqs` array before writing a single
+question, same discipline as the hub/spoke split in section 30. Each page's
+own top-of-file comment says explicitly what it does not repeat and why.
+
+**`ai-voice-agent-real-estate` is careful about one specific fact:** AD Real
+Estate (`case-studies.ts`) is a real, live client, but for the web and
+lead-pipeline side only, not a voice agent. The page's FAQ says this plainly
+rather than implying otherwise. Real estate is named as a fit because the
+voice-agents service's own `goodFor` field already lists it, not because a
+case study exists that doesn't.
+
+Structurally, `/hire-nextjs-developer-pakistan` and
+`/ai-voice-agent-real-estate` reuse the full page chrome (Nav, Breadcrumbs,
+Faq/FaqSchema, WhatsAppButton, ChatWidget, VoiceWidget, Footer) and link back
+to the service page(s) and case study they extend. `/ai-voice-agent-real-estate`
+embeds the same `VoiceDemoLazy` component the `ai-voice-agents` service page
+uses, since a caller-intent page for this vertical is exactly where hearing
+the actual voice matters. Each emits its own minimal `WebPage` JSON-LD with
+`about` pointing at `@id` `#business` (the site-wide `ProfessionalService`),
+following the same ownership-split convention as every other page: the root
+layout owns the site-wide `@graph`, a page emits only what it owns.
+
+Added to `sitemap.ts` at priorities 0.72-0.78, below the service pages
+(0.8-0.85) since these are narrower entry points into the same work, not the
+primary commercial pages themselves.
+
+**Verification:** `npm run lint`, `npx tsc --noEmit`, `npm run build` all
+clean (72 static pages). All three new routes confirmed `○` (static) in the
+build output. Live-rendered in the dev preview and read back via
+`get_page_text`: correct titles, correct FAQ content, correct internal links,
+no console errors beyond the two pre-existing, already-documented local-only
+artifacts (dev-mode `eval()` warning, PGlite build-time RuntimeError already
+covered by `StructuredData.tsx`'s resilience contract in section 6). Pushed
+to `main`, deployed automatically.
+
+### Still open after this
+
+- Nothing new. Everything from section 30's "Still open" still applies
+  unchanged: the three missing backlinks, Search Console indexing requests
+  for the 11 FAQ spokes (now also worth doing for these 3 new pages once
+  Google has crawled them), and section 28's list.
