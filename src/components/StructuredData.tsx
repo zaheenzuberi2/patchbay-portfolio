@@ -1,4 +1,4 @@
-import { siteConfig, instagramUrl } from "@/lib/site-config";
+import { siteConfig, instagramUrl, linkedinUrl } from "@/lib/site-config";
 import { services } from "@/lib/services";
 import { listReviews, type ReviewRow } from "@/lib/db";
 
@@ -79,6 +79,9 @@ export async function StructuredData() {
           addressLocality: "Islamabad",
           addressCountry: "PK",
         },
+        // Personal profile, so it belongs here rather than on
+        // ProfessionalService, same split reasoning as instagramUrl below.
+        sameAs: [linkedinUrl],
         knowsAbout: [
           "AI automation",
           "AI voice agents",
