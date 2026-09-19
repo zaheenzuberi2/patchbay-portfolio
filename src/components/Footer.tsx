@@ -49,6 +49,12 @@ export function Footer() {
               integrations so data moves without manual re-entry.
             </p>
             <p>
+              We also build custom trading bots: MT4 and MT5 Expert Advisors
+              and crypto exchange trading bots, automating a trader&apos;s own
+              strategy through a non-custodial broker or exchange API
+              connection, with a hard daily drawdown circuit breaker built in.
+            </p>
+            <p>
               We also work as full-stack web developers in Islamabad, building
               websites and web apps in Next.js and TypeScript with
               server-side rendering, technical SEO, and structured data built
