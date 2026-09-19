@@ -82,5 +82,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.78,
     },
+    {
+      url: `${siteConfig.url}/trading-bots`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.78,
+    },
   ];
 }

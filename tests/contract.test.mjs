@@ -66,6 +66,7 @@ const PAGES = [
   "/hire-nextjs-developer-pakistan",
   "/ai-agency-vs-traditional-marketing-agency",
   "/ai-voice-agent-real-estate",
+  "/trading-bots",
   ...FAQ_CATEGORY_PAGES,
 ];
 

@@ -77,6 +77,37 @@ export default function ServicesIndexPage() {
           </div>
         </section>
 
+        <section className="border-b border-line pt-14 sm:pt-24">
+          <div className="mx-auto max-w-6xl px-6">
+            <Reveal>
+              <Link
+                href="/trading-bots"
+                className="group flex flex-col gap-5 rounded-2xl border border-line-strong bg-ink-2/60 p-6 transition-colors hover:border-signal/50 sm:flex-row sm:items-center sm:justify-between sm:p-8"
+              >
+                <span>
+                  <span className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.1em] text-signal">
+                    <span className="status-dot h-1.5 w-1.5 rounded-full bg-signal" />
+                    New vertical
+                  </span>
+                  <span className="mt-2 block text-xl font-medium tracking-[-0.01em] text-paper transition-colors group-hover:text-signal sm:text-2xl">
+                    Custom Trading Bot Development
+                  </span>
+                  <span className="mt-3 block max-w-xl text-sm leading-relaxed text-paper-dim">
+                    Bespoke MT4/MT5 and crypto-exchange trading automation,
+                    built around your own strategy, non-custodial by design.
+                  </span>
+                </span>
+                <span className="flex shrink-0 items-center gap-2 font-mono text-xs uppercase tracking-[0.1em] text-paper-dim transition-colors group-hover:text-signal">
+                  See the build
+                  <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">
+                    &rarr;
+                  </span>
+                </span>
+              </Link>
+            </Reveal>
+          </div>
+        </section>
+
         <section className="border-b border-line py-14 sm:py-24">
           <div className="mx-auto max-w-6xl px-6">
             <div className="divide-y divide-line border-y border-line">
