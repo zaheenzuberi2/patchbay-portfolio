@@ -63,6 +63,8 @@ const PAGES = [
   "/work/ad-real-estate",
   "/work/lex-justitia",
   "/work/ab-juris",
+  "/work/mezmenu",
+  "/work/ours",
   "/hire-nextjs-developer-pakistan",
   "/ai-agency-vs-traditional-marketing-agency",
   "/ai-voice-agent-real-estate",

@@ -306,6 +306,115 @@ export const caseStudies: CaseStudy[] = [
       "Law firms and legal practices that need to show real breadth and real numbers, not just a page claiming both.",
     relatedServices: ["web-development"],
   },
+  {
+    slug: "mezmenu",
+    sessionId: "0007",
+    name: "MezMenu",
+    kind: "Own product",
+    status: "LIVE",
+    h1: "QR menus that let an owner change a price from their phone instead of reprinting a menu",
+    metaTitle: "MezMenu Case Study | QR Menu Software for Restaurants",
+    metaDescription:
+      "How MezMenu became QR-menu software for Pakistani restaurants, letting an owner edit prices from their phone while diners order straight to WhatsApp, built end to end by Zaheen Zuberi.",
+    keywords: [
+      "MezMenu case study",
+      "QR menu software Pakistan",
+      "restaurant menu app Pakistan",
+      "WhatsApp ordering system",
+      "Zaheen Zuberi projects",
+      "QR code menu Pakistan",
+    ],
+    liveUrl: "https://mezmenu.vercel.app",
+    liveLabel: "mezmenu.vercel.app",
+    intro:
+      "A printed menu is a fixed document in a business that changes daily: a dish sells out by 8pm, a price moves, a Ramadan deal needs to go up for a month and come back down. MezMenu replaces the printed sheet with one editor an owner runs from their own phone.",
+    problem:
+      "Reprinting a menu for every price change or seasonal deal costs money and takes days, so most restaurants just leave it stale instead. There is also no way to tell a diner mid-service that an item just sold out, short of a server walking to every table, and taking the order itself still means a server writing it down or a diner calling a number that may not be answered.",
+    approach: [
+      {
+        title: "One editor, live everywhere at once",
+        body: "The owner edits categories, items, prices, and a deal banner from a phone dashboard, and every table's QR code reflects the change immediately. No reprint, no waiting for a new sheet to come back from the printer.",
+      },
+      {
+        title: "WhatsApp is the order button, not a plugin bolted on",
+        body: "A diner's order goes straight to the restaurant's own WhatsApp number. No new app for the diner to install, and no POS integration required before a restaurant can start taking orders this way.",
+      },
+      {
+        title: "A sold-out toggle that actually stops orders",
+        body: "Marking an item sold out removes it from ordering in real time across every table's code at once, instead of a server needing to catch and explain it at the table.",
+      },
+      {
+        title: "Per-table QR codes, not one generic code",
+        body: "Each table gets its own code encoding the table number, so an order arriving on WhatsApp already says which table it came from, printable as a full sheet in one pass.",
+      },
+    ],
+    outcome: [
+      "Full menu editor: categories, items, price, sold-out, popular, and reorder, published from any phone",
+      "Diner-facing menu with a cart and one-tap WhatsApp order handoff, no diner app required",
+      "Per-table QR codes generated and printable as a full sheet",
+      "A deal banner and sold-out toggle that update instantly across every table's code",
+      "Live at mezmenu.vercel.app, PKR 3,999/month for text-menu ordering with per-table QR codes",
+    ],
+    stack: ["Next.js 16", "Supabase", "Postgres", "Tailwind v4"],
+    goodFor:
+      "Cafes, dhabas, and restaurants replacing a printed menu with something the owner can update themselves, without a developer or a reprint.",
+    relatedServices: ["software-development", "web-development"],
+  },
+  {
+    slug: "ours",
+    sessionId: "0008",
+    name: "Ours",
+    kind: "Own product",
+    status: "LIVE",
+    h1: "A love-story website a couple builds themselves, gated by the database, not just the UI",
+    metaTitle: "Ours Case Study | Website Builder for Couples",
+    metaDescription:
+      "How Ours became a website builder for couples: a shareable love-story timeline or wedding site, plus free relationship games, built end to end by Zaheen Zuberi.",
+    keywords: [
+      "Ours case study",
+      "website for couples",
+      "wedding website builder Pakistan",
+      "relationship timeline website",
+      "digital anniversary gift",
+      "Zaheen Zuberi projects",
+      "couple website generator",
+    ],
+    liveUrl: "https://couples-site-psi.vercel.app",
+    liveLabel: "Ours",
+    intro:
+      "A couple's story usually lives scattered across a camera roll and old chat threads, with no single place to actually give it as something. Ours turns it into a permanent page a couple builds themselves and can gift as a link, not a PDF or a slideshow.",
+    problem:
+      "Generic website builders assume either a business audience or a full wedding-planning workload (guest lists, RSVPs, vendors) that most couples do not need for what is really a two-person gift. Nothing free and simple existed for just the story and the photos, sized to be built in minutes rather than an afternoon.",
+    approach: [
+      {
+        title: "Two modes from one template engine",
+        body: "Wedding mode adds an invitation, an event schedule, and RSVPs. Keepsake mode is just the love story and photographs, with no guest management at all. Same engine underneath, built for two different reasons someone opens the site.",
+      },
+      {
+        title: "A paywall enforced by the database, not the UI",
+        body: "A couple builds their entire site for free and can share a private preview link with anyone. The public address only resolves once the site is marked paid and published, and that check lives in Postgres row-level security, not application code, so guessing the address is not enough to see a page that has not been paid for.",
+      },
+      {
+        title: "Free games with no signup, as the way in",
+        body: "A bucket list, a \"how well do you know us\" quiz, and a \"who's more likely\" game are each free, need no account, and generate a shareable link from just a title, giving people a reason to try Ours before deciding to build a full site.",
+      },
+      {
+        title: "Manual payment today, wired for a real gateway without a rebuild",
+        body: "Payment is currently confirmed by hand after a bank, JazzCash, or Easypaisa transfer, flipped in an admin panel. A real payment gateway only needs to call that same server-side action from its webhook when it's added, not a different system.",
+      },
+    ],
+    outcome: [
+      "Two site modes, wedding and keepsake, from one template engine",
+      "A public/private split enforced in the database itself: free preview link, paid public address",
+      "Free bucket list, quiz, and couple-game tools with no signup required",
+      "RSVP handling for wedding mode, where a guest can submit a reply but not read anyone else's",
+      "Live at couples-site-psi.vercel.app: 15 signups in its first two days live, with 5 couples' websites published",
+    ],
+    stack: ["Next.js 16", "Supabase", "PostgreSQL", "Row-Level Security"],
+    goodFor:
+      "Couples who want a permanent, shareable page for their story, a full wedding site or a private keepsake gift, without hiring a designer or running guest management they don't need.",
+    relatedServices: ["software-development", "web-development"],
+  },
 ];
 
 export function getCaseStudy(slug: string) {

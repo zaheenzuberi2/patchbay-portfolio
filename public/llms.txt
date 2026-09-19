@@ -17,7 +17,7 @@ Zaheen Zuberi is the founder, based in Islamabad, and is a software developer fi
 - [Custom Software & SaaS Development](https://zaheenzuberi.com/services/software-development): custom business software, internal tools, and SaaS products.
 - [Brand, Content & Social](https://zaheenzuberi.com/services/marketing-and-social): brand, content, and social media management.
 - [Custom Trading Bot Development](https://zaheenzuberi.com/trading-bots): MT4/MT5 and crypto-exchange trading automation, built around a trader's own strategy.
-- [Work](https://zaheenzuberi.com/#work): real, live projects, including Voicely, PakEngine Rent Ledger, Lex Justitia, AB Juris, and AD Real Estate. Each has its own case-study page under /work/.
+- [Work](https://zaheenzuberi.com/#work): real, live projects, including Voicely, PakEngine Rent Ledger, MezMenu, Ours, Lex Justitia, AB Juris, and AD Real Estate. Each has its own case-study page under /work/.
 - [FAQ](https://zaheenzuberi.com/faq): questions people ask before hiring, organized by topic.
 
 ## Notes
