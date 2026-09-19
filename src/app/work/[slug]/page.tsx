@@ -72,7 +72,9 @@ export default async function CaseStudyPage(
     description: study.metaDescription,
     url,
     image: `${url}/opengraph-image`,
-    author: { "@id": `${siteConfig.url}/#business` },
+    author: { "@id": `${siteConfig.url}/#person` },
+    creator: { "@id": `${siteConfig.url}/#person` },
+    publisher: { "@id": `${siteConfig.url}/#business` },
     about: {
       "@type": "SoftwareApplication",
       name: study.name,
@@ -111,6 +113,16 @@ export default async function CaseStudyPage(
                 </h1>
                 <p className="mt-7 max-w-2xl text-lg leading-relaxed text-paper-dim">
                   {study.intro}
+                </p>
+
+                <p className="mt-5 font-mono text-xs uppercase tracking-[0.1em] text-paper-dim">
+                  Built end to end by{" "}
+                  <Link
+                    href="/about"
+                    className="text-signal transition-colors hover:text-paper"
+                  >
+                    Zaheen Zuberi
+                  </Link>
                 </p>
 
                 <div className="mt-9 flex flex-wrap items-center gap-4">
