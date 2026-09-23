@@ -93,7 +93,14 @@ export async function StructuredData() {
         ],
       },
       {
-        "@type": "ProfessionalService",
+        // Array, not a bare string: Google's rich-results validator checks
+        // @type against its review-snippet allowlist literally rather than
+        // walking the schema.org type hierarchy, so "ProfessionalService"
+        // alone (though a valid LocalBusiness subtype per schema.org) was
+        // rejected as an invalid parent for the review/aggregateRating
+        // fields below with "Invalid object type for field 'parent_node'".
+        // Adding the explicitly allow-listed "LocalBusiness" type fixes it.
+        "@type": ["ProfessionalService", "LocalBusiness"],
         "@id": `${siteConfig.url}/#business`,
         name: siteConfig.name,
         alternateName: `${siteConfig.ownerName} | ${siteConfig.name}`,
