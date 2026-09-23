@@ -114,7 +114,13 @@ export default async function ServicePage(
 
   const serviceSchema = {
     "@context": "https://schema.org",
-    "@type": "Service",
+    // Array, not a bare "Service": same "Invalid object type for field
+    // 'parent_node'" issue as the business node in StructuredData.tsx.
+    // Google's review-snippet allowlist doesn't include Service, so the
+    // review/aggregateRating fields below need an allow-listed type
+    // alongside it — Product is schema.org's fit for a productized
+    // service offering and is on that allowlist.
+    "@type": ["Service", "Product"],
     "@id": `${url}#service`,
     name: service.name,
     serviceType: service.name,
