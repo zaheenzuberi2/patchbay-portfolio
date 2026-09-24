@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { services } from "@/lib/services";
+import { locations } from "@/lib/locations";
 import { siteConfig } from "@/lib/site-config";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
@@ -142,6 +143,31 @@ export default function ServicesIndexPage() {
                       count={7}
                       className="hidden h-10 opacity-40 transition-opacity group-hover:opacity-100 sm:flex"
                     />
+                  </Link>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+        <section className="border-b border-line py-14 sm:py-24">
+          <div className="mx-auto max-w-6xl px-6">
+            <Reveal>
+              <h2 className="text-balance text-2xl font-medium tracking-[-0.02em] sm:text-3xl">
+                Also serving.
+              </h2>
+              <p className="mt-3 max-w-xl text-sm text-paper-dim">
+                Based in Islamabad, working remotely with clients in these
+                cities too.
+              </p>
+            </Reveal>
+            <div className="mt-8 flex flex-wrap gap-3">
+              {locations.map((l, i) => (
+                <Reveal key={l.slug} delay={i * 50}>
+                  <Link
+                    href={`/locations/${l.slug}`}
+                    className="flex min-h-11 items-center rounded-full border border-line-strong px-5 py-2.5 font-mono text-xs uppercase tracking-[0.1em] text-paper-dim transition-colors hover:border-signal/60 hover:text-signal"
+                  >
+                    {l.city}
                   </Link>
                 </Reveal>
               ))}

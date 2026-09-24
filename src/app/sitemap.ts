@@ -3,6 +3,7 @@ import { siteConfig } from "@/lib/site-config";
 import { services } from "@/lib/services";
 import { caseStudies } from "@/lib/case-studies";
 import { faqCategoryPages } from "@/lib/faq-categories";
+import { locations } from "@/lib/locations";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -88,5 +89,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.78,
     },
+    // City landing pages: same real remote-work fact already stated once in
+    // the web-development FAQ, given its own indexable URL per city.
+    ...locations.map((l) => ({
+      url: `${siteConfig.url}/locations/${l.slug}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.72,
+    })),
   ];
 }
