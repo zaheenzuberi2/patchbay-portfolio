@@ -1978,3 +1978,27 @@ page it's actually about.
 Verified: `npx next typegen` (new dynamic route again needed its types
 regenerated) then `npx tsc --noEmit` clean. Checked `/blog` and one
 article page in the local preview before pushing.
+
+## 40. Trading bots: per-market FAQs, including an honest no on Quotex — 24 Sep 2026
+
+Zaheen asked for FAQs on `/trading-bots` covering each market people
+actually search for: crypto, forex, Quotex, binary options.
+
+Added three FAQs plus matching keywords ("crypto trading bot developer",
+"forex trading bot developer", "Binance/Bybit trading bot developer",
+"Quotex trading bot", "binary options bot"):
+- Crypto and forex both get a straightforward yes, restating capability
+  already real and already built (Binance/Bybit exchange API, MT4/MT5
+  EAs).
+- Quotex and binary options get an honest no, not a workaround. Neither
+  exposes an official trading API the way MT4/MT5 or a crypto exchange
+  does, so a bot there generally means browser automation fighting a
+  platform that was not built to be automated. That is the same line the
+  custom-bots auto-filler FAQ (section 34) already draws: legitimate
+  automation on data you control, not circumventing a platform's own
+  terms. This still captures the search traffic (the query lands on the
+  page and gets a real, specific answer) without agreeing to build
+  something in that grey zone.
+
+Verified: `npx tsc --noEmit` clean. Checked the rendered FAQ text in the
+local preview before pushing.
