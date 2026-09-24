@@ -581,6 +581,123 @@ export const services: Service[] = [
       },
     ],
   },
+  {
+    slug: "custom-bots",
+    channel: "07",
+    name: "Custom Bot Development",
+    h1: "A bot built for the actual job, not squeezed into the wrong template",
+    metaTitle: "Custom Bot Development | Discord, Telegram, Auto-Fill",
+    metaDescription:
+      "Custom bots for Discord, Telegram, Slack, and the web: moderation, alerts, scraping, auto-fill and form automation, built end to end by Zaheen Zuberi. Not a locked-down template.",
+    keywords: [
+      "custom bot developer",
+      "custom bot developer Islamabad",
+      "custom bot development Pakistan",
+      "Discord bot developer",
+      "Telegram bot developer",
+      "Slack bot developer",
+      "community bot developer",
+      "web scraping bot developer",
+      "notification bot developer",
+      "bot developer for hire",
+      "hire a bot developer",
+      "X bot developer",
+      "Twitter bot developer",
+      "automation bot developer Islamabad",
+      "auto form filler bot",
+      "form filler bot developer",
+      "form autofill automation",
+      "auto fill bot",
+      "auto apply bot developer",
+      "browser automation bot developer",
+      "RPA developer Pakistan",
+      "robotic process automation Pakistan",
+      "data entry automation bot",
+      "Puppeteer developer",
+      "Selenium bot developer",
+    ],
+    intro:
+      "Trading bots and customer-support chatbots are two specific jobs, and most bot requests are neither. A Discord server that needs proper moderation and role automation, a Telegram channel that needs an alert fired the moment something changes, a script that watches a page and pings you the second it updates, a form you fill out with the same information every time: if it runs on a schedule, reacts to an event, or fills in the repetitive parts so you do not have to, it gets built scoped to that actual job, not bent to fit a customer-support widget it was never meant to be.",
+    outcomes: [
+      "A bot doing exactly the job it was scoped for, not a generic template bent to fit",
+      "Runs on its own schedule or trigger, no manual babysitting",
+      "Repetitive forms filled from your own data instead of typed by hand each time",
+      "Clear logs and alerts when it fails, not a silent drop",
+      "Deployed on infrastructure you control, not tied to a Patchbay-owned host",
+      "Documented well enough that another developer could pick it up",
+    ],
+    includes: [
+      {
+        title: "Platform integration",
+        body: "Wired into whichever platform the job actually lives on: Discord, Telegram, Slack, X, or a plain web target with no official API at all.",
+      },
+      {
+        title: "Trigger and scheduling logic",
+        body: "Event-driven where something needs an instant reaction, cron-based where it needs to run on a timer. Built around what actually needs to fire, not a fixed polling loop by default.",
+      },
+      {
+        title: "Moderation and role automation",
+        body: "For community bots specifically: rules enforced automatically, roles assigned and revoked on their own, spam and rule-breaking handled before a moderator has to step in.",
+      },
+      {
+        title: "Auto-fill and form automation",
+        body: "A bot that completes a repetitive form from a data source you control, a spreadsheet, a database, or your own saved answers, instead of you retyping the same fields by hand every time.",
+      },
+      {
+        title: "Data handling",
+        body: "Scraping, parsing, and storing state where the bot needs to remember or compare something over time, not just react to a single event.",
+      },
+      {
+        title: "Deployment and monitoring",
+        body: "Hosted, logged, and alerting on failure, so a broken bot is a notification, not something you discover a week later when it has gone quiet.",
+      },
+    ],
+    stack: [
+      "Discord.js",
+      "Telegram Bot API",
+      "Node",
+      "Puppeteer",
+      "Webhooks",
+      "Cron",
+    ],
+    roles: ["lead", "dev"],
+    goodFor:
+      "Community owners who need real moderation instead of a generic template, and anyone who needs something watched, scraped, or reported on automatically.",
+    faqs: [
+      {
+        q: "What kinds of bots do you build?",
+        a: "Whatever the job actually is: Discord moderation and role bots, Telegram alert and utility bots, Slack workflow bots, scrapers that watch a page and report back, and scheduled bots that run a task on their own. If it is not a trading bot or a customer-facing support chatbot, both of which are their own dedicated service, it is probably this.",
+      },
+      {
+        q: "How is this different from the AI chatbots you build?",
+        a: "AI chatbots are trained on a business's own content to answer customer questions on a website, WhatsApp, or Instagram. This is everything else that gets called a bot: moderation, alerts, scraping, and scheduled automation, usually with no conversational AI involved at all. Tell me the job and I will tell you honestly which one it actually is.",
+      },
+      {
+        q: "Is this the same as the trading bots you build?",
+        a: "No, trading bots are their own dedicated service with non-custodial broker and exchange API handling and a drawdown circuit breaker. If the bot touches real money or a live trading account, that page is the right one to read instead.",
+      },
+      {
+        q: "How much does a custom bot cost?",
+        a: "It depends on what it has to watch, react to, and remember. A single-trigger notification bot is a fraction of the cost of a moderation bot handling roles, spam detection, and logging across a large server. Tell me the job and you get a fixed quote, not a range that fits nobody.",
+      },
+      {
+        q: "Do you host it, or do I?",
+        a: "Either. It can be deployed on infrastructure you already control, or hosted as part of the build. Either way it is documented and not locked to me: if you stop working with me, another developer can pick it up.",
+      },
+      {
+        q: "Can you build an auto-filler bot that fills out forms for me?",
+        a: "Yes, for the legitimate version of that request: a form you or your business fills out repeatedly gets completed automatically from a data source you control, a spreadsheet, a database, or your own saved answers. What this will not do is mass-create accounts, get around a CAPTCHA or identity check, or submit something on a platform's terms it was built to stop bots from doing. Tell me the actual form and the actual data source and I will tell you honestly whether it is a fit.",
+      },
+      {
+        q: "Is there a custom bot developer based in Islamabad I can talk to directly?",
+        a: "Yes. Patchbay is based in Islamabad, and bot builds are handled by the same team you would be talking to about the project, not outsourced to a separate shop.",
+      },
+      {
+        q: "Is there a single developer building custom bots in Islamabad, not an agency?",
+        a: "Yes. Zaheen Zuberi is the one point of contact for a bot build, from scoping the trigger logic through deployment, not an account manager relaying it to someone else. A small team backs him where needed, but the person building the bot is the one you talk to.",
+      },
+    ],
+  },
 ];
 
 export function getService(slug: string) {

@@ -1751,3 +1751,49 @@ section-0 team-framed positioning (Zaheen as the one point of contact,
 backed by a small team) rather than reintroducing "I work alone" language.
 Every new FAQ feeds that page's existing `FaqSchema`/`FAQPage` schema
 automatically.
+
+## 34. New 7th service: Custom Bot Development, plus an alignment fix — 24 Sep 2026
+
+Zaheen: "i would want to add bots categary as well. not just trading bot but
+for anything." `/trading-bots` only ever covered financial/trading bots, and
+there was no page for a general bot request (Discord moderation, Telegram
+alerts, scrapers, scheduled automation). Added `custom-bots` as a 7th regular
+service (channel 07) in `src/lib/services.ts`, following the same
+data-driven template every other service page already uses
+(`services/[slug]/page.tsx`), rather than a bespoke landing page like
+`/trading-bots` got. That one addition auto-wired: the service page itself,
+sitemap entry, the `/services` and `/about` hub listings, and the
+`hasOfferCatalog` entry in `StructuredData.tsx`, all of which read from the
+`services` array. `src/components/Channels.tsx` does **not** read from that
+array (it is a separate hardcoded `CHANNELS` list for the homepage flip-card
+grid and mobile accordion) — added the 7th card there by hand. FAQs include
+its own agency- and single-developer-shaped Islamabad queries, and two FAQs
+that explicitly disambiguate it from `ai-chatbots` and `trading-bots` so an
+LLM doesn't conflate the three.
+
+**Also fixed a real content gap while doing this**, found because Zaheen's
+screenshot of the Footer.tsx "About Patchbay" block prompted a check of
+whether `about/page.tsx`'s "What Patchbay does" section said the same things.
+It didn't: that section was missing trading bots and custom software
+entirely (both real services with their own pages), predating this session.
+Both `Footer.tsx` and `about/page.tsx` now mention trading bots, the new
+general bot category, and custom software, so the two extraction-friendly
+fact blocks agree. Also added "Custom software development" and "Custom bot
+development" to the `Person` node's `knowsAbout` array in
+`StructuredData.tsx` for the same reason. Verified locally: `npx tsc --noEmit`
+clean, `/services/custom-bots` renders full content with no new console
+errors, both the desktop flip-card grid and mobile accordion show the 7th
+channel.
+
+**Same-session addendum:** Zaheen asked to also cover "auto filler" bots and
+to use terms people actually search rather than generic phrasing. Added
+auto-fill/form-automation as a fifth `includes` item and an outcome bullet on
+`custom-bots`, a dedicated FAQ ("Can you build an auto-filler bot that fills
+out forms for me?"), and more specific keywords (`auto form filler bot`,
+`RPA developer Pakistan`, `robotic process automation Pakistan`, `Puppeteer
+developer`, `Selenium bot developer`, etc.). **The FAQ answer deliberately
+draws a line**: fills a form from data you control, does not mass-create
+accounts, bypass a CAPTCHA/identity check, or violate a platform's anti-bot
+terms — worth keeping if this page is extended further, since "auto filler
+bot" as a search term covers both legitimate RPA use and account-abuse tooling,
+and only the former is something to advertise building.

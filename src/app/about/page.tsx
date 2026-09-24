@@ -139,10 +139,21 @@ export default function AboutPage() {
                 API integrations so data moves without manual re-entry.
               </p>
               <p>
+                Patchbay also builds custom trading bots (MT4 and MT5 Expert
+                Advisors and crypto exchange bots, non-custodial and with a
+                hard drawdown circuit breaker) and, for anything outside
+                trading, custom bot development for Discord, Telegram, Slack,
+                and the web: moderation, alerts, scraping, auto-fill and form
+                automation, and scheduled automation.
+              </p>
+              <p>
                 Patchbay also works as a full-stack web developer in
                 Islamabad, building websites and web apps in Next.js and
                 TypeScript with server-side rendering, technical SEO, and
-                structured data built in rather than bolted on afterwards.
+                structured data built in rather than bolted on afterwards,
+                plus custom business software and SaaS products built from
+                the database up for teams still running on spreadsheets or a
+                paper register.
               </p>
               <p>
                 Alongside the AI and development work, Patchbay runs the

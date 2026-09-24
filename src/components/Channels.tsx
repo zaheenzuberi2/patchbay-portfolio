@@ -52,6 +52,13 @@ const CHANNELS = [
     stack: ["Next.js", "TypeScript", "PostgreSQL", "PWA"],
     slug: "software-development",
   },
+  {
+    id: "07",
+    name: "Custom Bot Development",
+    desc: "Discord, Telegram, Slack, and web bots: moderation, alerts, scraping, auto-fill, and scheduled automation, scoped to the actual job instead of a locked-down template.",
+    stack: ["Discord.js", "Telegram API", "Puppeteer", "Cron"],
+    slug: "custom-bots",
+  },
 ];
 
 export function Channels() {

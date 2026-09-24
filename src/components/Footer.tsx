@@ -53,12 +53,18 @@ export function Footer() {
               and crypto exchange trading bots, automating a trader&apos;s own
               strategy through a non-custodial broker or exchange API
               connection, with a hard daily drawdown circuit breaker built in.
+              For anything outside trading, our custom bot development covers
+              Discord, Telegram, Slack, and web bots: moderation, alerts,
+              scraping, auto-fill and form automation, and scheduled
+              automation.
             </p>
             <p>
               We also work as full-stack web developers in Islamabad, building
               websites and web apps in Next.js and TypeScript with
               server-side rendering, technical SEO, and structured data built
-              in rather than bolted on afterwards.
+              in rather than bolted on afterwards, plus custom business
+              software and SaaS products built from the database up for teams
+              still running on spreadsheets or a paper register.
             </p>
             <p>
               Alongside the AI and development work, we run the services a

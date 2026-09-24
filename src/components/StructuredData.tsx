@@ -88,6 +88,8 @@ export async function StructuredData() {
           "Chatbot development",
           "Business process automation",
           "Full-stack website development",
+          "Custom software development",
+          "Custom bot development",
           "Next.js",
           "Social media management",
         ],
