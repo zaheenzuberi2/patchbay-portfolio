@@ -2002,3 +2002,43 @@ Added three FAQs plus matching keywords ("crypto trading bot developer",
 
 Verified: `npx tsc --noEmit` clean. Checked the rendered FAQ text in the
 local preview before pushing.
+
+## 41. Trading bots restructured around two named systems — 24 Sep 2026
+
+Zaheen asked for the trading bot and the signal bot to be branded as two
+distinct things, the sales copy on `/trading-bots` improved, and the
+existing "give followers a portion of your bot to trade or receive
+signals" model made explicit, plus signals delivered to Telegram/Discord
+group chats specifically.
+
+Most of the underlying capability already existed (the whitelabel section
+already covered followers connecting their own API keys), it just wasn't
+named or sold clearly. Changes:
+
+- New **Two systems** section naming the split directly: **Execution
+  Bot** (places the trade via broker/exchange API) and **Signal Bot**
+  (posts the same call, entry/stop/target, without executing).
+- New arsenal item: signal delivery straight into a Telegram or Discord
+  group, formatted and timestamped.
+- Whitelabel section rewritten to spell out both monetization paths by
+  name: a signal-only key (no broker access needed from followers at
+  all) and a copy-execution key (follower connects their own account on
+  their own API keys, non-custodial, same rule as everywhere else on the
+  page). Both issued under the buyer's own brand, same $1,500 setup fee
+  and $500–$700 reference price already on the page, no new numbers
+  invented.
+- New FAQs on the Signal vs Execution distinction, Telegram/Discord
+  delivery, and follower trust (no shared account, no custody).
+- Added matching keywords: "trading signal bot", "forex signal bot
+  Telegram", "crypto signal bot Discord", "trade copier bot", "copy
+  trading bot developer".
+
+Note flagged, not acted on unilaterally: earlier turn this session,
+Zaheen asked to add Quotex/binary options as a "yes" and I declined,
+explaining no compliant API exists there and it would mean either lying
+on the site or building browser automation against a platform's terms.
+He accepted that and redirected into this branding/selling work instead.
+
+Verified: `npx tsc --noEmit` clean. Checked the rendered page (both
+systems section, whitelabel copy, new FAQs) in the local preview before
+pushing.
