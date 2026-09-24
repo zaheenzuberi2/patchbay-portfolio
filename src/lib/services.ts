@@ -138,6 +138,10 @@ export const services: Service[] = [
         a: "Yes. Patchbay is based in Islamabad, and voice agent development is handled by the same team you would be talking to about the project, not handed off to an outsourced developer elsewhere.",
       },
       {
+        q: "Is there an AI voice agent developer in Pakistan who works outside Islamabad?",
+        a: "Yes. The base is Islamabad, but voice agent builds are remote-friendly end to end: a call-flow discovery call, a real voice demo you can hear before committing, and a shared project board instead of in-person meetings. Clients across Pakistan, and internationally, are handled the same way.",
+      },
+      {
         q: "Is there a single developer building AI voice agents in Islamabad, not an agency?",
         a: "Yes. Zaheen Zuberi is the one point of contact for a voice agent build, from the first call flow question through the demo you hear on this page, not an account manager passing your project to someone else. A small team backs him on design and copy, but the person scoping and building the agent is the one you talk to.",
       },
@@ -707,6 +711,10 @@ export const services: Service[] = [
       {
         q: "Is there a custom bot developer based in Islamabad I can talk to directly?",
         a: "Yes. Patchbay is based in Islamabad, and bot builds are handled by the same team you would be talking to about the project, not outsourced to a separate shop.",
+      },
+      {
+        q: "Is there a custom bot developer in Pakistan who works with clients outside Islamabad?",
+        a: "Yes. The base is Islamabad, but bot builds are remote-friendly end to end: a scoping call, a shared project board, and logs you can check yourself once it's deployed, instead of in-person meetings. Clients across Pakistan, and internationally, are handled the same way.",
       },
       {
         q: "Is there a single developer building custom bots in Islamabad, not an agency?",

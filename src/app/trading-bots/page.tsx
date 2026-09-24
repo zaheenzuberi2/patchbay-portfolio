@@ -132,6 +132,10 @@ const faqs = [
     a: "Yes. Patchbay is based in Islamabad, and trading system builds are handled by the same team you would be talking to about the project, not outsourced to a separate shop.",
   },
   {
+    q: "Is there a trading bot developer in Pakistan who works with clients outside Islamabad?",
+    a: "Yes. The base is Islamabad, but the process is remote-friendly end to end: a strategy call, demo-account testing you can watch yourself, and a shared project board, instead of in-person meetings. Clients across Pakistan, and internationally, are handled the same way.",
+  },
+  {
     q: "Is there a single developer building trading bots in Islamabad, not an agency?",
     a: "Yes. Zaheen Zuberi is the one point of contact for a trading bot build, from the strategy lab through the finished system, not an account manager relaying your requirements to someone else. A small team backs him where needed, but the person scoping and building the system is the one you talk to.",
   },
