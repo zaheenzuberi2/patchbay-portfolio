@@ -13,7 +13,11 @@ import { SignalBars } from "@/components/SignalBars";
 import { AiStrategyLab } from "@/components/trading-bots/AiStrategyLab";
 import { SystemDashboard } from "@/components/trading-bots/SystemDashboard";
 
-// New service vertical, launched with no clients or track record yet. No
+// New service vertical, launched with no client track record yet, which the
+// FAQs say directly rather than implying otherwise. Separate from that:
+// Zaheen has personally traded crypto and Quotex, and built a Binance
+// trading bot for his own account (confirmed directly by him, not inferred
+// or embellished), and is open to walking through it as a live demo. No
 // fixed prices are quoted on this page at all, deliberately: every build is
 // scoped to the market, platform, and strategy first. The only numbers here
 // are configurable settings (the drawdown limit) or placeholders clearly
@@ -168,7 +172,11 @@ const faqs = [
   },
   {
     q: "Do you have a live track record yet?",
-    a: "Not yet, honestly. This is a new service line and there's no public track record or client results to point to right now. What exists instead is the process: every strategy, whether it's yours or one built here, runs on a demo account under live market conditions before it's trusted with real capital.",
+    a: "Not for this service line's clients yet, honestly, there's no public client track record or results to point to right now. What does exist is personal experience: I've traded crypto and Quotex myself, and built a Binance trading bot for my own account. And regardless of track record, every strategy built for a client, yours or one built here, still runs on a demo account under live market conditions before it's trusted with real capital.",
+  },
+  {
+    q: "Can I see a demo of a bot you've actually built?",
+    a: "Yes. I've built a Binance trading bot for my own account and I'm open to walking through it directly, the real logic and the real interface, not a recorded sales reel. Get in touch and we'll set up a time.",
   },
   {
     q: "Is this investment advice?",
@@ -512,6 +520,86 @@ export default function TradingBotsPage() {
             <div className="mt-10">
               <Reveal variant="scale">
                 <AiStrategyLab />
+              </Reveal>
+            </div>
+          </div>
+        </section>
+
+        {/* Backtesting and risk, documented */}
+        <section className="border-b border-line py-14 sm:py-24">
+          <div className="mx-auto max-w-6xl px-6">
+            <Reveal>
+              <h2 className="text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
+                Backtesting and risk management, documented.
+              </h2>
+              <p className="mt-4 max-w-2xl text-paper-dim">
+                Not a claim to take on faith, the actual process every
+                strategy goes through before it touches your account.
+              </p>
+            </Reveal>
+
+            <div className="mt-12 grid gap-5 sm:grid-cols-2">
+              <Reveal>
+                <div className="h-full rounded-2xl border border-line-strong bg-ink-2/60 p-6">
+                  <h3 className="text-lg font-medium tracking-[-0.01em] text-paper">
+                    Backtesting
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-paper-dim">
+                    Every candidate strategy, yours or one built in the
+                    strategy lab, is tested against historical price data
+                    across more than one market condition first, not just a
+                    stretch that happens to flatter it. It then runs again on
+                    a demo account against live market data before it&apos;s
+                    ever proposed for real capital. What you get out of that
+                    is a plain result, win rate, drawdown, and how it behaved
+                    outside its best case, not a verbal assurance that it
+                    works.
+                  </p>
+                </div>
+              </Reveal>
+              <Reveal delay={60}>
+                <div className="h-full rounded-2xl border border-line-strong bg-ink-2/60 p-6">
+                  <h3 className="text-lg font-medium tracking-[-0.01em] text-paper">
+                    Risk management
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-paper-dim">
+                    Position sizing and a daily drawdown limit are set before
+                    the system ever goes live, at numbers you choose, not a
+                    fixed default. Once that drawdown limit is hit, the
+                    system soft-locks itself for the rest of the day. It is
+                    the one rule every discretionary trader breaks under
+                    pressure, enforced here in code instead of willpower.
+                  </p>
+                </div>
+              </Reveal>
+            </div>
+          </div>
+        </section>
+
+        {/* Personal credibility */}
+        <section className="border-b border-line py-14 sm:py-24">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-center">
+              <Reveal>
+                <h2 className="text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
+                  Built by someone who has actually traded.
+                </h2>
+                <p className="mt-5 max-w-xl text-paper-dim">
+                  This service line is new, but trading isn&apos;t new to me.
+                  I&apos;ve traded crypto and Quotex myself, and built a
+                  Binance trading bot for my own account. If you want to see
+                  real logic and a real interface before committing to
+                  anything, I&apos;m open to walking through it with you
+                  directly, not a polished sales reel.
+                </p>
+              </Reveal>
+              <Reveal delay={80}>
+                <a
+                  href={`mailto:${siteConfig.contactEmail}?subject=${encodeURIComponent("Trading bot demo")}`}
+                  className="flex min-h-11 w-fit items-center rounded-full border border-line-strong px-6 py-3 font-mono text-xs uppercase tracking-[0.1em] text-paper transition-colors hover:border-signal/60 hover:text-signal"
+                >
+                  Ask to see the demo
+                </a>
               </Reveal>
             </div>
           </div>

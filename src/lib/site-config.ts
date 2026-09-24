@@ -78,7 +78,13 @@ export const siteConfig = {
   ],
 };
 
-export const whatsappUrl = `https://wa.me/${siteConfig.whatsappNumber}`;
+// Prefilled so every "Ask on WhatsApp" link and the floating WhatsAppButton
+// across the site open the chat with a message identifying where it came
+// from, since wa.me has no other way to pass that along. wa.me ignores an
+// empty ?text= gracefully, so this is safe even if the string is ever
+// cleared to "".
+const whatsappSourceMessage = "Hi, I found you through your website.";
+export const whatsappUrl = `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(whatsappSourceMessage)}`;
 
 export const instagramUrl = `https://www.instagram.com/${siteConfig.instagramHandle}/`;
 
