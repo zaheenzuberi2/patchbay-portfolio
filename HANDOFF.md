@@ -2067,3 +2067,37 @@ platforms, since those are real search terms.
 
 Verified: `npx tsc --noEmit` clean. Confirmed in the local preview that
 no "$" price text remains anywhere on the page.
+
+## 43. Trading bots: backtesting/risk documented, personal trading credibility, WhatsApp source prefill — 24 Sep 2026
+
+Following the ChatGPT competitive comparison from section 42's follow-up
+(himself vs. two other trading-bot freelancers), Zaheen asked to close
+the "backtesting not publicly documented" gap and to add that he has
+personally traded and built a bot himself, open to demo.
+
+**Confirmed directly by Zaheen, not inferred:** traded crypto and Quotex
+personally, and built a Binance trading bot for his own account. Added a
+new "Built by someone who has actually traded" section on `/trading-bots`
+stating this, plus a demo FAQ and a CTA to ask for one. Important
+distinction kept intact: this is personal trading/bot-building
+experience, separate from "no client track record yet for this service
+line", which is still true and still stated as such, just reworded so
+the two facts don't read as contradicting each other. Also does not
+reopen the Quotex decision from section 40, personally trading on Quotex
+himself is unrelated to Patchbay declining to build automation for it.
+
+**New "Backtesting and risk management, documented" section**, closing
+the specific gap the comparison flagged: plain-language explanation of
+what backtesting actually covers (historical data across more than one
+market condition, then a demo account against live data, a real result
+rather than a verbal assurance) and how risk is enforced (position
+sizing and a drawdown limit set before go-live, soft-lock on breach).
+
+**Separately, site-wide:** `whatsappUrl` in `site-config.ts` now carries
+a prefilled `?text=` message ("Hi, I found you through your website.")
+via wa.me's own prefill support, so every WhatsApp link and the floating
+button across the whole site identifies the lead source, with the one
+shared constant change reaching all 14 files that import it.
+
+Verified: `npx tsc --noEmit` clean. Confirmed in the local preview that
+the WhatsApp link's href actually carries the encoded prefilled text.
