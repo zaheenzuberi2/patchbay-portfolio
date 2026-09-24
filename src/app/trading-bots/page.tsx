@@ -13,15 +13,16 @@ import { SignalBars } from "@/components/SignalBars";
 import { AiStrategyLab } from "@/components/trading-bots/AiStrategyLab";
 import { SystemDashboard } from "@/components/trading-bots/SystemDashboard";
 
-// New service vertical, launched with no clients or track record yet. Every
-// number on this page is either a configurable setting (the drawdown limit),
-// a price Patchbay is actually charging (the whitelabel setup fee), or a
-// placeholder clearly labeled as such (the dashboard preview). Nothing here
-// claims a win rate, an uptime figure, or a client count that doesn't exist,
-// matching the claim-free rule the rest of services.ts follows.
+// New service vertical, launched with no clients or track record yet. No
+// fixed prices are quoted on this page at all, deliberately: every build is
+// scoped to the market, platform, and strategy first. The only numbers here
+// are configurable settings (the drawdown limit) or placeholders clearly
+// labeled as such (the dashboard preview). Nothing here claims a win rate,
+// an uptime figure, or a client count that doesn't exist, matching the
+// claim-free rule the rest of services.ts follows.
 const title = "Custom Trading Bot Development";
 const description =
-  "Bespoke algorithmic trading systems built around your own strategy: MT4/MT5 Expert Advisors and crypto exchange bots, with non-custodial API security and a hard drawdown circuit breaker. Built end to end by Zaheen Zuberi.";
+  "Bespoke algorithmic trading systems for forex, crypto, stocks, and futures: MT4/MT5, Binance, Bybit, and Interactive Brokers, with non-custodial API security and a hard drawdown circuit breaker. Built end to end by Zaheen Zuberi.";
 const url = `${siteConfig.url}/trading-bots`;
 
 export const metadata: Metadata = {
@@ -50,6 +51,11 @@ export const metadata: Metadata = {
     "trade copier bot",
     "copy trading bot developer",
     "signal bot developer Pakistan",
+    "Interactive Brokers bot developer",
+    "IBKR API bot developer",
+    "stock trading bot developer",
+    "futures trading bot developer",
+    "Binance crypto bot developer",
   ],
   alternates: { canonical: url },
   openGraph: {
@@ -138,7 +144,11 @@ const faqs = [
   },
   {
     q: "Which platforms and brokers do you build for?",
-    a: "MT4 and MT5 Expert Advisors for forex and CFD brokers, and exchange-API bots for crypto venues like Binance and Bybit. TradingView-based strategies can be bridged into either through webhooks. Tell me your specific broker or exchange and I'll confirm the fit before quoting anything.",
+    a: "MT4 and MT5 Expert Advisors for forex and CFD brokers, exchange-API bots for crypto venues like Binance and Bybit, and Interactive Brokers' own API for stocks and futures. TradingView-based strategies can be bridged into any of them through webhooks. Tell me your specific broker or exchange and I'll confirm the fit before quoting anything.",
+  },
+  {
+    q: "Do you build trading bots for stocks or futures?",
+    a: "Yes, through Interactive Brokers' own API, which covers both alongside forex. The build works the same way as an MT4/MT5 or crypto bot: your rules coded as-is, non-custodial API access only, and the same drawdown circuit breaker.",
   },
   {
     q: "Do you build crypto trading bots?",
@@ -299,7 +309,14 @@ export default function TradingBotsPage() {
                 </div>
                 <SignalBars count={14} className="mt-4 h-16" />
                 <div className="mt-4 flex flex-wrap gap-2 border-t border-line pt-4">
-                  {["MT4", "MT5", "Binance API", "Bybit API", "Webhooks"].map(
+                  {[
+                    "MT4",
+                    "MT5",
+                    "Binance API",
+                    "Bybit API",
+                    "Interactive Brokers",
+                    "Webhooks",
+                  ].map(
                     (s) => (
                       <span
                         key={s}
@@ -463,16 +480,16 @@ export default function TradingBotsPage() {
                   If you run a trading community, a signal channel, or a
                   following that already trusts your calls, that following is
                   worth more than a screenshot dropped in the group chat by
-                  hand. A flat one-time setup fee gets you your own licensed
-                  instance of the engine, with license keys you issue and
-                  revoke yourself, sold to your audience however you price it.
+                  hand. A licensed instance of the engine gets you license
+                  keys you issue and revoke yourself, sold to your audience
+                  however you price it.
                 </p>
                 <ul className="mt-8 space-y-4">
                   <li className="flex gap-4 border-l border-line-strong pl-4">
                     <span className="font-mono text-xs text-signal">01</span>
                     <span className="text-sm leading-relaxed text-paper-dim">
-                      One-time setup: a licensed instance of the engine,
-                      configured to your signals.
+                      A licensed instance of the engine, configured to your
+                      signals.
                     </span>
                   </li>
                   <li className="flex gap-4 border-l border-line-strong pl-4">
@@ -517,32 +534,41 @@ export default function TradingBotsPage() {
               <Reveal variant="scale" delay={80}>
                 <div className="rounded-2xl border border-line-strong bg-ink-2/60 p-6 sm:p-8">
                   <p className="font-mono text-xs uppercase tracking-[0.1em] text-paper-dim">
-                    Setup
+                    Tell us the shape of it
                   </p>
-                  <p className="mt-2 text-4xl font-medium tracking-[-0.02em] text-paper">
-                    $1,500
-                    <span className="ml-2 text-sm font-normal text-paper-dim">
-                      one-time
-                    </span>
-                  </p>
-                  <p className="mt-3 text-sm leading-relaxed text-paper-dim">
-                    Your own licensed engine instance, license-key issuing,
-                    and both the Signal Bot and the Execution Bot your
-                    followers connect to.
-                  </p>
-                  <div className="mt-6 border-t border-line pt-6">
-                    <p className="font-mono text-xs uppercase tracking-[0.1em] text-paper-dim">
-                      What you charge your followers
-                    </p>
-                    <p className="mt-2 text-2xl font-medium tracking-[-0.01em] text-paper">
-                      Set by you
-                    </p>
-                    <p className="mt-3 text-sm leading-relaxed text-paper-dim">
-                      A common reference point for a signal-only license is
-                      in the $500–$700 range, but the price and terms with
-                      your own audience are entirely yours to set.
-                    </p>
+                  <div className="mt-6 space-y-6">
+                    <div>
+                      <p className="font-mono text-xs uppercase tracking-[0.1em] text-signal">
+                        Market
+                      </p>
+                      <p className="mt-2 text-lg leading-relaxed text-paper">
+                        Forex, Binance crypto, stocks, or futures.
+                      </p>
+                    </div>
+                    <div className="border-t border-line pt-6">
+                      <p className="font-mono text-xs uppercase tracking-[0.1em] text-signal">
+                        Platform
+                      </p>
+                      <p className="mt-2 text-lg leading-relaxed text-paper">
+                        MT4/MT5, Binance, Bybit, Interactive Brokers, or
+                        another broker or exchange with its own API.
+                      </p>
+                    </div>
+                    <div className="border-t border-line pt-6">
+                      <p className="font-mono text-xs uppercase tracking-[0.1em] text-signal">
+                        Strategy
+                      </p>
+                      <p className="mt-2 text-lg leading-relaxed text-paper">
+                        Already have one, or need one developed through the
+                        strategy lab.
+                      </p>
+                    </div>
                   </div>
+                  <p className="mt-6 border-t border-line pt-6 text-sm leading-relaxed text-paper-dim">
+                    Tell me those three things and you get a specific quote
+                    and a real timeline, not a fixed price list that fits
+                    nobody.
+                  </p>
                 </div>
               </Reveal>
             </div>
