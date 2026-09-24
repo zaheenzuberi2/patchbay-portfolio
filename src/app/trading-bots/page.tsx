@@ -332,6 +332,58 @@ export default function TradingBotsPage() {
           </div>
         </section>
 
+        {/* Capability pitch */}
+        <section className="border-b border-line py-14 sm:py-24">
+          <div className="mx-auto max-w-6xl px-6">
+            <Reveal>
+              <h2 className="text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
+                Whatever you trade, however you already trade it.
+              </h2>
+              <p className="mt-4 max-w-2xl text-paper-dim">
+                Forex, Binance crypto, stocks, futures: if the market has an
+                API, a bot can be built for it. And this isn&apos;t a
+                generic template bent to fit your account, it&apos;s your
+                own edge, coded to run itself.
+              </p>
+            </Reveal>
+
+            <div className="mt-12 grid gap-5 sm:grid-cols-3">
+              <div className="rounded-2xl border border-line-strong bg-ink-2/60 p-6">
+                <span className="font-mono text-xs uppercase tracking-[0.1em] text-signal">
+                  Any market
+                </span>
+                <p className="mt-3 text-sm leading-relaxed text-paper-dim">
+                  Forex, crypto, stocks, and futures are all built here, on
+                  MT4/MT5, Binance, Bybit, Interactive Brokers, or another
+                  broker or exchange with its own API.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-line-strong bg-ink-2/60 p-6">
+                <span className="font-mono text-xs uppercase tracking-[0.1em] text-signal">
+                  Your strategy, not a template
+                </span>
+                <p className="mt-3 text-sm leading-relaxed text-paper-dim">
+                  Already trading a rule set, on TradingView, MT4/MT5, or
+                  just in your head? It gets coded and automated exactly as
+                  you run it. No strategy yet is fine too, that&apos;s what
+                  the strategy lab is for.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-line-strong bg-ink-2/60 p-6">
+                <span className="font-mono text-xs uppercase tracking-[0.1em] text-signal">
+                  Built to actually ship
+                </span>
+                <p className="mt-3 text-sm leading-relaxed text-paper-dim">
+                  Execution, signals, or both, proven on a demo account
+                  before it ever touches real capital, and handed off
+                  documented rather than left as a black box only I can
+                  maintain.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Pain matrix */}
         <section className="border-b border-line py-14 sm:py-24">
           <div className="mx-auto max-w-6xl px-6">
