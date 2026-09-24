@@ -1905,3 +1905,47 @@ SuperbCompanies' listing goes live; the correct URLs will need to be
 re-confirmed then, not assumed to match the guessed pattern.
 
 Verified: `npx tsc --noEmit` clean.
+
+## 38. Pakistan-wide FAQ variants and city location pages — 24 Sep 2026
+
+Zaheen asked why other agencies outrank Patchbay on almost every target
+keyword except the one exact-match Islamabad phrase, and to close the
+gap: first with content Patchbay controls, then flagged what needs real
+external growth (reviews, backlinks, directory tenure) instead.
+
+**Competitive check (Bing, since Google blocked automated search this
+session):** the top result for "web developer in Islamabad" is
+`webdevelopmentislamabad.pk`, a content-mill site publishing "Top 10 X
+Agencies in [City]" listicles every 2-4 days across every city×service
+combination, plus a dedicated `/locations/[city]` section. That volume,
+not quality, is most of why it outranks a 7-service portfolio site.
+`AI automation agency Islamabad`, by contrast, returns almost no real
+local competitors at all on Bing — confirming it's winnable specifically
+because it's low-competition, not because Patchbay is generally
+outranking established agencies.
+
+**Fixed today (content-only, code-level):**
+1. Added a "Pakistan-wide" FAQ variant to the four services that only had
+   an Islamabad-framed version of the same query (chatbots, automation,
+   marketing/social, software) — the literal "Pakistan" phrase already
+   sat unused in each service's own `keywords` array. Voice agents and
+   web development already had Pakistan-wide coverage via existing FAQs.
+2. New `src/lib/locations.ts` + `src/app/locations/[slug]/page.tsx`
+   (mirrors `services.ts`'s array-drives-everything pattern): real,
+   indexable pages for `/locations/lahore` and `/locations/karachi`,
+   each listing all 7 services and 4 city-specific FAQs. Previously this
+   fact only existed as one FAQ answer on the web-development page.
+   Linked from a new "Also serving" section on `/services`, wired into
+   `sitemap.ts`. No claim of a physical office in either city — same
+   remote-friendly framing already used elsewhere on the site.
+
+**Explicitly not fixed, flagged instead (not something an FAQ edit
+solves):** review volume and directory tenure on Clutch/Sortlist/
+TechBehemoths, which the competitor's listings have years of and
+Patchbay's don't yet — this needs real client reviews over time, not
+more copy.
+
+Verified: `npx next typegen` (new dynamic route needed its types
+regenerated before `tsc` would recognize `PageProps<"/locations/[slug]">`)
+then `npx tsc --noEmit` clean. Manually checked `/locations/lahore` and
+the `/services` hub in the local preview before pushing.
