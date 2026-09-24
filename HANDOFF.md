@@ -2042,3 +2042,28 @@ He accepted that and redirected into this branding/selling work instead.
 Verified: `npx tsc --noEmit` clean. Checked the rendered page (both
 systems section, whitelabel copy, new FAQs) in the local preview before
 pushing.
+
+## 42. Trading bots: price removed, stocks/futures/Interactive Brokers added — 24 Sep 2026
+
+Zaheen asked to remove the pricing from `/trading-bots` and to make sure
+the page literally uses "Forex / Binance crypto / stocks / futures" as
+markets and "MT4/MT5 / Binance / Bybit / Interactive Brokers" as
+platforms, since those are real search terms.
+
+- Removed the $1,500 whitelabel setup fee card and the $500-$700
+  follower-price reference entirely, along with "one-time setup fee"
+  language in the surrounding copy. Replaced the price card with a
+  "Tell us the shape of it" scope card: Market / Platform / Strategy,
+  using the exact terms given, ending in "you get a specific quote", same
+  scope-first pattern every other service on the site already follows
+  (see services.ts's repeated "no range that fits nobody" phrasing).
+- Added real coverage for stocks and futures via Interactive Brokers'
+  own API (a real, documented API, same category as MT4/MT5 or a crypto
+  exchange's, unlike Quotex from section 40), alongside forex and
+  crypto. New FAQ, updated "Which platforms and brokers" FAQ, updated
+  meta description, added Interactive Brokers to the hero stack tags,
+  and new keywords ("Interactive Brokers bot developer", "IBKR API bot
+  developer", "stock/futures trading bot developer").
+
+Verified: `npx tsc --noEmit` clean. Confirmed in the local preview that
+no "$" price text remains anywhere on the page.
