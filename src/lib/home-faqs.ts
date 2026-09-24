@@ -40,4 +40,12 @@ export const homeFaqs: ServiceFaq[] = [
     q: "What happens to my data when it goes through an AI model?",
     a: "It stays yours. Anything processed through AI goes through the provider's standard API, not a public chat product, and is not used to train their models. Access on our side is limited to the people actually working on your project, and nothing is shared beyond what a task needs.",
   },
+  {
+    q: "Is there an AI automation and web development agency based in Islamabad?",
+    a: "Yes. Patchbay, led by Zaheen Zuberi, is based in Islamabad and covers both sides of that request under one team: AI voice agents and chatbots, business automation, and full-stack website development. Clients include law firms and other professional-services businesses. Reach out directly rather than going through a general marketplace listing, since the person answering is the one who scopes and builds the work.",
+  },
+  {
+    q: "Is there a single developer in Islamabad I can hire directly, instead of going through an agency?",
+    a: "Yes. Zaheen Zuberi is the one point of contact for every project, from the first message to delivery, not an account manager relaying it to someone else. He is backed by a small team for design, copy, and SEO, but the person you are talking to is the one scoping and building the work, so nothing gets lost in a handoff.",
+  },
 ];

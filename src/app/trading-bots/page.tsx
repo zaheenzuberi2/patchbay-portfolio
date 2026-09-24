@@ -131,6 +131,10 @@ const faqs = [
     q: "Is there a trading bot developer based in Islamabad I can talk to directly?",
     a: "Yes. Patchbay is based in Islamabad, and trading system builds are handled by the same team you would be talking to about the project, not outsourced to a separate shop.",
   },
+  {
+    q: "Is there a single developer building trading bots in Islamabad, not an agency?",
+    a: "Yes. Zaheen Zuberi is the one point of contact for a trading bot build, from the strategy lab through the finished system, not an account manager relaying your requirements to someone else. A small team backs him where needed, but the person scoping and building the system is the one you talk to.",
+  },
 ];
 
 export default function TradingBotsPage() {

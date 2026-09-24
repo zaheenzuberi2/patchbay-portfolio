@@ -1698,3 +1698,56 @@ session, not through code:
   "Add more details" section did not render inside the visible modal bounds
   in this browser session, and a plain text update does not require one.
   Chatbots and automation are the next two in the cadence.
+
+## 32. `/trading-bots` — undocumented until now
+
+`src/app/trading-bots/page.tsx` shipped after section 31 was written and was
+never logged here. It is a 23rd indexable URL, already in `sitemap.ts`, with
+its own `metadata` export (title, description, canonical, OG, Twitter) and
+the same claim-free discipline as the rest of `services.ts` — no invented
+win rate, uptime figure, or client count (see the page's own top-of-file
+comment). Zaheen is finishing the remaining build/content work on this page
+himself; this entry exists only so the next SEO pass doesn't miss the page
+the way this one nearly did.
+
+## 33. First confirmed ChatGPT-referred lead — 24 Sep 2026
+
+A lead came in via the WhatsApp button with ChatGPT as the referring source.
+It did not convert into a client, but it is the first confirmed case of an
+LLM (not Google) sending a real visitor to the site. Zaheen separately
+reports that searching "AI automation and web development agency based in
+Islamabad" (phrasing, not a fixed query string) surfaces his name in the
+results most of the time.
+
+Noted here as a data point, not a trigger for new work: the FAQ/structured-data
+investment described in section 7 (claim-free copy, FAQPage schema, the
+"AI automation for law firms" niche framing) is what makes a page quotable by
+an LLM in the first place, and this is the first outside evidence it is
+working. If more ChatGPT- or other-LLM-referred leads show up later, this is
+the first dated entry in that timeline.
+
+As of this same date, Zaheen reports ChatGPT-sourced traffic to the site is
+currently higher than Google's. Acted on it by adding two new entries to
+`homeFaqs` (`src/lib/home-faqs.ts`): one answering an agency-shaped query
+("AI automation and web development agency based in Islamabad") and one
+answering a single-developer-shaped query ("single developer in Islamabad I
+can hire directly"). The second one deliberately keeps the team-framed
+positioning from section 0 — Zaheen as the one point of contact backed by a
+small team, not "I work alone" — since re-introducing solo-developer language
+site-wide is a standing decision not to re-litigate. Both feed the existing
+homepage `FAQPage` schema automatically; no other file changed.
+
+Extended the same single-developer-shaped pattern to every service, at
+Zaheen's request ("i would want single developer based queries results too
+... for each service"). Added one new FAQ per service in `src/lib/services.ts`
+(`ai-voice-agents`, `ai-chatbots`, `business-automation`, `marketing-and-social`,
+`software-development`) and one in `src/app/trading-bots/page.tsx`, each
+sitting right after that service's existing agency-framed "Is there a [X]
+based in Islamabad I can talk to directly?" entry. `web-development` was
+skipped on purpose — its existing "Are you a web developer based in
+Islamabad?" FAQ already answers a single-developer query directly, so a
+second entry would have been a near-duplicate. All new answers keep the
+section-0 team-framed positioning (Zaheen as the one point of contact,
+backed by a small team) rather than reintroducing "I work alone" language.
+Every new FAQ feeds that page's existing `FaqSchema`/`FAQPage` schema
+automatically.

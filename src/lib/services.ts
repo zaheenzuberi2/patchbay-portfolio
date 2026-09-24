@@ -137,6 +137,10 @@ export const services: Service[] = [
         q: "Is there a voice agent developer based in Islamabad I can talk to directly?",
         a: "Yes. Patchbay is based in Islamabad, and voice agent development is handled by the same team you would be talking to about the project, not handed off to an outsourced developer elsewhere.",
       },
+      {
+        q: "Is there a single developer building AI voice agents in Islamabad, not an agency?",
+        a: "Yes. Zaheen Zuberi is the one point of contact for a voice agent build, from the first call flow question through the demo you hear on this page, not an account manager passing your project to someone else. A small team backs him on design and copy, but the person scoping and building the agent is the one you talk to.",
+      },
     ],
   },
   {
@@ -223,6 +227,10 @@ export const services: Service[] = [
         q: "Is there a chatbot developer based in Islamabad I can talk to directly?",
         a: "Yes. Patchbay is based in Islamabad, and chatbot development is handled by the same team you would be talking to about the project, not handed off to an outsourced developer elsewhere.",
       },
+      {
+        q: "Is there a single developer building AI chatbots in Islamabad I can hire directly?",
+        a: "Yes. Zaheen Zuberi is the one point of contact for a chatbot build, from scoping the knowledge base through deployment, not an account manager relaying your requirements to someone else. A small team backs him on design and copy, but the person building the bot is the one you talk to.",
+      },
     ],
   },
   {
@@ -304,6 +312,10 @@ export const services: Service[] = [
       {
         q: "Is there a business automation agency based in Islamabad I can talk to directly?",
         a: "Yes. Patchbay is based in Islamabad, and automation builds are handled by the same team you would be talking to about the project, not handed off to an outsourced developer elsewhere.",
+      },
+      {
+        q: "Is there a single automation developer in Islamabad I can hire directly, instead of going through an agency?",
+        a: "Yes. Zaheen Zuberi is the one point of contact for an automation build, from the workflow audit through the finished integration, not an account manager relaying it to someone else. A small team backs him where needed, but the person scoping and building the automation is the one you talk to.",
       },
     ],
   },
@@ -473,6 +485,10 @@ export const services: Service[] = [
         q: "Is there a social media agency based in Islamabad I can talk to directly?",
         a: "Yes. Patchbay is based in Islamabad, and brand, content, and social work is handled by the same team you would be talking to about the project, not subcontracted to a separate studio.",
       },
+      {
+        q: "Is there a single social media manager in Islamabad I can hire directly, not an agency?",
+        a: "Yes. Zaheen Zuberi is the one point of contact for brand, content, and social work, not an account manager coordinating a separate design studio and copywriter on your behalf. A small team backs him on design and copy, but the person planning and running the account is the one you talk to.",
+      },
     ],
   },
   {
@@ -558,6 +574,10 @@ export const services: Service[] = [
       {
         q: "Is there a software development company based in Islamabad I can talk to directly?",
         a: "Yes. Patchbay is based in Islamabad, and custom software builds are handled by the same team you would be talking to about the project, not outsourced to a separate development shop.",
+      },
+      {
+        q: "Is there a single software developer in Islamabad I can hire directly, not a software house?",
+        a: "Yes. Zaheen Zuberi is the one point of contact for a custom software build, from the systems design through handover, not an account manager passing your project between departments. A small team backs him where needed, but the person scoping and building the system is the one you talk to.",
       },
     ],
   },
