@@ -1797,3 +1797,111 @@ accounts, bypass a CAPTCHA/identity check, or violate a platform's anti-bot
 terms — worth keeping if this page is extended further, since "auto filler
 bot" as a search term covers both legitimate RPA use and account-abuse tooling,
 and only the former is something to advertise building.
+
+## 35. AI-answer-engine freshness pass — 24 Sep 2026
+
+Zaheen asked to work through more "sneaky" GEO tactics one by one, following
+the About-page/llms.txt pattern. Three real findings, not all requiring new
+work:
+
+1. **`public/llms.txt` was stale** — still said "six service lines" and had
+   no mention of `custom-bots`. Updated to list all 7 services and the
+   auto-fill capability, matching the `services` array.
+2. **`sameAs` was already live, not actually missing.** Section 24's "still
+   open" bullet was stale: `src/lib/site-config.ts` already has a real
+   `linkedinUrl`, and `StructuredData.tsx`'s Person node already carries
+   `sameAs: [linkedinUrl]`, with both LinkedIn and Instagram visibly linked
+   in `Contact.tsx`. Nothing to build here — just correcting the record.
+   **No GitHub link exists** and none was added, since inventing one would
+   be a fabricated claim; add it if/when Zaheen has a real public profile.
+3. **Added a freshness signal**, genuinely new: `contentUpdated` in
+   `site-config.ts` (currently `"2026-09"`, month-level granularity on
+   purpose — day-level would look stale mid-session). `Faq.tsx` now renders
+   it as a visible "Updated <Month Year>" label next to every FAQ heading
+   site-wide, and `FaqSchema` emits it as `dateModified` on every `FAQPage`
+   node. One shared component change, so every page using `<Faq>`/
+   `<FaqSchema>` (homepage, all 7 services, trading-bots, and the 3
+   standalone landing pages) picked it up with no per-page edits.
+   **Bump `contentUpdated` by hand whenever FAQ content changes materially**
+   — it does not update itself, and a stale freshness date is worse than no
+   freshness date at all.
+
+Verified locally: `npx tsc --noEmit` clean, the label renders correctly on
+`/services/ai-voice-agents` at both desktop and 375px mobile with no layout
+break.
+
+**Deliberately not done in code, needs Zaheen personally:** consistent
+phrasing across external profiles (LinkedIn About section, Google Business
+Profile description) so independent sources corroborate the same facts an
+LLM can cross-reference. No agent has login access to those accounts. Draft
+text was given to Zaheen in chat to paste himself.
+
+## 36. Real external profiles found and wired into sameAs — 24 Sep 2026
+
+Zaheen gave the GitHub URL directly and said he's listed on "many other
+platforms" (Upwork, Fiverr, GBP, GoodFirms, SuperbCompanies, TechBehemoths,
+Facebook), asked to find the rest via Chrome. Searched each platform
+directly (not just Google, since directory profiles are often unindexed).
+
+**Confirmed real and added to `site-config.ts` / `StructuredData.tsx`'s
+`sameAs`:**
+- GitHub — `https://github.com/zaheenzuberi2` (given directly)
+- Himalayas (personal) — `https://himalayas.app/@zaheenzuberi`
+- Clutch (business) — `https://clutch.co/profile/patchbay`
+- Sortlist (business) — `https://www.sortlist.com/agency/patchbay`
+- TechBehemoths (business) — `https://techbehemoths.com/company/patchbay`
+- Google Business Profile (business) — `https://maps.app.goo.gl/GHhRYo9VKDbo3Pfn`,
+  found via Google Maps search, share-link taken from the listing's own
+  Share dialog while logged into Zaheen's Google account in his real Chrome.
+  **Already has 3 reviews, 5.0 average** — real reviews Google is holding
+  that never made it into the site's own `reviews` table.
+
+**Searched but found no real profile on:** Upwork, Fiverr, Facebook,
+GoodFirms, SuperbCompanies, or a LinkedIn company page for Patchbay (only
+Zaheen's personal LinkedIn exists). Either not created yet or not publicly
+discoverable. Did not fabricate any of these; flagged for Zaheen to confirm
+or provide directly instead.
+
+**Two real inconsistencies surfaced while verifying these, worth acting on
+later:**
+1. **Clutch and Sortlist both publicly list prices** ("$50-$99/hr, starting
+   $1,000+" on Clutch; "€399/project" on Sortlist), directly contradicting
+   the standing "no price ranges" decision in section 12 ("Prices... Do not
+   add price ranges"). These are third-party listings, not something an
+   agent can edit — Zaheen set these up himself or they were auto-populated
+   at signup — but worth him knowing the no-price positioning isn't actually
+   consistent everywhere it's visible.
+2. **Sortlist lists a specific street address** ("Islamabad Expressway,
+   Sector D DHA Phase 2, Islamabad, Pakistan") that appears nowhere else,
+   including nowhere on zaheenzuberi.com itself, which only ever says
+   "Islamabad" at city level. Not verified as accurate or something Zaheen
+   wants public; flagged rather than assumed correct.
+
+Verified: `npx tsc --noEmit` clean.
+
+## 37. Two more real profiles: Fiverr and Upwork — 24 Sep 2026
+
+Zaheen shared screenshots of his own logged-in Fiverr, SuperbCompanies,
+TechBehemoths, and GoodFirms tabs, plus gave the Upwork URL directly, and
+asked to keep finding/wiring the rest via Chrome.
+
+**Confirmed real and added to `sameAs` (Person, alongside Himalayas):**
+- Fiverr — `https://www.fiverr.com/zaheen_zuberi`
+- Upwork — `https://www.upwork.com/freelancers/~01d503a27e767d824a`
+  (confirmed via screenshot: "Zaheen Z. - Patchbay | Software Developer,
+  Full-Stack & AI Automation Engineer", lists $30/hr — a third public
+  price figure alongside Clutch and Sortlist from section 36, same
+  no-price-policy inconsistency noted there, not re-litigated here)
+
+**GoodFirms and SuperbCompanies are not live yet, confirmed, not guessed:**
+both screenshots showed "submitted for moderation" / "PENDING" banners.
+Tried the obvious guessed slugs (`goodfirms.co/company/patchbay`,
+`superbcompanies.com/company/patchbay`) — GoodFirms silently redirected to
+its own homepage (not Patchbay's page) and SuperbCompanies returned a real
+404. Neither is safe to add to `sameAs` yet: a `sameAs` link is supposed to
+be a working corroborating page, and both would currently point nowhere.
+**Revisit once GoodFirms' 5-10 business day moderation clears** and once
+SuperbCompanies' listing goes live; the correct URLs will need to be
+re-confirmed then, not assumed to match the guessed pattern.
+
+Verified: `npx tsc --noEmit` clean.

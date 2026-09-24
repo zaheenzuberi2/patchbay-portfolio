@@ -1,7 +1,7 @@
 import { Reveal } from "./Reveal";
 import { SectionGlow } from "./SectionGlow";
 import { SECTION_ACCENTS } from "@/lib/section-theme";
-import { siteConfig, whatsappUrl, instagramUrl, linkedinUrl } from "@/lib/site-config";
+import { siteConfig, whatsappUrl, instagramUrl, linkedinUrl, githubUrl } from "@/lib/site-config";
 
 export function Contact() {
   return (
@@ -83,6 +83,15 @@ export function Contact() {
                 className="flex min-h-11 items-center px-2 text-signal transition-colors hover:text-paper"
               >
                 LinkedIn
+              </a>
+              <span className="hidden sm:inline text-line-strong">|</span>
+              <a
+                href={githubUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="flex min-h-11 items-center px-2 text-signal transition-colors hover:text-paper"
+              >
+                GitHub
               </a>
             </div>
 

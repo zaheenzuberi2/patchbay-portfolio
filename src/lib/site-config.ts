@@ -28,6 +28,13 @@ function resolveSiteUrl() {
   return "http://localhost:3000";
 }
 
+// Bumped by hand whenever FAQ content is materially added or edited
+// (see the Faq component, which surfaces this as a visible freshness signal
+// and as FAQPage schema's dateModified). Month-level granularity on purpose:
+// day-level would drift stale-looking within the same content session, and
+// nobody is re-reviewing every FAQ answer on a daily cadence anyway.
+export const contentUpdated = "2026-09";
+
 export const siteConfig = {
   name: "Patchbay",
   ownerName: "Zaheen Zuberi",
@@ -76,3 +83,22 @@ export const whatsappUrl = `https://wa.me/${siteConfig.whatsappNumber}`;
 export const instagramUrl = `https://www.instagram.com/${siteConfig.instagramHandle}/`;
 
 export const linkedinUrl = "https://www.linkedin.com/in/zaheenzuberi/";
+
+export const githubUrl = "https://github.com/zaheenzuberi2";
+
+// Personal profiles: Zaheen's own listings, not the business. Verified live
+// (not guessed from a URL pattern) by visiting each while logged into his
+// own accounts in his real Chrome session.
+export const himalayasUrl = "https://himalayas.app/@zaheenzuberi";
+export const fiverrUrl = "https://www.fiverr.com/zaheen_zuberi";
+export const upworkUrl = "https://www.upwork.com/freelancers/~01d503a27e767d824a";
+
+// Business directory/listing profiles for Patchbay, not Zaheen personally.
+// Each was verified live before being added here (real page, real content
+// matching the business), not guessed from a URL pattern.
+export const clutchUrl = "https://clutch.co/profile/patchbay";
+export const sortlistUrl = "https://www.sortlist.com/agency/patchbay";
+export const techBehemothsUrl = "https://techbehemoths.com/company/patchbay";
+// Google's own share-link format (maps.app.goo.gl), taken directly from the
+// Business Profile's own "Share" dialog rather than a hand-built Maps URL.
+export const googleBusinessProfileUrl = "https://maps.app.goo.gl/GHhRYo9VKDbo3Pfn";

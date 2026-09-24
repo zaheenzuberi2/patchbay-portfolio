@@ -1,4 +1,16 @@
-import { siteConfig, instagramUrl, linkedinUrl } from "@/lib/site-config";
+import {
+  siteConfig,
+  instagramUrl,
+  linkedinUrl,
+  githubUrl,
+  himalayasUrl,
+  fiverrUrl,
+  upworkUrl,
+  clutchUrl,
+  sortlistUrl,
+  techBehemothsUrl,
+  googleBusinessProfileUrl,
+} from "@/lib/site-config";
 import { services } from "@/lib/services";
 import { listReviews, type ReviewRow } from "@/lib/db";
 
@@ -79,9 +91,9 @@ export async function StructuredData() {
           addressLocality: "Islamabad",
           addressCountry: "PK",
         },
-        // Personal profile, so it belongs here rather than on
+        // Personal profiles, so they belong here rather than on
         // ProfessionalService, same split reasoning as instagramUrl below.
-        sameAs: [linkedinUrl],
+        sameAs: [linkedinUrl, githubUrl, himalayasUrl, fiverrUrl, upworkUrl],
         knowsAbout: [
           "AI automation",
           "AI voice agents",
@@ -139,7 +151,13 @@ export async function StructuredData() {
         // It feeds entity resolution and knowledge-panel eligibility, so it
         // is worth more than the outbound link alone. Business account, so
         // it belongs on ProfessionalService, not on the Person node.
-        sameAs: [instagramUrl],
+        sameAs: [
+          instagramUrl,
+          clutchUrl,
+          sortlistUrl,
+          techBehemothsUrl,
+          googleBusinessProfileUrl,
+        ],
         hasOfferCatalog: {
           "@type": "OfferCatalog",
           name: "Services",

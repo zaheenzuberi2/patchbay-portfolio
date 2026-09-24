@@ -5,6 +5,19 @@ import { motion, useReducedMotion } from "motion/react";
 import type { ServiceFaq } from "@/lib/services";
 import { SectionGlow } from "./SectionGlow";
 import { SECTION_ACCENTS } from "@/lib/section-theme";
+import { contentUpdated } from "@/lib/site-config";
+
+// "September 2026" from "2026-09", for the visible freshness label. Parsed
+// as a first-of-month UTC date purely so toLocaleDateString has a valid Date
+// to format; the day component is never shown.
+function formatContentUpdated(yyyyMm: string) {
+  const [year, month] = yyyyMm.split("-").map(Number);
+  return new Date(Date.UTC(year, month - 1, 1)).toLocaleDateString("en-US", {
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+}
 
 // Answers stay in the DOM whether or not the item is expanded, so crawlers
 // read the full text and the FAQPage schema matches what is on the page.
@@ -55,9 +68,14 @@ export function Faq({
     >
       <SectionGlow color={SECTION_ACCENTS.faq} />
       <div className="mx-auto max-w-6xl px-6">
-        <h2 className="text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
-          {heading}
-        </h2>
+        <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+          <h2 className="text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
+            {heading}
+          </h2>
+          <p className="font-mono text-xs uppercase tracking-[0.1em] text-paper-dim">
+            Updated {formatContentUpdated(contentUpdated)}
+          </p>
+        </div>
 
         <div
           className={`divide-y divide-line border-y border-line ${dense ? "mt-6 sm:mt-10" : "mt-10"}`}
@@ -118,6 +136,9 @@ export function FaqSchema({ items }: { items: ServiceFaq[] }) {
   const schema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    // yyyy-mm is a valid partial ISO 8601 date, which schema.org's
+    // Date/DateTime expects; no day-level precision to fabricate.
+    dateModified: contentUpdated,
     mainEntity: items.map((item) => ({
       "@type": "Question",
       name: item.q,
