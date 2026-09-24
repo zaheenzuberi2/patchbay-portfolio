@@ -2101,3 +2101,26 @@ shared constant change reaching all 14 files that import it.
 
 Verified: `npx tsc --noEmit` clean. Confirmed in the local preview that
 the WhatsApp link's href actually carries the encoded prefilled text.
+
+## 44. Real navigation added to the site-wide Footer — 25 Sep 2026
+
+Zaheen asked for a footer on every page. Checked first: every public
+page.tsx already renders `<Footer />` (only `/admin` and `/admin/login`
+skip it, intentionally, they're a private dashboard not a page a visitor
+lands on). What was actually missing, confirmed from his screenshot, was
+real navigation. The footer had contact info, a collapsed "About
+Patchbay" extraction block, and a copyright line, but no links out to
+services, the blog, or the two location pages, nothing a typical site
+footer would have.
+
+Added a 4-column grid above the existing About block, unchanged
+otherwise: a brand/blurb column, Services (all 7 service pages plus
+trading-bots), Company (About, Projects, Blog, FAQ, both location pages),
+and Get in touch (email, WhatsApp with the section-43 source prefill,
+Instagram/LinkedIn/GitHub). One component change reaches every page that
+imports Footer.
+
+Verified: `npx tsc --noEmit` clean. Confirmed via `document.querySelectorAll('footer a')`
+in the local preview that all 19 links render with correct hrefs (the
+browser tool's screenshot came back solid black for an unrelated
+rendering reason, so this JS-based check was used instead).
