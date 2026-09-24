@@ -228,6 +228,10 @@ export const services: Service[] = [
         a: "Yes. Patchbay is based in Islamabad, and chatbot development is handled by the same team you would be talking to about the project, not handed off to an outsourced developer elsewhere.",
       },
       {
+        q: "Is there a chatbot developer in Pakistan who works with clients outside Islamabad?",
+        a: "Yes. The base is Islamabad, but chatbot builds are remote-friendly end to end: calls, a shared project board, and a working demo link instead of in-person meetings. Clients across Pakistan, and internationally, are handled the same way.",
+      },
+      {
         q: "Is there a single developer building AI chatbots in Islamabad I can hire directly?",
         a: "Yes. Zaheen Zuberi is the one point of contact for a chatbot build, from scoping the knowledge base through deployment, not an account manager relaying your requirements to someone else. A small team backs him on design and copy, but the person building the bot is the one you talk to.",
       },
@@ -312,6 +316,10 @@ export const services: Service[] = [
       {
         q: "Is there a business automation agency based in Islamabad I can talk to directly?",
         a: "Yes. Patchbay is based in Islamabad, and automation builds are handled by the same team you would be talking to about the project, not handed off to an outsourced developer elsewhere.",
+      },
+      {
+        q: "Is there a business automation agency in Pakistan that works outside Islamabad too?",
+        a: "Yes. The base is Islamabad, but automation work is remote-friendly end to end: an audit call, a shared project board, and documented workflows instead of in-person meetings. Clients across Pakistan, and internationally, are set up the same way.",
       },
       {
         q: "Is there a single automation developer in Islamabad I can hire directly, instead of going through an agency?",
@@ -486,6 +494,10 @@ export const services: Service[] = [
         a: "Yes. Patchbay is based in Islamabad, and brand, content, and social work is handled by the same team you would be talking to about the project, not subcontracted to a separate studio.",
       },
       {
+        q: "Is there a social media agency for small businesses in Pakistan, not just Islamabad?",
+        a: "Yes. The base is Islamabad, but the work is remote-friendly end to end: content planned and approved over a shared board, reporting delivered on a schedule, no in-person meetings required. Small businesses across Pakistan, and internationally, are run the same way.",
+      },
+      {
         q: "Is there a single social media manager in Islamabad I can hire directly, not an agency?",
         a: "Yes. Zaheen Zuberi is the one point of contact for brand, content, and social work, not an account manager coordinating a separate design studio and copywriter on your behalf. A small team backs him on design and copy, but the person planning and running the account is the one you talk to.",
       },
@@ -574,6 +586,10 @@ export const services: Service[] = [
       {
         q: "Is there a software development company based in Islamabad I can talk to directly?",
         a: "Yes. Patchbay is based in Islamabad, and custom software builds are handled by the same team you would be talking to about the project, not outsourced to a separate development shop.",
+      },
+      {
+        q: "Is there a software house in Pakistan that works with clients outside Islamabad?",
+        a: "Yes. The base is Islamabad, but custom software builds are remote-friendly end to end: a systems-design call, a shared project board, and a staging link to test against instead of in-person meetings. Clients across Pakistan, and internationally, are handled the same way.",
       },
       {
         q: "Is there a single software developer in Islamabad I can hire directly, not a software house?",
