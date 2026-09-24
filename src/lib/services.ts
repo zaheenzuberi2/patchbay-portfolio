@@ -686,7 +686,19 @@ export const services: Service[] = [
     faqs: [
       {
         q: "What kinds of bots do you build?",
-        a: "Whatever the job actually is: Discord moderation and role bots, Telegram alert and utility bots, Slack workflow bots, scrapers that watch a page and report back, and scheduled bots that run a task on their own. If it is not a trading bot or a customer-facing support chatbot, both of which are their own dedicated service, it is probably this.",
+        a: "Whatever the job actually is: Discord moderation and role bots, Telegram alert and utility bots, Slack workflow bots, X (Twitter) bots, scrapers that watch a page and report back, and scheduled bots that run a task on their own. If it is not a trading bot or a customer-facing support chatbot, both of which are their own dedicated service, it is probably this.",
+      },
+      {
+        q: "Do you build bots for X, formerly Twitter?",
+        a: "Yes, where it's actually workable. X's own API now runs on a paid tier with real rate limits, which changes the cost and reliability math compared to Discord or Telegram, both of which are free to build on. Tell me what the bot needs to post or react to and I will tell you honestly whether X's current API terms make it worth building, before you pay for something the platform itself will throttle.",
+      },
+      {
+        q: "Is this the same as RPA (robotic process automation)?",
+        a: "Overlapping, not identical. RPA is the enterprise term for the same underlying idea: software that does a repetitive digital task instead of a person clicking through it by hand, whether that's filling a form, moving data between two systems, or scraping and re-entering records. A custom bot built here is that same category of work without the packaged-RPA-platform licensing cost, built with Puppeteer or a direct API integration instead of a commercial RPA tool.",
+      },
+      {
+        q: "Can I hire you for just one bot, not an ongoing contract?",
+        a: "Yes. Most bots here are a single fixed-price build, not a retainer. Ongoing involvement only comes up if you want ongoing hosting or monitoring included, and that's optional, not the default.",
       },
       {
         q: "How is this different from the AI chatbots you build?",
