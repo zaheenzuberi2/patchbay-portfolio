@@ -1949,3 +1949,32 @@ Verified: `npx next typegen` (new dynamic route needed its types
 regenerated before `tsc` would recognize `PageProps<"/locations/[slug]">`)
 then `npx tsc --noEmit` clean. Manually checked `/locations/lahore` and
 the `/services` hub in the local preview before pushing.
+
+## 39. Blog launched: 3 real articles, not listicle volume — 24 Sep 2026
+
+Zaheen confirmed the blog was the item he'd meant when he said "the bots
+u earlier talked about" and forgot the actual topic (it wasn't bots) —
+he'd meant the content-volume gap flagged in section 38's competitive
+audit.
+
+**New:** `src/lib/articles.ts` (same array-drives-everything pattern as
+`services.ts`), `src/app/blog/page.tsx` (index), `src/app/blog/[slug]/
+page.tsx` (article page with `Article` JSON-LD). Wired into `sitemap.ts`
+and added "Blog" to `Nav.tsx`.
+
+**Three articles at launch, each expanding an existing FAQ answer into a
+longer explainer, not new claims:**
+- `/blog/ai-voice-agent-vs-answering-service`
+- `/blog/n8n-vs-zapier-pakistan`
+- `/blog/website-cost-pakistan-explained`
+
+Deliberately not the competitor pattern from section 38 ("Top 10 X
+Agencies in [City]", published every 2-4 days). That approach is volume
+for its own sake and would also require inventing rankings of other real
+businesses, which conflicts with the claim-free rule. These are
+comparison/explainer pieces instead, each linking to the one service
+page it's actually about.
+
+Verified: `npx next typegen` (new dynamic route again needed its types
+regenerated) then `npx tsc --noEmit` clean. Checked `/blog` and one
+article page in the local preview before pushing.
