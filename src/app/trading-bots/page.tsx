@@ -44,6 +44,12 @@ export const metadata: Metadata = {
     "Bybit trading bot developer",
     "Quotex trading bot",
     "binary options bot",
+    "trading signal bot",
+    "forex signal bot Telegram",
+    "crypto signal bot Discord",
+    "trade copier bot",
+    "copy trading bot developer",
+    "signal bot developer Pakistan",
   ],
   alternates: { canonical: url },
   openGraph: {
@@ -85,6 +91,19 @@ const painMatrix = [
   },
 ];
 
+const systems = [
+  {
+    name: "Execution Bot",
+    tag: "Trades",
+    body: "Connects to your broker or exchange's own API and places the trade itself, the instant your rule triggers. This is the system behind every MT4/MT5 EA and crypto exchange bot built here.",
+  },
+  {
+    name: "Signal Bot",
+    tag: "Alerts",
+    body: "Runs the exact same strategy logic but stops one step short: instead of placing a trade, it posts the call, entry, stop, target, straight to a Telegram or Discord group, for traders who want to pull the trigger themselves.",
+  },
+];
+
 const arsenal = [
   {
     title: "Bespoke strategy automation",
@@ -96,7 +115,11 @@ const arsenal = [
   },
   {
     title: "Multi-account copier terminal",
-    body: "One signal, replicated across every linked broker or exchange account you manage, in the order and sizing you define. Built for traders running more than one book.",
+    body: "One signal, replicated across every linked broker or exchange account, in the order and sizing you define. Works the same whether those are your own accounts or accounts your followers connect themselves, each on their own API keys.",
+  },
+  {
+    title: "Signal delivery to Telegram or Discord",
+    body: "The Signal Bot posts directly into the group chat you already run, formatted and timestamped, so a following gets the call the moment it fires instead of a screenshot relayed by hand.",
   },
   {
     title: "Non-custodial API security",
@@ -142,8 +165,24 @@ const faqs = [
     a: "No. This is software development: building and automating the execution of a trading strategy, whether it's yours or one built with you. Nobody here is recommending what to trade or promising a return. The decisions about strategy and risk stay yours.",
   },
   {
+    q: "What's the difference between the Signal Bot and the Execution Bot?",
+    a: "The Signal Bot calls the trade, entry, stop, target, out to a Telegram or Discord group without placing it. The Execution Bot runs the same underlying strategy but places the trade itself through a broker or exchange API. Same logic, different last step: one alerts, one acts.",
+  },
+  {
+    q: "Can a bot post trading signals straight into my Telegram or Discord group?",
+    a: "Yes. That's exactly what the Signal Bot is built to do: the moment your strategy's rules trigger, it posts the call directly into the group chat you already run, formatted the same way every time, instead of you or a moderator typing it out by hand.",
+  },
+  {
+    q: "Can I let other people trade from my strategy without giving them my account?",
+    a: "Yes, that's the copy-execution model. A follower connects their own broker or exchange account using their own API keys, scoped to trading only, and your signal mirrors into their account automatically. You never see their funds or their login, they never see your account either.",
+  },
+  {
+    q: "Do my followers need to trust me with their money to copy my trades?",
+    a: "No, and that's the point of doing it through separate API keys instead of a shared account. Each follower's connection is non-custodial and scoped to trading only, so their funds stay in their own account under their own control the entire time, same rule that applies to your own account.",
+  },
+  {
     q: "How does the whitelabel program work?",
-    a: "It's a one-time setup fee for your own licensed copy of the signal engine, which you can then issue as license keys to your own followers or clients under your own brand, at whatever price you set for them. You run the relationship with your audience; the underlying signal infrastructure is what's licensed.",
+    a: "It's a one-time setup fee for your own licensed instance of the engine, both the Signal Bot and the Execution Bot, which you then issue as license keys to your own followers or clients under your own brand, at whatever price you set for them. You run the relationship with your audience; the underlying infrastructure is what's licensed.",
   },
   {
     q: "Is there a trading bot developer based in Islamabad I can talk to directly?",
@@ -320,6 +359,40 @@ export default function TradingBotsPage() {
           </div>
         </section>
 
+        {/* Two systems */}
+        <section className="border-b border-line py-14 sm:py-24">
+          <div className="mx-auto max-w-6xl px-6">
+            <Reveal>
+              <h2 className="text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
+                Two systems, one strategy.
+              </h2>
+              <p className="mt-4 max-w-2xl text-paper-dim">
+                Same rules, same signal, two different jobs. Which one you
+                need depends on whether you want the trade placed for you or
+                just called out to act on.
+              </p>
+            </Reveal>
+
+            <div className="mt-12 grid gap-5 sm:grid-cols-2">
+              {systems.map((s, i) => (
+                <Reveal key={s.name} delay={i * 80}>
+                  <div className="h-full rounded-2xl border border-line-strong bg-ink-2/60 p-6 sm:p-8">
+                    <span className="font-mono text-xs uppercase tracking-[0.1em] text-signal">
+                      {s.tag}
+                    </span>
+                    <h3 className="mt-3 text-2xl font-medium tracking-[-0.01em] text-paper">
+                      {s.name}
+                    </h3>
+                    <p className="mt-3 text-sm leading-relaxed text-paper-dim">
+                      {s.body}
+                    </p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Core arsenal */}
         <section id="arsenal" className="border-b border-line py-14 sm:py-24">
           <div className="mx-auto max-w-6xl px-6">
@@ -384,15 +457,15 @@ export default function TradingBotsPage() {
                   For gurus and group owners
                 </p>
                 <h2 className="mt-4 text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
-                  License the engine. Run your own brand on top of it.
+                  License the engine. Sell access under your own brand.
                 </h2>
                 <p className="mt-5 max-w-xl text-paper-dim">
                   If you run a trading community, a signal channel, or a
-                  following that already trusts your calls, you don&apos;t need to
-                  build execution infrastructure from scratch to offer it. A
-                  flat one-time setup fee gets you your own licensed instance
-                  of the signal engine, with license keys you issue and
-                  revoke yourself.
+                  following that already trusts your calls, that following is
+                  worth more than a screenshot dropped in the group chat by
+                  hand. A flat one-time setup fee gets you your own licensed
+                  instance of the engine, with license keys you issue and
+                  revoke yourself, sold to your audience however you price it.
                 </p>
                 <ul className="mt-8 space-y-4">
                   <li className="flex gap-4 border-l border-line-strong pl-4">
@@ -405,17 +478,29 @@ export default function TradingBotsPage() {
                   <li className="flex gap-4 border-l border-line-strong pl-4">
                     <span className="font-mono text-xs text-signal">02</span>
                     <span className="text-sm leading-relaxed text-paper-dim">
-                      You issue unique license keys to your own followers or
-                      clients, under your own brand.
+                      Signal-only key: the Signal Bot posts every call
+                      straight into your Telegram or Discord group the moment
+                      it fires. No broker access needed from your followers
+                      at all, just the group they&apos;re already in.
                     </span>
                   </li>
                   <li className="flex gap-4 border-l border-line-strong pl-4">
                     <span className="font-mono text-xs text-signal">03</span>
                     <span className="text-sm leading-relaxed text-paper-dim">
-                      You set what you charge for a key. A signal-only
-                      license is typically priced well below a full custom
-                      build, since there&apos;s no bespoke automation work behind
-                      each one.
+                      Copy-execution key: a follower who wants more than an
+                      alert connects their own broker or exchange account on
+                      their own API keys, and the Execution Bot mirrors your
+                      trades into their account automatically. You never see
+                      or touch their funds, same non-custodial rule as
+                      everywhere else on this page.
+                    </span>
+                  </li>
+                  <li className="flex gap-4 border-l border-line-strong pl-4">
+                    <span className="font-mono text-xs text-signal">04</span>
+                    <span className="text-sm leading-relaxed text-paper-dim">
+                      You issue both kinds of key to your own followers or
+                      clients under your own brand, and set what each one
+                      costs.
                     </span>
                   </li>
                 </ul>
@@ -442,7 +527,8 @@ export default function TradingBotsPage() {
                   </p>
                   <p className="mt-3 text-sm leading-relaxed text-paper-dim">
                     Your own licensed engine instance, license-key issuing,
-                    and the signal-only bot your followers connect to.
+                    and both the Signal Bot and the Execution Bot your
+                    followers connect to.
                   </p>
                   <div className="mt-6 border-t border-line pt-6">
                     <p className="font-mono text-xs uppercase tracking-[0.1em] text-paper-dim">
