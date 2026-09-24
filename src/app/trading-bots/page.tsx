@@ -38,6 +38,12 @@ export const metadata: Metadata = {
     "crypto trading bot development",
     "TradingView strategy automation",
     "algo trading systems Pakistan",
+    "crypto trading bot developer",
+    "forex trading bot developer",
+    "Binance trading bot developer",
+    "Bybit trading bot developer",
+    "Quotex trading bot",
+    "binary options bot",
   ],
   alternates: { canonical: url },
   openGraph: {
@@ -110,6 +116,18 @@ const faqs = [
   {
     q: "Which platforms and brokers do you build for?",
     a: "MT4 and MT5 Expert Advisors for forex and CFD brokers, and exchange-API bots for crypto venues like Binance and Bybit. TradingView-based strategies can be bridged into either through webhooks. Tell me your specific broker or exchange and I'll confirm the fit before quoting anything.",
+  },
+  {
+    q: "Do you build crypto trading bots?",
+    a: "Yes. A crypto bot connects through your exchange's own API, Binance and Bybit are the two built most often, scoped to trading only with withdrawal permissions never requested. Your strategy runs against your own account, on your own capital, the entire time.",
+  },
+  {
+    q: "Do you build forex trading bots?",
+    a: "Yes, as an MT4 or MT5 Expert Advisor connected to your own forex or CFD broker. Whatever your rule set is, entries, exits, position sizing, gets coded and automated as-is, with the same drawdown circuit breaker as every other build here.",
+  },
+  {
+    q: "Can you build a trading bot for Quotex or another binary options platform?",
+    a: "No, and it's worth explaining why rather than leaving it at that. Quotex and most binary options platforms don't expose an official trading API the way MT4/MT5 or a crypto exchange does, so a bot for one of them almost always means browser automation working around a platform that was never built to be automated, which is the same territory the custom-bot service explicitly won't operate in. If the underlying strategy is sound, it's usually better rebuilt and automated properly on a forex or crypto venue that supports real API access.",
   },
   {
     q: "Can I set my own risk and drawdown limits?",
