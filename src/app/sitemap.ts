@@ -4,6 +4,7 @@ import { services } from "@/lib/services";
 import { caseStudies } from "@/lib/case-studies";
 import { faqCategoryPages } from "@/lib/faq-categories";
 import { locations } from "@/lib/locations";
+import { articles } from "@/lib/articles";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -96,6 +97,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "monthly" as const,
       priority: 0.72,
+    })),
+    {
+      url: `${siteConfig.url}/blog`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.65,
+    },
+    ...articles.map((a) => ({
+      url: `${siteConfig.url}/blog/${a.slug}`,
+      lastModified: new Date(a.datePublished),
+      changeFrequency: "monthly" as const,
+      priority: 0.68,
     })),
   ];
 }
