@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { whatsappUrl } from "@/lib/site-config";
 import { findFaqAnswer, looksLikeQuestion } from "@/lib/faq-search";
+import { askAssistant, type AssistantTurn } from "@/lib/ask-assistant";
 
 type Message = { role: "bot" | "user"; text: string };
 
@@ -123,7 +124,7 @@ export function ChatWidget() {
     setStep("done");
   }
 
-  function handleTextSubmit(e: React.FormEvent) {
+  async function handleTextSubmit(e: React.FormEvent) {
     e.preventDefault();
     const value = input.trim();
     if (!value) return;
@@ -145,6 +146,24 @@ export function ChatWidget() {
             "Happy to answer more, or if you want a specific quote: what's the biggest bottleneck right now?",
           );
         }
+        return;
+      }
+
+      // No exact FAQ match: ask the LLM (Gemini, via /api/assistant),
+      // grounded in the real service list and told never to invent a price
+      // or capability (assistant-context.ts). If that fails for any reason
+      // (no key configured, rate limited, timed out), fall through to the
+      // step-based flow below exactly as before, rather than the question
+      // silently vanishing.
+      const history: AssistantTurn[] = messages.map((m) => ({
+        role: m.role === "bot" ? "agent" : "user",
+        text: m.text,
+      }));
+      const llmReply = await askAssistant(value, history);
+      if (llmReply) {
+        pushUser(value);
+        pushBot(llmReply);
+        setAskedCount((n) => n + 1);
         return;
       }
     }

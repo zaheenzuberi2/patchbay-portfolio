@@ -2124,3 +2124,65 @@ Verified: `npx tsc --noEmit` clean. Confirmed via `document.querySelectorAll('fo
 in the local preview that all 19 links render with correct hrefs (the
 browser tool's screenshot came back solid black for an unrelated
 rendering reason, so this JS-based check was used instead).
+
+## 45. Real LLM behind the voice demo and chat widget — 26 Sep 2026
+
+Both `VoiceDemo.tsx` (the "Zaheen's Assistant" widget) and `ChatWidget.tsx`
+used to be entirely scripted: keyword regex intents plus a deterministic
+FAQ keyword matcher (`faq-search.ts`), explicitly documented as "not a live
+AI conversation." The browser's own speech synthesis and speech recognition
+already provided real, free voice I/O; the only missing piece was a real
+model generating the replies. Zaheen provided a free Gemini API key
+directly in chat and it was stored in `.env.local` (gitignored, never
+committed) and added to all three Vercel environments via
+`vercel env add`, not entered into any web form.
+
+Architecture, deliberately hybrid rather than a full LLM takeover:
+
+- `src/lib/assistant-context.ts` builds a compact system prompt from the
+  real `services.ts` data (not the full 200+ question FAQ library verbatim)
+  plus hard rules: never invent a price, client count, or capability; keep
+  replies short since they're often spoken aloud; if unsure, hand off to
+  Zaheen directly. Same no-fabrication rule as every other page on this
+  site, just enforced via prompt instead of hand-written copy.
+- `src/app/api/assistant/route.ts`: server route, same per-IP in-memory
+  rate limit pattern as `/api/leads` (20 requests / 10 min), calls Gemini's
+  `gemini-flash-latest` alias (not a pinned version, so a model deprecation
+  doesn't hard-break this later). One retry on a 503 ("high demand... 
+  usually temporary" is Gemini's own wording), 12s upstream timeout.
+- `src/lib/ask-assistant.ts`: shared client helper both widgets call.
+  Returns `null` on any failure (not configured, rate limited, timed out,
+  empty reply) rather than throwing, so callers always have a fallback path.
+- **VoiceDemo.tsx**: the existing scripted intents (human handoff, booking,
+  hours, leads, pricing keywords) and the FAQ matcher stay first and
+  unchanged, since they're free and guaranteed accurate. Only a message
+  matching none of them goes to the LLM. If that fails, falls back to the
+  old generic scripted reply. Added a "Thinking" status state so the UI
+  says something while the request is in flight.
+- **ChatWidget.tsx**: same principle, narrower scope. The lead-capture flow
+  (interest/name/contact/budget) is untouched. Only the existing
+  "does this look like a question, and does it match a known FAQ" path
+  gained a third step: if it looks like a question and doesn't match a
+  known FAQ, ask the LLM before falling through to the step-based flow.
+
+Two real bugs found and fixed during verification, both worth remembering
+if this pattern gets reused elsewhere:
+
+1. Gemini's flash models spend part of `maxOutputTokens` on internal
+   "thinking" tokens by default, which was silently truncating short
+   replies mid-sentence even though nothing here needs multi-step
+   reasoning. Fixed with `generationConfig.thinkingConfig.thinkingBudget: 0`.
+2. Even with thinking disabled, Gemini sometimes splits one reply across
+   multiple `parts` in the response (a visible parts[0], then a trailing
+   clause in parts[1] carrying its own `thoughtSignature`), with
+   `finishReason: "STOP"` on the whole thing, i.e. it was never actually
+   truncated. Reading only `parts[0].text` cut replies off. Fixed by
+   joining every part's text.
+
+Verified live in the browser preview: asked the voice widget an
+off-script, non-FAQ question ("I run a small dental clinic in Lahore,
+could an assistant like you actually help me specifically?") and got a
+real, grounded, clinic-specific answer, spoken aloud, not a scripted
+fallback. Also confirmed the fallback path itself works: a genuine 503
+from Gemini during testing correctly produced the old scripted reply
+instead of the widget going silent.

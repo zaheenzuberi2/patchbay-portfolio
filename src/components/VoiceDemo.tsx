@@ -5,6 +5,7 @@ import { AudioVisualizer } from "./AudioVisualizer";
 import { findFaqAnswer } from "@/lib/faq-search";
 import { buildProsodySegments, BASE_RATE } from "@/lib/prosody";
 import { pickBestVoice } from "@/lib/voice-selection";
+import { askAssistant, type AssistantTurn } from "@/lib/ask-assistant";
 
 // Honest scope: there is no telephony wired into this project (no Twilio
 // number, no Vapi config, no server-side call-initiation code), and
@@ -12,12 +13,20 @@ import { pickBestVoice } from "@/lib/voice-selection";
 // component has no business creating. This is a real, working two-way
 // exchange (type or, where the browser supports it, speak a line; the
 // agent replies and speaks the reply back) using only the browser's
-// built-in speech APIs, no account or ongoing cost. Replies are matched
-// against a small set of scripted intents plus the real FAQ library
-// (faq-search.ts, the same matcher the chat widget uses) — deterministic
-// keyword matching, not a live AI conversation. The copy says so, the same
-// honesty rule as ChatWidget.tsx (see its module comment / HANDOFF.md).
-// English-only by request (Urdu language support was tried and removed).
+// built-in speech APIs, no account or ongoing cost for the voice I/O
+// itself.
+//
+// Replies: a small set of scripted intents and the real FAQ library
+// (faq-search.ts, the same matcher the chat widget uses) are checked first,
+// deterministically, since those are guaranteed accurate and free. Anything
+// that doesn't match goes to a real LLM (Gemini, via /api/assistant),
+// grounded in the site's real service list and told explicitly never to
+// invent a price, client count, or capability (assistant-context.ts). If
+// that call fails for any reason (no API key configured, rate limited,
+// timed out), it falls back to the old generic scripted reply rather than
+// going silent. So: real AI conversation when the key is configured, still
+// not a real phone call either way. English-only by request (Urdu language
+// support was tried and removed).
 //
 // Voice/prosody: replies are spoken through prosody.ts's segment planner
 // (clause-level pauses, tiny rate/pitch jitter) via a queue of chained
@@ -134,7 +143,11 @@ function looseFallback(userText: string): string | null {
   return null;
 }
 
-function craftReply(userText: string): string {
+// Guaranteed-accurate, zero-cost paths stay first and unchanged. Only a
+// message that matches none of them (i.e. isn't a known intent or a known
+// FAQ) goes to the LLM, so nothing this function already answered correctly
+// before can drift.
+function scriptedReply(userText: string): string | null {
   if (HUMAN_PATTERN.test(userText)) return REPLIES.human;
   if (BOOKING_PATTERN.test(userText)) return REPLIES.booking;
   if (HOURS_PATTERN.test(userText)) return REPLIES.hours;
@@ -142,8 +155,25 @@ function craftReply(userText: string): string {
   if (PRICING_PATTERN.test(userText)) return REPLIES.pricing;
   const faq = findFaqAnswer(userText);
   if (faq) return faq.a;
+  return null;
+}
+
+function genericFallback(userText: string): string {
   if (GENERAL_HELP_PATTERN.test(userText)) return REPLIES.generalHelp;
   return looseFallback(userText) ?? REPLIES.miss;
+}
+
+async function craftReply(
+  userText: string,
+  history: AssistantTurn[],
+): Promise<string> {
+  const scripted = scriptedReply(userText);
+  if (scripted) return scripted;
+
+  const llmReply = await askAssistant(userText, history);
+  if (llmReply) return llmReply;
+
+  return genericFallback(userText);
 }
 
 export function VoiceDemo({ onClose }: { onClose?: () => void } = {}) {
@@ -155,6 +185,7 @@ export function VoiceDemo({ onClose }: { onClose?: () => void } = {}) {
   const [phase, setPhase] = useState<Phase>("idle");
   const [speaking, setSpeaking] = useState(false);
   const [listening, setListening] = useState(false);
+  const [thinking, setThinking] = useState(false);
   const [turns, setTurns] = useState<Turn[]>([]);
   const [input, setInput] = useState("");
   const [analyser, setAnalyser] = useState<AnalyserNode | null>(null);
@@ -329,13 +360,12 @@ export function VoiceDemo({ onClose }: { onClose?: () => void } = {}) {
     setTurns((t) => [...t, { role: "agent", text }]);
   }
 
-  function respondTo(userText: string) {
-    const reply = craftReply(userText);
-    setTurns((t) => [
-      ...t,
-      { role: "user", text: userText },
-      { role: "agent", text: reply },
-    ]);
+  async function respondTo(userText: string) {
+    setTurns((t) => [...t, { role: "user", text: userText }]);
+    setThinking(true);
+    const reply = await craftReply(userText, turns);
+    setThinking(false);
+    setTurns((t) => [...t, { role: "agent", text: reply }]);
     speak(reply);
   }
 
@@ -426,7 +456,7 @@ export function VoiceDemo({ onClose }: { onClose?: () => void } = {}) {
   const subtitle =
     phase === "idle"
       ? "Runs in your browser. Not a real phone call."
-      : "Type or speak a line. Scripted replies, not a real call.";
+      : "Type or speak a line. Real AI replies, not a real phone call.";
 
   const visualizerState = speaking ? "speaking" : listening ? "listening" : "idle";
 
@@ -446,15 +476,15 @@ export function VoiceDemo({ onClose }: { onClose?: () => void } = {}) {
         <div className="flex shrink-0 items-center gap-3">
           <span
             className={`flex items-center gap-1.5 font-mono text-xs sm:text-[11px] uppercase tracking-[0.1em] ${
-              speaking || listening ? "text-online" : "text-paper-dim"
+              speaking || listening || thinking ? "text-online" : "text-paper-dim"
             }`}
           >
             <span
               className={`status-dot h-1.5 w-1.5 rounded-full ${
-                speaking || listening ? "bg-online" : "bg-paper-dim"
+                speaking || listening || thinking ? "bg-online" : "bg-paper-dim"
               }`}
             />
-            {listening ? "Listening" : speaking ? "Live" : "Idle"}
+            {listening ? "Listening" : thinking ? "Thinking" : speaking ? "Live" : "Idle"}
           </span>
           {onClose && (
             <button
