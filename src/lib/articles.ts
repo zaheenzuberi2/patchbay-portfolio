@@ -9,6 +9,12 @@
 
 export type ArticleSection = { heading: string; body: string };
 
+/** A real screenshot used as evidence, not a mockup or a stock graphic. src
+ *  is a path under /public. caption states exactly what the screenshot
+ *  shows, in the source's own numbers, so it reads as a citation rather
+ *  than a marketing graphic. */
+export type ArticleProof = { src: string; alt: string; caption: string };
+
 export type Article = {
   slug: string;
   title: string;
@@ -17,6 +23,7 @@ export type Article = {
   keywords: string[];
   datePublished: string; // "YYYY-MM-DD"
   intro: string;
+  proof?: ArticleProof;
   sections: ArticleSection[];
   relatedServices: string[];
 };
@@ -126,6 +133,120 @@ export const articles: Article[] = [
       {
         heading: "Why a real quote needs to know the actual job",
         body: "Because these factors vary so much between two sites that both get called \"a business website\", any number quoted before knowing what the site has to do is either a guess or a lowball that grows once the real requirements surface. A fixed quote that holds is only possible after the actual scope, not the category, is understood.",
+      },
+    ],
+    relatedServices: ["web-development"],
+  },
+  {
+    slug: "chatbot-development-cost-pakistan",
+    title: "What Actually Drives Chatbot Development Cost in Pakistan",
+    metaTitle: "Chatbot Development Cost in Pakistan | What Drives It",
+    metaDescription:
+      "Chatbot development cost in Pakistan depends on what the bot actually has to do, not a fixed price list. A plain explanation of the factors that actually move the number.",
+    keywords: [
+      "chatbot development cost Pakistan",
+      "chatbot development services in Pakistan",
+      "AI chatbot developer Pakistan",
+      "business chatbot Pakistan",
+      "custom chatbot pricing",
+    ],
+    datePublished: "2026-09-27",
+    intro:
+      "\"How much does a chatbot cost\" has no honest single answer, because a bot that answers FAQs from a fixed script and one that checks live order status in your database are different builds that happen to share the word \"chatbot\". What actually moves the price is a short list of concrete factors, not the country you're building in.",
+    sections: [
+      {
+        heading: "Does it answer from a script, or read your live data?",
+        body: "A chatbot that answers a fixed set of questions from content you supply upfront is a comparatively small build. One that checks real order status, live inventory, or account details has to connect to your actual systems, database, CRM, or order platform, and that connection is the bulk of the work, not the chat interface itself.",
+      },
+      {
+        heading: "Where the conversation happens",
+        body: "A bot embedded on your own website is the simplest surface to build for. Adding WhatsApp, Instagram, or Messenger on top means integrating with each platform's own API and handling their specific quirks, and each additional channel is its own piece of work, not a checkbox.",
+      },
+      {
+        heading: "What happens when it doesn't know the answer",
+        body: "A bot that quietly fails or loops on \"I don't understand\" is cheap to build and expensive in lost trust. One that recognizes it's stuck and hands off to a human, with the conversation history intact, needs that escalation logic designed in from the start, which is a real design decision that takes real time, not an afterthought toggle.",
+      },
+      {
+        heading: "Why a real quote needs to know the actual job",
+        body: "Because these factors vary so much between two builds that both get called \"a chatbot\", any number quoted before knowing what it actually has to do, which channels, which systems, what happens on a stuck conversation, is either a guess or a lowball that grows once the real requirements surface. A fixed quote that holds is only possible after the actual scope is understood.",
+      },
+    ],
+    relatedServices: ["ai-chatbots"],
+  },
+  {
+    slug: "custom-software-vs-off-the-shelf-saas",
+    title: "Custom Software vs. Off-the-Shelf SaaS: What Actually Changes",
+    metaTitle: "Custom Software vs SaaS | Which Fits Your Business",
+    metaDescription:
+      "Off-the-shelf SaaS and custom software both solve business problems, but they fit different situations. A plain comparison for a business deciding between them.",
+    keywords: [
+      "custom software development Pakistan",
+      "custom software vs SaaS",
+      "software development company Islamabad",
+      "bespoke software Pakistan",
+      "custom business software",
+    ],
+    datePublished: "2026-09-27",
+    intro:
+      "Both get a business running on software instead of a spreadsheet or a paper register. The real difference shows up in how closely the tool fits how you actually work, and what happens when your process doesn't match the tool's assumptions.",
+    sections: [
+      {
+        heading: "Fit versus speed to start",
+        body: "Off-the-shelf SaaS is built for the average version of your kind of business, so setup is fast but you adapt your process to the tool wherever it doesn't match. Custom software is built around your actual workflow from the start, which takes longer to get live but means you're not the one bending to fit a generic tool.",
+      },
+      {
+        heading: "What happens when your process is unusual",
+        body: "An offline-first rent-a-car showroom without reliable counter internet, or a restaurant that takes orders straight to WhatsApp instead of a POS, are both real cases where the standard SaaS assumption (always-on cloud, a generic checkout flow) simply doesn't hold. A generic tool either can't do it or gets bent into an awkward workaround; custom software is built assuming your actual constraint from day one.",
+      },
+      {
+        heading: "Cost over time",
+        body: "SaaS is a predictable recurring subscription that scales with seats or usage, and stops the moment you stop paying, taking your workflow's configuration with it. Custom software costs more upfront to build, but you own it: no per-seat fee, no forced migration when a vendor changes their pricing tiers or shuts down.",
+      },
+      {
+        heading: "The honest answer",
+        body: "For a common, well-understood process, invoicing, basic CRM, email, an existing SaaS tool is almost always faster and cheaper than building it yourself. Custom software earns its cost when your actual workflow doesn't fit what the generic tools assume, which is exactly the gap PakEngine Rent Ledger and MezMenu were each built to close for the specific businesses that needed them.",
+      },
+    ],
+    relatedServices: ["software-development"],
+  },
+  {
+    slug: "seo-results-tryvoicely-case-study",
+    title: "What Real SEO Results Look Like: Voicely's Search Console Numbers",
+    metaTitle: "SEO Results Case Study | Real Search Console Data",
+    metaDescription:
+      "A real SEO result, not a projection: Voicely's own Google Search Console numbers, 8,280 clicks and 110,000 impressions from organic search, shown as they actually appear in the dashboard.",
+    keywords: [
+      "SEO agency Islamabad",
+      "SEO case study Pakistan",
+      "proven SEO results",
+      "SEO services Pakistan",
+      "organic traffic growth case study",
+    ],
+    datePublished: "2026-09-27",
+    intro:
+      "Most SEO pitches show a chart with the axis labels cropped out. This is the real Google Search Console dashboard for tryvoicely.com, a site built and grown by the same team behind Patchbay, screenshotted directly rather than redrawn, so the numbers are exactly what Google itself reports.",
+    proof: {
+      src: "/work/tryvoicely-search-console-traffic.jpg",
+      alt: "Google Search Console performance report for tryvoicely.com showing 8.28K total clicks and 110K total impressions",
+      caption:
+        "tryvoicely.com in Google Search Console, 14 Apr – 24 Aug 2026: 8,280 clicks and 110,000 impressions from organic search, 7.5% average CTR, average position 15.9.",
+    },
+    sections: [
+      {
+        heading: "Why this counts as evidence, not a claim",
+        body: "Anyone can write \"we get results\" on a services page. This is the actual Search Console property for a live product, tryvoicely.com, the same one covered in the Voicely case study on this site, screenshotted from the dashboard rather than typed out as a number in a sentence.",
+      },
+      {
+        heading: "What actually moved these numbers",
+        body: "No paid ads sit behind this traffic, it's organic search only. The growth came from the same fundamentals that apply to any site: pages built around real search intent (Urdu and Hindi text-to-speech, specifically, not a generic \"AI tools\" pitch), fast load times, clean indexable structure, and content that actually answers the query instead of padding around a keyword.",
+      },
+      {
+        heading: "What this does and doesn't prove",
+        body: "It proves organic search traffic is achievable at real volume without a paid budget, on a site built the same way Patchbay builds a client site. It doesn't promise a specific number for a different site in a different market: search volume, competition, and how established a business already is all change the ceiling. What transfers is the approach, not a guaranteed outcome, which is exactly why this page shows the dashboard instead of a promise.",
+      },
+      {
+        heading: "Where this applies beyond one product",
+        body: "Voicely happens to be Patchbay's own product, but the same technical foundation, page structure, load speed, and indexability, is what every site built here starts from, client work included. It's the same reason a case study page on this site links straight to the service that built it: the proof and the service are the same team's work, not a separate marketing claim layered on top.",
       },
     ],
     relatedServices: ["web-development"],

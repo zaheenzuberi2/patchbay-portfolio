@@ -167,6 +167,57 @@ export default async function CaseStudyPage(
           </div>
         </section>
 
+        {/* Related services. Proof-to-sales-page link: someone who searched
+            this project's own name and landed here directly, before reading
+            a word of the case study, should still be one click from the
+            service that built it. Placed right after the hero rather than
+            after Approach/Outcome so a visitor who doesn't scroll far still
+            sees it; the anchor text also tells a crawler what this build is
+            evidence of. */}
+        {relatedServices.length > 0 && (
+          <section className="border-b border-line py-14 sm:py-24">
+            <div className="mx-auto max-w-6xl px-6">
+              <Reveal>
+                <p className="font-mono text-xs uppercase tracking-[0.15em] text-signal">
+                  Built by Patchbay
+                </p>
+                <h2 className="mt-4 text-balance text-2xl font-medium tracking-[-0.02em] sm:text-3xl">
+                  Need something built like this?
+                </h2>
+                <p className="mt-3 max-w-xl text-paper-dim">
+                  {study.name} is real, live proof of this work, not a mockup.
+                  Here&apos;s the service it came out of.
+                </p>
+              </Reveal>
+              <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                {relatedServices.map((s, i) => (
+                  <Reveal key={s.slug} delay={i * 50}>
+                    <Link
+                      href={`/services/${s.slug}`}
+                      className="group flex items-baseline justify-between gap-6 rounded-2xl border border-line-strong bg-ink-2/60 p-5 transition-colors hover:border-signal/50"
+                    >
+                      <span>
+                        <span className="font-mono text-xs text-signal">
+                          CH.{s.channel}
+                        </span>
+                        <span className="mt-2 block text-lg font-medium tracking-[-0.01em] text-paper transition-colors group-hover:text-signal">
+                          {s.name}
+                        </span>
+                      </span>
+                      <span
+                        aria-hidden="true"
+                        className="font-mono text-paper-dim transition-transform group-hover:translate-x-1 group-hover:text-signal"
+                      >
+                        &rarr;
+                      </span>
+                    </Link>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* The problem */}
         <section className="border-b border-line py-14 sm:py-24">
           <div className="mx-auto max-w-6xl px-6">
@@ -232,47 +283,6 @@ export default async function CaseStudyPage(
             </ul>
           </div>
         </section>
-
-        {/* Related services. Proof-to-sales-page link: a visitor who just
-            read how this was built is one click from the page that sells
-            it, and the anchor text tells a crawler what this build is
-            evidence of. */}
-        {relatedServices.length > 0 && (
-          <section className="border-b border-line py-14 sm:py-24">
-            <div className="mx-auto max-w-6xl px-6">
-              <Reveal>
-                <h2 className="text-balance text-2xl font-medium tracking-[-0.02em] sm:text-3xl">
-                  Built as part of.
-                </h2>
-              </Reveal>
-              <div className="mt-10 grid gap-4 sm:grid-cols-2">
-                {relatedServices.map((s, i) => (
-                  <Reveal key={s.slug} delay={i * 50}>
-                    <Link
-                      href={`/services/${s.slug}`}
-                      className="group flex items-baseline justify-between gap-6 rounded-2xl border border-line-strong bg-ink-2/60 p-5 transition-colors hover:border-signal/50"
-                    >
-                      <span>
-                        <span className="font-mono text-xs text-signal">
-                          CH.{s.channel}
-                        </span>
-                        <span className="mt-2 block text-lg font-medium tracking-[-0.01em] text-paper transition-colors group-hover:text-signal">
-                          {s.name}
-                        </span>
-                      </span>
-                      <span
-                        aria-hidden="true"
-                        className="font-mono text-paper-dim transition-transform group-hover:translate-x-1 group-hover:text-signal"
-                      >
-                        &rarr;
-                      </span>
-                    </Link>
-                  </Reveal>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
 
         {/* Other projects */}
         <section className="border-b border-line py-14 sm:py-24">

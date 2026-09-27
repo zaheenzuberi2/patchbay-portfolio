@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { services, getService } from "@/lib/services";
@@ -326,6 +327,48 @@ export default async function ServicePage(
             </div>
           </div>
         </section>
+
+        {/* Real organic traffic proof, only on the service that actually
+            builds the thing being measured. Same screenshot and numbers as
+            the SEO results article in the blog, shown here too because a
+            visitor reading this specific service page shouldn't have to
+            find the blog post to see it. */}
+        {service.slug === "web-development" && (
+          <section className="border-b border-line py-14 sm:py-24">
+            <div className="mx-auto max-w-6xl px-6">
+              <Reveal>
+                <h2 className="text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
+                  A real site built here, real organic traffic.
+                </h2>
+                <p className="mt-4 max-w-2xl text-paper-dim">
+                  Not a projection: the actual Google Search Console
+                  dashboard for tryvoicely.com, a product built end to end by
+                  the same team, screenshotted directly rather than redrawn.
+                </p>
+              </Reveal>
+              <div className="mt-10 max-w-4xl">
+                <Reveal variant="scale">
+                  <figure className="overflow-hidden rounded-2xl border border-line-strong bg-ink-2/60">
+                    <Image
+                      src="/work/tryvoicely-search-console-traffic.jpg"
+                      alt="Google Search Console performance report for tryvoicely.com showing 8.28K total clicks and 110K total impressions"
+                      width={1600}
+                      height={613}
+                      sizes="(max-width: 896px) 100vw, 896px"
+                      className="w-full"
+                    />
+                    <figcaption className="border-t border-line px-6 py-4 font-mono text-xs leading-relaxed text-paper-dim">
+                      tryvoicely.com in Google Search Console, 14 Apr – 24 Aug
+                      2026: 8,280 clicks and 110,000 impressions from organic
+                      search, 7.5% average CTR, average position 15.9. No
+                      paid ads behind this traffic.
+                    </figcaption>
+                  </figure>
+                </Reveal>
+              </div>
+            </div>
+          </section>
+        )}
 
         <ServiceWork />
 

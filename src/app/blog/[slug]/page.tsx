@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { articles, getArticle } from "@/lib/articles";
@@ -109,6 +110,28 @@ export default async function ArticlePage(props: PageProps<"/blog/[slug]">) {
             </div>
           </div>
         </section>
+
+        {article.proof && (
+          <section className="border-b border-line py-14 sm:py-24">
+            <div className="mx-auto max-w-4xl px-6">
+              <Reveal variant="scale">
+                <figure className="overflow-hidden rounded-2xl border border-line-strong bg-ink-2/60">
+                  <Image
+                    src={article.proof.src}
+                    alt={article.proof.alt}
+                    width={1600}
+                    height={613}
+                    sizes="(max-width: 896px) 100vw, 896px"
+                    className="w-full"
+                  />
+                  <figcaption className="border-t border-line px-6 py-4 font-mono text-xs leading-relaxed text-paper-dim">
+                    {article.proof.caption}
+                  </figcaption>
+                </figure>
+              </Reveal>
+            </div>
+          </section>
+        )}
 
         <section className="border-b border-line py-14 sm:py-24">
           <div className="mx-auto max-w-3xl px-6">
