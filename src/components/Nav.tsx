@@ -37,11 +37,11 @@ export function Nav() {
   return (
     <header className="fixed top-0 inset-x-0 z-50 border-b border-line bg-ink/80 backdrop-blur-md">
       <ScrollProgress />
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-4 sm:px-6">
         <Link
           href="/"
           onClick={() => setMenuOpen(false)}
-          className="flex min-h-11 items-center gap-2.5"
+          className="flex min-h-11 shrink-0 items-center gap-2.5"
         >
           <Image
             src="/logo-mark.png"
@@ -51,12 +51,20 @@ export function Nav() {
             className="h-6 w-6 rounded-full"
             priority
           />
-          <span className="font-mono text-sm tracking-tight text-paper">
+          {/* At md (768px) this wordmark, the six-link desktop nav, the
+              "Available for work" badge, and the theme toggle all have to
+              share one row for the first time (the hamburger disappears and
+              the inline nav appears at the same breakpoint), which is
+              tighter than any wider desktop width. text-xs + gap-5 here
+              (vs text-sm + gap-8 from lg up) buys back the ~70px that was
+              overlapping PATCHBAY into the first nav link at exactly 768px
+              (visual audit, 2026-09-27). */}
+          <span className="font-mono text-xs tracking-tight text-paper lg:text-sm">
             {siteConfig.name.toUpperCase()}
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-5 md:flex lg:gap-8">
           {LINKS.map((link) => {
             const active = isActive(pathname, link.href);
             return (
@@ -64,7 +72,7 @@ export function Nav() {
                 key={link.href}
                 href={link.href}
                 aria-current={active ? "page" : undefined}
-                className={`font-mono text-xs uppercase tracking-[0.12em] transition-colors ${
+                className={`whitespace-nowrap font-mono text-xs uppercase tracking-[0.12em] transition-colors ${
                   active ? "text-signal" : "text-paper-dim hover:text-paper"
                 }`}
               >

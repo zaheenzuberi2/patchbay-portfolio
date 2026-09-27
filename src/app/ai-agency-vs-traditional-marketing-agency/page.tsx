@@ -121,7 +121,13 @@ export default function AiAgencyVsTraditionalPage() {
             />
 
             <div className="mt-8 max-w-3xl">
-              <h1 className="text-balance text-4xl font-medium leading-[1.08] tracking-[-0.03em] sm:text-5xl">
+              <Link
+                href="/about"
+                className="font-mono text-xs uppercase tracking-[0.1em] text-paper-dim transition-colors hover:text-signal"
+              >
+                By Zaheen Zuberi
+              </Link>
+              <h1 className="mt-4 text-balance text-4xl font-medium leading-[1.08] tracking-[-0.03em] sm:text-5xl">
                 An AI-and-marketing team vs a traditional agency: what
                 actually changes.
               </h1>

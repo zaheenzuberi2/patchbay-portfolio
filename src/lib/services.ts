@@ -335,13 +335,15 @@ export const services: Service[] = [
     slug: "web-development",
     channel: "04",
     name: "Full-Stack Website Development",
-    // Rewritten to lead with the exact phrase "web developer in Islamabad"
-    // in the H1 and at the front of the title tag, both of which still
-    // carry real weight for a specific local commercial query. Everything
-    // claimed here was already true; this is a phrasing change, not a new
-    // claim.
-    h1: "A web developer in Islamabad who builds the whole stack",
-    metaTitle: "Web Developer in Islamabad | Full-Stack",
+    // "Web developer in Islamabad" carries real search volume, but Google
+    // surfaces a dedicated Jobs filter tab for that exact phrase (SXO audit,
+    // 2026-09-27), meaning some real share of that query's intent is
+    // candidates job-hunting, not buyers. Leading the title tag with the
+    // unambiguous "Website Development" phrase instead avoids that mixed
+    // intent, while "web developer" stays in the H1 and body, where it still
+    // carries weight without owning the title's first words.
+    h1: "Website development in Islamabad, built by a full-stack web developer",
+    metaTitle: "Website Development in Islamabad | Full-Stack Web Developer",
     metaDescription:
       "Full-stack websites built end to end by Zaheen Zuberi: Next.js, TypeScript, real SEO, real speed, no page-builder bloat. View recent projects.",
     keywords: [

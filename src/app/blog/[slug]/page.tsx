@@ -93,7 +93,11 @@ export default async function ArticlePage(props: PageProps<"/blog/[slug]">) {
             />
 
             <div className="mt-8 max-w-3xl">
-              <p className="font-mono text-xs uppercase tracking-[0.1em] text-paper-dim">
+              <p className="flex flex-wrap items-center gap-x-2 font-mono text-xs uppercase tracking-[0.1em] text-paper-dim">
+                <Link href="/about" className="text-paper transition-colors hover:text-signal">
+                  By Zaheen Zuberi
+                </Link>
+                <span aria-hidden="true">&middot;</span>
                 {new Date(article.datePublished).toLocaleDateString("en-US", {
                   month: "long",
                   day: "numeric",

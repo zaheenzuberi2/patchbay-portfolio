@@ -12,7 +12,7 @@ export const alt =
 export default async function Image() {
   return renderOgImage({
     marker: "SERVICES",
-    title: "Six channels, one board.",
+    title: "Seven channels, one board.",
     subtitle:
       "Voice agents, chatbots, automation, full-stack builds, brand and social. One accountable team instead of three suppliers.",
   });

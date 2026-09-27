@@ -186,7 +186,7 @@ const SEED_PROJECTS = [
     name: "Tryvoicely",
     client: "Own product, live",
     description:
-      "Free AI text-to-speech for Urdu, Hindi & English. 22 languages, neural voices on Google Cloud's Chirp3-HD, no signup, MP3 out in seconds, for South Asian creators most TTS tools treat as an afterthought.",
+      "Free AI text-to-speech for Urdu, Hindi & English. 31 languages, neural voices on Google Cloud's Chirp3-HD, no signup, MP3 out in seconds, for South Asian creators most TTS tools treat as an afterthought.",
     tags: ["Next.js", "Google Cloud TTS", "Product"],
     status: "LIVE",
     href: "https://tryvoicely.com",

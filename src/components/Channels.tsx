@@ -77,7 +77,7 @@ export function Channels() {
               closer to the thing it describes. */}
           <div>
             <h2 className="max-w-2xl text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
-              Six channels, one board.
+              Seven channels, one board.
             </h2>
             <p className="mt-4 max-w-xl text-paper-dim">
               Everything routes back to the same mixing board. Flip a channel
@@ -86,10 +86,11 @@ export function Channels() {
           </div>
         </Reveal>
 
-        {/* Mobile gets collapsed rows, desktop keeps the flip cards. Same six
-            channels and the same six links to the service pages in both, which
-            is what actually matters for internal linking. This mirrors how
-            Nav.tsx already renders its links twice for the two layouts. */}
+        {/* Mobile gets collapsed rows, desktop keeps the flip cards. Same
+            seven channels and the same seven links to the service pages in
+            both, which is what actually matters for internal linking. This
+            mirrors how Nav.tsx already renders its links twice for the two
+            layouts. */}
         <div className="mt-10 sm:hidden">
           <ChannelAccordion channels={CHANNELS} />
         </div>
