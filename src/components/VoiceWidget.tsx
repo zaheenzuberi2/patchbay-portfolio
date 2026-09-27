@@ -1,9 +1,27 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
-import { VoiceDemo } from "./VoiceDemo";
 import { speakOnce } from "@/lib/speak";
+
+// VoiceWidget renders on every single page (it's in every page.tsx's
+// footer group), so a static import of VoiceDemo shipped its full bundle
+// (Web Speech API, AudioContext, getUserMedia, prosody/voice-selection
+// logic) as part of the shared JS loaded on every route, whether or not a
+// visitor ever opens the widget. Same fix and same reasoning as
+// VoiceDemoLazy.tsx (used directly on the ai-voice-agents page): defer it
+// behind next/dynamic so it only loads when openFromHook/setOpen actually
+// renders it. This can call dynamic() directly, unlike VoiceDemoLazy.tsx's
+// separate wrapper file, because VoiceWidget already has its own "use
+// client" boundary — that wrapper only exists because a Server Component
+// page can't call dynamic(..., { ssr: false }) itself.
+const VoiceDemo = dynamic(() => import("./VoiceDemo").then((m) => m.VoiceDemo), {
+  ssr: false,
+  loading: () => (
+    <div className="min-h-[22rem] animate-pulse rounded-2xl border border-line-strong bg-ink-2 p-6" />
+  ),
+});
 
 // Third floating button, stacked above ChatWidget (which stacks above
 // WhatsAppButton). Same offsets math as the other two, one level higher:

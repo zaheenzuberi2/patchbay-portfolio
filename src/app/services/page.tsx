@@ -71,8 +71,21 @@ export default function ServicesIndexPage() {
               they outsource.
             </h1>
             <p className="mt-7 max-w-2xl text-lg leading-relaxed text-paper-dim">
-              Six services, one team accountable for all of them. Pick the
+              Seven services, one team accountable for all of them. Pick the
               channel that matches what you need built.
+            </p>
+            <p className="mt-6 max-w-2xl text-paper-dim">
+              Most agencies stop at marketing: brand, content, social, the
+              stuff below is theirs. The AI and dev work behind a campaign,
+              the voice agent answering the phone, the chatbot qualifying a
+              lead, the automation routing it, the website it all lands on,
+              usually gets handed to a separate developer or a subcontracted
+              agency, which is where a project actually slows down. Every
+              channel here is built by the same team from the same brief, so
+              a change to one doesn&apos;t need a round of emails to
+              propagate to the others. Each service page below has its own
+              pricing shape, process, and FAQs specific to that work, not a
+              rewrite of this page with the nouns swapped.
             </p>
           </div>
         </section>

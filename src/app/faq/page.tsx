@@ -77,6 +77,17 @@ export default function FaqPage() {
                   team. Search all of them, or pick a category below. No
                   invented numbers, no filler.
                 </p>
+                <p className="mt-6 max-w-2xl text-paper-dim">
+                  These are the questions that actually come up before
+                  someone hires: what something costs, how long it takes, and
+                  what happens if a project changes shape halfway through.
+                  Each of the categories below is its own page with its own
+                  answers, so a question about pricing lives with the other
+                  pricing questions instead of being buried in a wall of
+                  everything at once. Search above jumps straight to the
+                  right answer if you already know what you&apos;re asking; the
+                  category cards below are for browsing when you don&apos;t.
+                </p>
               </div>
             </div>
           </section>

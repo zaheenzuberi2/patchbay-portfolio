@@ -62,6 +62,17 @@ export default function BlogIndexPage() {
               Written from actual builds and actual client questions, not
               general advice recycled from every other agency blog.
             </p>
+            <p className="mt-6 max-w-2xl text-paper-dim">
+              Most of what gets published on an agency blog is generic:
+              &quot;10 tips for automating your business&quot; that could sit
+              on any site and teaches nothing specific. These posts start
+              from a real project instead, the actual enquiry-routing pipeline
+              built for a client, the real GSC numbers behind a product
+              launch, a genuine cost breakdown, and work backward to what
+              that build actually proves. New posts go up when there is
+              something real to write about, not on a fixed schedule to fill
+              a calendar.
+            </p>
           </div>
         </section>
 

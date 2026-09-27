@@ -5,63 +5,61 @@ import { caseStudies } from "@/lib/case-studies";
 import { faqCategoryPages } from "@/lib/faq-categories";
 import { articles } from "@/lib/articles";
 
+// Real `git log -1 --format=%cI -- <file>` dates for each page's content
+// source, captured 2026-09-27, not build/request time. A build-time "now"
+// on every entry told Google every URL changed on every deploy regardless
+// of whether its content actually did, which is exactly the signal that
+// trains a crawler to stop trusting lastmod. Update the relevant date here
+// when meaningfully editing that source file — it's a manual step, same as
+// any other lastModified field, but an honest stale date beats a dishonest
+// fresh one.
+const CONTENT_DATES = {
+  homepage: "2026-08-14T19:19:03+01:00",
+  services: "2026-09-27T22:55:05+01:00",
+  servicesHub: "2026-09-27T20:37:38+01:00",
+  about: "2026-09-24T20:54:52+01:00",
+  faqHub: "2026-09-09T17:20:43+01:00",
+  faqCategories: "2026-09-09T17:20:43+01:00",
+  caseStudies: "2026-09-27T21:06:52+01:00",
+  blogHub: "2026-09-24T22:35:41+01:00",
+  hireNextjs: "2026-09-27T20:54:24+01:00",
+  aiAgencyVsTraditional: "2026-09-27T22:55:05+01:00",
+  aiVoiceAgentRealEstate: "2026-09-27T20:54:24+01:00",
+  tradingBots: "2026-09-27T20:54:24+01:00",
+  internationalClients: "2026-09-27T20:54:24+01:00",
+} as const;
+
 // Extracted so /api/indexnow can submit the same URL list to IndexNow
 // without a second, drifting copy of it.
 export function sitemapEntries(): MetadataRoute.Sitemap {
-  const now = new Date();
-
   return [
     {
       url: siteConfig.url,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 1,
+      lastModified: CONTENT_DATES.homepage,
     },
     {
       url: `${siteConfig.url}/services`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.9,
+      lastModified: CONTENT_DATES.servicesHub,
     },
     {
       url: `${siteConfig.url}/about`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.7,
+      lastModified: CONTENT_DATES.about,
     },
     {
       url: `${siteConfig.url}/faq`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.8,
+      lastModified: CONTENT_DATES.faqHub,
     },
     ...services.map((s) => ({
       url: `${siteConfig.url}/services/${s.slug}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      // ai-voice-agents gets a small edge over the other four: it's the
-      // service currently getting the most focused content and technical
-      // SEO work, so the sitemap hint should honestly reflect that instead
-      // of treating all five as equally important.
-      priority: s.slug === "ai-voice-agents" ? 0.85 : 0.8,
+      lastModified: CONTENT_DATES.services,
     })),
     ...caseStudies.map((c) => ({
       url: `${siteConfig.url}/work/${c.slug}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.75,
+      lastModified: CONTENT_DATES.caseStudies,
     })),
-    // The 11 FAQ category pages. Priority 0.7: below the service pages,
-    // which are the commercial-intent entry points, but above nothing, since
-    // several of these target real query clusters of their own (cost
-    // questions and the Islamabad ones especially). Pricing and Islamabad
-    // get the small edge for the same honest reason ai-voice-agents does
-    // above: they are the two doing the most work.
     ...faqCategoryPages.map((c) => ({
       url: `${siteConfig.url}/faq/${c.slug}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: c.slug === "pricing" || c.slug === "islamabad" ? 0.75 : 0.7,
+      lastModified: CONTENT_DATES.faqCategories,
     })),
     // Standalone non-branded commercial-intent landing pages, each targeting
     // one specific query cluster that neither the service pages nor the FAQ
@@ -69,45 +67,31 @@ export function sitemapEntries(): MetadataRoute.Sitemap {
     // comment for why it does not duplicate an existing answer).
     {
       url: `${siteConfig.url}/hire-nextjs-developer-pakistan`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.75,
+      lastModified: CONTENT_DATES.hireNextjs,
     },
     {
       url: `${siteConfig.url}/ai-agency-vs-traditional-marketing-agency`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.72,
+      lastModified: CONTENT_DATES.aiAgencyVsTraditional,
     },
     {
       url: `${siteConfig.url}/ai-voice-agent-real-estate`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.78,
+      lastModified: CONTENT_DATES.aiVoiceAgentRealEstate,
     },
     {
       url: `${siteConfig.url}/trading-bots`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.78,
+      lastModified: CONTENT_DATES.tradingBots,
     },
     {
       url: `${siteConfig.url}/international-clients`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.72,
+      lastModified: CONTENT_DATES.internationalClients,
     },
     {
       url: `${siteConfig.url}/blog`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.65,
+      lastModified: CONTENT_DATES.blogHub,
     },
     ...articles.map((a) => ({
       url: `${siteConfig.url}/blog/${a.slug}`,
       lastModified: new Date(a.datePublished),
-      changeFrequency: "monthly" as const,
-      priority: 0.68,
     })),
   ];
 }

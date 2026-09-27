@@ -130,6 +130,18 @@ export async function StructuredData() {
           addressLocality: "Islamabad",
           addressCountry: "PK",
         },
+        // Same coordinates as the verified Google Business Profile (see
+        // googleBusinessProfileUrl in site-config.ts), confirmed live
+        // 2026-09-27. No openingHoursSpecification: the business is
+        // genuinely remote-first and async (see the "Can a business hire
+        // you even without much overlap in working hours" FAQ), so a fixed
+        // hours block would misrepresent actual availability rather than
+        // close a gap.
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: 33.6206526,
+          longitude: 73.0862337,
+        },
         // City-level entries for local queries like "web developer
         // Islamabad" / "Lahore" / "Karachi". Islamabad is where the
         // business is based; Lahore and Karachi are added on top of that

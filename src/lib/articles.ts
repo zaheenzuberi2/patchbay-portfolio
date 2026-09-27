@@ -62,6 +62,18 @@ export const articles: Article[] = [
         heading: "Where a human operator still wins",
         body: "Genuinely unpredictable calls, an angry customer, a situation with no clear script, still go to a human faster with a live answering service than with an AI agent that has to recognize it needs to escalate first. The honest answer is that a well-built AI voice agent should escalate those calls immediately rather than trying to handle them, which is a design decision, not something either option gets automatically right.",
       },
+      {
+        heading: "What this looks like outside a receptionist role",
+        body: "The comparison usually gets framed around answering inbound calls, but the same underlying system can call out. A construction and real estate client of ours runs a voice agent that calls their own leads first, qualifies them by budget, area, and project type, then books the appointment on that same call, rather than waiting for someone to call in. An answering service, by definition, only ever handles the inbound half of that.",
+      },
+      {
+        heading: "Handling a bilingual caller",
+        body: "A market where callers switch between Urdu and English mid-sentence, sometimes mid-word, is a normal support case for a well-built voice agent, not an edge case that needs a separate bilingual hire. A traditional answering service either needs a bilingual operator on shift at the moment the call comes in or loses the caller to a language mismatch; the AI side handles the switch as part of its normal script.",
+      },
+      {
+        heading: "The actual decision, not the marketing framing",
+        body: "Neither option is universally right. A business with genuinely low call volume and calls that are almost always unpredictable, a small legal practice fielding urgent case questions, say, gets less value from an AI agent than a business with high call volume and a repeatable set of questions: a clinic booking appointments, a real estate office fielding \"is this still available\" calls, a service business getting the same five questions on every call. The volume and predictability of what's actually being asked is what should decide this, not which option sounds more modern.",
+      },
     ],
     relatedServices: ["ai-voice-agents"],
   },
@@ -97,6 +109,14 @@ export const articles: Article[] = [
       {
         heading: "The honest answer",
         body: "For a single simple automation with low volume, Zapier is usually faster to stand up and not worth switching away from. For a business connecting several tools with real volume or logic that goes beyond trigger-then-action, n8n's lower running cost and flexibility tend to win out over time, at the cost of a longer initial build.",
+      },
+      {
+        heading: "What a real workflow like this actually looks like",
+        body: "AD Real Estate & Builders, a DHA Islamabad property advisory built on Next.js and Sanity CMS, needed every enquiry from the site to land somewhere reliable and trigger a notification the moment it came in, not sit in an inbox waiting to be checked. That's a trigger (a form submission), a write (saving the lead into the CMS as a real record, not just an email), and an action (a notification email), chained together so nothing depends on someone remembering to check a folder. It's a small workflow on paper, but it's the exact shape of logic that decides whether Zapier's simplicity is enough or whether something more flexible is worth the extra setup.",
+      },
+      {
+        heading: "The maintenance question nobody asks upfront",
+        body: "Zapier's hosted nature means updates, uptime, and integration changes are someone else's problem, which is worth real money in saved attention. Self-hosted n8n means that server is now something a business (or whoever they hire) has to keep running, patched, and backed up. That tradeoff is invisible at setup time and shows up six months later as either a Zapier bill that's grown with volume, or an n8n instance that needs occasional attention it isn't getting. Neither cost disappears; picking one just decides who carries it.",
       },
     ],
     relatedServices: ["business-automation"],
@@ -134,6 +154,18 @@ export const articles: Article[] = [
         heading: "Why a real quote needs to know the actual job",
         body: "Because these factors vary so much between two sites that both get called \"a business website\", any number quoted before knowing what the site has to do is either a guess or a lowball that grows once the real requirements surface. A fixed quote that holds is only possible after the actual scope, not the category, is understood.",
       },
+      {
+        heading: "The cost that keeps happening after launch",
+        body: "The build itself is the one-time number most people ask about, but a real site also carries ongoing costs: hosting, a domain renewal, and, if it's genuinely built for SEO, the ongoing work of the site actually being found. A site handed over with no plan for who updates it or checks it is still running, it's just running unmaintained, which tends to show up later as broken forms or stale content nobody caught.",
+      },
+      {
+        heading: "What three different real complexity tiers actually look like",
+        body: "PakEngine Rent Ledger is a single-file offline-first PWA built for a rent-a-car showroom with no reliable counter internet, no database server, no user accounts. MezMenu is a QR-menu product where the owner edits categories and prices from their phone and diners order straight to WhatsApp, a real backend (Supabase) but a narrow, well-defined job. Ours, a website builder for couples, has a full paywall enforced at the database level with Postgres row-level security, not just a UI check. Three real products, three genuinely different price points, because the actual job each one does is different, not because of who built them.",
+      },
+      {
+        heading: "SEO built in, versus bolted on later",
+        body: "A site built with clean URLs, fast load times, and real semantic structure from day one costs a bit more upfront than one thrown together and \"optimized later\". Retrofitting SEO onto a site that wasn't built with it in mind usually means rebuilding pieces of it, which costs more in total than doing it right the first time, even though the sticker price at launch looked lower.",
+      },
     ],
     relatedServices: ["web-development"],
   },
@@ -170,6 +202,14 @@ export const articles: Article[] = [
         heading: "Why a real quote needs to know the actual job",
         body: "Because these factors vary so much between two builds that both get called \"a chatbot\", any number quoted before knowing what it actually has to do, which channels, which systems, what happens on a stuck conversation, is either a guess or a lowball that grows once the real requirements surface. A fixed quote that holds is only possible after the actual scope is understood.",
       },
+      {
+        heading: "A real WhatsApp-channel build, not a hypothetical",
+        body: "MezMenu, a QR-menu product for Pakistani restaurants, routes every order straight to the restaurant's own WhatsApp instead of a POS integration or a third-party ordering app. That single decision, WhatsApp as the ordering channel rather than a generic web form, changes the whole build: it needs to handle WhatsApp's message format, work reliably on the connection a small restaurant actually has, and not require the owner to learn new software. A generic chatbot quote that doesn't ask which channel the conversation actually needs to happen on is guessing at exactly this kind of decision.",
+      },
+      {
+        heading: "Content quality is part of the cost, not a separate step",
+        body: "A chatbot answering from a script is only as good as that script. Feeding it thin, generic content produces thin, generic answers, and a business often underestimates how much real work goes into writing or organizing the actual source content a bot draws from, separate from the engineering that wires it up. A quote that only prices the technical build and treats the content as something you'll \"just provide\" tends to be the one that runs over.",
+      },
     ],
     relatedServices: ["ai-chatbots"],
   },
@@ -205,6 +245,14 @@ export const articles: Article[] = [
       {
         heading: "The honest answer",
         body: "For a common, well-understood process, invoicing, basic CRM, email, an existing SaaS tool is almost always faster and cheaper than building it yourself. Custom software earns its cost when your actual workflow doesn't fit what the generic tools assume, which is exactly the gap PakEngine Rent Ledger and MezMenu were each built to close for the specific businesses that needed them.",
+      },
+      {
+        heading: "Who ends up owning the risk",
+        body: "A SaaS vendor can change its pricing, deprecate a feature you depend on, or shut down, and there is genuinely nothing you can do about any of it beyond migrating away, on their timeline, not yours. Custom software shifts that risk: you own the code outright, so nothing changes underneath you without your say, but you (or whoever you hire) also own keeping it running, patched, and working as your business changes. Neither option removes the risk, it just decides who holds it.",
+      },
+      {
+        heading: "The migration cost nobody prices in upfront",
+        body: "Starting on SaaS because it's faster, then outgrowing it and moving to custom software later, is a completely reasonable path, but the migration itself, moving years of data, retraining staff, rebuilding integrations, is real, uncosted work that only shows up once it's actually happening. Knowing roughly where that ceiling is before committing to the SaaS tool in the first place is worth more than most businesses give it credit for.",
       },
     ],
     relatedServices: ["software-development"],
