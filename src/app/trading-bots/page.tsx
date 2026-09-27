@@ -200,7 +200,7 @@ const faqs = [
   },
   {
     q: "How does the whitelabel program work?",
-    a: "It's a one-time setup fee for your own licensed instance of the engine, both the Signal Bot and the Execution Bot, which you then issue as license keys to your own followers or clients under your own brand, at whatever price you set for them. You run the relationship with your audience; the underlying infrastructure is what's licensed.",
+    a: "It's a one-time setup fee for your own licensed instance of the engine, both the Signal Bot and the Execution Bot, which you then issue as access keys to your own followers or clients under your own brand. Most owners charge a recurring monthly fee for access, priced however they decide, and keep all of it. Patchbay is paid once for the engine, not a cut of your subscribers.",
   },
   {
     q: "Is there a trading bot developer based in Islamabad I can talk to directly?",
@@ -470,6 +470,121 @@ export default function TradingBotsPage() {
           </div>
         </section>
 
+        {/* Whitelabel / monetization */}
+        <section className="border-b border-line py-14 sm:py-24">
+          <div className="mx-auto max-w-6xl px-6">
+            <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-start">
+              <Reveal>
+                <p className="font-mono text-xs uppercase tracking-[0.15em] text-signal">
+                  For gurus and group owners
+                </p>
+                <h2 className="mt-4 text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
+                  Turn a following into a monthly subscription.
+                </h2>
+                <p className="mt-5 max-w-xl text-paper-dim">
+                  If you already run a trading community, a signal channel,
+                  or a following that trusts your calls, that trust is
+                  currently worth nothing more than a screenshot dropped in
+                  the group chat by hand. License one instance of the engine
+                  and it becomes a product: your own members pay you a
+                  recurring monthly fee for access, priced however you
+                  decide, and you keep all of it. Patchbay is paid once, for
+                  the engine, not a cut of what you charge your audience.
+                </p>
+                <ul className="mt-8 space-y-4">
+                  <li className="flex gap-4 border-l border-line-strong pl-4">
+                    <span className="font-mono text-xs text-signal">01</span>
+                    <span className="text-sm leading-relaxed text-paper-dim">
+                      A licensed instance of the engine, configured to your
+                      signals, running under your own brand.
+                    </span>
+                  </li>
+                  <li className="flex gap-4 border-l border-line-strong pl-4">
+                    <span className="font-mono text-xs text-signal">02</span>
+                    <span className="text-sm leading-relaxed text-paper-dim">
+                      Signal-tier access: subscribers pay their monthly fee
+                      and the Signal Bot posts every call straight into your
+                      Telegram or Discord group the instant it fires. No
+                      broker access needed from them at all, just the
+                      subscription.
+                    </span>
+                  </li>
+                  <li className="flex gap-4 border-l border-line-strong pl-4">
+                    <span className="font-mono text-xs text-signal">03</span>
+                    <span className="text-sm leading-relaxed text-paper-dim">
+                      Copy-execution tier: a subscriber who wants more than
+                      an alert connects their own broker or exchange account
+                      on their own API keys, and pays a higher monthly fee to
+                      have the Execution Bot mirror your trades into their
+                      account automatically. You never see or touch their
+                      funds, same non-custodial rule as everywhere else on
+                      this page.
+                    </span>
+                  </li>
+                  <li className="flex gap-4 border-l border-line-strong pl-4">
+                    <span className="font-mono text-xs text-signal">04</span>
+                    <span className="text-sm leading-relaxed text-paper-dim">
+                      You issue and revoke access keys yourself, set your own
+                      monthly price for each tier, and collect payment
+                      directly from your subscribers. Patchbay never touches
+                      that revenue or that relationship.
+                    </span>
+                  </li>
+                </ul>
+                <div className="mt-9">
+                  <a
+                    href={`mailto:${siteConfig.contactEmail}?subject=Whitelabel%20engine`}
+                    className="flex min-h-11 w-fit items-center rounded-full bg-signal px-6 py-3 font-mono text-xs uppercase tracking-[0.1em] text-ink transition-transform hover:scale-[1.03]"
+                  >
+                    Ask about whitelabel access
+                  </a>
+                </div>
+              </Reveal>
+
+              <Reveal variant="scale" delay={80}>
+                <div className="rounded-2xl border border-line-strong bg-ink-2/60 p-6 sm:p-8">
+                  <p className="font-mono text-xs uppercase tracking-[0.1em] text-paper-dim">
+                    Tell us the shape of it
+                  </p>
+                  <div className="mt-6 space-y-6">
+                    <div>
+                      <p className="font-mono text-xs uppercase tracking-[0.1em] text-signal">
+                        Market
+                      </p>
+                      <p className="mt-2 text-lg leading-relaxed text-paper">
+                        Forex, Binance crypto, stocks, or futures.
+                      </p>
+                    </div>
+                    <div className="border-t border-line pt-6">
+                      <p className="font-mono text-xs uppercase tracking-[0.1em] text-signal">
+                        Platform
+                      </p>
+                      <p className="mt-2 text-lg leading-relaxed text-paper">
+                        MT4/MT5, Binance, Bybit, Interactive Brokers, or
+                        another broker or exchange with its own API.
+                      </p>
+                    </div>
+                    <div className="border-t border-line pt-6">
+                      <p className="font-mono text-xs uppercase tracking-[0.1em] text-signal">
+                        Strategy
+                      </p>
+                      <p className="mt-2 text-lg leading-relaxed text-paper">
+                        Already have one, or need one developed through the
+                        strategy lab.
+                      </p>
+                    </div>
+                  </div>
+                  <p className="mt-6 border-t border-line pt-6 text-sm leading-relaxed text-paper-dim">
+                    Tell me those three things and you get a specific quote
+                    and a real timeline, not a fixed price list that fits
+                    nobody.
+                  </p>
+                </div>
+              </Reveal>
+            </div>
+          </div>
+        </section>
+
         {/* Core arsenal */}
         <section id="arsenal" className="border-b border-line py-14 sm:py-24">
           <div className="mx-auto max-w-6xl px-6">
@@ -600,116 +715,6 @@ export default function TradingBotsPage() {
                 >
                   Ask to see the demo
                 </a>
-              </Reveal>
-            </div>
-          </div>
-        </section>
-
-        {/* Whitelabel */}
-        <section className="border-b border-line py-14 sm:py-24">
-          <div className="mx-auto max-w-6xl px-6">
-            <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-start">
-              <Reveal>
-                <p className="font-mono text-xs uppercase tracking-[0.15em] text-signal">
-                  For gurus and group owners
-                </p>
-                <h2 className="mt-4 text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
-                  License the engine. Sell access under your own brand.
-                </h2>
-                <p className="mt-5 max-w-xl text-paper-dim">
-                  If you run a trading community, a signal channel, or a
-                  following that already trusts your calls, that following is
-                  worth more than a screenshot dropped in the group chat by
-                  hand. A licensed instance of the engine gets you license
-                  keys you issue and revoke yourself, sold to your audience
-                  however you price it.
-                </p>
-                <ul className="mt-8 space-y-4">
-                  <li className="flex gap-4 border-l border-line-strong pl-4">
-                    <span className="font-mono text-xs text-signal">01</span>
-                    <span className="text-sm leading-relaxed text-paper-dim">
-                      A licensed instance of the engine, configured to your
-                      signals.
-                    </span>
-                  </li>
-                  <li className="flex gap-4 border-l border-line-strong pl-4">
-                    <span className="font-mono text-xs text-signal">02</span>
-                    <span className="text-sm leading-relaxed text-paper-dim">
-                      Signal-only key: the Signal Bot posts every call
-                      straight into your Telegram or Discord group the moment
-                      it fires. No broker access needed from your followers
-                      at all, just the group they&apos;re already in.
-                    </span>
-                  </li>
-                  <li className="flex gap-4 border-l border-line-strong pl-4">
-                    <span className="font-mono text-xs text-signal">03</span>
-                    <span className="text-sm leading-relaxed text-paper-dim">
-                      Copy-execution key: a follower who wants more than an
-                      alert connects their own broker or exchange account on
-                      their own API keys, and the Execution Bot mirrors your
-                      trades into their account automatically. You never see
-                      or touch their funds, same non-custodial rule as
-                      everywhere else on this page.
-                    </span>
-                  </li>
-                  <li className="flex gap-4 border-l border-line-strong pl-4">
-                    <span className="font-mono text-xs text-signal">04</span>
-                    <span className="text-sm leading-relaxed text-paper-dim">
-                      You issue both kinds of key to your own followers or
-                      clients under your own brand, and set what each one
-                      costs.
-                    </span>
-                  </li>
-                </ul>
-                <div className="mt-9">
-                  <a
-                    href={`mailto:${siteConfig.contactEmail}?subject=Whitelabel%20engine`}
-                    className="flex min-h-11 w-fit items-center rounded-full bg-signal px-6 py-3 font-mono text-xs uppercase tracking-[0.1em] text-ink transition-transform hover:scale-[1.03]"
-                  >
-                    Ask about whitelabel access
-                  </a>
-                </div>
-              </Reveal>
-
-              <Reveal variant="scale" delay={80}>
-                <div className="rounded-2xl border border-line-strong bg-ink-2/60 p-6 sm:p-8">
-                  <p className="font-mono text-xs uppercase tracking-[0.1em] text-paper-dim">
-                    Tell us the shape of it
-                  </p>
-                  <div className="mt-6 space-y-6">
-                    <div>
-                      <p className="font-mono text-xs uppercase tracking-[0.1em] text-signal">
-                        Market
-                      </p>
-                      <p className="mt-2 text-lg leading-relaxed text-paper">
-                        Forex, Binance crypto, stocks, or futures.
-                      </p>
-                    </div>
-                    <div className="border-t border-line pt-6">
-                      <p className="font-mono text-xs uppercase tracking-[0.1em] text-signal">
-                        Platform
-                      </p>
-                      <p className="mt-2 text-lg leading-relaxed text-paper">
-                        MT4/MT5, Binance, Bybit, Interactive Brokers, or
-                        another broker or exchange with its own API.
-                      </p>
-                    </div>
-                    <div className="border-t border-line pt-6">
-                      <p className="font-mono text-xs uppercase tracking-[0.1em] text-signal">
-                        Strategy
-                      </p>
-                      <p className="mt-2 text-lg leading-relaxed text-paper">
-                        Already have one, or need one developed through the
-                        strategy lab.
-                      </p>
-                    </div>
-                  </div>
-                  <p className="mt-6 border-t border-line pt-6 text-sm leading-relaxed text-paper-dim">
-                    Tell me those three things and you get a specific quote
-                    and a real timeline, not a fixed price list that fits
-                    nobody.
-                  </p>
-                </div>
               </Reveal>
             </div>
           </div>
