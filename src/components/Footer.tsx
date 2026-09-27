@@ -7,7 +7,6 @@ import {
   githubUrl,
 } from "@/lib/site-config";
 import { services } from "@/lib/services";
-import { locations } from "@/lib/locations";
 
 // The collapsed "About Patchbay" block exists for a specific reason worth
 // recording: the site's own voice is deliberately metaphor-forward ("the
@@ -110,16 +109,14 @@ export function Footer() {
                   FAQ
                 </Link>
               </li>
-              {locations.map((l) => (
-                <li key={l.slug}>
-                  <Link
-                    href={`/locations/${l.slug}`}
-                    className="text-sm text-paper-dim transition-colors hover:text-signal"
-                  >
-                    Serving {l.city}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link
+                  href="/international-clients"
+                  className="text-sm text-paper-dim transition-colors hover:text-signal"
+                >
+                  International Clients
+                </Link>
+              </li>
             </ul>
           </div>
 

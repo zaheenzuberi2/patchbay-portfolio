@@ -78,7 +78,7 @@ export default async function CaseStudyPage(
     about: {
       "@type": "SoftwareApplication",
       name: study.name,
-      url: study.liveUrl,
+      ...(study.liveUrl ? { url: study.liveUrl } : {}),
     },
   };
 
@@ -126,14 +126,16 @@ export default async function CaseStudyPage(
                 </p>
 
                 <div className="mt-9 flex flex-wrap items-center gap-4">
-                  <a
-                    href={study.liveUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex min-h-11 items-center rounded-full bg-signal px-6 py-3 font-mono text-xs uppercase tracking-[0.1em] text-ink transition-transform hover:scale-[1.03]"
-                  >
-                    Visit {study.liveLabel}
-                  </a>
+                  {study.liveUrl && (
+                    <a
+                      href={study.liveUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex min-h-11 items-center rounded-full bg-signal px-6 py-3 font-mono text-xs uppercase tracking-[0.1em] text-ink transition-transform hover:scale-[1.03]"
+                    >
+                      Visit {study.liveLabel}
+                    </a>
+                  )}
                   <Link
                     href="/#contact"
                     className="flex min-h-11 items-center rounded-full border border-line-strong px-6 py-3 font-mono text-xs uppercase tracking-[0.1em] text-paper transition-colors hover:border-signal/60 hover:text-signal"

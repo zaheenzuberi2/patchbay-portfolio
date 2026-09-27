@@ -105,6 +105,11 @@ export const upworkUrl = "https://www.upwork.com/freelancers/~01d503a27e767d824a
 export const clutchUrl = "https://clutch.co/profile/patchbay";
 export const sortlistUrl = "https://www.sortlist.com/agency/patchbay";
 export const techBehemothsUrl = "https://techbehemoths.com/company/patchbay";
-// Google's own share-link format (maps.app.goo.gl), taken directly from the
-// Business Profile's own "Share" dialog rather than a hand-built Maps URL.
-export const googleBusinessProfileUrl = "https://maps.app.goo.gl/GHhRYo9VKDbo3Pfn";
+// Permanent Google Maps place URL for the verified Business Profile
+// ("Patchbay", Marketing agency, Islamabad), confirmed live 2026-09-27 by
+// opening it while signed in as the profile's manager. The old
+// maps.app.goo.gl short link had gone dead (404 from Google's own servers);
+// this data=...!1s<CID>... URL is the permanent place identifier rather
+// than another short link that can expire.
+export const googleBusinessProfileUrl =
+  "https://www.google.com/maps/place/Patchbay/@33.6206526,73.0862337,11z/data=!3m1!4b1!4m6!3m5!1s0x86b4df278fa6ccd1:0x3fce6fd58675a01f!8m2!3d33.6206526!4d73.0862337!16s%2Fg%2F11zf3zs2bx";

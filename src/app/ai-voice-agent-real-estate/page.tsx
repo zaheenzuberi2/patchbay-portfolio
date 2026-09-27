@@ -73,13 +73,14 @@ const faqs = [
   },
   {
     q: "Do you have real estate clients already?",
-    a: "AD Real Estate & Builders, a DHA Islamabad property advisory, is a real, live client, currently for the web and lead-pipeline side of the business, not yet a voice agent. Real estate is named directly as a fit for this service because a missed call is a lost lead in this business specifically, not because of a case study that does not exist yet.",
+    a: "Yes. A construction and real estate client already runs a live voice agent that calls their leads, qualifies them by budget and project type, and books the appointment directly on the call, not just answering inbound calls. That client isn't named publicly, so there's no site to link to, but the build is described on the case study below. AD Real Estate & Builders, a DHA Islamabad property advisory, is a separate real, live client, currently for the web and lead-pipeline side of the business, not the voice agent.",
   },
 ];
 
 export default function AiVoiceAgentRealEstatePage() {
   const voiceService = getService("ai-voice-agents");
   const adRealEstate = getCaseStudy("ad-real-estate");
+  const constructionVoiceAgent = getCaseStudy("construction-lead-calling");
 
   const pageSchema = {
     "@context": "https://schema.org",
@@ -185,8 +186,27 @@ export default function AiVoiceAgentRealEstatePage() {
               </h2>
             </Reveal>
             <div className="mt-10 grid gap-4 sm:grid-cols-2">
-              {adRealEstate && (
+              {constructionVoiceAgent && (
                 <Reveal delay={0}>
+                  <Link
+                    href={`/work/${constructionVoiceAgent.slug}`}
+                    className="group flex h-full flex-col rounded-2xl border border-line-strong bg-ink-2/60 p-6 transition-colors hover:border-signal/50"
+                  >
+                    <span className="font-mono text-xs text-signal">
+                      Client, live voice agent
+                    </span>
+                    <span className="mt-2 text-lg font-medium tracking-[-0.01em] text-paper transition-colors group-hover:text-signal">
+                      {constructionVoiceAgent.name}
+                    </span>
+                    <span className="mt-3 text-sm leading-relaxed text-paper-dim">
+                      Outbound lead-calling, qualification, and appointment
+                      booking, not just inbound answering.
+                    </span>
+                  </Link>
+                </Reveal>
+              )}
+              {adRealEstate && (
+                <Reveal delay={50}>
                   <Link
                     href={`/work/${adRealEstate.slug}`}
                     className="group flex h-full flex-col rounded-2xl border border-line-strong bg-ink-2/60 p-6 transition-colors hover:border-signal/50"
@@ -205,7 +225,7 @@ export default function AiVoiceAgentRealEstatePage() {
                 </Reveal>
               )}
               {voiceService && (
-                <Reveal delay={50}>
+                <Reveal delay={100}>
                   <Link
                     href={`/services/${voiceService.slug}`}
                     className="group flex items-baseline justify-between gap-6 rounded-2xl border border-line-strong bg-ink-2/60 p-6 transition-colors hover:border-signal/50"
