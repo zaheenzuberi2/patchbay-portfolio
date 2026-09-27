@@ -182,7 +182,7 @@ export default async function ServicePage(
 
                 <div className="mt-9 flex flex-wrap items-center gap-4">
                   <Link
-                    href="/#contact"
+                    href="#contact"
                     className="flex min-h-11 items-center rounded-full bg-signal px-6 py-3 font-mono text-xs uppercase tracking-[0.1em] text-ink transition-transform hover:scale-[1.03]"
                   >
                     Get a quote
@@ -445,7 +445,7 @@ export default async function ServicePage(
         </section>
 
         {/* CTA */}
-        <section className="py-14 sm:py-24">
+        <section id="contact" className="py-14 sm:py-24">
           <div className="mx-auto max-w-6xl px-6">
             <Reveal>
               <div className="relative rounded-2xl border border-line-strong bg-ink-2/60 px-6 py-16 text-center sm:px-16">

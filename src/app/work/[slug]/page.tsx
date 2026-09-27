@@ -137,7 +137,7 @@ export default async function CaseStudyPage(
                     </a>
                   )}
                   <Link
-                    href="/#contact"
+                    href="#contact"
                     className="flex min-h-11 items-center rounded-full border border-line-strong px-6 py-3 font-mono text-xs uppercase tracking-[0.1em] text-paper transition-colors hover:border-signal/60 hover:text-signal"
                   >
                     Build something like this
@@ -323,7 +323,7 @@ export default async function CaseStudyPage(
         </section>
 
         {/* CTA */}
-        <section className="py-14 sm:py-24">
+        <section id="contact" className="py-14 sm:py-24">
           <div className="mx-auto max-w-6xl px-6">
             <Reveal>
               <div className="relative rounded-2xl border border-line-strong bg-ink-2/60 px-6 py-16 text-center sm:px-16">

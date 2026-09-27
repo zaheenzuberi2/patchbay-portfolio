@@ -39,6 +39,15 @@ export function VoiceWidget() {
   useEffect(() => {
     if (!supported || typeof window === "undefined") return;
 
+    // The visual/mobile audit (2026-09-27) found this auto-popup landing
+    // directly on top of the hero CTAs on narrow viewports, with only a
+    // sliver of "Open a channel" / "See the projects" left tappable. Rather
+    // than tune the popup's position against every hero layout at every
+    // width, it simply doesn't auto-fire below the `sm` breakpoint (640px):
+    // mobile visitors still reach the assistant through the persistent
+    // floating button, just without an unsolicited overlay at first paint.
+    if (window.innerWidth < 640) return;
+
     let alreadyShown = false;
     try {
       alreadyShown = window.sessionStorage.getItem(GREETED_SESSION_KEY) === "1";
@@ -140,11 +149,11 @@ export function VoiceWidget() {
             <button
               onClick={() => setHookVisible(false)}
               aria-label="Dismiss"
-              className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full border border-line-strong bg-ink-2 text-paper-dim hover:text-paper"
+              className="absolute -right-3 -top-3 flex h-11 w-11 items-center justify-center rounded-full border border-line-strong bg-ink-2 text-paper-dim hover:text-paper"
             >
               <svg
                 viewBox="0 0 24 24"
-                className="h-3 w-3"
+                className="h-3.5 w-3.5"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
