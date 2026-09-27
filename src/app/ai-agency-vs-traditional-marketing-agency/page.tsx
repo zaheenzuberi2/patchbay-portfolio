@@ -69,6 +69,14 @@ const faqs = [
     q: "How do costs actually compare to hiring a traditional agency?",
     a: "A traditional agency's fee usually includes the cost of coordinating multiple vendors on top of the work itself. An integrated team removes that coordination layer, so the same scope of work often costs less, though the honest answer depends on the specific project, not a fixed percentage claim.",
   },
+  {
+    q: "What happens if I already have a marketing agency and just need the technical side?",
+    a: "That is a normal starting point. A lot of work here begins as the technical half of a campaign someone else is already marketing: the chatbot, the automation, the site. There is no requirement to move the whole account over to start.",
+  },
+  {
+    q: "Is a large enterprise campaign with a dozen channels a better fit for a traditional agency?",
+    a: "Often, yes. A campaign genuinely running across TV, print, and a dozen ad platforms at once needs the scale a large traditional agency carries. The case for an integrated team is strongest for a campaign built around a landing page, a bot or voice agent, and the automation and marketing tied to it, not for that scale of operation.",
+  },
 ];
 
 export default function AiAgencyVsTraditionalPage() {
@@ -157,6 +165,93 @@ export default function AiAgencyVsTraditionalPage() {
                 and forth, each billing for their own piece and for the
                 meetings needed to stay in sync. The same campaign here is one
                 team building all three from the same brief.
+              </p>
+              <p className="mt-4 max-w-2xl text-paper-dim">
+                In practice that chain looks like this: the agency scopes the
+                campaign, a design subcontractor builds the landing page, a
+                separate automation vendor wires up the lead routing, and the
+                agency account manager relays notes between the two whenever
+                something needs to change. Each handoff is a place a detail
+                gets lost, a timeline slips, or a fix waits for the next
+                scheduled call instead of happening the same day. None of
+                that is anyone&apos;s fault specifically, it is what happens
+                structurally when the people building the pieces do not talk
+                to each other directly.
+              </p>
+            </Reveal>
+          </div>
+        </section>
+
+        <section className="border-b border-line py-14 sm:py-24">
+          <div className="mx-auto max-w-6xl px-6">
+            <Reveal>
+              <h2 className="text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
+                What actually changes, dimension by dimension.
+              </h2>
+            </Reveal>
+            <div className="mt-10 grid gap-4 sm:grid-cols-2">
+              {[
+                {
+                  label: "Briefing",
+                  a: "One brief, read by everyone building the campaign.",
+                  b: "One brief per vendor, translated and re-translated at each handoff.",
+                },
+                {
+                  label: "A mid-project change",
+                  a: "Said once, applied by whoever owns that piece, same day.",
+                  b: "Relayed through an account manager to whichever vendor owns that piece, on their schedule.",
+                },
+                {
+                  label: "Accountability for the outcome",
+                  a: "One team owns the campaign end to end.",
+                  b: "Each vendor owns their piece; the outcome as a whole often belongs to no one specifically.",
+                },
+                {
+                  label: "Where the fee goes",
+                  a: "Toward the work itself.",
+                  b: "Partly toward the work, partly toward coordinating the vendors doing it.",
+                },
+              ].map((row, i) => (
+                <Reveal key={row.label} delay={i * 50}>
+                  <div className="h-full rounded-2xl border border-line-strong bg-ink-2/60 p-6">
+                    <span className="font-mono text-xs uppercase tracking-[0.1em] text-signal">
+                      {row.label}
+                    </span>
+                    <p className="mt-3 text-sm leading-relaxed text-paper">
+                      <span className="text-paper-dim">Integrated team: </span>
+                      {row.a}
+                    </p>
+                    <p className="mt-2 text-sm leading-relaxed text-paper-dim">
+                      <span className="text-paper-dim">Traditional agency: </span>
+                      {row.b}
+                    </p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-line py-14 sm:py-24">
+          <div className="mx-auto max-w-6xl px-6">
+            <Reveal>
+              <h2 className="text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
+                When a traditional agency is still the better fit.
+              </h2>
+              <p className="mt-4 max-w-2xl text-paper-dim">
+                This is not a claim that integrated is always right. A large
+                enterprise campaign that genuinely needs a dozen specialists
+                across TV, print, and a dozen ad platforms simultaneously
+                needs the scale a big traditional agency has and a small team
+                does not. A brand with strict internal compliance requiring a
+                specific accredited vendor for legal or financial reasons
+                needs that vendor, not the cheapest or fastest option. The
+                honest case for an integrated team is narrower: businesses
+                whose campaign spans a landing page, a bot or voice agent,
+                some automation, and the marketing around it, where the
+                coordination overhead of hiring three separate vendors is
+                real money and real time, not a large enterprise running ten
+                channels at once.
               </p>
             </Reveal>
           </div>

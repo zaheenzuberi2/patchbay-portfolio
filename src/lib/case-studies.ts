@@ -255,7 +255,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "ab-juris",
-    sessionId: "0003",
+    sessionId: "0009",
     name: "AB Juris",
     kind: "Client",
     status: "LIVE",
@@ -419,7 +419,7 @@ export const caseStudies: CaseStudy[] = [
   },
   {
     slug: "construction-lead-calling",
-    sessionId: "0009",
+    sessionId: "0010",
     name: "A Construction & Real Estate Firm",
     kind: "Client",
     status: "LIVE",

@@ -5,7 +5,9 @@ import { caseStudies } from "@/lib/case-studies";
 import { faqCategoryPages } from "@/lib/faq-categories";
 import { articles } from "@/lib/articles";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+// Extracted so /api/indexnow can submit the same URL list to IndexNow
+// without a second, drifting copy of it.
+export function sitemapEntries(): MetadataRoute.Sitemap {
   const now = new Date();
 
   return [
@@ -108,4 +110,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.68,
     })),
   ];
+}
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  return sitemapEntries();
 }
