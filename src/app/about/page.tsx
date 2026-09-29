@@ -103,8 +103,10 @@ export default function AboutPage() {
                     in Islamabad, run by Zaheen Zuberi.
                   </h1>
                   <p className="mt-7 max-w-2xl text-lg leading-relaxed text-paper-dim">
-                    One accountable team, not a solo freelancer and not a
-                    directory of subcontractors: Zaheen plus specialists in
+                    You work directly with Zaheen, not an account manager
+                    relaying to whoever actually does the job, the same
+                    directness as hiring a freelance developer. Behind him is
+                    what a solo freelancer does not have: specialists in
                     design, copy, SEO, and development, covering everything a
                     marketing agency runs alongside the AI and dev systems
                     most agencies quietly outsource.

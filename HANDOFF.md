@@ -2186,3 +2186,39 @@ real, grounded, clinic-specific answer, spoken aloud, not a scripted
 fallback. Also confirmed the fallback path itself works: a genuine 503
 from Gemini during testing correctly produced the old scripted reply
 instead of the widget going silent.
+
+## 46. Solo-vs-agency positioning: denial language softened to the
+established "backed by a team" pattern — 29 Sep 2026
+
+While checking Sortlist/TechBehemoths/Clutch listings (all three carry
+the same solo/freelancer-framed bio and "Freelancer" team size, verified
+live via the Chrome extension since TechBehemoths blocks automated
+fetches with a Cloudflare challenge), flagged the mismatch against this
+file's section-0 "team-framed" positioning to Zaheen. His answer: "I want
+results for both, best agency as well as best solo developer" — do not
+pick one, make the site work for both search intents.
+
+This is not new policy, it is what sections 33 and the single-developer
+FAQs already do (`home-faqs.ts`, one per service in `services.ts`,
+`trading-bots/page.tsx`): "Yes, Zaheen is the one point of contact ...
+backed by a small team" rather than flat "I work alone" OR flat denial of
+solo/freelance framing. Two spots had drifted from that established
+pattern into outright denial, which actively worked against solo-developer
+search intent instead of serving it:
+
+- `about/page.tsx` hero subtext said "not a solo freelancer" — reworded to
+  lead with the true freelance-style value (direct access to Zaheen, no
+  account-manager layer) before the team-depth point, instead of denying
+  the label.
+- `all-faqs.ts`'s "Is this a solo operation with 'team' as a marketing
+  word?" FAQ answered "No." — reworded to "You do work directly with one
+  person ... that part is real, not marketing spin," then the specialist
+  depth, matching the same "yes, and" pattern as the FAQs in section 33.
+
+Directory listings were left alone on purpose: "Freelancer" as an
+org-size field on Sortlist/TechBehemoths/Clutch actually helps surface
+Patchbay to solo-developer/freelancer searches on those platforms, it
+is not something to correct. Updated this file's own section-0 guidance
+comment in `all-faqs.ts` (top of file) so a future session does not
+reintroduce flat denial language, the same way section 33 warns against
+reintroducing "I work alone."

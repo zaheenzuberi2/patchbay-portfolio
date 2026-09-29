@@ -3,8 +3,12 @@ import type { ServiceFaq } from "./services";
 // The full FAQ library for /faq, separate from the shorter, curated set on
 // the homepage (home-faqs.ts) and each service page's own five-ish
 // questions (services.ts). Same rules apply everywhere on this site: no
-// invented prices, client counts, or results, no em dashes, team-framed
-// (Patchbay is one accountable team led by Zaheen, not a solo operator).
+// invented prices, client counts, or results, no em dashes. Positioning is
+// deliberately dual, not team-only: you work directly with Zaheen, the same
+// directness as hiring a freelancer (true, and worth owning, not denying),
+// backed by real specialists a solo freelancer does not have. Never write
+// copy that flatly denies the solo/freelance framing, it is accurate and it
+// is also what a chunk of the search demand is looking for.
 // Organized by category so a 200+ question page stays navigable instead of
 // becoming a wall of text.
 
@@ -715,7 +719,7 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
       },
       {
         q: "Is this a solo operation with 'team' as a marketing word?",
-        a: "No. There are real specialists on design, SEO, copy, and development who own their respective parts of a project. Zaheen leads and is hands-on throughout, but he does not do every discipline alone.",
+        a: "You do work directly with one person, Zaheen, the same as hiring a freelancer, that part is real, not marketing spin. What is not solo is the depth behind him: real specialists on design, SEO, copy, and development who own their respective parts of a project, so you get a freelancer's directness without one generalist covering every discipline alone.",
       },
     ],
   },
