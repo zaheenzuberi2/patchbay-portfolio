@@ -13,6 +13,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Faq, FaqSchema } from "@/components/Faq";
 import { SignalBars } from "@/components/SignalBars";
 import { Reveal } from "@/components/Reveal";
+import { LeadForm } from "@/components/LeadForm";
 // Code-split and client-only; see VoiceDemoLazy.tsx for why.
 import { VoiceDemoLazy as VoiceDemo } from "@/components/VoiceDemoLazy";
 import { ServiceWork } from "@/components/ServiceWork";
@@ -466,6 +467,15 @@ export default async function ServicePage(
                 >
                   {siteConfig.contactEmail}
                 </a>
+              </div>
+            </Reveal>
+
+            <Reveal delay={80}>
+              <div className="mx-auto mt-6 max-w-xl">
+                <LeadForm
+                  interest={service.name}
+                  source={`form:services-${service.slug}`}
+                />
               </div>
             </Reveal>
           </div>

@@ -118,7 +118,13 @@ export default function AiVoiceAgentRealEstatePage() {
             />
 
             <div className="mt-8 max-w-3xl">
-              <h1 className="text-balance text-4xl font-medium leading-[1.08] tracking-[-0.03em] sm:text-5xl">
+              <Link
+                href="/about"
+                className="font-mono text-xs uppercase tracking-[0.1em] text-paper-dim transition-colors hover:text-signal"
+              >
+                By Zaheen Zuberi
+              </Link>
+              <h1 className="mt-4 text-balance text-4xl font-medium leading-[1.08] tracking-[-0.03em] sm:text-5xl">
                 An AI voice agent that never sends a property inquiry to
                 voicemail.
               </h1>

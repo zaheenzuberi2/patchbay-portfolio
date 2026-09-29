@@ -30,7 +30,9 @@ export async function ServiceWork() {
             Not a pitch. Live sites.
           </h2>
           <p className="mt-4 max-w-xl text-paper-dim">
-            Every link below is a real, running client site, not a mockup.
+            Every link below is a real, running build, not a mockup, client
+            work and shipped products of Zaheen&apos;s own alike. Each card
+            says which.
           </p>
         </Reveal>
 

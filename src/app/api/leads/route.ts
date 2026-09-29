@@ -94,6 +94,11 @@ export async function POST(request: NextRequest) {
   const interest = clean(body.interest, 120);
   const budget = clean(body.budget, 60);
   const message = clean(body.message, 1000);
+  // Chat widget never sends this field, so its rows keep defaulting to
+  // 'chat' below. On-page lead forms (LeadForm.tsx) pass their own page as
+  // the source (e.g. "form:trading-bots") so the admin dashboard can tell a
+  // conversational lead from one filled out directly on a service page.
+  const source = clean(body.source, 60) || "chat";
 
   if (!name || !contact) {
     return NextResponse.json(
@@ -106,7 +111,7 @@ export async function POST(request: NextRequest) {
   await sql`
     INSERT INTO leads (name, contact, interest, budget, message, source, status, ip)
     VALUES (${name}, ${contact}, ${interest || null}, ${budget || null},
-            ${message || null}, 'chat', 'new', ${ip})
+            ${message || null}, ${source}, 'new', ${ip})
   `;
 
   // Scheduled with after() so it runs once the response has already been

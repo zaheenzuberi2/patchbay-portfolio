@@ -9,6 +9,7 @@ import { VoiceWidget } from "@/components/VoiceWidget";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Faq, FaqSchema } from "@/components/Faq";
 import { Reveal } from "@/components/Reveal";
+import { LeadForm } from "@/components/LeadForm";
 import { SignalBars } from "@/components/SignalBars";
 import { AiStrategyLab } from "@/components/trading-bots/AiStrategyLab";
 import { SystemDashboard } from "@/components/trading-bots/SystemDashboard";
@@ -276,8 +277,15 @@ export default function TradingBotsPage() {
 
             <div className="mt-8 grid gap-12 lg:grid-cols-[1.35fr_0.65fr] lg:items-end">
               <div className="max-w-3xl">
-                <p className="font-mono text-xs tracking-[0.15em] text-signal">
+                <p className="flex flex-wrap items-center gap-x-2 font-mono text-xs tracking-[0.15em] text-signal">
                   ALGORITHMIC TRADING SYSTEMS
+                  <span aria-hidden="true" className="text-paper-dim">&middot;</span>
+                  <Link
+                    href="/about"
+                    className="tracking-[0.1em] text-paper-dim transition-colors hover:text-signal"
+                  >
+                    By Zaheen Zuberi
+                  </Link>
                 </p>
                 <h1 className="mt-4 text-balance text-4xl font-medium leading-[1.08] tracking-[-0.03em] sm:text-5xl lg:text-6xl">
                   Stop fighting latency. Automate your edge.
@@ -776,6 +784,12 @@ export default function TradingBotsPage() {
                     Ask on WhatsApp
                   </a>
                 </div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={80}>
+              <div className="mx-auto mt-6 max-w-xl">
+                <LeadForm interest="Trading bots" source="form:trading-bots" />
               </div>
             </Reveal>
           </div>

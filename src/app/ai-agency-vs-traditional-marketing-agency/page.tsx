@@ -137,6 +137,14 @@ export default function AiAgencyVsTraditionalPage() {
                 the marketing and the AI or dev work behind it, instead of an
                 account manager relaying between separate vendors.
               </p>
+              <p className="mt-6 max-w-2xl text-paper-dim">
+                An AI agency, in the sense used here, is a team that builds
+                and runs the AI, automation, and development work behind a
+                campaign in-house, the same specialists who plan the
+                marketing. A traditional marketing agency plans the campaign
+                and subcontracts that technical work out to separate vendors
+                it does not directly manage.
+              </p>
 
               <div className="mt-9 flex flex-wrap items-center gap-4">
                 <Link
@@ -162,7 +170,7 @@ export default function AiAgencyVsTraditionalPage() {
           <div className="mx-auto max-w-6xl px-6">
             <Reveal>
               <h2 className="text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
-                Where the coordination layer usually hides.
+                Where does the coordination layer usually hide?
               </h2>
               <p className="mt-4 max-w-2xl text-paper-dim">
                 A campaign that needs a landing page, a chatbot to qualify the
@@ -192,7 +200,35 @@ export default function AiAgencyVsTraditionalPage() {
           <div className="mx-auto max-w-6xl px-6">
             <Reveal>
               <h2 className="text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
-                What actually changes, dimension by dimension.
+                Where does that coordination overhead actually go?
+              </h2>
+              <p className="mt-4 max-w-2xl text-paper-dim">
+                Not into a separate line item, that is the point: no
+                traditional agency bills a client for &quot;coordination.&quot;
+                It shows up as slower turnaround on changes, as scope that
+                quietly shrinks to fit what each vendor already had planned,
+                and as a fee that has to cover every vendor&apos;s own margin
+                stacked on top of each other, not just the work.
+              </p>
+              <p className="mt-4 max-w-2xl text-paper-dim">
+                The honest comparison is not price against price on a
+                spreadsheet, most agencies will not publish a number for
+                exactly that reason. It is turnaround against turnaround: how
+                long does a genuinely small change, swap one CTA, fix a typo
+                in the bot&apos;s script, take to actually ship. At a
+                traditional agency that is whichever vendor owns that piece,
+                on their queue. Here it is whoever is already looking at the
+                code, the same day.
+              </p>
+            </Reveal>
+          </div>
+        </section>
+
+        <section className="border-b border-line py-14 sm:py-24">
+          <div className="mx-auto max-w-6xl px-6">
+            <Reveal>
+              <h2 className="text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
+                What actually changes, dimension by dimension?
               </h2>
             </Reveal>
             <div className="mt-10 grid gap-4 sm:grid-cols-2">
@@ -242,7 +278,37 @@ export default function AiAgencyVsTraditionalPage() {
           <div className="mx-auto max-w-6xl px-6">
             <Reveal>
               <h2 className="text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
-                When a traditional agency is still the better fit.
+                What does this look like on a real build, not a hypothetical?
+              </h2>
+              <p className="mt-4 max-w-2xl text-paper-dim">
+                AD Real Estate &amp; Builders needed more than a brochure
+                site: a lead-generation site for DHA and Bahria Town
+                listings, with enquiries that actually reach someone instead
+                of sitting in a contact-form inbox nobody checks. A
+                traditional split would have had a design agency build the
+                site, a separate developer wire up the CMS, and a third
+                vendor handle the enquiry routing, each on their own
+                timeline.
+              </p>
+              <p className="mt-4 max-w-2xl text-paper-dim">
+                Here it was one build: a Next.js site on Sanity CMS, with an
+                enquiry pipeline that saves every lead straight to the CMS
+                and emails a notification the moment it arrives, plus the
+                monthly SEO work that keeps the listings findable. No handoff
+                between the person who built the form and the person who
+                built the database it writes to, because it was the same
+                person. That is the practical difference this page is
+                describing, not an abstract claim.
+              </p>
+            </Reveal>
+          </div>
+        </section>
+
+        <section className="border-b border-line py-14 sm:py-24">
+          <div className="mx-auto max-w-6xl px-6">
+            <Reveal>
+              <h2 className="text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
+                When is a traditional agency still the better fit?
               </h2>
               <p className="mt-4 max-w-2xl text-paper-dim">
                 This is not a claim that integrated is always right. A large
