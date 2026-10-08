@@ -58,7 +58,7 @@ export function About() {
                   I&apos;m 19, based in Islamabad, and I run Patchbay. It
                   covers everything a marketing agency does (brand, content,
                   social) plus the AI and dev work most agencies quietly
-                  outsource: voice agents, chatbots, automation, and the
+                  outsource: chatbots, automation, and the
                   full-stack websites and systems underneath.
                 </p>
                 <p>
@@ -77,7 +77,7 @@ export function About() {
                   (PakEngine), a client&apos;s entire web and social
                   presence (Umer Wazir), and now Patchbay itself. Different
                   problems, same underlying skill. I&apos;m a software
-                  developer first, and the voice agents, chatbots, and
+                  developer first, and the chatbots and
                   automation work all get built on that same foundation.
                 </p>
               </div>

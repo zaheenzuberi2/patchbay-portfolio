@@ -6,14 +6,13 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ChatWidget } from "@/components/ChatWidget";
-import { VoiceWidget } from "@/components/VoiceWidget";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Reveal } from "@/components/Reveal";
 import { SignalBars } from "@/components/SignalBars";
 
 const title = "AI, Software & Web Development Services";
 const description =
-  "AI voice agents, chatbots, business automation, custom software, full-stack websites, and social media management. Built end to end by Zaheen Zuberi in Islamabad.";
+  "AI chatbots, business automation, custom software, full-stack websites, and social media management. Built end to end by Zaheen Zuberi in Islamabad.";
 
 export const metadata: Metadata = {
   title,
@@ -71,13 +70,13 @@ export default function ServicesIndexPage() {
               they outsource.
             </h1>
             <p className="mt-7 max-w-2xl text-lg leading-relaxed text-paper-dim">
-              Seven services, one team accountable for all of them. Pick the
+              Six services, one team accountable for all of them. Pick the
               channel that matches what you need built.
             </p>
             <p className="mt-6 max-w-2xl text-paper-dim">
               Most agencies stop at marketing: brand, content, social, the
               stuff below is theirs. The AI and dev work behind a campaign,
-              the voice agent answering the phone, the chatbot qualifying a
+              the chatbot qualifying a
               lead, the automation routing it, the website it all lands on,
               usually gets handed to a separate developer or a subcontracted
               agency, which is where a project actually slows down. Every
@@ -191,7 +190,6 @@ export default function ServicesIndexPage() {
       <Footer />
       <WhatsAppButton />
       <ChatWidget />
-      <VoiceWidget />
     </div>
   );
 }

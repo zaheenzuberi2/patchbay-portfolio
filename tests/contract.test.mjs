@@ -36,7 +36,6 @@ const BASE = (process.env.BASE_URL || "https://zaheenzuberi.com").replace(
 const FAQ_CATEGORY_PAGES = [
   "/faq/pricing",
   "/faq/process",
-  "/faq/ai-voice-agents",
   "/faq/ai-chatbots",
   "/faq/business-automation",
   "/faq/web-development",
@@ -52,7 +51,6 @@ const PAGES = [
   "/services",
   "/about",
   "/faq",
-  "/services/ai-voice-agents",
   "/services/ai-chatbots",
   "/services/business-automation",
   "/services/web-development",
@@ -67,7 +65,6 @@ const PAGES = [
   "/work/ours",
   "/hire-nextjs-developer-pakistan",
   "/ai-agency-vs-traditional-marketing-agency",
-  "/ai-voice-agent-real-estate",
   "/trading-bots",
   ...FAQ_CATEGORY_PAGES,
 ];
@@ -304,7 +301,7 @@ describe("structured data", () => {
 
   test("service pages own a Service entity carrying its own OG image", async () => {
     const html = await (
-      await fetch(BASE + "/services/ai-voice-agents")
+      await fetch(BASE + "/services/ai-chatbots")
     ).text();
     const blocks = [
       ...html.matchAll(
@@ -314,7 +311,7 @@ describe("structured data", () => {
     const service = blocks.find((b) => b["@type"] === "Service");
     assert.ok(service, "no Service entity on the service page");
     assert.ok(
-      service.image?.endsWith("/services/ai-voice-agents/opengraph-image"),
+      service.image?.endsWith("/services/ai-chatbots/opengraph-image"),
       `Service image was ${service.image}`,
     );
     // The site-wide entities must not be repeated per page.

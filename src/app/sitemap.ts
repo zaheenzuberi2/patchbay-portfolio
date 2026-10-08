@@ -24,7 +24,6 @@ const CONTENT_DATES = {
   blogHub: "2026-09-24T22:35:41+01:00",
   hireNextjs: "2026-09-27T20:54:24+01:00",
   aiAgencyVsTraditional: "2026-09-27T22:55:05+01:00",
-  aiVoiceAgentRealEstate: "2026-09-27T20:54:24+01:00",
   tradingBots: "2026-09-27T20:54:24+01:00",
   internationalClients: "2026-09-27T20:54:24+01:00",
 } as const;
@@ -72,10 +71,6 @@ export function sitemapEntries(): MetadataRoute.Sitemap {
     {
       url: `${siteConfig.url}/ai-agency-vs-traditional-marketing-agency`,
       lastModified: CONTENT_DATES.aiAgencyVsTraditional,
-    },
-    {
-      url: `${siteConfig.url}/ai-voice-agent-real-estate`,
-      lastModified: CONTENT_DATES.aiVoiceAgentRealEstate,
     },
     {
       url: `${siteConfig.url}/trading-bots`,

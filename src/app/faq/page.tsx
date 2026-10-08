@@ -4,7 +4,6 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ChatWidget } from "@/components/ChatWidget";
-import { VoiceWidget } from "@/components/VoiceWidget";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Reveal } from "@/components/Reveal";
 import { FaqSearchBar } from "@/components/FaqSearchBar";
@@ -17,7 +16,7 @@ import { faqCategoryPages } from "@/lib/faq-categories";
 
 const url = `${siteConfig.url}/faq`;
 const title = `FAQ: ${totalFaqCount} Answers on AI, Web & Social`;
-const description = `Search ${totalFaqCount} answers on AI voice agents, chatbots, automation, web development, pricing, and working with ${siteConfig.ownerName}'s team in Islamabad.`;
+const description = `Search ${totalFaqCount} answers on AI chatbots, automation, web development, pricing, and working with ${siteConfig.ownerName}'s team in Islamabad.`;
 
 export const metadata: Metadata = {
   title,
@@ -147,7 +146,6 @@ export default function FaqPage() {
       <Footer />
       <WhatsAppButton />
       <ChatWidget />
-      <VoiceWidget />
     </div>
   );
 }

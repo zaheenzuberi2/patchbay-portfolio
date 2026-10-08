@@ -40,7 +40,7 @@ export const siteConfig = {
   ownerName: "Zaheen Zuberi",
   title: "Zaheen Zuberi | Patchbay: AI Automation & Web Dev, Islamabad",
   description:
-    "Software developer led team in Islamabad building AI voice agents, chatbots, automation, and full-stack websites. See the work, get in touch.",
+    "Software developer led team in Islamabad building AI chatbots, automation, and full-stack websites. See the work, get in touch.",
   url: resolveSiteUrl(),
   locale: "en_US",
   // Real mailbox on the domain, live since 1 Sep 2026. Forwards to
@@ -60,8 +60,6 @@ export const siteConfig = {
     "Patchbay",
     "AI automation agency Islamabad",
     "AI chatbot developer Pakistan",
-    "voice agent developer",
-    "calling agent developer",
     "full-stack web developer Islamabad",
     "web developer in Islamabad",
     "web developers in Islamabad",
@@ -74,7 +72,6 @@ export const siteConfig = {
     "web developer in Lahore",
     "web developer in Karachi",
     "software developer for businesses",
-    "AI voice agents for businesses",
   ],
 };
 

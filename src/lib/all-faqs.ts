@@ -24,7 +24,7 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
     label: "Pricing & budgets",
     faqs: [
       {
-        q: "How much does an AI chatbot or voice agent actually cost?",
+        q: "How much does an AI chatbot actually cost?",
         a: "There is a one-time build cost and a small ongoing usage cost from the AI and telephony providers. The build depends on scope: a bot answering a fixed set of questions costs a fraction of one trained on a full document set and wired into a CRM. Tell me what it needs to do and you get a specific number, not a range that fits nobody.",
       },
       {
@@ -127,7 +127,7 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
       },
       {
         q: "How long does a project take from start to finish?",
-        a: "A focused chatbot or voice agent is usually days. A marketing website is weeks. Anything with accounts, payments, or deep integrations takes longer. You get a real date after I understand the scope, not a placeholder answer on the first call.",
+        a: "A focused chatbot is usually days. A marketing website is weeks. Anything with accounts, payments, or deep integrations takes longer. You get a real date after I understand the scope, not a placeholder answer on the first call.",
       },
       {
         q: "Will I get updates during the build, or only at the end?",
@@ -204,92 +204,6 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
       {
         q: "Will you tell me if my idea is not worth building?",
         a: "Yes. Part of the job is being honest when automation, an AI tool, or a full rebuild is the wrong answer to your actual problem. Billing you for something that will not help you is not how this works.",
-      },
-    ],
-  },
-  {
-    id: "voice",
-    label: "AI voice agents",
-    faqs: [
-      {
-        q: "What exactly is an AI voice agent?",
-        a: "Software that answers phone calls, understands what the caller wants using speech recognition and language models, responds in a natural voice, and takes action like booking an appointment or logging a message, without a human on the line.",
-      },
-      {
-        q: "Will callers know they are talking to an AI?",
-        a: "Modern voice models sound close to human, and many callers do not notice on their own. I recommend disclosing it anyway, both because it is the right thing to do and because callers respond better once they know they can ask for a person.",
-      },
-      {
-        q: "Can the voice agent handle Urdu as well as English?",
-        a: "Yes. Language handling is part of the setup, including callers who switch between Urdu and English mid-sentence, which is normal in Pakistan and something generic international tools handle badly.",
-      },
-      {
-        q: "What happens if the agent cannot answer a caller's question?",
-        a: "It follows agreed escalation rules: transfer to a person, take a message and promise a callback, or flag the call as urgent. It should never guess at an answer it does not have.",
-      },
-      {
-        q: "Can the voice agent book appointments directly into my calendar?",
-        a: "Yes, that is one of the most common uses. The agent checks availability and writes the booking straight into your real calendar, no manual entry needed afterward.",
-      },
-      {
-        q: "How does the voice agent handle multiple callers at once?",
-        a: "Unlike a single receptionist, it can take concurrent calls without one caller waiting on hold for another to finish, since each call runs as its own session.",
-      },
-      {
-        q: "What happens after hours or on holidays?",
-        a: "The agent keeps answering. That is one of its main advantages over a human receptionist: it does not clock out, so a call at 2am gets the same response as one at 2pm.",
-      },
-      {
-        q: "Can it transfer a call to a real person mid-conversation?",
-        a: "Yes, based on rules we set together, like a caller explicitly asking for a person or the topic falling outside what the agent should handle alone.",
-      },
-      {
-        q: "Does it record calls?",
-        a: "Recording and transcription are typically part of the setup so you have a written summary and audio record of each call, which is also how the agent gets reviewed and corrected after launch.",
-      },
-      {
-        q: "What kind of businesses actually benefit from a voice agent?",
-        a: "Anywhere a missed call is a lost customer: clinics, law firms, salons, real estate offices, and other service businesses where the phone is a primary channel for new business.",
-      },
-      {
-        q: "Can the agent handle billing or take payment information over the phone?",
-        a: "It can be built to route to a secure payment flow, but taking raw card details directly through an AI voice conversation is not something I recommend, for the same reason you would not read a card number to a stranger. Payment collection should go through a proper, PCI-compliant channel.",
-      },
-      {
-        q: "How natural does the voice actually sound?",
-        a: "Modern neural text-to-speech is close to a real human voice, with natural pacing and intonation, not the robotic tone people associate with older automated phone systems.",
-      },
-      {
-        q: "Can I choose what the voice sounds like?",
-        a: "Yes, voice selection and tuning are part of the setup so the agent sounds consistent with your business rather than generic.",
-      },
-      {
-        q: "What happens if the phone line goes down or the AI service has an outage?",
-        a: "This is a real limitation worth being honest about: the agent depends on the telephony and AI providers staying up. A fallback routing rule, like forwarding to a mobile number during an outage, can be built in so a failure does not mean every call goes unanswered.",
-      },
-      {
-        q: "Can the agent qualify a caller before I speak to them?",
-        a: "Yes. It can ask the same qualifying questions you would ask yourself and only escalate the calls that actually match what you are looking for.",
-      },
-      {
-        q: "Does the agent integrate with my existing phone number?",
-        a: "In most cases the agent can be connected to your existing number through call forwarding or a provider-level setup, rather than forcing you onto a new number.",
-      },
-      {
-        q: "How does the agent get trained on my specific business?",
-        a: "Through a call flow built around what your callers actually ask and what a good outcome looks like for your business, not a generic script reused across clients.",
-      },
-      {
-        q: "Can it handle a high volume of calls, like during a marketing campaign?",
-        a: "Yes, that is one of its structural advantages: it scales with call volume without needing more staff on the phones during a spike.",
-      },
-      {
-        q: "What is the difference between an AI voice agent and a regular IVR menu?",
-        a: "An IVR makes the caller navigate a menu of pre-recorded options. A voice agent understands natural spoken language, so the caller just talks and the agent figures out what they need, closer to a real conversation than a phone tree.",
-      },
-      {
-        q: "How do I know the voice agent is actually working well after launch?",
-        a: "Call logs and recordings are reviewed after go-live so the agent gets corrected on calls it handled badly, and you can hear directly how it performs on real calls rather than relying on assumptions.",
       },
     ],
   },
@@ -910,10 +824,6 @@ export const FAQ_CATEGORIES: FaqCategory[] = [
       {
         q: "What is the best SEO agency in Islamabad?",
         a: "Rather than name a title nobody can independently verify, the fair test is the technical work itself: correct structured data, fast load times, unique titles and descriptions per page, and content built around what people actually search. That work is visible on this site and can be checked directly.",
-      },
-      {
-        q: "Are there AI voice agent developers based in Islamabad?",
-        a: "Yes, AI voice and calling agents that answer inbound calls and qualify leads are one of Patchbay's core services, built and run by a team based in Islamabad.",
       },
       {
         q: "Where can I find a chatbot developer in Islamabad?",

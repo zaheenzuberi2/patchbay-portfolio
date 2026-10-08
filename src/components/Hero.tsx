@@ -5,8 +5,6 @@ import { SectionGlow } from "./SectionGlow";
 import { SECTION_ACCENTS } from "@/lib/section-theme";
 
 const CHANNELS = [
-  "VOICE AGENTS",
-  "CALLING AGENTS",
   "CHATBOTS",
   "AUTOMATION",
   "BRAND & SOCIAL",
@@ -71,9 +69,8 @@ export function Hero() {
           <p className="mt-6 max-w-xl text-base leading-relaxed text-paper-dim sm:mt-8 sm:text-lg">
             19, based in Islamabad. Every service a marketing agency runs:
             brand, content, social. Plus the AI and dev work most agencies
-            still outsource: voice agents that pick up the phone, chatbots
-            that qualify the lead, automation, and the full-stack websites
-            and builds behind all of it.
+            still outsource: chatbots that qualify the lead, automation, and
+            the full-stack websites and builds behind all of it.
           </p>
 
           <HeroCtas />

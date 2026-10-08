@@ -7,13 +7,13 @@ import {
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 export const alt =
-  "Services: AI voice agents, chatbots, automation, websites, and social";
+  "Services: AI chatbots, automation, websites, and social";
 
 export default async function Image() {
   return renderOgImage({
     marker: "SERVICES",
-    title: "Seven channels, one board.",
+    title: "Six channels, one board.",
     subtitle:
-      "Voice agents, chatbots, automation, full-stack builds, brand and social. One accountable team instead of three suppliers.",
+      "Chatbots, automation, full-stack builds, brand and social. One accountable team instead of three suppliers.",
   });
 }

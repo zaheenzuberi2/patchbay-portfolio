@@ -12,48 +12,41 @@ import { SECTION_ACCENTS } from "@/lib/section-theme";
 const CHANNELS = [
   {
     id: "01",
-    name: "Voice & Calling Agents",
-    desc: "Phone-native AI that answers, qualifies, books, and follows up. Sounds like a person, works like a system.",
-    stack: ["Twilio", "Vapi", "Whisper", "TTS"],
-    slug: "ai-voice-agents",
-  },
-  {
-    id: "02",
     name: "Chatbots & Conversational AI",
     desc: "Support and sales bots on web, WhatsApp, and Instagram that actually resolve things instead of deflecting.",
     stack: ["GPT-4", "RAG", "LangChain", "WhatsApp API"],
     slug: "ai-chatbots",
   },
   {
-    id: "03",
+    id: "02",
     name: "Automation & Workflows",
     desc: "The plumbing between your tools: leads, CRMs, calendars, invoices, wired so nothing needs a human copy-paste.",
     stack: ["n8n", "Zapier", "Make", "Webhooks"],
     slug: "business-automation",
   },
   {
-    id: "04",
+    id: "03",
     name: "Full-Stack Websites & Builds",
     desc: "Product-grade websites, web apps, and internal tools, from schema to shipped UI, built to hold up under real usage.",
     stack: ["Next.js", "TypeScript", "PostgreSQL", "Node"],
     slug: "web-development",
   },
   {
-    id: "05",
+    id: "04",
     name: "Brand, Content & Social",
     desc: "Everything a marketing agency hands a client: identity, copy, and the day-to-day social management that keeps a brand alive.",
     stack: ["Content", "Social Mgmt", "Design", "Copy"],
     slug: "marketing-and-social",
   },
   {
-    id: "06",
+    id: "05",
     name: "Custom Software & SaaS",
     desc: "The system behind the business: admin panels, internal tools, and SaaS products, built from the database up instead of bent from a template.",
     stack: ["Next.js", "TypeScript", "PostgreSQL", "PWA"],
     slug: "software-development",
   },
   {
-    id: "07",
+    id: "06",
     name: "Custom Bot Development",
     desc: "Discord, Telegram, Slack, and web bots: moderation, alerts, scraping, auto-fill, and scheduled automation, scoped to the actual job instead of a locked-down template.",
     stack: ["Discord.js", "Telegram API", "Puppeteer", "Cron"],
@@ -77,7 +70,7 @@ export function Channels() {
               closer to the thing it describes. */}
           <div>
             <h2 className="max-w-2xl text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
-              Seven channels, one board.
+              Six channels, one board.
             </h2>
             <p className="mt-4 max-w-xl text-paper-dim">
               Everything routes back to the same mixing board. Flip a channel
@@ -87,7 +80,7 @@ export function Channels() {
         </Reveal>
 
         {/* Mobile gets collapsed rows, desktop keeps the flip cards. Same
-            seven channels and the same seven links to the service pages in
+            six channels and the same six links to the service pages in
             both, which is what actually matters for internal linking. This
             mirrors how Nav.tsx already renders its links twice for the two
             layouts. */}

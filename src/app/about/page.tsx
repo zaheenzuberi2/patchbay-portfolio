@@ -8,7 +8,6 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ChatWidget } from "@/components/ChatWidget";
-import { VoiceWidget } from "@/components/VoiceWidget";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Reveal } from "@/components/Reveal";
 
@@ -127,10 +126,7 @@ export default function AboutPage() {
             </Reveal>
             <div className="mt-8 max-w-3xl space-y-4 text-base leading-relaxed text-paper-dim">
               <p>
-                Patchbay builds AI voice agents and calling agents that
-                answer inbound calls, qualify callers, and book
-                appointments, with bilingual English and Urdu handling for
-                Pakistani businesses. AI chatbot development covers
+                Patchbay&apos;s AI chatbot development covers
                 websites, WhatsApp, and Instagram, trained on a business&apos;s
                 own content rather than a generic script.
               </p>
@@ -193,7 +189,7 @@ export default function AboutPage() {
                 Pakistani rent-a-car showrooms; client work including Lex
                 Justitia, AB Juris, and AD Real Estate; and Patchbay itself.
                 Software development is the underlying skill behind all of
-                it, including the voice agents, chatbots, and automation
+                it, including the chatbots and automation
                 work.
               </p>
             </div>
@@ -356,7 +352,6 @@ export default function AboutPage() {
       <Footer />
       <WhatsAppButton />
       <ChatWidget />
-      <VoiceWidget />
     </div>
   );
 }

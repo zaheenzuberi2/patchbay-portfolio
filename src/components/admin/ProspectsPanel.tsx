@@ -151,7 +151,7 @@ export function ProspectsPanel() {
           One per line: company, email, website, country. Comma or tab
           separated, so a spreadsheet column copy pastes straight in. Each row
           gets its email verified and its site checked, then routes to the
-          voice or web pitch. Max 200 at a time.
+          website pitch. Max 200 at a time.
         </p>
 
         <textarea
@@ -258,7 +258,7 @@ export function ProspectsPanel() {
                   </span>
                   {p.pitch && (
                     <span className="rounded-full border border-line-strong px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.08em] text-paper-dim">
-                      {p.pitch === "voice" ? "voice agent" : "website"}
+                      {p.pitch === "web" ? "website" : "retired"}
                     </span>
                   )}
                   {p.country && (
