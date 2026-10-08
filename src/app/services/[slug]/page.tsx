@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { services, getService } from "@/lib/services";
+import { caseStudies } from "@/lib/case-studies";
 import { siteConfig, whatsappUrl } from "@/lib/site-config";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
@@ -370,6 +371,63 @@ export default async function ServicePage(
             </div>
           </section>
         )}
+
+        {(() => {
+          const related = caseStudies.filter((c) =>
+            c.relatedServices.includes(service.slug),
+          );
+          const showTrading = service.slug === "custom-bots";
+          if (related.length === 0 && !showTrading) return null;
+          return (
+            <section className="border-b border-line py-14 sm:py-24">
+              <div className="mx-auto max-w-6xl px-6">
+                <Reveal>
+                  <h2 className="text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
+                    Case studies behind this service.
+                  </h2>
+                </Reveal>
+                <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {related.map((c, i) => (
+                    <Reveal key={c.slug} delay={i * 50}>
+                      <Link
+                        href={`/work/${c.slug}`}
+                        className="group flex h-full flex-col rounded-2xl border border-line-strong bg-ink-2/60 p-6 transition-colors hover:border-signal/50"
+                      >
+                        <span className="font-mono text-xs text-signal">
+                          {c.kind === "Own product" ? "Own product" : "Client"}
+                        </span>
+                        <span className="mt-2 text-lg font-medium tracking-[-0.01em] text-paper transition-colors group-hover:text-signal">
+                          {c.name}
+                        </span>
+                        <span className="mt-3 text-sm leading-relaxed text-paper-dim">
+                          {c.h1}
+                        </span>
+                      </Link>
+                    </Reveal>
+                  ))}
+                  {showTrading && (
+                    <Reveal delay={related.length * 50}>
+                      <Link
+                        href="/trading-bots"
+                        className="group flex h-full flex-col rounded-2xl border border-line-strong bg-ink-2/60 p-6 transition-colors hover:border-signal/50"
+                      >
+                        <span className="font-mono text-xs text-signal">
+                          Related service
+                        </span>
+                        <span className="mt-2 text-lg font-medium tracking-[-0.01em] text-paper transition-colors group-hover:text-signal">
+                          Algorithmic trading bots
+                        </span>
+                        <span className="mt-3 text-sm leading-relaxed text-paper-dim">
+                          The same custom-bot approach applied to exchange automation.
+                        </span>
+                      </Link>
+                    </Reveal>
+                  )}
+                </div>
+              </div>
+            </section>
+          );
+        })()}
 
         <ServiceWork />
 

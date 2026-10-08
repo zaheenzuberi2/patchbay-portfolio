@@ -2,6 +2,8 @@ import { Reveal } from "./Reveal";
 import { SectionGlow } from "./SectionGlow";
 import { SECTION_ACCENTS } from "@/lib/section-theme";
 import { listProjects, type ProjectRow } from "@/lib/db";
+import { caseStudies } from "@/lib/case-studies";
+import Link from "next/link";
 
 export async function Work() {
   // A database blip must not take down the whole marketing page. If the query
@@ -76,6 +78,15 @@ export async function Work() {
               </div>
             );
 
+            // Rows link out to the live site, so the on-site case study gets
+            // its own link beside the row (an <a> cannot nest in an <a>).
+            // Matched by name because the DB session ids and the case-study
+            // ids are numbered independently.
+            const pn = p.name.toLowerCase();
+            const study = caseStudies.find((c) => {
+              const cn = c.name.toLowerCase();
+              return pn.includes(cn) || cn.includes(pn);
+            });
             return (
               <Reveal key={p.id} delay={i * 60}>
                 {p.href ? (
@@ -91,6 +102,14 @@ export async function Work() {
                   </a>
                 ) : (
                   Row
+                )}
+                {study && (
+                  <Link
+                    href={`/work/${study.slug}`}
+                    className="-mt-2 mb-5 inline-block text-xs uppercase tracking-[0.08em] text-signal underline decoration-signal/30 underline-offset-4 transition-colors hover:decoration-signal sm:ml-[7.5rem]"
+                  >
+                    Read the case study
+                  </Link>
                 )}
               </Reveal>
             );
