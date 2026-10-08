@@ -17,8 +17,8 @@ export type CaseStudy = {
   metaTitle: string;
   metaDescription: string;
   keywords: string[];
-  /** Omitted for a client with no public site to link, rather than a made-up
-   *  or placeholder URL. */
+  /** Omitted for a client with no public site to link (e.g. a phone-only
+   *  voice-agent deployment) rather than a made-up or placeholder URL. */
   liveUrl?: string;
   liveLabel?: string;
   intro: string;
@@ -416,6 +416,59 @@ export const caseStudies: CaseStudy[] = [
     goodFor:
       "Couples who want a permanent, shareable page for their story, a full wedding site or a private keepsake gift, without hiring a designer or running guest management they don't need.",
     relatedServices: ["software-development", "web-development"],
+  },
+  {
+    slug: "construction-lead-calling",
+    sessionId: "0010",
+    name: "A Construction & Real Estate Firm",
+    kind: "Client",
+    status: "LIVE",
+    h1: "An outbound voice agent that calls a construction firm's own leads, qualifies them, and books the appointment",
+    metaTitle:
+      "Construction & Real Estate Lead-Calling Case Study | AI Voice Agent",
+    metaDescription:
+      "How an AI voice agent now calls inbound leads for a construction and real estate firm, qualifies them, and books the appointment directly, built end to end by Zaheen Zuberi.",
+    keywords: [
+      "AI voice agent case study",
+      "outbound calling AI agent",
+      "lead qualification voice agent",
+      "construction company lead calling",
+      "Zaheen Zuberi client work",
+      "AI appointment booking agent",
+    ],
+    intro:
+      "This client isn't named here at their own request, but the work is real and ongoing: a construction and real estate firm whose leads used to sit in a spreadsheet until someone had time to call them back.",
+    problem:
+      "Leads came in faster than they could be called. A lead that sits for a day before a human dials it is already colder, and a small team calling manually could not keep pace with volume without either hiring for it or letting leads go stale.",
+    approach: [
+      {
+        title: "The agent calls out, it doesn't just answer",
+        body: "Rather than only picking up inbound calls, the agent dials new leads directly as they come in, so the first contact happens while the lead is still warm instead of whenever a person gets to it.",
+      },
+      {
+        title: "Qualifying questions before anything reaches a human",
+        body: "The agent asks the same qualifying questions a team member would (budget, area, project type, timeline) and only escalates the leads that actually match what the business is looking for.",
+      },
+      {
+        title: "Booking happens on the call, not after it",
+        body: "A qualified lead gets an appointment booked directly during the call itself, landing on the calendar instead of becoming a callback note someone has to action later.",
+      },
+      {
+        title: "Running alongside a separate mass-email channel",
+        body: "The same client also runs monthly marketing sends to roughly 10,000 recipients as a parallel channel, handled separately from the voice agent, for broader outreach rather than one-to-one lead follow-up.",
+      },
+    ],
+    outcome: [
+      "Outbound calls placed to the firm's own leads, not just inbound answering",
+      "Callers qualified by budget, area, project type, and timeline before escalation",
+      "Appointments booked directly on the call",
+      "A separate monthly marketing send to about 10,000 recipients running alongside it",
+      "Live and in ongoing use; no public site to link to since this is a private phone-based deployment",
+    ],
+    stack: ["Voice AI", "Telephony", "CRM Integration"],
+    goodFor:
+      "Construction, real estate, and other lead-driven businesses where leads come in faster than a small team can call them back.",
+    relatedServices: ["ai-voice-agents", "business-automation"],
   },
 ];
 

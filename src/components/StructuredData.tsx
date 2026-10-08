@@ -96,6 +96,7 @@ export async function StructuredData() {
         sameAs: [linkedinUrl, githubUrl, himalayasUrl, fiverrUrl, upworkUrl],
         knowsAbout: [
           "AI automation",
+          "AI voice agents",
           "Chatbot development",
           "Business process automation",
           "Full-stack website development",

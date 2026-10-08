@@ -24,8 +24,132 @@ export type Service = {
 
 export const services: Service[] = [
   {
-    slug: "ai-chatbots",
+    slug: "ai-voice-agents",
     channel: "01",
+    name: "AI Voice & Calling Agents",
+    h1: "An AI receptionist that answers, qualifies, and books 24/7",
+    metaTitle: "AI Voice Agent Development | Receptionist",
+    metaDescription:
+      "AI voice agents that answer calls, qualify callers, and book appointments automatically. Built end to end by Zaheen Zuberi. Get a demo today.",
+    keywords: [
+      "AI voice agent development",
+      "AI receptionist",
+      "AI phone answering service",
+      "calling agent development",
+      "automated appointment booking",
+      "Twilio voice agent developer",
+      "AI voice agent developer Islamabad",
+      "AI receptionist for small business",
+      "AI answering service",
+      "virtual receptionist",
+      "24/7 phone answering AI",
+      "inbound call automation",
+      "AI call center agent",
+      "voicemail alternative for business",
+      "AI voice agents for businesses",
+      "AI voice agent developer Pakistan",
+    ],
+    intro:
+      "Most businesses lose work simply because nobody picked up. An AI receptionist answers on the first ring, 24/7, weekends and public holidays included. It speaks naturally, qualifies the caller against your own script, books what it should straight into your calendar, and follows up automatically on anything left open, then hands you a written summary of the ones that matter.",
+    outcomes: [
+      "Every inbound call answered, including after hours and weekends",
+      "Callers qualified against your own script before they reach you",
+      "Appointments written straight into your calendar",
+      "A written summary and recording of each call in your inbox or CRM",
+      "Escalation to a human the moment the call needs one",
+    ],
+    includes: [
+      {
+        title: "Call flow design",
+        body: "We map what your callers actually ask and what a good outcome looks like, then write the agent around that instead of a generic script.",
+      },
+      {
+        title: "Natural voice setup",
+        body: "Voice selection and tuning so the agent sounds like your business, including handling for Urdu and English callers.",
+      },
+      {
+        title: "Calendar and CRM wiring",
+        body: "Bookings land in the real calendar. Contact details and call summaries land in the real CRM. No copy-paste step.",
+      },
+      {
+        title: "Escalation rules",
+        body: "Clear rules for when the agent transfers to a person, takes a message, or flags the call as urgent.",
+      },
+      {
+        title: "Monitoring after launch",
+        body: "Call logs reviewed after go-live so the agent gets corrected on the calls it handled badly.",
+      },
+    ],
+    stack: ["Twilio", "Vapi", "Whisper", "Neural TTS", "Webhooks"],
+    roles: ["lead", "dev"],
+    goodFor:
+      "Clinics, law firms, salons, real estate offices, and service businesses where a missed call is a lost customer.",
+    faqs: [
+      {
+        q: "How much does an AI voice agent cost?",
+        a: "Cost has two parts: a one-time build and an ongoing per-minute usage charge from the telephony and voice providers. The build depends on how many call types the agent handles and what it connects to, so the honest answer is that a single-purpose booking agent is a fraction of the cost of one handling many workflows. Tell me what the agent needs to do and I will quote the specific number rather than a range that fits nobody.",
+      },
+      {
+        q: "Will callers know they are talking to an AI?",
+        a: "Modern voice models sound close to human, and many callers do not notice. I recommend disclosing it anyway, both because it is the right thing to do and because callers respond better once they know they can ask for a person.",
+      },
+      {
+        q: "Can it handle Urdu as well as English?",
+        a: "Yes. Language handling is part of the setup, including callers who switch between Urdu and English mid-sentence, which is normal in Pakistan and something generic international tools handle badly.",
+      },
+      {
+        q: "What happens if the agent cannot answer something?",
+        a: "It follows the escalation rules we agree on: transfer to a person, take a message and promise a callback, or flag the call as urgent. It should never guess at an answer it does not have.",
+      },
+      {
+        q: "How long does it take to build?",
+        a: "A focused agent handling one clear job is a matter of days. Multi-workflow agents with deep CRM integration take longer. The first conversation gives you a real timeline, not a placeholder.",
+      },
+      {
+        q: "What is the difference between an AI voice agent and a regular answering service?",
+        a: "A regular answering service routes calls to a human operator following a script, with real per-minute staffing costs and hours the operator can actually work. An AI voice agent answers instantly at any hour, follows a script built around your business specifically, and writes structured data straight into your calendar or CRM instead of a message being relayed manually.",
+      },
+      {
+        q: "Is an AI receptionist better than voicemail?",
+        a: "Voicemail asks the caller to leave a message and wait, and a lot of callers who hit voicemail just hang up and call the next business instead. An AI receptionist answers live, so the call gets handled in the moment rather than becoming a callback that may never happen.",
+      },
+      {
+        q: "Can an AI voice agent handle a high call volume, like a busy clinic or salon?",
+        a: "Yes, handling volume is one of the real advantages over a human line, since the agent takes multiple calls at once with no hold queue, which a single receptionist physically cannot do during a rush.",
+      },
+      {
+        q: "What is the difference between an AI voice agent and an AI receptionist?",
+        a: "In practice both terms describe the same thing, a phone answering AI agent. Some businesses say receptionist because it maps to a role they already know, others say voice agent because it can also handle outbound calling and workflows beyond just answering. The build itself is the same either way.",
+      },
+      {
+        q: "Do AI call center agents replace human agents entirely?",
+        a: "Not usually, and that is not the recommendation here either. The agent handles first contact, qualification, and routine bookings, and hands anything needing judgment or an existing relationship to a person, so the escalation rules matter as much as the agent itself.",
+      },
+      {
+        q: "Are AI voice agents only worth it for large companies?",
+        a: "No. AI voice agents for businesses scale down as cleanly as they scale up: a single-location clinic or salon gets the same never-miss-a-call coverage as a larger team, just with a smaller call volume and a smaller monthly cost to match.",
+      },
+      {
+        q: "Who is the best AI calling agent developer in Islamabad?",
+        a: "Rather than claim a title nobody can independently verify, the honest test is the build itself: a real voice demo you can hear on this page, the actual escalation logic and CRM wiring explained rather than left vague, and a team based in Islamabad you can meet in person. Judge it on that, not on a claim.",
+      },
+      {
+        q: "Is there a voice agent developer based in Islamabad I can talk to directly?",
+        a: "Yes. Patchbay is based in Islamabad, and voice agent development is handled by the same team you would be talking to about the project, not handed off to an outsourced developer elsewhere.",
+      },
+      {
+        q: "Is there an AI voice agent developer in Pakistan who works outside Islamabad?",
+        a: "Yes. The base is Islamabad, but voice agent builds are remote-friendly end to end: a call-flow discovery call, a real voice demo you can hear before committing, and a shared project board instead of in-person meetings. Clients across Pakistan, and internationally, are handled the same way.",
+      },
+      {
+        q: "Is there a single developer building AI voice agents in Islamabad, not an agency?",
+        a: "Yes. Zaheen Zuberi is the one point of contact for a voice agent build, from the first call flow question through the demo you hear on this page, not an account manager passing your project to someone else. A small team backs him on design and copy, but the person scoping and building the agent is the one you talk to.",
+      },
+    ],
+  },
+  {
+    slug: "ai-chatbots",
+    channel: "02",
     name: "AI Chatbots & Conversational AI",
     h1: "Chatbots that resolve the question instead of deflecting it",
     metaTitle: "AI Chatbot Development | WhatsApp & Web",
@@ -119,7 +243,7 @@ export const services: Service[] = [
   },
   {
     slug: "business-automation",
-    channel: "02",
+    channel: "03",
     name: "Automation & Workflows",
     h1: "Automation that removes the copy-paste from your week",
     metaTitle: "Business Process Automation | n8n, Zapier",
@@ -209,7 +333,7 @@ export const services: Service[] = [
   },
   {
     slug: "web-development",
-    channel: "03",
+    channel: "04",
     name: "Full-Stack Website Development",
     // "Web developer in Islamabad" carries real search volume, but Google
     // surfaces a dedicated Jobs filter tab for that exact phrase (SXO audit,
@@ -302,7 +426,7 @@ export const services: Service[] = [
   },
   {
     slug: "marketing-and-social",
-    channel: "04",
+    channel: "05",
     name: "Brand, Content & Social",
     h1: "The marketing an agency would run, without the agency",
     metaTitle: "Social Media Management | Islamabad",
@@ -387,7 +511,7 @@ export const services: Service[] = [
   },
   {
     slug: "software-development",
-    channel: "05",
+    channel: "06",
     name: "Custom Software & SaaS Development",
     h1: "A software development company in Islamabad that builds what runs behind the scenes",
     metaTitle: "Custom Software Development | Islamabad",
@@ -481,7 +605,7 @@ export const services: Service[] = [
   },
   {
     slug: "custom-bots",
-    channel: "06",
+    channel: "07",
     name: "Custom Bot Development",
     h1: "A bot built for the actual job, not squeezed into the wrong template",
     metaTitle: "Custom Bot Development | Discord, Telegram, Auto-Fill",

@@ -160,7 +160,7 @@ after editing `.env.local` (env vars are read once at server start).
   `src/app/services/[slug]/page.tsx` renders them via `generateStaticParams`,
   so they prerender as static HTML and cost nothing to serve.
 - Why they exist: a one-page site competes for one query cluster. Each service
-  page targets its own commercial-intent cluster (chatbots,
+  page targets its own commercial-intent cluster (voice agents, chatbots,
   automation, websites, marketing). This is the main lever for ranking on
   buying-intent searches rather than just the owner's name.
 - The homepage Channels cards each link to their service page. Those internal

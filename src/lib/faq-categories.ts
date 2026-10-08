@@ -10,7 +10,7 @@ import { FAQ_CATEGORIES, type FaqCategory } from "./all-faqs";
 // the other (see the throw in faqCategoryPages below).
 //
 // Why these pages exist at all: all 216 answers used to live on /faq alone,
-// so 11 distinct query clusters (pricing, chatbots, Islamabad, hiring
+// so 11 distinct query clusters (pricing, voice agents, Islamabad, hiring
 // remotely) competed for one URL's worth of ranking. Each category is 16 to
 // 22 questions, which is a real page, not thin content. /faq is now a hub
 // that links here instead of repeating the answers, so no answer exists at
@@ -39,11 +39,11 @@ const FAQ_CATEGORY_META: Record<string, FaqCategoryMeta> = {
     slug: "pricing",
     metaTitle: "How Much Do AI Agents & Websites Cost?",
     metaDescription:
-      "What a chatbot or full website actually costs, what drives the number up or down, and what you keep paying for after launch.",
+      "What a chatbot, voice agent, or full website actually costs, what drives the number up or down, and what you keep paying for after launch.",
     h1: "What this actually costs.",
     intro:
       "The most common question, answered properly. No range that fits nobody, no price list that ignores what your project needs to do. Here is what drives the number, what is included, and what carries on costing money after launch.",
-    relatedServices: ["ai-chatbots", "web-development"],
+    relatedServices: ["ai-voice-agents", "ai-chatbots", "web-development"],
   },
   process: {
     slug: "process",
@@ -55,6 +55,16 @@ const FAQ_CATEGORY_META: Record<string, FaqCategoryMeta> = {
       "What happens between your first message and a finished build. Who you talk to, how scope gets agreed, what a realistic timeline looks like, and what handover means when the work is done.",
     relatedServices: ["web-development", "ai-chatbots", "business-automation"],
   },
+  voice: {
+    slug: "ai-voice-agents",
+    metaTitle: "AI Voice Agent FAQs: Cost, Setup, Calls",
+    metaDescription:
+      "How AI voice agents handle real calls: what they can answer, how they transfer to a human, what they cost to run, and how long setup takes.",
+    h1: "AI voice agents, answered.",
+    intro:
+      "What a voice agent can and cannot do on a real phone line. How it handles a caller it cannot help, what happens to your existing number, and what the ongoing cost per call actually depends on.",
+    relatedServices: ["ai-voice-agents", "ai-chatbots"],
+  },
   chatbots: {
     slug: "ai-chatbots",
     metaTitle: "AI Chatbot FAQs: WhatsApp, Web, Training",
@@ -63,7 +73,7 @@ const FAQ_CATEGORY_META: Record<string, FaqCategoryMeta> = {
     h1: "AI chatbots, answered.",
     intro:
       "What it takes to put a chatbot on your site, WhatsApp, or Instagram that answers from your own content instead of guessing. What it does when it does not know, and who sees the conversations.",
-    relatedServices: ["ai-chatbots"],
+    relatedServices: ["ai-chatbots", "ai-voice-agents"],
   },
   automation: {
     slug: "business-automation",
@@ -135,6 +145,7 @@ const FAQ_CATEGORY_META: Record<string, FaqCategoryMeta> = {
       "For businesses in Islamabad and Rawalpindi. Whether we meet in person, what local work looks like, how payment works in PKR, and what happens when your customers speak Urdu.",
     relatedServices: [
       "web-development",
+      "ai-voice-agents",
       "marketing-and-social",
     ],
   },

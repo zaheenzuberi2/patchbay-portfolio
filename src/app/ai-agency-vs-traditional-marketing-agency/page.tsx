@@ -6,6 +6,7 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ChatWidget } from "@/components/ChatWidget";
+import { VoiceWidget } from "@/components/VoiceWidget";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Faq, FaqSchema } from "@/components/Faq";
 import { Reveal } from "@/components/Reveal";
@@ -74,7 +75,7 @@ const faqs = [
   },
   {
     q: "Is a large enterprise campaign with a dozen channels a better fit for a traditional agency?",
-    a: "Often, yes. A campaign genuinely running across TV, print, and a dozen ad platforms at once needs the scale a large traditional agency carries. The case for an integrated team is strongest for a campaign built around a landing page, a bot, and the automation and marketing tied to it, not for that scale of operation.",
+    a: "Often, yes. A campaign genuinely running across TV, print, and a dozen ad platforms at once needs the scale a large traditional agency carries. The case for an integrated team is strongest for a campaign built around a landing page, a bot or voice agent, and the automation and marketing tied to it, not for that scale of operation.",
   },
 ];
 
@@ -318,7 +319,7 @@ export default function AiAgencyVsTraditionalPage() {
                 specific accredited vendor for legal or financial reasons
                 needs that vendor, not the cheapest or fastest option. The
                 honest case for an integrated team is narrower: businesses
-                whose campaign spans a landing page, a bot,
+                whose campaign spans a landing page, a bot or voice agent,
                 some automation, and the marketing around it, where the
                 coordination overhead of hiring three separate vendors is
                 real money and real time, not a large enterprise running ten
@@ -393,6 +394,7 @@ export default function AiAgencyVsTraditionalPage() {
       <Footer />
       <WhatsAppButton />
       <ChatWidget />
+      <VoiceWidget />
     </div>
   );
 }

@@ -21,9 +21,9 @@ export function CategoryMarquee({
 }) {
   const reduced = useReducedMotion();
 
-  // The floating chat/WhatsApp buttons are fixed to the bottom-right
+  // The floating chat/voice/WhatsApp buttons are fixed to the bottom-right
   // corner at right-4/right-6 with a 44-56px footprint (ChatWidget.tsx,
-  // WhatsAppButton.tsx). On a short viewport, before this
+  // VoiceWidget.tsx, WhatsAppButton.tsx). On a short viewport, before this
   // nav has scrolled into its own `sticky` position, it can land at the same
   // vertical band as that button column. Unlike the "buttons briefly graze
   // scrolling text" case already accepted as fine, this nav is interactive:

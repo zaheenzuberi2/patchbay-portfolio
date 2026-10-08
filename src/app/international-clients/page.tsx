@@ -7,6 +7,7 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ChatWidget } from "@/components/ChatWidget";
+import { VoiceWidget } from "@/components/VoiceWidget";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Faq, FaqSchema } from "@/components/Faq";
 import { Reveal } from "@/components/Reveal";
@@ -106,8 +107,8 @@ const faqs = [
     a: "No. Pakistan runs well ahead of US Pacific time, so calls with a Los Angeles client land in the Islamabad evening rather than the middle of the night on either side, and the shared project board covers everything in between so a project doesn't stall waiting for the next overlap.",
   },
   {
-    q: "Can you build an AI chatbot for a company based in San Francisco?",
-    a: "Yes. A San Francisco company gets the same chatbot build as any other client, scoped to its own script and content, not a template. The distance shows up in how calls get scheduled, not in what gets built or how it's tested before handover.",
+    q: "Can you build an AI voice agent or chatbot for a company based in San Francisco?",
+    a: "Yes. A San Francisco company gets the same voice agent or chatbot build as any other client, scoped to its own script and content, not a template. The distance shows up in how calls get scheduled, not in what gets built or how it's tested before handover.",
   },
   {
     q: "Do you take on web development or automation projects for businesses in Seattle?",
@@ -174,8 +175,8 @@ const faqs = [
     a: "Yes. A Glasgow business is handled the same as any UK client: a discovery call to understand the actual workflow, a fixed quote, and a build tracked through a shared project board instead of in-person meetings.",
   },
   {
-    q: "Can a company in Liverpool hire you for an AI chatbot?",
-    a: "Yes. A Liverpool company gets a chatbot trained on its own content and scripts, not a generic template, and the build and testing happen the same way regardless of which UK city the company is based in.",
+    q: "Can a company in Liverpool hire you for AI chatbots or voice agents?",
+    a: "Yes. A Liverpool company gets a chatbot or voice agent trained on its own content and scripts, not a generic template, and the build and testing happen the same way regardless of which UK city the company is based in.",
   },
   {
     q: "Do you work with businesses in Leeds?",
@@ -192,6 +193,10 @@ const faqs = [
   {
     q: "Can a university spinout or small business in Oxford or Cambridge hire you?",
     a: "Yes. A spinout or small business in Oxford or Cambridge is scoped and quoted like any other client, and custom software or a full-stack site are common starting points for a project that's outgrown a template or a page builder.",
+  },
+  {
+    q: "Do you build AI voice and calling agents for businesses in New York, Houston, Manchester, or Glasgow?",
+    a: "Yes. Whether the business is in New York, Houston, Manchester, or Glasgow, the voice agent is trained on that business's own script and call flow, not a generic template, so it answers on the first ring, qualifies the caller, and books what it should straight into the calendar, the same as it would for any client.",
   },
   {
     q: "Can you build a chatbot for a company in Los Angeles, Miami, Birmingham, or Liverpool?",
@@ -223,7 +228,7 @@ const faqs = [
   },
   {
     q: "Can a business in Portland hire you for a website or AI project?",
-    a: "Yes. A Portland business goes through the same discovery call and fixed quote as any other client, and the build, whether it's a website, a chatbot, or automation, is tracked through a live preview link rather than status meetings.",
+    a: "Yes. A Portland business goes through the same discovery call and fixed quote as any other client, and the build, whether it's a website, a voice agent, or automation, is tracked through a live preview link rather than status meetings.",
   },
   {
     q: "Do you take on clients in San Antonio or Charlotte?",
@@ -236,6 +241,10 @@ const faqs = [
   {
     q: "Do you work with companies in Minneapolis or Detroit?",
     a: "Yes. A company in Minneapolis, Detroit, or elsewhere in the Midwest gets the same discovery-call-then-quote process as any client, and the handover at the end includes the code and accounts, documented and running on the company's own subscriptions.",
+  },
+  {
+    q: "Can a business in Las Vegas or Orlando hire you for a customer-facing AI voice agent?",
+    a: "Yes. A voice agent for a business in Las Vegas or Orlando, both cities where a missed call is a missed booking, is trained on that business's own script and qualifying questions, the same build process used for any client regardless of industry or city.",
   },
   {
     q: "Do you take on projects for businesses in Raleigh or Pittsburgh?",
@@ -262,6 +271,10 @@ const faqs = [
     a: "Yes. A Reading or Aberdeen business hiring remotely gets the same fixed-quote process as any other UK client, and UK hours overlap comfortably with the Islamabad working day, so scheduling calls isn't the obstacle it might be with a US client further away.",
   },
   {
+    q: "Do you build AI voice or calling agents for businesses in San Antonio, Nashville, Cardiff, or Nottingham?",
+    a: "Yes. A voice agent for a business in San Antonio, Nashville, Cardiff, or Nottingham is trained on that business's own qualifying questions and call flow, so it answers on the first ring and books what it should straight into the calendar, the same build used for any client.",
+  },
+  {
     q: "Can you build a chatbot for a company in Portland, Minneapolis, Belfast, or Brighton?",
     a: "Yes. A chatbot for a company in Portland, Minneapolis, Belfast, or Brighton is trained on that company's own content and knows when to escalate to a person, built and tested the same way whichever of those cities the company happens to be in.",
   },
@@ -285,8 +298,9 @@ const faqs = [
 
 export default function InternationalClientsPage() {
   const webDev = services.find((s) => s.slug === "web-development");
-  const chatbots = services.find((s) => s.slug === "ai-chatbots");
+  const voiceAgents = services.find((s) => s.slug === "ai-voice-agents");
   const adRealEstate = getCaseStudy("ad-real-estate");
+  const constructionVoiceAgent = getCaseStudy("construction-lead-calling");
   const tryvoicely = getCaseStudy("tryvoicely");
 
   const pageSchema = {
@@ -299,7 +313,7 @@ export default function InternationalClientsPage() {
     about: { "@id": `${siteConfig.url}/#business` },
   };
 
-  const proofStudies = [tryvoicely, adRealEstate].filter(
+  const proofStudies = [tryvoicely, constructionVoiceAgent, adRealEstate].filter(
     (s): s is NonNullable<typeof s> => Boolean(s),
   );
 
@@ -386,7 +400,7 @@ export default function InternationalClientsPage() {
                   <p className="mt-3 text-sm leading-relaxed text-paper-dim">
                     A company in the US, UK, Germany, Austria, or anywhere
                     else hiring the team for its own project: a website,
-                    an AI chatbot, automation, or custom
+                    an AI voice agent or chatbot, automation, or custom
                     software, with nothing back in Pakistan involved.
                   </p>
                 </div>
@@ -509,12 +523,12 @@ export default function InternationalClientsPage() {
                       or{" "}
                     </>
                   )}
-                  {chatbots && (
+                  {voiceAgents && (
                     <Link
-                      href={`/services/${chatbots.slug}`}
+                      href={`/services/${voiceAgents.slug}`}
                       className="text-signal underline decoration-signal/30 underline-offset-4 transition-colors hover:decoration-signal"
                     >
-                      {chatbots.name}
+                      {voiceAgents.name}
                     </Link>
                   )}{" "}
                   service pages for pricing and process.
@@ -550,6 +564,7 @@ export default function InternationalClientsPage() {
       <Footer />
       <WhatsAppButton />
       <ChatWidget />
+      <VoiceWidget />
     </div>
   );
 }

@@ -14,7 +14,7 @@ import { services } from "@/lib/services";
 // gives an AI answer engine (Google AI Overviews, Perplexity) very little
 // literal text to lift when answering "what does Patchbay do". This block
 // states the same facts in plain, unglamorous language, and carries exact
-// phrasings ("custom n8n developer", "bilingual AI chatbots") that do
+// phrasings ("custom n8n developer", "bilingual AI voice agents") that do
 // not belong in the brand copy elsewhere.
 //
 // It is a real <details> element, genuinely visible to any visitor who
@@ -188,7 +188,10 @@ export function Footer() {
             <p>
               Patchbay is an AI automation and web development agency based in
               Islamabad, Pakistan, run by Zaheen Zuberi and a team of
-              specialists. Our AI chatbot development covers websites,
+              specialists. We build AI voice agents and calling agents that
+              answer inbound calls, qualify callers, and book appointments,
+              with bilingual English and Urdu handling for Pakistani
+              businesses. Our AI chatbot development covers websites,
               WhatsApp, and Instagram, trained on your own content rather than
               a generic script.
             </p>

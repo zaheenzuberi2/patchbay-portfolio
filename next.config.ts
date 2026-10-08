@@ -51,11 +51,14 @@ const nextConfig: NextConfig = {
             key: "Referrer-Policy",
             value: "strict-origin-when-cross-origin",
           },
-          // Camera, microphone, geolocation and payment are never used
-          // anywhere on the site.
+          // Camera, geolocation and payment are never used anywhere on the
+          // site. Microphone is deliberately left off this list: VoiceDemo.tsx
+          // uses SpeechRecognition for real, and restricting it here would
+          // silently break that feature with no error a visitor could
+          // diagnose.
           {
             key: "Permissions-Policy",
-            value: "camera=(), microphone=(), geolocation=(), payment=()",
+            value: "camera=(), geolocation=(), payment=()",
           },
           { key: "Content-Security-Policy", value: CSP },
         ],
@@ -77,13 +80,6 @@ const nextConfig: NextConfig = {
         destination: "https://zaheenzuberi.com/:path*",
         permanent: true,
       },
-      // Retired pages (the voice and calling agent service was removed).
-      // Send them to their nearest hub instead of a 404.
-      { source: "/services/ai-voice-agents", destination: "/services", permanent: true },
-      { source: "/ai-voice-agent-real-estate", destination: "/services", permanent: true },
-      { source: "/faq/ai-voice-agents", destination: "/faq", permanent: true },
-      { source: "/blog/ai-voice-agent-vs-answering-service", destination: "/blog", permanent: true },
-      { source: "/work/construction-lead-calling", destination: "/", permanent: true },
     ];
   },
 };

@@ -5,7 +5,7 @@ import type { ServiceFaq } from "./services";
 // deliberately specific and claim-free. No invented prices or results.
 export const homeFaqs: ServiceFaq[] = [
   {
-    q: "How much does an AI chatbot cost?",
+    q: "How much does an AI chatbot or voice agent cost?",
     a: "It depends entirely on what kind of project it is, because every business needs something different. A bot answering a fixed set of questions is a fraction of the cost of one trained on your full document set and wired into a CRM. The goal here is growing your business, not selling you a package, so the first conversation is about whether we are the right fit for what you actually need. From there you get a real quote for your specific project rather than a range that fits nobody.",
   },
   {
@@ -14,7 +14,7 @@ export const homeFaqs: ServiceFaq[] = [
   },
   {
     q: "How long does a project take?",
-    a: "A focused chatbot is usually days. A marketing website is weeks. Anything with accounts, payments, or deep integrations takes longer. I would rather give you a real date after understanding the scope than a fast answer I have to walk back later.",
+    a: "A focused chatbot or voice agent is usually days. A marketing website is weeks. Anything with accounts, payments, or deep integrations takes longer. I would rather give you a real date after understanding the scope than a fast answer I have to walk back later.",
   },
   {
     q: "Is it really one team handling both the marketing and the development?",
@@ -42,7 +42,7 @@ export const homeFaqs: ServiceFaq[] = [
   },
   {
     q: "Is there an AI automation and web development agency based in Islamabad?",
-    a: "Yes. Patchbay, led by Zaheen Zuberi, is based in Islamabad and covers both sides of that request under one team: AI chatbots, business automation, and full-stack website development. Clients include law firms and other professional-services businesses. Reach out directly rather than going through a general marketplace listing, since the person answering is the one who scopes and builds the work.",
+    a: "Yes. Patchbay, led by Zaheen Zuberi, is based in Islamabad and covers both sides of that request under one team: AI voice agents and chatbots, business automation, and full-stack website development. Clients include law firms and other professional-services businesses. Reach out directly rather than going through a general marketplace listing, since the person answering is the one who scopes and builds the work.",
   },
   {
     q: "Is there a single developer in Islamabad I can hire directly, instead of going through an agency?",

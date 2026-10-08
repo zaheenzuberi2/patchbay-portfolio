@@ -19,10 +19,11 @@ import { SECTION_ACCENTS } from "@/lib/section-theme";
 // simple-icons wherever one exists, rendered in each brand's own color (per
 // icon .hex) so the logos read as recognizable marks rather than a single
 // flat tone; a small number of tools genuinely have no icon in that catalog
-// (Twilio, OpenAI) and fall back to a plain text badge rather than a
+// (Twilio, OpenAI, Vapi) and fall back to a plain text badge rather than a
 // missing or fabricated logo.
 const STACK: { name: string; path?: string; hex?: string }[] = [
   { name: "Twilio" },
+  { name: "Vapi" },
   { name: "OpenAI" },
   { name: "Whisper" },
   { name: "LangChain", path: siLangchain.path, hex: siLangchain.hex },

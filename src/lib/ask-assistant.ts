@@ -1,5 +1,5 @@
-// Client-side helper used by ChatWidget. The widget keeps its own
-// scripted/deterministic reply paths as the primary source for
+// Client-side helper shared by VoiceDemo and ChatWidget. Both widgets keep
+// their own scripted/deterministic reply paths as the primary source for
 // known intents and FAQ matches (fast, free, guaranteed accurate); this is
 // only called for open-ended messages that fall through those checks. A
 // null return means "the LLM path did not produce anything usable" for any

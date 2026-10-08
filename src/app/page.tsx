@@ -11,6 +11,7 @@ import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ChatWidget } from "@/components/ChatWidget";
+import { VoiceWidget } from "@/components/VoiceWidget";
 import Link from "next/link";
 import { Faq, FaqSchema } from "@/components/Faq";
 import { homeFaqs } from "@/lib/home-faqs";
@@ -48,6 +49,7 @@ export default function Home() {
       <Footer />
       <WhatsAppButton />
       <ChatWidget />
+      <VoiceWidget />
     </div>
   );
 }

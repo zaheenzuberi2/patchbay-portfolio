@@ -14,6 +14,6 @@ export default async function Image() {
     marker: "HOME",
     title: "One team. Every channel.",
     subtitle:
-      "AI chatbots, automation, and full-stack websites, run by Zaheen Zuberi in Islamabad.",
+      "AI voice agents, chatbots, automation, and full-stack websites, run by Zaheen Zuberi in Islamabad.",
   });
 }

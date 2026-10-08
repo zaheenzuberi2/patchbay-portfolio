@@ -41,20 +41,24 @@ export function buildOutreachEmail(prospect: ProspectRow, baseUrl: string) {
     );
   }
 
-  if (prospect.pitch !== "web") {
-    throw new Error(
-      `Prospect pitch "${prospect.pitch}" is no longer offered — refusing to build an outreach email for it.`,
-    );
-  }
+  const isVoice = prospect.pitch === "voice";
   const unsubscribeUrl = `${baseUrl}/u/${makeUnsubscribeSlug(prospect.email)}`;
 
-  const pitchLines = [
-    `I build and rebuild small business websites. Flagging this in case ` +
-      `it's useful even if you never work with me — if it's not a ` +
-      `priority right now, no worries at all.`,
-    "",
-    "If you did want it fixed, I can usually turn a rebuild like this around in a couple of weeks. Happy to send a couple of examples.",
-  ];
+  const pitchLines = isVoice
+    ? [
+        `Most of those calls are probably people who just found you on Google. Miss it, and they just call the next name down the list.`,
+        "",
+        `I build AI phone agents that pick up, qualify the caller, and book them in right there. Usually means catching an extra 5-10 bookings a month that used to just ring out.`,
+        "",
+        "Got a short recording of one handling a real call if you want to hear it. No pressure either way.",
+      ]
+    : [
+        `I build and rebuild small business websites. Flagging this in case ` +
+          `it's useful even if you never work with me — if it's not a ` +
+          `priority right now, no worries at all.`,
+        "",
+        "If you did want it fixed, I can usually turn a rebuild like this around in a couple of weeks. Happy to send a couple of examples.",
+      ];
 
   const lines = [
     "Hi,",
@@ -66,7 +70,9 @@ export function buildOutreachEmail(prospect: ProspectRow, baseUrl: string) {
   ];
 
   return {
-    subject: `Quick note on ${prospect.company}'s website`,
+    subject: isVoice
+      ? `Missed calls at ${prospect.company}`
+      : `Quick note on ${prospect.company}'s website`,
     text: lines.join("\n"),
     // Surfaced separately from the body text so the caller can also set the
     // List-Unsubscribe header — mail-tester flagged its absence: without it,

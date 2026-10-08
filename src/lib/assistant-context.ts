@@ -1,7 +1,7 @@
 import { services } from "./services";
 import { siteConfig } from "./site-config";
 
-// Grounding for the LLM-backed assistant (ChatWidget's
+// Grounding for the LLM-backed assistant (VoiceDemo + ChatWidget's
 // open-ended fallback). Deliberately a compact summary, not the full 200+
 // question FAQ library verbatim (all-faqs.ts) — the deterministic
 // findFaqAnswer() matcher already handles known questions with the exact,

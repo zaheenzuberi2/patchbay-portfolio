@@ -10,7 +10,7 @@ import type { FaqCategoryPage } from "@/lib/faq-categories";
 //
 // This replaced FaqResults.tsx, which rendered all 216 questions inline. The
 // reason for the change is ranking, not layout: 11 distinct query clusters
-// (pricing, chatbots, Islamabad, hiring remotely) were competing for one
+// (pricing, voice agents, Islamabad, hiring remotely) were competing for one
 // URL. Each category now has its own page and owns its own FAQPage schema,
 // and this page links to them instead of repeating their content.
 //

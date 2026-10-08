@@ -8,6 +8,7 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ChatWidget } from "@/components/ChatWidget";
+import { VoiceWidget } from "@/components/VoiceWidget";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { SignalBars } from "@/components/SignalBars";
 import { Reveal } from "@/components/Reveal";
@@ -362,6 +363,7 @@ export default async function CaseStudyPage(
       <Footer />
       <WhatsAppButton />
       <ChatWidget />
+      <VoiceWidget />
     </div>
   );
 }

@@ -12,7 +12,7 @@
 // Everything here uses a plain fetch against a public page. No API, no key,
 // no cost. It reads only what a browser would read.
 
-export type Pitch = "web" | "";
+export type Pitch = "voice" | "web" | "";
 
 export type Qualification = {
   pitch: Pitch;
@@ -131,6 +131,24 @@ export async function qualify(website: string): Promise<Qualification> {
       pitch: "web",
       signal:
         "Your homepage has no meta description, so Google is writing its own snippet for it.",
+      status: "qualified",
+    };
+  }
+
+  // The site is technically fine. That rules out the web pitch but says
+  // nothing about whether they are losing calls, so look for the voice-agent
+  // signal instead: a phone-first business with no way to book online.
+  const hasPhone = /(tel:|call us|phone|contact us)/i.test(html);
+  const hasBooking =
+    /(book (now|online|an? appointment)|schedule|calendly|appointment)/i.test(
+      html,
+    );
+
+  if (hasPhone && !hasBooking) {
+    return {
+      pitch: "voice",
+      signal:
+        "Phone looks like your only way in, with no online booking, so every missed call is a lost customer.",
       status: "qualified",
     };
   }

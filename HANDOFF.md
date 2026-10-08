@@ -4,14 +4,6 @@ Everything a new session needs to pick this up. Written 13 Aug 2026, last
 updated 31 Aug 2026. **Read section 0a first, then section 28** (the most
 recent work: SEO, theme, security, voice).
 
-> **RETIRED 8 Oct 2026: the AI voice and calling agent offering was removed from the site.**
-> Gone: the floating voice widget (`VoiceWidget`, `VoiceDemo`, `VoiceDemoLazy`, `speak`, `prosody`,
-> `voice-selection`, `AudioVisualizer`), the `ai-voice-agents` service, `/ai-voice-agent-real-estate`,
-> the `/work/construction-lead-calling` case study, the voice FAQ category and `/faq/ai-voice-agents`,
-> the voice-vs-answering-service blog article, and the voice outreach pitch. Those URLs 301 to their
-> nearest hub (next.config.ts). Services are now six, channels `01` to `06`. Every section below that
-> describes any of this is historical only. Tryvoicely (text to speech) is a separate product and stays.
-
 **Project root:** `C:\Users\zaheen\claude\portfolio`
 
 ```bash
