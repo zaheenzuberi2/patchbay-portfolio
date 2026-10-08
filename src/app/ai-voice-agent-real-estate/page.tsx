@@ -7,12 +7,9 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ChatWidget } from "@/components/ChatWidget";
-import { VoiceWidget } from "@/components/VoiceWidget";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Faq, FaqSchema } from "@/components/Faq";
 import { Reveal } from "@/components/Reveal";
-// Code-split and client-only; see VoiceDemoLazy.tsx for why.
-import { VoiceDemoLazy as VoiceDemo } from "@/components/VoiceDemoLazy";
 
 // A vertical-specific landing page for real estate buyers searching for a
 // voice agent, sitting alongside /services/ai-voice-agents rather than
@@ -156,29 +153,6 @@ export default function AiVoiceAgentRealEstatePage() {
           </div>
         </section>
 
-        <section className="border-b border-line py-14 sm:py-24">
-          <div className="mx-auto max-w-6xl px-6">
-            <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-              <div>
-                <Reveal>
-                  <h2 className="text-balance text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
-                    Hear it for yourself.
-                  </h2>
-                  <p className="mt-4 max-w-xl text-paper-dim">
-                    A real, working sample of the agent&apos;s voice, not a
-                    mockup. Runs in your browser, not a live phone system.
-                  </p>
-                </Reveal>
-              </div>
-              <div className="max-w-md lg:mx-auto lg:w-full">
-                <Reveal variant="scale">
-                  <VoiceDemo />
-                </Reveal>
-              </div>
-            </div>
-          </div>
-        </section>
-
         <Faq
           items={faqs}
           heading="AI voice agents for real estate: questions"
@@ -244,8 +218,8 @@ export default function AiVoiceAgentRealEstatePage() {
                         {voiceService.name}
                       </span>
                       <span className="mt-3 block text-sm leading-relaxed text-paper-dim">
-                        The full service page: pricing, process, and the demo
-                        above.
+                        The full service page: pricing, process, and what a
+                        build includes.
                       </span>
                     </span>
                     <span
@@ -287,7 +261,6 @@ export default function AiVoiceAgentRealEstatePage() {
       <Footer />
       <WhatsAppButton />
       <ChatWidget />
-      <VoiceWidget />
     </div>
   );
 }

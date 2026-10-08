@@ -7,7 +7,6 @@ import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ChatWidget } from "@/components/ChatWidget";
-import { VoiceWidget } from "@/components/VoiceWidget";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Faq, FaqSchema } from "@/components/Faq";
 import { Reveal } from "@/components/Reveal";
@@ -564,7 +563,6 @@ export default function InternationalClientsPage() {
       <Footer />
       <WhatsAppButton />
       <ChatWidget />
-      <VoiceWidget />
     </div>
   );
 }

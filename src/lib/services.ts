@@ -30,7 +30,7 @@ export const services: Service[] = [
     h1: "An AI receptionist that answers, qualifies, and books 24/7",
     metaTitle: "AI Voice Agent Development | Receptionist",
     metaDescription:
-      "AI voice agents that answer calls, qualify callers, and book appointments automatically. Built end to end by Zaheen Zuberi. Get a demo today.",
+      "AI voice agents that answer calls, qualify callers, and book appointments automatically. Built end to end by Zaheen Zuberi. Get in touch today.",
     keywords: [
       "AI voice agent development",
       "AI receptionist",
@@ -131,7 +131,7 @@ export const services: Service[] = [
       },
       {
         q: "Who is the best AI calling agent developer in Islamabad?",
-        a: "Rather than claim a title nobody can independently verify, the honest test is the build itself: a real voice demo you can hear on this page, the actual escalation logic and CRM wiring explained rather than left vague, and a team based in Islamabad you can meet in person. Judge it on that, not on a claim.",
+        a: "Rather than claim a title nobody can independently verify, the honest test is the build itself: the actual escalation logic and CRM wiring explained rather than left vague, and a team based in Islamabad you can meet in person. Judge it on that, not on a claim.",
       },
       {
         q: "Is there a voice agent developer based in Islamabad I can talk to directly?",
@@ -139,11 +139,11 @@ export const services: Service[] = [
       },
       {
         q: "Is there an AI voice agent developer in Pakistan who works outside Islamabad?",
-        a: "Yes. The base is Islamabad, but voice agent builds are remote-friendly end to end: a call-flow discovery call, a real voice demo you can hear before committing, and a shared project board instead of in-person meetings. Clients across Pakistan, and internationally, are handled the same way.",
+        a: "Yes. The base is Islamabad, but voice agent builds are remote-friendly end to end: a call-flow discovery call, a working build you can test before committing, and a shared project board instead of in-person meetings. Clients across Pakistan, and internationally, are handled the same way.",
       },
       {
         q: "Is there a single developer building AI voice agents in Islamabad, not an agency?",
-        a: "Yes. Zaheen Zuberi is the one point of contact for a voice agent build, from the first call flow question through the demo you hear on this page, not an account manager passing your project to someone else. A small team backs him on design and copy, but the person scoping and building the agent is the one you talk to.",
+        a: "Yes. Zaheen Zuberi is the one point of contact for a voice agent build, from the first call flow question through to the finished build, not an account manager passing your project to someone else. A small team backs him on design and copy, but the person scoping and building the agent is the one you talk to.",
       },
     ],
   },

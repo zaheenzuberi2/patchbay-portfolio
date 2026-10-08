@@ -52,10 +52,8 @@ const nextConfig: NextConfig = {
             value: "strict-origin-when-cross-origin",
           },
           // Camera, geolocation and payment are never used anywhere on the
-          // site. Microphone is deliberately left off this list: VoiceDemo.tsx
-          // uses SpeechRecognition for real, and restricting it here would
-          // silently break that feature with no error a visitor could
-          // diagnose.
+          // site. Microphone is deliberately left off this list so a future
+          // voice widget can use it; restricting it would silently break that.
           {
             key: "Permissions-Policy",
             value: "camera=(), geolocation=(), payment=()",
