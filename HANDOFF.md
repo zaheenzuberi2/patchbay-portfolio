@@ -2222,3 +2222,34 @@ is not something to correct. Updated this file's own section-0 guidance
 comment in `all-faqs.ts` (top of file) so a future session does not
 reintroduce flat denial language, the same way section 33 warns against
 reintroducing "I work alone."
+
+## 47. AI receptionist industry pages for US buyers — 14 Oct 2026
+
+Search Console (28 days, 14 Oct): 19 clicks / 355 impressions, almost all
+brand or case-study queries (tryvoicely, ab juris). No money-term queries
+yet; the domain is young with no off-site links, so the plan is winnable
+long-tail buyer pages plus backlinks.
+
+Built a hub `/ai-receptionist-for` and 28 industry pages
+`/ai-receptionist-for/[niche]` (healthcare 8, home services 10,
+professional and local 10), each answering "AI receptionist / voice agent /
+calling agent for X". Copy lives in `src/lib/voice-niches/*` (per-niche call
+types, outbound uses, intake, handoff, systems, one caution, FAQs). One
+template at `src/app/ai-receptionist-for/[niche]/page.tsx`, with a LeadForm
+tagged `form:ai-receptionist-<slug>`. Added to `sitemap.ts` (date key
+`voiceNiches`) and linked from the Footer. `/ai-voice-agent-real-estate`
+stays its own page and is linked from the hub.
+
+Rules kept: no invented clients, stats or prices; outbound calling only to
+consented leads (US TCPA treats AI voices as artificial); regulated niches
+(health, law, insurance, lending) are intake and scheduling only, no advice,
+no HIPAA claim. Zaheen asked for the "we have not yet deployed a voice agent
+for a {niche}" disclaimer to be removed, so the build section now just links
+the construction lead-calling case study and the service page. Do not
+re-add it. Stay under ~30 niche pages until Search Console shows which ones
+Google picks up (thin-content risk). Do not add a niche without writing every
+field for real.
+
+Indexing requested in Search Console for the hub, dentists and plumbers.
+HVAC, law-firms and personal-injury-lawyers were not submitted (the GSC tab
+froze); they are in the sitemap.
