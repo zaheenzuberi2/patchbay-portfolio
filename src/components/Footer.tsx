@@ -69,6 +69,14 @@ export function Footer() {
                   Custom Trading Bot Development
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/ai-receptionist-for"
+                  className="text-sm text-paper-dim transition-colors hover:text-signal"
+                >
+                  AI Receptionists by Industry
+                </Link>
+              </li>
             </ul>
           </div>
 

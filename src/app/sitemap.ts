@@ -4,6 +4,7 @@ import { services } from "@/lib/services";
 import { caseStudies } from "@/lib/case-studies";
 import { faqCategoryPages } from "@/lib/faq-categories";
 import { articles } from "@/lib/articles";
+import { voiceNiches } from "@/lib/voice-niches";
 
 // Real `git log -1 --format=%cI -- <file>` dates for each page's content
 // source, captured 2026-09-27, not build/request time. A build-time "now"
@@ -26,6 +27,7 @@ const CONTENT_DATES = {
   aiAgencyVsTraditional: "2026-09-27T22:55:05+01:00",
   aiVoiceAgentRealEstate: "2026-09-27T20:54:24+01:00",
   tradingBots: "2026-09-27T20:54:24+01:00",
+  voiceNiches: "2026-10-14T12:00:00+01:00",
   internationalClients: "2026-09-27T20:54:24+01:00",
 } as const;
 
@@ -77,6 +79,14 @@ export function sitemapEntries(): MetadataRoute.Sitemap {
       url: `${siteConfig.url}/ai-voice-agent-real-estate`,
       lastModified: CONTENT_DATES.aiVoiceAgentRealEstate,
     },
+    {
+      url: `${siteConfig.url}/ai-receptionist-for`,
+      lastModified: CONTENT_DATES.voiceNiches,
+    },
+    ...voiceNiches.map((n) => ({
+      url: `${siteConfig.url}/ai-receptionist-for/${n.slug}`,
+      lastModified: CONTENT_DATES.voiceNiches,
+    })),
     {
       url: `${siteConfig.url}/trading-bots`,
       lastModified: CONTENT_DATES.tradingBots,
