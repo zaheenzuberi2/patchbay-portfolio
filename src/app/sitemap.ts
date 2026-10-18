@@ -29,6 +29,7 @@ const CONTENT_DATES = {
   tradingBots: "2026-09-27T20:54:24+01:00",
   voiceNiches: "2026-10-14T12:00:00+01:00",
   internationalClients: "2026-09-27T20:54:24+01:00",
+  missedCallCalculator: "2026-10-18T12:00:00+01:00",
 } as const;
 
 // Extracted so /api/indexnow can submit the same URL list to IndexNow
@@ -87,6 +88,10 @@ export function sitemapEntries(): MetadataRoute.Sitemap {
       url: `${siteConfig.url}/ai-receptionist-for/${n.slug}`,
       lastModified: CONTENT_DATES.voiceNiches,
     })),
+    {
+      url: `${siteConfig.url}/missed-call-calculator`,
+      lastModified: CONTENT_DATES.missedCallCalculator,
+    },
     {
       url: `${siteConfig.url}/trading-bots`,
       lastModified: CONTENT_DATES.tradingBots,

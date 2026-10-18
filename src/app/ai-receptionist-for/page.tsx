@@ -83,6 +83,16 @@ export default function VoiceNicheHubPage() {
                 regulated fields (health, law, insurance, lending) the agent
                 collects information and schedules, and never gives advice.
               </p>
+              <p className="mt-4 max-w-3xl text-sm leading-relaxed text-paper-dim">
+                Not sure it is worth it?{" "}
+                <Link
+                  href="/missed-call-calculator"
+                  className="text-signal underline-offset-4 hover:underline"
+                >
+                  Estimate what missed calls cost you
+                </Link>
+                .
+              </p>
               <div className="mt-9 flex flex-wrap items-center gap-4">
                 <a
                   href={`mailto:${siteConfig.contactEmail}`}
