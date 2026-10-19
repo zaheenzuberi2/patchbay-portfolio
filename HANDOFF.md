@@ -2253,3 +2253,27 @@ field for real.
 Indexing requested in Search Console for the hub, dentists and plumbers.
 HVAC, law-firms and personal-injury-lawyers were not submitted (the GSC tab
 froze); they are in the sitemap.
+
+## 48. Backlinks and indexing push (2026-10-18/19)
+
+Search Console (28 days to 18 Oct): 19 clicks, 324 impressions, avg position
+14.6. Impressions are mostly Tryvoicely and client-brand queries, not buyers.
+The 3 "Page with redirect" URLs are just http/www homepage variants (correct).
+Indexing requested for hvac, law-firms, personal-injury-lawyers and the
+calculator; sitemap resubmitted (72 URLs read on 18 Oct).
+
+Added /missed-call-calculator (src/components/MissedCallCalculator.tsx), a
+free tool that uses only the visitor's own numbers. No invented averages;
+keep it that way. Linked from the /ai-receptionist-for hub. Commit 41c585d.
+
+Zaheen's goal: leads from overseas (US first) and local, for AI calling agents
+(inbound and consented outbound), websites, trading bots, automation.
+
+Accounts Zaheen created: Product Hunt (@zaheen_zuberi), Indie Hackers
+(zaheenzuberi), Qwoted (on the journalist onboarding path by mistake; needs the
+expert/source path). Bios updated to the four-service line. Indie Hackers
+blocks posting until the account has commented. Tryvoicely already has a
+Product Hunt listing, so a "Patchbay AI Receptionists" draft launch was
+created instead; it is NOT scheduled. Tryvoicely facts verified live: 31 base
+languages, 39 locales, 7 preview-only; some bios still say 22 (Himalayas,
+Fiverr), fix them. Outreach plan: ../backlink-plan.md (nothing sent).
