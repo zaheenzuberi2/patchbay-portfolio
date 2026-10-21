@@ -359,6 +359,23 @@ export default function InternationalClientsPage() {
                 project board, and a live preview link, not a plane
                 ticket.
               </p>
+              <p className="mt-4 text-sm leading-relaxed text-paper-dim">
+                Working with a business in the UAE? See the pages for{" "}
+                <Link
+                  href="/uae/dubai"
+                  className="text-signal underline decoration-signal/30 underline-offset-4 hover:decoration-signal"
+                >
+                  Dubai
+                </Link>{" "}
+                and{" "}
+                <Link
+                  href="/uae/abu-dhabi"
+                  className="text-signal underline decoration-signal/30 underline-offset-4 hover:decoration-signal"
+                >
+                  Abu Dhabi
+                </Link>
+                .
+              </p>
 
               <div className="mt-9 flex flex-wrap items-center gap-4">
                 <Link

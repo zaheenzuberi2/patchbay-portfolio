@@ -125,6 +125,14 @@ export function Footer() {
                   International Clients
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/uae"
+                  className="text-sm text-paper-dim transition-colors hover:text-signal"
+                >
+                  Dubai &amp; Abu Dhabi
+                </Link>
+              </li>
             </ul>
           </div>
 

@@ -5,6 +5,7 @@ import { caseStudies } from "@/lib/case-studies";
 import { faqCategoryPages } from "@/lib/faq-categories";
 import { articles } from "@/lib/articles";
 import { voiceNiches } from "@/lib/voice-niches";
+import { uaeCities } from "@/lib/uae/cities";
 
 // Real `git log -1 --format=%cI -- <file>` dates for each page's content
 // source, captured 2026-09-27, not build/request time. A build-time "now"
@@ -30,6 +31,7 @@ const CONTENT_DATES = {
   voiceNiches: "2026-10-14T12:00:00+01:00",
   internationalClients: "2026-09-27T20:54:24+01:00",
   missedCallCalculator: "2026-10-18T12:00:00+01:00",
+  uae: "2026-10-21T12:00:00+01:00",
 } as const;
 
 // Extracted so /api/indexnow can submit the same URL list to IndexNow
@@ -87,6 +89,14 @@ export function sitemapEntries(): MetadataRoute.Sitemap {
     ...voiceNiches.map((n) => ({
       url: `${siteConfig.url}/ai-receptionist-for/${n.slug}`,
       lastModified: CONTENT_DATES.voiceNiches,
+    })),
+    {
+      url: `${siteConfig.url}/uae`,
+      lastModified: CONTENT_DATES.uae,
+    },
+    ...uaeCities.map((c) => ({
+      url: `${siteConfig.url}/uae/${c.slug}`,
+      lastModified: CONTENT_DATES.uae,
     })),
     {
       url: `${siteConfig.url}/missed-call-calculator`,
