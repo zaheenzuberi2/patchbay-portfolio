@@ -2277,3 +2277,26 @@ Product Hunt listing, so a "Patchbay AI Receptionists" draft launch was
 created instead; it is NOT scheduled. Tryvoicely facts verified live: 31 base
 languages, 39 locales, 7 preview-only; some bios still say 22 (Himalayas,
 Fiverr), fix them. Outreach plan: ../backlink-plan.md (nothing sent).
+
+## 49. UAE pages: /uae, /uae/dubai, /uae/abu-dhabi (2026-10-21)
+
+Zaheen wants Dubai and Abu Dhabi traffic. Built as ONE data file
+(src/lib/uae/cities.ts) and one template (src/app/uae/[city]/page.tsx), plus a
+small hub. Commit 67b7953. Linked from the footer and /international-clients,
+added to the sitemap.
+
+Written per city on purpose: sectors, regulators (Dubai: RERA, DHA, VARA;
+Abu Dhabi: ADREC, Department of Health, ADGM), call patterns, rules and FAQs
+all differ. The old /locations/lahore and /locations/karachi were removed as
+doorway pages (section 38 and the 2026-09-27 audits), so do not add a third
+city by copying one of these, and do not add more than a handful of cities.
+
+Rules baked into the copy: no UAE office claimed (Islamabad, one hour ahead of
+UAE time); no UAE clients, prices or results; no Arabic claim until the voice
+is tested in Arabic (currently "scoped as its own piece of work"); outbound
+calling consented-only; telephony goes through a licensed UAE carrier, stated
+as "confirmed while scoping"; regulators are named but always paired with
+"confirm with your own adviser". Local build note: `npm run build` failed
+locally on a stale .next shared with another session's dev server (font
+module error, not our code); tsc was clean and Vercel built fine.
+Indexing requests for the three URLs were NOT submitted yet.
