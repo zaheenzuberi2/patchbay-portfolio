@@ -2300,3 +2300,10 @@ as "confirmed while scoping"; regulators are named but always paired with
 locally on a stale .next shared with another session's dev server (font
 module error, not our code); tsc was clean and Vercel built fine.
 Indexing requests for the three URLs were NOT submitted yet.
+
+UAE indexing: Search Console rejected the Dubai request with "Blocked by
+robots.txt". Cause: robots.txt had `Disallow: /u` (prefix match) which also
+blocked /uae. Fixed to `Disallow: /u/` (commit after 9557c37, live 2026-10-21).
+Google caches robots.txt for up to ~24h, so a retry right after the fix was
+still rejected. Re-request indexing for /uae, /uae/dubai and /uae/abu-dhabi
+from 2026-10-22. Lesson: robots rules are prefix matches; keep trailing slashes.
