@@ -6,12 +6,15 @@ import { siteConfig } from "@/lib/site-config";
 // ai-train=no) isn't one of its named fields. This is not enforced by any
 // crawler today, it's an explicit, machine-readable statement of
 // preference for engines that start reading it.
+// Robots rules are prefix matches. The /u rule was "Disallow: /u" and blocked
+// /uae as well as the /u/[slug] route it was meant for; keep the trailing
+// slash so nothing else that starts with "u" gets blocked by accident.
 export async function GET() {
   const body = `User-agent: *
 Allow: /
 Disallow: /admin
 Disallow: /api
-Disallow: /u
+Disallow: /u/
 Content-Signal: search=yes, ai-input=yes, ai-train=no
 
 Sitemap: ${siteConfig.url}/sitemap.xml
