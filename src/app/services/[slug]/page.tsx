@@ -303,7 +303,7 @@ export default async function ServicePage(
                       className="w-full"
                     />
                     <figcaption className="border-t border-line px-6 py-4 font-mono text-xs leading-relaxed text-paper-dim">
-                      tryvoicely.com in Google Search Console, 14 Apr – 24 Aug
+                      tryvoicely.com in Google Search Console, 14 Apr to 24 Aug
                       2026: 8,280 clicks and 110,000 impressions from organic
                       search, 7.5% average CTR, average position 15.9. No
                       paid ads behind this traffic.
