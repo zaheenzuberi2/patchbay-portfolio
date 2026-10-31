@@ -2361,3 +2361,24 @@ Product Hunt: "Patchbay AI Receptionists" is live (about 11 days old on
 31 Oct), 1 point, 1 maker comment, no other activity. Backlink outreach in
 ../backlink-plan.md still unsent. The binding constraint is authority and
 links, not on-page SEO.
+
+## 51. Directory profiles and listings (2026-10-31)
+
+Accounts created by Zaheen: AlternativeTo (Zaheen-Zuberi), SaaSHub (zaheenzuberi),
+dev.to (zaheenzuberi), There's An AI For That, Indie Hackers. Profiles filled
+with the all-services bio (AI calling agents and voice receptionists, websites,
+trading bots, automation). Listings are voice agent only, named "Patchbay AI
+Receptionists", pointing at /ai-receptionist-for.
+
+- SaaSHub: submitted on the free tier, awaiting approval (1 to 12 weeks).
+  SaaSHub says it rejects software development agencies, so a decline is
+  possible. Competitors ticked: AI Answering, Attendly AI, Callnfy,
+  getmainst.ai, Slang AI.
+- AlternativeTo: submitted (free queue, no priority fee). Icon /icon.png,
+  screenshot is the site's opengraph-image. Alternatives suggested: Smith.ai and
+  CallPark (the final save was not confirmed). An existing company called
+  "Patchbay's" was not used, a new "Patchbay" company entry was created.
+- There's An AI For That: terms accepted, but listing costs $49 minimum.
+  Not paid. Zaheen decides.
+- Still to do: dev.to technical post with canonical to the site, Indie Hackers
+  comments to unlock posting, Qwoted expert path, Clutch reviewer asks.
