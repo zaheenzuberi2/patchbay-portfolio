@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { buildAssistantSystemPrompt } from "@/lib/assistant-context";
-import { getApiKey } from "@/lib/secrets";
+import { getApiKeys } from "@/lib/secrets";
 import { createRateLimiter } from "@/lib/rate-limit";
 
 const MESSAGE_MAX_LEN = 500;
@@ -40,9 +40,9 @@ function cleanHistory(raw: unknown): IncomingTurn[] {
 }
 
 export async function POST(request: NextRequest) {
-  // Admin-panel key first, then the GEMINI_API_KEY env var (src/lib/secrets.ts).
-  const apiKey = await getApiKey("GEMINI_API_KEY");
-  if (!apiKey) {
+  // Panel keys and the GEMINI_API_KEY env var, in a random order (src/lib/secrets.ts).
+  const keys = await getApiKeys("GEMINI_API_KEY");
+  if (!keys.length) {
     // Not a client error: the site works fine without this configured, both
     // widgets just fall back to their scripted replies. Log server-side so
     // a missing key in a given environment is visible without exposing
@@ -91,12 +91,12 @@ export async function POST(request: NextRequest) {
     },
   });
 
-  // One retry, only on a 503 (observed in practice: "model is currently
-  // experiencing high demand... usually temporary"), which is Google's own
-  // free-tier capacity signal, not an error worth giving up on immediately.
-  // Any other status or an outright network failure/timeout goes straight
-  // to the caller's scripted fallback instead.
-  for (let attempt = 0; attempt < 2; attempt++) {
+  // Try each key in turn: a revoked, rate-limited or briefly overloaded key
+  // moves on to the next. With a single key, that key is tried twice, since a
+  // 503 ("high demand... usually temporary") is Google's own capacity signal.
+  // If every attempt fails the caller falls back to its scripted reply.
+  const attempts = keys.length === 1 ? [keys[0], keys[0]] : keys.slice(0, 4);
+  for (const apiKey of attempts) {
     try {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), UPSTREAM_TIMEOUT_MS);
@@ -120,13 +120,10 @@ export async function POST(request: NextRequest) {
         console.error(
           "[assistant] Gemini upstream error",
           res.status,
-          await res.text().catch(() => ""),
+          "key ending",
+          apiKey.slice(-4),
         );
-        if (res.status === 503 && attempt === 0) {
-          await new Promise((r) => setTimeout(r, 500));
-          continue;
-        }
-        return NextResponse.json({ error: "upstream error" }, { status: 502 });
+        continue;
       }
 
       const data = await res.json();
@@ -139,14 +136,9 @@ export async function POST(request: NextRequest) {
         data?.candidates?.[0]?.content?.parts;
       const text = parts?.map((p) => p.text ?? "").join("").trim();
 
-      if (!text) {
-        return NextResponse.json({ error: "empty reply" }, { status: 502 });
-      }
-
-      return NextResponse.json({ reply: text });
+      if (text) return NextResponse.json({ reply: text });
     } catch (err) {
       console.error("[assistant] request failed", err);
-      return NextResponse.json({ error: "request failed" }, { status: 502 });
     }
   }
 

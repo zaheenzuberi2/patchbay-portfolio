@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { buildAssistantSystemPrompt } from "@/lib/assistant-context";
 import { createRateLimiter } from "@/lib/rate-limit";
-import { getApiKey } from "@/lib/secrets";
+import { getApiKeys } from "@/lib/secrets";
 import { VOICE_MAX_SESSION_MS, VOICE_SESSIONS_PER_HOUR } from "@/lib/voice-limits";
 
 // Mints a one-use Gemini Live token for the browser, the same design as the
@@ -22,8 +22,8 @@ const sessionLimited = createRateLimiter(
 );
 
 export async function POST(request: NextRequest) {
-  const apiKey = await getApiKey("GEMINI_API_KEY");
-  if (!apiKey) {
+  const keys = await getApiKeys("GEMINI_API_KEY");
+  if (!keys.length) {
     console.error("[live] no Gemini key (admin panel or GEMINI_API_KEY)");
     return NextResponse.json({ error: "unavailable" }, { status: 503 });
   }
@@ -67,22 +67,25 @@ export async function POST(request: NextRequest) {
     },
   });
 
-  try {
-    const res = await fetch(TOKEN_URL, {
-      method: "POST",
-      headers: { "content-type": "application/json", "x-goog-api-key": apiKey },
-      body,
-      signal: AbortSignal.timeout(6000),
-    });
-    if (!res.ok) {
-      console.error("[live] token mint failed", res.status, await res.text().catch(() => ""));
-      return NextResponse.json({ error: "unavailable" }, { status: 503 });
+  // The keys come in a random order; the first that mints a token wins, so a
+  // revoked or out-of-quota key never takes the voice assistant down.
+  for (const apiKey of keys.slice(0, 5)) {
+    try {
+      const res = await fetch(TOKEN_URL, {
+        method: "POST",
+        headers: { "content-type": "application/json", "x-goog-api-key": apiKey },
+        body,
+        signal: AbortSignal.timeout(6000),
+      });
+      if (!res.ok) {
+        console.error("[live] token mint failed", res.status, "key ending", apiKey.slice(-4));
+        continue;
+      }
+      const j = (await res.json()) as { name?: string };
+      if (j.name) return NextResponse.json({ token: j.name, maxMs: VOICE_MAX_SESSION_MS });
+    } catch (err) {
+      console.error("[live] token mint error", err);
     }
-    const j = (await res.json()) as { name?: string };
-    if (!j.name) return NextResponse.json({ error: "unavailable" }, { status: 503 });
-    return NextResponse.json({ token: j.name, maxMs: VOICE_MAX_SESSION_MS });
-  } catch (err) {
-    console.error("[live] token mint error", err);
-    return NextResponse.json({ error: "unavailable" }, { status: 503 });
   }
+  return NextResponse.json({ error: "unavailable" }, { status: 503 });
 }
