@@ -26,7 +26,10 @@ const CSP = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob:",
   "font-src 'self'",
-  "connect-src 'self'",
+  // The voice widget streams audio to Gemini Live over this one WebSocket
+  // origin (src/lib/liveVoice.ts). Without it the browser blocks the socket
+  // and the widget reports "connection dropped".
+  "connect-src 'self' wss://generativelanguage.googleapis.com",
   "frame-ancestors 'none'",
   "base-uri 'self'",
   "form-action 'self'",
