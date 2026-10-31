@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { articles, getArticle } from "@/lib/articles";
 import { services, getService } from "@/lib/services";
-import { siteConfig, whatsappUrl } from "@/lib/site-config";
+import { siteConfig, whatsappUrl, defaultOgImages } from "@/lib/site-config";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -36,9 +36,11 @@ export async function generateMetadata(
       title: article.metaTitle,
       description: article.metaDescription,
       locale: siteConfig.locale,
+    images: defaultOgImages,
     },
     twitter: {
       card: "summary_large_image",
+    images: defaultOgImages.map((i) => i.url),
       title: article.metaTitle,
       description: article.metaDescription,
     },

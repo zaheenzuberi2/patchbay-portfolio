@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { articles } from "@/lib/articles";
-import { siteConfig } from "@/lib/site-config";
+import { siteConfig, defaultOgImages } from "@/lib/site-config";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -24,8 +24,14 @@ export const metadata: Metadata = {
     title,
     description,
     locale: siteConfig.locale,
+    images: defaultOgImages,
   },
-  twitter: { card: "summary_large_image", title, description },
+  twitter: {
+    card: "summary_large_image",
+    images: defaultOgImages.map((i) => i.url),
+    title,
+    description,
+  },
 };
 
 export default function BlogIndexPage() {

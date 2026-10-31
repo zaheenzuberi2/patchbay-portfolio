@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { getVoiceNiche, voiceNiches } from "@/lib/voice-niches";
 import { getService } from "@/lib/services";
 import { getCaseStudy } from "@/lib/case-studies";
-import { siteConfig, whatsappUrl } from "@/lib/site-config";
+import { siteConfig, whatsappUrl, defaultOgImages } from "@/lib/site-config";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -52,9 +52,11 @@ export async function generateMetadata(
       title: n.metaTitle,
       description: n.metaDescription,
       locale: siteConfig.locale,
+    images: defaultOgImages,
     },
     twitter: {
       card: "summary_large_image",
+    images: defaultOgImages.map((i) => i.url),
       title: n.metaTitle,
       description: n.metaDescription,
     },

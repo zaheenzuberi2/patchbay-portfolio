@@ -113,3 +113,15 @@ export const techBehemothsUrl = "https://techbehemoths.com/company/patchbay";
 // than another short link that can expire.
 export const googleBusinessProfileUrl =
   "https://www.google.com/maps/place/Patchbay/@33.6206526,73.0862337,11z/data=!3m1!4b1!4m6!3m5!1s0x86b4df278fa6ccd1:0x3fce6fd58675a01f!8m2!3d33.6206526!4d73.0862337!16s%2Fg%2F11zf3zs2bx";
+
+// Pages that set their own openGraph object replace the root one, which drops
+// the image. Share and AI previews then have no picture, so those pages pass
+// this explicitly. Points at the root opengraph-image route.
+export const defaultOgImages = [
+  {
+    url: "/opengraph-image",
+    width: 1200,
+    height: 630,
+    alt: "Patchbay, AI Automation, Chatbots & Full-Stack Websites",
+  },
+];

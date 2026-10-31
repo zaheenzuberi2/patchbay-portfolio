@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { siteConfig, whatsappUrl } from "@/lib/site-config";
+import { siteConfig, whatsappUrl, defaultOgImages } from "@/lib/site-config";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -26,7 +26,7 @@ import { SystemDashboard } from "@/components/trading-bots/SystemDashboard";
 // claim-free rule the rest of services.ts follows.
 const title = "Custom Trading Bot Development";
 const description =
-  "Bespoke algorithmic trading systems for forex, crypto, stocks, and futures: MT4/MT5, Binance, Bybit, and Interactive Brokers, with non-custodial API security and a hard drawdown circuit breaker. Built end to end by Zaheen Zuberi.";
+  "Bespoke algorithmic trading bots for forex, crypto, stocks, and futures on MT4/MT5, Binance, Bybit, and Interactive Brokers, with a hard drawdown circuit breaker.";
 const url = `${siteConfig.url}/trading-bots`;
 
 export const metadata: Metadata = {
@@ -69,9 +69,11 @@ export const metadata: Metadata = {
     title,
     description,
     locale: siteConfig.locale,
+    images: defaultOgImages,
   },
   twitter: {
     card: "summary_large_image",
+    images: defaultOgImages.map((i) => i.url),
     title,
     description,
   },

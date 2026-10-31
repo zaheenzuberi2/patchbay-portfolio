@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getUaeCity, uaeCities } from "@/lib/uae/cities";
-import { siteConfig, whatsappUrl } from "@/lib/site-config";
+import { siteConfig, whatsappUrl, defaultOgImages } from "@/lib/site-config";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -46,9 +46,11 @@ export async function generateMetadata(
       title: c.metaTitle,
       description: c.metaDescription,
       locale: siteConfig.locale,
+    images: defaultOgImages,
     },
     twitter: {
       card: "summary_large_image",
+    images: defaultOgImages.map((i) => i.url),
       title: c.metaTitle,
       description: c.metaDescription,
     },

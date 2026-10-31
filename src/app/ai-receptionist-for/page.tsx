@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { voiceNiches, voiceNicheGroups } from "@/lib/voice-niches";
-import { siteConfig, whatsappUrl } from "@/lib/site-config";
+import { siteConfig, whatsappUrl, defaultOgImages } from "@/lib/site-config";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -11,7 +11,7 @@ import { Reveal } from "@/components/Reveal";
 
 const title = "AI Receptionists & Voice Agents by Industry";
 const description =
-  "AI receptionists, voice agents, and calling agents built for the industries that live on the phone: healthcare, home services, law, finance, and local business. Pick yours to see the calls it handles and how it is set up.";
+  "AI receptionists, voice agents, and calling agents for businesses that live on the phone: healthcare, home services, law, finance, and local. Pick your industry.";
 const url = `${siteConfig.url}/ai-receptionist-for`;
 
 export const metadata: Metadata = {
@@ -32,8 +32,14 @@ export const metadata: Metadata = {
     title,
     description,
     locale: siteConfig.locale,
+    images: defaultOgImages,
   },
-  twitter: { card: "summary_large_image", title, description },
+  twitter: {
+    card: "summary_large_image",
+    images: defaultOgImages.map((i) => i.url),
+    title,
+    description,
+  },
 };
 
 export default function VoiceNicheHubPage() {

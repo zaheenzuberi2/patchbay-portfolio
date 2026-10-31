@@ -277,7 +277,7 @@ export const articles: Article[] = [
       src: "/work/tryvoicely-search-console-traffic.jpg",
       alt: "Google Search Console performance report for tryvoicely.com showing 8.28K total clicks and 110K total impressions",
       caption:
-        "tryvoicely.com in Google Search Console, 14 Apr – 24 Aug 2026: 8,280 clicks and 110,000 impressions from organic search, 7.5% average CTR, average position 15.9.",
+        "tryvoicely.com in Google Search Console, 14 Apr to 24 Aug 2026: 8,280 clicks and 110,000 impressions from organic search, 7.5% average CTR, average position 15.9.",
     },
     sections: [
       {

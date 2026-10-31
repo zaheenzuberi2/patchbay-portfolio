@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { siteConfig, whatsappUrl } from "@/lib/site-config";
+import { siteConfig, whatsappUrl, defaultOgImages } from "@/lib/site-config";
 import { getService } from "@/lib/services";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
@@ -39,9 +39,11 @@ export const metadata: Metadata = {
     title,
     description,
     locale: siteConfig.locale,
+    images: defaultOgImages,
   },
   twitter: {
     card: "summary_large_image",
+    images: defaultOgImages.map((i) => i.url),
     title,
     description,
   },

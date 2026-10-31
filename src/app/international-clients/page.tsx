@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { services } from "@/lib/services";
 import { getCaseStudy } from "@/lib/case-studies";
-import { siteConfig, whatsappUrl } from "@/lib/site-config";
+import { siteConfig, whatsappUrl, defaultOgImages } from "@/lib/site-config";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -22,7 +22,7 @@ import { Reveal } from "@/components/Reveal";
 // real client work spans all three, without needing a separate URL per city.
 const title = "AI Automation & Web Development for International Clients";
 const description =
-  "Working remotely with clients outside Pakistan, both overseas Pakistanis building or managing something back home and businesses in the US, UK, Germany, Austria, and elsewhere hiring the team directly for their own project. Calls, a shared project board, and a live preview link, run the same way regardless of time zone.";
+  "Remote work with clients outside Pakistan, in the US, UK, Germany, and Austria. Calls, a shared project board, and a live preview link, whatever the time zone.";
 const url = `${siteConfig.url}/international-clients`;
 
 export const metadata: Metadata = {
@@ -44,9 +44,11 @@ export const metadata: Metadata = {
     title,
     description,
     locale: siteConfig.locale,
+    images: defaultOgImages,
   },
   twitter: {
     card: "summary_large_image",
+    images: defaultOgImages.map((i) => i.url),
     title,
     description,
   },
