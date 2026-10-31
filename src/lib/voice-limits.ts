@@ -1,17 +1,17 @@
-// Caps for the voice widget. Enforced on the server (voice-session.ts and
-// /api/assistant); the UI only reads these to show the visitor what is left.
+// Caps for the voice widget. Session length is enforced by Google: the token
+// minted in /api/assistant/live expires at this time and the connection closes.
+// The widget only reads it to show the visitor what is happening.
 export const VOICE_MAX_SESSION_MS = 3 * 60 * 1000;
-export const VOICE_MAX_TURNS = 8;
-// New voice sessions per IP per hour, on top of the general request limit.
+// New voice sessions per IP per hour (in-memory, per serverless instance).
 export const VOICE_SESSIONS_PER_HOUR = 4;
 
 export const VOICE_CAP_MESSAGES = {
-  turns:
-    "That is the limit for this demo conversation. For anything more, message Zaheen on WhatsApp or send an email, and he will pick it up from there.",
   time:
     "That is the time limit for this demo conversation. For anything more, message Zaheen on WhatsApp or send an email, and he will pick it up from there.",
   busy:
     "The voice demo has had a lot of use from your connection in the last hour. Please try again later, or message Zaheen on WhatsApp.",
+  down:
+    "The voice assistant is not available right now. Please message Zaheen on WhatsApp and he will reply.",
 } as const;
 
 export type VoiceCapReason = keyof typeof VOICE_CAP_MESSAGES;

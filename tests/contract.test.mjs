@@ -450,31 +450,22 @@ describe("theme toggle", () => {
   });
 });
 
-describe("voice assistant caps are enforced by the server", () => {
-  const post = (body) =>
-    fetch(BASE + "/api/assistant", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(body),
-    });
-
-  // These never reach Gemini (the token check runs first), so they cost
-  // nothing and are safe to run against production.
-  test("a forged voice session token is refused, not trusted", async () => {
-    const res = await post({
-      message: "hi",
-      voice: true,
-      session: "1.0.deadbeef.0000000000000000",
-    });
-    assert.equal(res.status, 400);
+describe("voice assistant", () => {
+  // The token route mints a one-use Gemini Live token with the expiry locked
+  // inside, so it must only answer POST. A GET must never mint or leak one.
+  test("the live token route refuses GET", async () => {
+    const res = await fetch(BASE + "/api/assistant/live");
+    assert.equal(res.status, 405);
   });
 
-  test("a session older than the time cap is refused with a spoken-ready message", async () => {
-    // Structurally valid shape but unsigned, so it is rejected as invalid;
-    // the time and turn caps themselves are covered by the signed-token
-    // module test run during development (see HANDOFF section 50).
-    const res = await post({ message: "hi", voice: true, session: "0.0.a.b" });
-    assert.ok([400, 429].includes(res.status));
+  test("the old session-token branch of /api/assistant is gone", async () => {
+    // A voice flag must not change how the text route behaves.
+    const res = await fetch(BASE + "/api/assistant", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ voice: true, session: "x" }),
+    });
+    assert.equal(res.status, 400); // no message
   });
 
   test("the launcher ships with a real accessible name", async () => {
