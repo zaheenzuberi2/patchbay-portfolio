@@ -15,3 +15,12 @@ export const VOICE_CAP_MESSAGES = {
 } as const;
 
 export type VoiceCapReason = keyof typeof VOICE_CAP_MESSAGES;
+
+export const VOICE_CAP_MESSAGES_UR = {
+  time:
+    "اس ڈیمو گفتگو کی وقت کی حد پوری ہو گئی ہے۔ مزید بات کے لیے واٹس ایپ پر ظہین کو میسج کریں یا ای میل بھیجیں، وہ آپ سے رابطہ کریں گے۔",
+  busy:
+    "آپ کے کنکشن سے پچھلے ایک گھنٹے میں ڈیمو بہت زیادہ استعمال ہوا ہے۔ براہ کرم بعد میں کوشش کریں یا واٹس ایپ پر ظہین کو میسج کریں۔",
+  down:
+    "وائس اسسٹنٹ اس وقت دستیاب نہیں۔ براہ کرم واٹس ایپ پر ظہین کو میسج کریں۔",
+} as const;

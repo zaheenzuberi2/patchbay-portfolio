@@ -36,6 +36,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "busy" }, { status: 429 });
   }
 
+  // English or Urdu, fixed for the life of the token.
+  const lang: "en" | "ur" =
+    (await request.json().catch(() => null))?.lang === "ur" ? "ur" : "en";
+
   const now = Date.now();
   const body = JSON.stringify({
     uses: 1,
@@ -47,7 +51,7 @@ export async function POST(request: NextRequest) {
         responseModalities: ["AUDIO"],
         speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: VOICE } } },
       },
-      systemInstruction: { parts: [{ text: buildAssistantSystemPrompt("voice") }] },
+      systemInstruction: { parts: [{ text: buildAssistantSystemPrompt("voice", lang) }] },
       inputAudioTranscription: {},
       outputAudioTranscription: {},
       // Answer soon after the visitor stops, but do not take a noise for the
