@@ -1,5 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { buildAssistantSystemPrompt } from "@/lib/assistant-context";
+import { createRateLimiter } from "@/lib/rate-limit";
+import { checkAndAdvance, mintSession } from "@/lib/voice-session";
+import {
+  VOICE_CAP_MESSAGES,
+  VOICE_SESSIONS_PER_HOUR,
+} from "@/lib/voice-limits";
 
 const MESSAGE_MAX_LEN = 500;
 const HISTORY_MAX_TURNS = 8;
@@ -18,33 +24,13 @@ const MODEL = "gemini-flash-latest";
 const REQUEST_LIMIT = 20;
 const WINDOW_MS = 10 * 60 * 1000;
 
-const rateLimitStore = globalThis as typeof globalThis & {
-  __patchbayAssistantHits?: Map<string, number[]>;
-};
-
-function isRateLimited(ip: string) {
-  if (!rateLimitStore.__patchbayAssistantHits) {
-    rateLimitStore.__patchbayAssistantHits = new Map();
-  }
-  const hits = rateLimitStore.__patchbayAssistantHits;
-  const now = Date.now();
-  const recent = (hits.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
-
-  if (recent.length >= REQUEST_LIMIT) {
-    hits.set(ip, recent);
-    return true;
-  }
-
-  recent.push(now);
-  hits.set(ip, recent);
-
-  if (hits.size > 5000) {
-    for (const [key, times] of hits) {
-      if (times.every((t) => now - t >= WINDOW_MS)) hits.delete(key);
-    }
-  }
-  return false;
-}
+const isRateLimited = createRateLimiter("assistant", REQUEST_LIMIT, WINDOW_MS);
+// A new voice session is the expensive unit, so it gets its own, tighter bucket.
+const isVoiceSessionLimited = createRateLimiter(
+  "assistant-voice-sessions",
+  VOICE_SESSIONS_PER_HOUR,
+  60 * 60 * 1000,
+);
 
 type IncomingTurn = { role: "user" | "agent"; text: string };
 
@@ -90,6 +76,46 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "rate limited" }, { status: 429 });
   }
 
+  // Voice turns carry a server-signed session token. Caps on session length
+  // and turn count live here, not in the widget: a modified client gets the
+  // same answer as an honest one.
+  const isVoice = body?.voice === true;
+  let voiceBaseToken: string | undefined;
+  let voiceSession: string | undefined;
+  let voiceTurnsLeft: number | undefined;
+  let voiceMsLeft: number | undefined;
+  if (isVoice) {
+    let token: unknown = body?.session;
+    if (!token) {
+      if (isVoiceSessionLimited(ip)) {
+        return NextResponse.json(
+          { error: "cap", reason: "busy", message: VOICE_CAP_MESSAGES.busy },
+          { status: 429 },
+        );
+      }
+      token = mintSession();
+    }
+    voiceBaseToken = typeof token === "string" ? token : undefined;
+    const checked = checkAndAdvance(token);
+    if (!checked.ok) {
+      if (checked.reason === "invalid") {
+        return NextResponse.json({ error: "invalid session" }, { status: 400 });
+      }
+      return NextResponse.json(
+        { error: "cap", reason: checked.reason, message: VOICE_CAP_MESSAGES[checked.reason] },
+        { status: 429 },
+      );
+    }
+    voiceSession = checked.next;
+    voiceTurnsLeft = checked.turnsLeft;
+    voiceMsLeft = checked.msLeft;
+  }
+
+  // A failed upstream call must not cost the visitor a turn or a new session,
+  // so failures return the un-advanced token for the retry to reuse.
+  const failBody = (error: string) =>
+    isVoice ? { error, session: voiceBaseToken } : { error };
+
   const history = cleanHistory(body?.history);
   const contents = [
     ...history.map((t) => ({
@@ -100,10 +126,10 @@ export async function POST(request: NextRequest) {
   ];
 
   const requestBody = JSON.stringify({
-    system_instruction: { parts: [{ text: buildAssistantSystemPrompt() }] },
+    system_instruction: { parts: [{ text: buildAssistantSystemPrompt(isVoice ? "voice" : "text") }] },
     contents,
     generationConfig: {
-      maxOutputTokens: 220,
+      maxOutputTokens: isVoice ? 140 : 220,
       temperature: 0.4,
       // Flash models spend part of maxOutputTokens on internal "thinking"
       // tokens before the visible reply by default, which was silently
@@ -145,7 +171,7 @@ export async function POST(request: NextRequest) {
           await new Promise((r) => setTimeout(r, 500));
           continue;
         }
-        return NextResponse.json({ error: "upstream error" }, { status: 502 });
+        return NextResponse.json(failBody("upstream error"), { status: 502 });
       }
 
       const data = await res.json();
@@ -159,15 +185,19 @@ export async function POST(request: NextRequest) {
       const text = parts?.map((p) => p.text ?? "").join("").trim();
 
       if (!text) {
-        return NextResponse.json({ error: "empty reply" }, { status: 502 });
+        return NextResponse.json(failBody("empty reply"), { status: 502 });
       }
 
-      return NextResponse.json({ reply: text });
+      return NextResponse.json(
+        isVoice
+          ? { reply: text, session: voiceSession, turnsLeft: voiceTurnsLeft, msLeft: voiceMsLeft }
+          : { reply: text },
+      );
     } catch (err) {
       console.error("[assistant] request failed", err);
-      return NextResponse.json({ error: "request failed" }, { status: 502 });
+      return NextResponse.json(failBody("request failed"), { status: 502 });
     }
   }
 
-  return NextResponse.json({ error: "upstream error" }, { status: 502 });
+  return NextResponse.json(failBody("upstream error"), { status: 502 });
 }

@@ -7,6 +7,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { StructuredData } from "@/components/StructuredData";
 import { SiteBackgroundMount } from "@/components/three/SiteBackgroundMount";
 import { IntroAnimation } from "@/components/IntroAnimation";
+import { VoiceLauncher } from "@/components/VoiceLauncher";
 import { THEME_INIT_SCRIPT } from "@/lib/theme";
 
 const spaceGrotesk = Space_Grotesk({
@@ -102,6 +103,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           the finish review, the verdict, and DESIGN.md.
         */}
         {children}
+        <VoiceLauncher />
         {/* Traffic and Core Web Vitals. Both are no-ops off Vercel and
             cookieless, so no consent banner is required. Until now there was
             no way to tell whether anyone reached the site at all, let alone

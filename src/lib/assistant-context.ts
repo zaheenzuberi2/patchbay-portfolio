@@ -12,7 +12,20 @@ import { siteConfig } from "./site-config";
 // Same rule as every other piece of content on this site: no invented
 // prices, client counts, or results. Stated explicitly below because an LLM
 // will happily fabricate a number if not told not to.
-export function buildAssistantSystemPrompt(): string {
+export type AssistantMode = "text" | "voice";
+
+// Voice mode is the same brain with stricter delivery rules, not a second
+// prompt: every fact and hard rule above it is shared.
+const VOICE_RULES = `
+
+You are speaking out loud on a live voice call from the website, so:
+8. One to two short sentences. Plain spoken English, no markdown, no lists, no symbols.
+9. Never read out a URL or an email address. Say the details are on the page, or offer WhatsApp.
+10. Write numbers and abbreviations the way they are said aloud.
+11. Never say Patchbay has built or deployed a voice agent for a specific client, and never name a client or past project. If asked for proof, say Zaheen can show relevant work on a call.
+12. Do not describe yourself as a phone agent or claim you can take calls for the visitor. You are the website voice assistant answering questions.`;
+
+export function buildAssistantSystemPrompt(mode: AssistantMode = "text"): string {
   const serviceLines = services
     .map((s) => `- ${s.name}: ${s.intro} Best for: ${s.goodFor}`)
     .join("\n");
@@ -30,5 +43,6 @@ Hard rules, no exceptions:
 4. Keep replies short: 1 to 3 sentences. These replies are often spoken aloud by text-to-speech, so avoid long lists, markdown, or anything that reads awkwardly out loud.
 5. If you don't know something specific (exact turnaround time, a technical detail you're not sure of, anything account-specific), say so and offer to connect them with Zaheen directly rather than guessing.
 6. Contact: ${siteConfig.contactEmail}, or WhatsApp via the button on this site.
-7. Tone: direct, confident, plain language. No corporate filler, no exclamation-point enthusiasm, no em dashes.`;
+7. Tone: direct, confident, plain language. No corporate filler, no exclamation-point enthusiasm, no em dashes.`
+    + (mode === "voice" ? VOICE_RULES : "");
 }

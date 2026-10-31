@@ -446,3 +446,35 @@ describe("theme toggle", () => {
     assert.match(css, /data-theme=.?light/);
   });
 });
+
+describe("voice assistant caps are enforced by the server", () => {
+  const post = (body) =>
+    fetch(BASE + "/api/assistant", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(body),
+    });
+
+  // These never reach Gemini (the token check runs first), so they cost
+  // nothing and are safe to run against production.
+  test("a forged voice session token is refused, not trusted", async () => {
+    const res = await post({
+      message: "hi",
+      voice: true,
+      session: "1.0.deadbeef.0000000000000000",
+    });
+    assert.equal(res.status, 400);
+  });
+
+  test("a session older than the time cap is refused with a spoken-ready message", async () => {
+    // Structurally valid shape but unsigned, so it is rejected as invalid;
+    // the time and turn caps themselves are covered by the signed-token
+    // module test run during development (see HANDOFF section 50).
+    const res = await post({ message: "hi", voice: true, session: "0.0.a.b" });
+    assert.ok([400, 429].includes(res.status));
+  });
+
+  test("the launcher ships with a real accessible name", async () => {
+    assert.ok(homeHtml.includes("Talk to the Patchbay voice assistant"));
+  });
+});

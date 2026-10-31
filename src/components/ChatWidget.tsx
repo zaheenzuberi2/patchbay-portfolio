@@ -5,6 +5,7 @@ import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { whatsappUrl } from "@/lib/site-config";
 import { findFaqAnswer, looksLikeQuestion } from "@/lib/faq-search";
 import { askAssistant, type AssistantTurn } from "@/lib/ask-assistant";
+import { announceDock, onDock } from "@/lib/dock";
 
 type Message = { role: "bot" | "user"; text: string };
 
@@ -54,6 +55,22 @@ function looksLikeRefusal(value: string) {
 export function ChatWidget() {
   const [open, setOpen] = useState(false);
   const [everOpened, setEverOpened] = useState(false);
+
+  // Chat and voice open their panels in the same spot, so only one at a time.
+  const [voiceOpen, setVoiceOpen] = useState(false);
+  useEffect(() => {
+    announceDock("chat", open);
+  }, [open]);
+  useEffect(
+    () =>
+      onDock((who, isOpen) => {
+        if (who === "voice") {
+          setVoiceOpen(isOpen);
+          if (isOpen) setOpen(false);
+        }
+      }),
+    [],
+  );
   const [step, setStep] = useState<Step>("interest");
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -233,7 +250,7 @@ export function ChatWidget() {
           same transform property would fight it. */}
       <div
         className={`floaty-slow fixed bottom-[72px] right-4 z-40 sm:bottom-24 sm:right-6 ${
-          open ? "hidden" : ""
+          open || voiceOpen ? "hidden" : ""
         }`}
       >
         <motion.button
