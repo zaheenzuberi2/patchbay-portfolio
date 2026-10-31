@@ -1,16 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { buildAssistantSystemPrompt } from "@/lib/assistant-context";
+import { generateText } from "@/lib/gemini";
 import { getApiKeys } from "@/lib/secrets";
 import { createRateLimiter } from "@/lib/rate-limit";
 
 const MESSAGE_MAX_LEN = 500;
 const HISTORY_MAX_TURNS = 8;
-const UPSTREAM_TIMEOUT_MS = 12000;
-// "gemini-flash-latest" is a Google-maintained alias to the current
-// generally-available Flash model, not a pinned version. Pinning an exact
-// version (e.g. gemini-2.0-flash) risks a hard failure the day Google
-// deprecates it; the alias absorbs that upgrade silently.
-const MODEL = "gemini-flash-latest";
+const UPSTREAM_TIMEOUT_MS = 8000;
 
 // Same in-memory-per-instance rate limit as /api/leads (see that file's
 // comment for the honest caveat about serverless instances not sharing
@@ -91,56 +87,12 @@ export async function POST(request: NextRequest) {
     },
   });
 
-  // Try each key in turn: a revoked, rate-limited or briefly overloaded key
-  // moves on to the next. With a single key, that key is tried twice, since a
-  // 503 ("high demand... usually temporary") is Google's own capacity signal.
-  // If every attempt fails the caller falls back to its scripted reply.
-  const attempts = keys.length === 1 ? [keys[0], keys[0]] : keys.slice(0, 4);
-  for (const apiKey of attempts) {
-    try {
-      const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), UPSTREAM_TIMEOUT_MS);
-
-      const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`,
-        {
-          method: "POST",
-          // Header, not ?key=, so the key never lands in a URL or a log line.
-          headers: {
-            "Content-Type": "application/json",
-            "x-goog-api-key": apiKey,
-          },
-          signal: controller.signal,
-          body: requestBody,
-        },
-      );
-      clearTimeout(timer);
-
-      if (!res.ok) {
-        console.error(
-          "[assistant] Gemini upstream error",
-          res.status,
-          "key ending",
-          apiKey.slice(-4),
-        );
-        continue;
-      }
-
-      const data = await res.json();
-      // Gemini sometimes splits one reply across multiple parts (observed:
-      // the visible answer in parts[0], a trailing clause in parts[1] with
-      // its own thoughtSignature) even with thinking disabled and a STOP
-      // finish reason, i.e. it is not truncation. Reading only parts[0] was
-      // silently cutting replies off mid-sentence, so join every text part.
-      const parts: { text?: string }[] | undefined =
-        data?.candidates?.[0]?.content?.parts;
-      const text = parts?.map((p) => p.text ?? "").join("").trim();
-
-      if (text) return NextResponse.json({ reply: text });
-    } catch (err) {
-      console.error("[assistant] request failed", err);
-    }
-  }
-
+  // Keys and models fail over inside generateText (src/lib/gemini.ts); if every
+  // attempt fails the caller falls back to its scripted reply.
+  const out = await generateText(keys, JSON.parse(requestBody), {
+    timeoutMs: UPSTREAM_TIMEOUT_MS,
+  });
+  if (out.ok) return NextResponse.json({ reply: out.text });
+  console.error("[assistant] all attempts failed", out.why);
   return NextResponse.json({ error: "upstream error" }, { status: 502 });
 }
