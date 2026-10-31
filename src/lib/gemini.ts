@@ -31,6 +31,11 @@ export async function generateText(
   const usable = keys.filter((k) => (dead().get(k) ?? 0) < now);
   // If every key is marked dead, still try them once rather than give up.
   const pool = (usable.length ? usable : keys).slice(0, 4);
+  const withoutThinking = (() => {
+    const gc = { ...((body.generationConfig as Record<string, unknown>) ?? {}) };
+    delete gc.thinkingConfig;
+    return JSON.stringify({ ...body, generationConfig: gc });
+  })();
   const payload = JSON.stringify(body);
   let attempts = 0;
   const max = opts.maxAttempts ?? 4;
@@ -40,16 +45,18 @@ export async function generateText(
       if (attempts >= max) return { ok: false, why };
       attempts++;
       try {
-        const res = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
-          {
+        const call = (b: string) =>
+          fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
             method: "POST",
             // Header, not ?key=, so the key never lands in a URL or a log line.
             headers: { "content-type": "application/json", "x-goog-api-key": key },
             signal: AbortSignal.timeout(opts.timeoutMs),
-            body: payload,
-          },
-        );
+            body: b,
+          });
+        let res = await call(payload);
+        // A 400 on the lighter model is most often the thinking setting, which
+        // not every model accepts. Retry once without it.
+        if (res.status === 400) res = await call(withoutThinking);
         if (!res.ok) {
           const detail = (await res.text().catch(() => "")).slice(0, 200);
           why.push(`${model} ${res.status} key..${key.slice(-4)}`);
