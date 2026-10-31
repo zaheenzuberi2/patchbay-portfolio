@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { buildAssistantSystemPrompt } from "@/lib/assistant-context";
+import { getApiKey } from "@/lib/secrets";
 import { createRateLimiter } from "@/lib/rate-limit";
 import { checkAndAdvance, mintSession } from "@/lib/voice-session";
 import {
@@ -50,13 +51,14 @@ function cleanHistory(raw: unknown): IncomingTurn[] {
 }
 
 export async function POST(request: NextRequest) {
-  const apiKey = process.env.GEMINI_API_KEY;
+  // Admin-panel key first, then the GEMINI_API_KEY env var (src/lib/secrets.ts).
+  const apiKey = await getApiKey("GEMINI_API_KEY");
   if (!apiKey) {
     // Not a client error: the site works fine without this configured, both
     // widgets just fall back to their scripted replies. Log server-side so
     // a missing key in a given environment is visible without exposing
     // anything to the visitor.
-    console.error("[assistant] GEMINI_API_KEY is not set");
+    console.error("[assistant] no Gemini key (admin panel or GEMINI_API_KEY)");
     return NextResponse.json({ error: "not configured" }, { status: 503 });
   }
 
@@ -151,10 +153,14 @@ export async function POST(request: NextRequest) {
       const timer = setTimeout(() => controller.abort(), UPSTREAM_TIMEOUT_MS);
 
       const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${apiKey}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          // Header, not ?key=, so the key never lands in a URL or a log line.
+          headers: {
+            "Content-Type": "application/json",
+            "x-goog-api-key": apiKey,
+          },
           signal: controller.signal,
           body: requestBody,
         },

@@ -8,6 +8,7 @@ import { ReviewForm, type ReviewFormValues } from "./ReviewForm";
 import { ProspectsPanel } from "./ProspectsPanel";
 import { CallCrmPanel } from "./CallCrmPanel";
 import { VisitorsPanel } from "./VisitorsPanel";
+import { ApiKeysPanel } from "./ApiKeysPanel";
 
 const dateFormatter = new Intl.DateTimeFormat("en-GB", {
   day: "2-digit",
@@ -33,7 +34,7 @@ export function AdminDashboard({
 }) {
   const router = useRouter();
   const [tab, setTab] = useState<
-    "leads" | "projects" | "reviews" | "prospects" | "calls" | "visitors"
+    "leads" | "projects" | "reviews" | "prospects" | "calls" | "visitors" | "keys"
   >("leads");
   const [leads, setLeads] = useState(initialLeads);
   const [projects, setProjects] = useState(initialProjects);
@@ -211,6 +212,16 @@ export function AdminDashboard({
           >
             Visitors
           </button>
+          <button
+            onClick={() => setTab("keys")}
+            className={`flex min-h-11 items-center px-4 py-2 font-mono text-xs uppercase tracking-[0.1em] ${
+              tab === "keys"
+                ? "border-b-2 border-signal text-signal"
+                : "text-paper-dim"
+            }`}
+          >
+            API Keys
+          </button>
         </div>
 
         {/* Outbound, unlike the other three tabs. ProspectsPanel loads its own
@@ -226,6 +237,12 @@ export function AdminDashboard({
         {tab === "calls" && (
           <div className="mt-8">
             <CallCrmPanel />
+          </div>
+        )}
+
+        {tab === "keys" && (
+          <div className="mt-8">
+            <ApiKeysPanel />
           </div>
         )}
 
