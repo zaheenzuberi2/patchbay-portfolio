@@ -44,6 +44,7 @@ ${said}` }] }],
   });
 
   // First key that answers wins; a failing key moves on to the next.
+  const why: string[] = [];
   for (const apiKey of keys.slice(0, 4)) {
     try {
       const res = await fetch(
@@ -55,16 +56,23 @@ ${said}` }] }],
           body: payload,
         },
       );
-      if (!res.ok) continue;
+      if (!res.ok) {
+        why.push(`${res.status} ${(await res.text().catch(() => "")).slice(0, 160)}`);
+        continue;
+      }
       const data = await res.json();
       const parts: { text?: string }[] | undefined = data?.candidates?.[0]?.content?.parts;
       const out = parts?.map((p) => p.text ?? "").join("").trim();
-      if (!out) continue;
+      if (!out) {
+        why.push(`empty ${JSON.stringify(data?.candidates?.[0]?.finishReason ?? data?.promptFeedback ?? "").slice(0, 120)}`);
+        continue;
+      }
       const [h, s] = out.split(SPLIT).map((x) => x.trim());
       return NextResponse.json({ heard: heard ? (h ?? "") : "", said: said ? (s ?? "") : "" });
-    } catch {
-      /* try the next key */
+    } catch (err) {
+      why.push(`threw ${String(err).slice(0, 80)}`);
     }
   }
-  return NextResponse.json({ error: "unavailable" }, { status: 503 });
+  console.error("[script] all keys failed", why);
+  return NextResponse.json({ error: "unavailable", why }, { status: 503 });
 }
