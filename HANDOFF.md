@@ -2308,6 +2308,7 @@ Google caches robots.txt for up to ~24h, so a retry right after the fix was
 still rejected. Re-request indexing for /uae, /uae/dubai and /uae/abu-dhabi
 from 2026-10-22. Lesson: robots rules are prefix matches; keep trailing slashes.
 
+<<<<<<< HEAD
 ## 50. Voice widget is back (floating, lazy, server-capped) — 31 Oct 2026
 
 **Why it came back.** `196ec6e` (8 Oct) removed only the floating widget and the in-page demos, after `f6ee444` had removed the whole voice offering and was reverted as "removed far more than intended" (`c1bbee4`). No commit or HANDOFF note records *why* the widget went. Zaheen's reason for restoring it: he is selling AI voice agents again and the site is the showcase. The service pages (`/services/ai-voice-agents`, `/ai-voice-agent-real-estate`, `/ai-receptionist-for/*`) were never removed, so nothing was re-added.
@@ -2328,3 +2329,35 @@ from 2026-10-22. Lesson: robots rules are prefix matches; keep trailing slashes.
 **Why this existed: the old Gemini key was dead.** `GEMINI_API_KEY` in `.env.local` began `AQ.`, not `AIza`, and Google answered 401 `ACCESS_TOKEN_TYPE_UNSUPPORTED` however it was sent. Production `/api/assistant` was returning 502, so the text chat had been on its scripted fallback. Until a working key is saved in the panel the voice widget answers every question with "I could not reach the assistant".
 
 **Verified.** Caps via the real module (8 turns then refused, expiry at 181 s refused, tampered counter refused, garbage refused); HTTP: fourth session in an hour returns 429 `busy`, bad token 400; client in the browser at 375 px and desktop with `/api/assistant` stubbed (token carried between turns, history grows, cap message shown and spoken, controls lock, WhatsApp link, light and dark). Panel API: 401 without a session, a bad key is refused by Google (422) and not saved, unknown names 400, listing never leaks a value, encrypt/decrypt round-trips and rejects tampering and a wrong secret. Not verified: a live Gemini reply, a real microphone, a real phone, the panel tab visually, a database round-trip (local PGlite crashes on this machine). Local `next build` fails on `next/font/google` ("Can't resolve @vercel/turbopack-next/internal/font/google/font") on an untouched tree too; that is this machine, so build confirmation comes from Vercel. New contract tests: forged token refused, launcher label ships.
+=======
+## 51. Search Console audit (2026-10-31, domain property, 90 days)
+
+Totals: 40 clicks, 693 impressions, CTR 5.8%, avg position 17.6. Pakistan is
+37 clicks / 443 impressions. United States 68 impressions, 0 clicks, avg
+position 35. UAE 8 impressions, position 48. India 81 impressions.
+
+Clicks come from the homepage (26, mostly the query "patchbay") and
+/work/tryvoicely, /trading-bots, /services/web-development. Top impressions
+are brand or client-name queries (tryvoicely 59, ab juris 42, voicely urdu text
+to speech 18). Buyer queries seen so far, all at position 36-90 with 2-14
+impressions: "ai receptionist for car dealerships" (84), "ai receptionist
+dubai" (79), "ai voice agents for real estate" (36), "website development
+price in pakistan" (84), "ai chatbot development pakistan" (77).
+
+Index coverage: 69 indexed, 13 not. Page with redirect 3 (http/www variants,
+correct), Not found 2 (/locations/lahore and /locations/karachi, removed on
+purpose), Crawled-not-indexed 2 (opengraph-image URLs, harmless), Discovered-
+not-indexed 6: ai-receptionist-for/immigration-lawyers, salons,
+solar-installers, blog/ai-voice-agent-vs-answering-service,
+services/custom-bots, services/software-development. All six are linked from
+the hub or homepage, so this is crawl priority on a young domain, not a link
+or robots problem. /uae and /uae/dubai have impressions, so they are indexed.
+
+Production check: robots.txt correct (Disallow /u/), sitemap 75 URLs incl. /uae
+pages, canonicals self-referencing, titles and descriptions present, no noindex.
+No code-level blocker found, so no site code was changed.
+
+Product Hunt: "Patchbay AI Receptionists" is live (about 11 days old on
+31 Oct), 1 point, 1 maker comment, no other activity. Backlink outreach in
+../backlink-plan.md still unsent. The binding constraint is authority and
+links, not on-page SEO.
