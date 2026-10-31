@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
   );
   if (!out.ok) {
     console.error("[script] all attempts failed", out.why);
-    return NextResponse.json({ error: "unavailable" }, { status: 503 });
+    return NextResponse.json({ error: "unavailable", why: out.why }, { status: 503 });
   }
   const [h, s2] = out.text.split(SPLIT).map((x) => x.trim());
   return NextResponse.json({ heard: heard ? (h ?? "") : "", said: said ? (s2 ?? "") : "" });
