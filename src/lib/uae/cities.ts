@@ -19,7 +19,7 @@ export const uaeCities: UaeCity[] = [
     name: "Dubai",
     metaTitle: "AI Voice Agents & Web Development for Dubai",
     metaDescription:
-      "AI receptionists, calling agents, websites, and trading bots for Dubai businesses, built remotely from Islamabad, one hour off UAE time. Real estate, clinics, hospitality, and more.",
+      "AI receptionists, calling agents, websites, and trading bots for Dubai businesses, built remotely from Islamabad, one hour off UAE time.",
     h1: "AI voice agents, websites, and trading bots for Dubai businesses",
     intro:
       "Dubai businesses run on the phone and on WhatsApp: a property enquiry at 11pm, a clinic booking over lunch, a rental car asked about on the way to the airport. We build AI receptionists and calling agents that answer those calls, collect the details, and book the appointment, plus the websites and automation behind them. The team works from Islamabad, one hour ahead of UAE time, with no Dubai office.",
@@ -131,7 +131,7 @@ export const uaeCities: UaeCity[] = [
     name: "Abu Dhabi",
     metaTitle: "AI Voice Agents & Web Development for Abu Dhabi",
     metaDescription:
-      "AI receptionists, calling agents, websites, and automation for Abu Dhabi businesses, built remotely from Islamabad. Healthcare, finance, real estate, and professional services.",
+      "AI receptionists, calling agents, websites, and automation for Abu Dhabi businesses, built remotely from Islamabad.",
     h1: "AI voice agents, websites, and automation for Abu Dhabi businesses",
     intro:
       "Abu Dhabi businesses tend to be more regulated and process-driven: hospitals and clinics with strict intake, finance and advisory firms in ADGM, real estate under ADREC, and professional services with long client relationships. We build AI receptionists, calling agents, websites, and back-office automation designed around those rules. The team works from Islamabad, one hour ahead of UAE time, with no Abu Dhabi office.",

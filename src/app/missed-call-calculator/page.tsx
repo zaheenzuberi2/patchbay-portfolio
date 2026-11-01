@@ -10,7 +10,7 @@ import { MissedCallCalculator } from "@/components/MissedCallCalculator";
 
 const title = "Missed Call Revenue Calculator";
 const description =
-  "Free calculator: enter your monthly calls, how many go unanswered, your booking rate and job value to see roughly how much revenue missed calls cost your business each month.";
+  "Free calculator: enter your monthly calls, how many go unanswered, your booking rate and job value to see what missed calls cost you each month.";
 const url = `${siteConfig.url}/missed-call-calculator`;
 
 export const metadata: Metadata = {

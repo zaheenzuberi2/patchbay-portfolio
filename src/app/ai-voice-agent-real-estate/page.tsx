@@ -23,7 +23,7 @@ import { Reveal } from "@/components/Reveal";
 // It does not use a voice agent, and this page does not claim it does.
 const title = "AI Voice Agents for Real Estate Agencies";
 const description =
-  "An AI voice agent that answers property inquiries around the clock, qualifies callers by budget and area, and books viewings straight into your calendar. Real estate is where a missed call is a lost lead.";
+  "An AI voice agent that answers property inquiries around the clock, qualifies callers by budget and area, and books viewings. A missed call is a lost lead.";
 const url = `${siteConfig.url}/ai-voice-agent-real-estate`;
 
 export const metadata: Metadata = {

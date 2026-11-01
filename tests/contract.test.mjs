@@ -236,10 +236,12 @@ describe("canonical identity", () => {
     const origin = new URL(canonical).origin;
     const xml = await (await fetch(BASE + "/sitemap.xml")).text();
     const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
-    assert.equal(
-      locs.length,
-      PAGES.length,
-      `sitemap had ${locs.length} URLs, expected ${PAGES.length}`,
+    // PAGES is the hand-kept list of pages that must never drop out. The
+    // sitemap also holds every generated page (industries, cities, articles),
+    // so it may be longer, never shorter.
+    assert.ok(
+      locs.length >= PAGES.length,
+      `sitemap had ${locs.length} URLs, expected at least ${PAGES.length}`,
     );
     for (const loc of locs) {
       assert.equal(new URL(loc).origin, origin, `${loc} is off-origin`);
@@ -260,7 +262,7 @@ describe("canonical identity", () => {
 });
 
 describe("structured data", () => {
-  test("root graph holds exactly Person, ProfessionalService and WebSite", () => {
+  test("root graph holds exactly Person, the business and WebSite", () => {
     const blocks = [
       ...homeHtml.matchAll(
         /<script type="application\/ld\+json">(.*?)<\/script>/gs,
@@ -268,8 +270,11 @@ describe("structured data", () => {
     ].map((m) => JSON.parse(m[1]));
     const graph = blocks.find((b) => b["@graph"]);
     assert.ok(graph, "no @graph block on the homepage");
-    const types = graph["@graph"].map((n) => n["@type"]).sort();
-    assert.deepEqual(types, ["Person", "ProfessionalService", "WebSite"]);
+    // The business is typed ProfessionalService and LocalBusiness together, so
+    // flatten array types before comparing.
+    const types = [...new Set(graph["@graph"].flatMap((n) => [].concat(n["@type"])))].sort();
+    assert.deepEqual(types, ["LocalBusiness", "Person", "ProfessionalService", "WebSite"]);
+    assert.equal(graph["@graph"].length, 3, "expected exactly three entities");
   });
 
   test("ProfessionalService carries a real aggregateRating, not a fabricated one", () => {
@@ -285,8 +290,8 @@ describe("structured data", () => {
       ),
     ].map((m) => JSON.parse(m[1]));
     const graph = blocks.find((b) => b["@graph"]);
-    const business = graph["@graph"].find(
-      (n) => n["@type"] === "ProfessionalService",
+    const business = graph["@graph"].find((n) =>
+      [].concat(n["@type"]).includes("ProfessionalService"),
     );
     assert.ok(business.aggregateRating, "no aggregateRating on the business");
     assert.ok(
@@ -314,16 +319,30 @@ describe("structured data", () => {
         /<script type="application\/ld\+json">(.*?)<\/script>/gs,
       ),
     ].map((m) => JSON.parse(m[1]));
-    const service = blocks.find((b) => b["@type"] === "Service");
+    const service = blocks.find((b) => [].concat(b["@type"]).includes("Service"));
     assert.ok(service, "no Service entity on the service page");
     assert.ok(
       service.image?.endsWith("/services/ai-voice-agents/opengraph-image"),
       `Service image was ${service.image}`,
     );
-    // The site-wide entities must not be repeated per page.
-    assert.ok(
-      !blocks.some((b) => b["@type"] === "ProfessionalService"),
-      "ProfessionalService is duplicated on a service page",
+    // The site-wide graph is in the layout, so it appears on every page. That
+    // is fine as long as it is the SAME entity (same @id) and not a second,
+    // conflicting copy of the business.
+    const homeBlocks = [
+      ...homeHtml.matchAll(
+        /<script type="application\/ld\+json">(.*?)<\/script>/gs,
+      ),
+    ].map((m) => JSON.parse(m[1]));
+    const businessId = (bs) =>
+      bs
+        .find((b) => b["@graph"])
+        ["@graph"].find((n) =>
+          [].concat(n["@type"]).includes("ProfessionalService"),
+        )["@id"];
+    assert.equal(
+      businessId(blocks),
+      businessId(homeBlocks),
+      "business @id differs between home and the service page",
     );
   });
 

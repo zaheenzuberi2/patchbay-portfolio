@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { VoiceDemoButton } from "@/components/VoiceDemoButton";
 import Link from "next/link";
 import { uaeCities } from "@/lib/uae/cities";
 import { siteConfig, whatsappUrl, defaultOgImages } from "@/lib/site-config";
@@ -82,6 +83,7 @@ export default function UaeHubPage() {
                 the agents we build answer around the clock.
               </p>
               <div className="mt-9 flex flex-wrap items-center gap-4">
+                <VoiceDemoButton />
                 <a
                   href={`mailto:${siteConfig.contactEmail}`}
                   className="flex min-h-11 items-center rounded-full bg-signal px-6 py-3 font-mono text-xs uppercase tracking-[0.1em] text-ink transition-transform hover:scale-[1.03]"
