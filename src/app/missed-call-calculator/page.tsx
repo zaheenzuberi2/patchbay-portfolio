@@ -7,6 +7,7 @@ import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ChatWidget } from "@/components/ChatWidget";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { MissedCallCalculator } from "@/components/MissedCallCalculator";
+import { VoiceDemoButton } from "@/components/VoiceDemoButton";
 
 const title = "Missed Call Revenue Calculator";
 const description =
@@ -125,6 +126,7 @@ export default function MissedCallCalculatorPage() {
               </p>
             </div>
             <div className="mt-9 flex flex-wrap items-center gap-4">
+              <VoiceDemoButton />
               <a
                 href={`mailto:${siteConfig.contactEmail}`}
                 className="flex min-h-11 items-center rounded-full bg-signal px-6 py-3 font-mono text-xs uppercase tracking-[0.1em] text-ink transition-transform hover:scale-[1.03]"
