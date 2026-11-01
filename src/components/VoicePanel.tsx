@@ -36,7 +36,8 @@ const T = {
       muted: "Mic muted",
       capped: "Demo limit reached",
     },
-    hint: "Tap Start talking and ask what we build. You can speak over me at any time.",
+    hint: "Tap Start talking and ask what we build. After the greeting, you can speak to interrupt me at any time.",
+    interruptNote: "You can speak to interrupt after the greeting.",
     greeting:
       "Hi, I am the Patchbay website assistant. Ask me what we build, or how an AI voice agent could help your business.",
     start: "Start talking",
@@ -67,7 +68,8 @@ const T = {
       muted: "مائیکروفون بند ہے",
       capped: "ڈیمو کی حد پوری ہو گئی",
     },
-    hint: "بولنا شروع کریں دبائیں اور پوچھیں ہم کیا بناتے ہیں۔ آپ کسی بھی وقت میرے اوپر بول سکتے ہیں۔",
+    hint: "بولنا شروع کریں دبائیں اور پوچھیں ہم کیا بناتے ہیں۔ تعارف کے بعد آپ کسی بھی وقت بول کر مجھے روک سکتے ہیں۔",
+    interruptNote: "تعارف ختم ہونے کے بعد آپ بول کر مجھے روک سکتے ہیں۔",
     greeting:
       "السلام علیکم، میں پیچ بے کی ویب سائٹ کا اسسٹنٹ ہوں۔ پوچھیں ہم کیا بناتے ہیں، یا اے آئی وائس ایجنٹ آپ کے کاروبار کی کیسے مدد کر سکتا ہے۔",
     start: "بولنا شروع کریں",
@@ -97,6 +99,10 @@ export default function VoicePanel({ onClose }: { onClose: () => void }) {
   const [lines, setLines] = useState<Line[]>([]);
   const [status, setStatus] = useState<Status>("off");
   const [notice, setNotice] = useState("");
+  // True while the recorded greeting plays. The microphone is held shut then
+  // (it would hear the recording), so talking over it does nothing; the note
+  // tells the visitor that interrupting starts once the greeting ends.
+  const [greeting, setGreeting] = useState(false);
   // The panel only ever renders in the browser (ssr:false), so this is safe.
   const [supported] = useState(() => liveSupported());
 
@@ -134,6 +140,7 @@ export default function VoicePanel({ onClose }: { onClose: () => void }) {
   const teardown = useCallback(() => {
     window.clearTimeout(capTimer.current);
     stopGreeting();
+    setGreeting(false);
     session.current?.close();
     session.current = null;
   }, [stopGreeting]);
@@ -248,7 +255,11 @@ export default function VoicePanel({ onClose }: { onClose: () => void }) {
     s.hold(true);
     const greet = greetEls.current[want];
     if (greet) {
-      const release = () => session.current === s && s.hold(false);
+      const release = () => {
+        setGreeting(false);
+        if (session.current === s) s.hold(false);
+      };
+      setGreeting(true);
       greet.onended = release;
       greet.onpause = release;
       greet.onerror = release;
@@ -377,6 +388,9 @@ export default function VoicePanel({ onClose }: { onClose: () => void }) {
           <p role="alert" className="text-xs text-signal">
             {t.unsupported}
           </p>
+        )}
+        {greeting && (
+          <p className="text-xs text-paper-dim">{t.interruptNote}</p>
         )}
         {notice && (
           <p role="alert" className="text-xs text-signal">
