@@ -54,7 +54,7 @@ const T = {
     blocked:
       "Microphone access was blocked. Allow it in your browser settings and tap Start talking again.",
     noMic: "No microphone was found on this device.",
-    footer: "Your voice is sent to Google's Gemini to produce the reply. Demo limit: 3 minutes.",
+    footer: "Your voice is processed by an AI service to produce the reply. Demo limit: 3 minutes.",
     caps: VOICE_CAP_MESSAGES,
   },
   ur: {
@@ -85,7 +85,7 @@ const T = {
     blocked:
       "مائیکروفون کی اجازت بند تھی۔ براؤزر کی سیٹنگ میں اجازت دیں اور دوبارہ کوشش کریں۔",
     noMic: "اس ڈیوائس پر مائیکروفون نہیں ملا۔",
-    footer: "آپ کی آواز جواب بنانے کے لیے گوگل کے جیمنی کو بھیجی جاتی ہے۔ ڈیمو کی حد: 3 منٹ۔",
+    footer: "آپ کی آواز جواب بنانے کے لیے ایک اے آئی سروس سے پروسیس کی جاتی ہے۔ ڈیمو کی حد: 3 منٹ۔",
     caps: VOICE_CAP_MESSAGES_UR,
   },
 };

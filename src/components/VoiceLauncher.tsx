@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
-import { announceDock, onDock } from "@/lib/dock";
+import { announceDock, onDock, onVoiceOpenRequest } from "@/lib/dock";
 
 // Only this button ships in the main bundle. The panel (speech recognition,
 // speech synthesis, the transcript UI) is a separate chunk fetched on the
@@ -28,6 +28,15 @@ export function VoiceLauncher() {
       if (isOpen) setOpen(false);
     }
   }), []);
+
+  // "Try the voice demo" buttons elsewhere on the site ask for the panel.
+  useEffect(() => {
+    const off = onVoiceOpenRequest(() => {
+      setChatOpen(false);
+      setOpen(true);
+    });
+    return off;
+  }, []);
 
   const close = useCallback(() => setOpen(false), []);
 

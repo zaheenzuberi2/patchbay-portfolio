@@ -16,3 +16,15 @@ export function onDock(cb: (who: DockWho, open: boolean) => void) {
   window.addEventListener(EVENT, handler);
   return () => window.removeEventListener(EVENT, handler);
 }
+
+// A "Try the voice demo" button anywhere on the site asks the launcher to open
+// the voice panel. Opening is just a request; the microphone still waits for
+// the visitor to tap Start talking inside the panel.
+const OPEN_VOICE = "patchbay:voice-open";
+export function requestVoiceOpen() {
+  window.dispatchEvent(new Event(OPEN_VOICE));
+}
+export function onVoiceOpenRequest(cb: () => void) {
+  window.addEventListener(OPEN_VOICE, cb);
+  return () => window.removeEventListener(OPEN_VOICE, cb);
+}
