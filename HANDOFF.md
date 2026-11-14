@@ -2399,4 +2399,4 @@ so the page does not promise a specific latency.
 
 The homepage Projects list is database rows, not code, so the matching row is
 added in /admin > Projects (name must contain "Habro Estate" so the "Read the
-case study" link attaches). Status of that row: see the commit that follows.
+case study" link attaches). Added 2026-11-14 as session 0010 via the admin panel.
