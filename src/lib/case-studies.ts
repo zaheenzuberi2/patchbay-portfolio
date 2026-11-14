@@ -470,6 +470,60 @@ export const caseStudies: CaseStudy[] = [
       "Construction, real estate, and other lead-driven businesses where leads come in faster than a small team can call them back.",
     relatedServices: ["ai-voice-agents", "business-automation"],
   },
+  {
+    slug: "habro-estate",
+    sessionId: "0011",
+    name: "Habro Estate",
+    kind: "Client",
+    status: "LIVE",
+    h1: "A DHA Islamabad plot dealer's website that reads its own inventory sheet and answers visitors by voice",
+    metaTitle: "Habro Estate Case Study | Real Estate Website with a Voice Assistant",
+    metaDescription:
+      "How Habro Real Estate & Builders (habroestate.com) moved off a website builder to a Next.js site that updates its plot inventory from a Google Sheet, with a voice assistant in English and Urdu.",
+    keywords: [
+      "Habro Estate case study",
+      "real estate website with voice assistant",
+      "DHA Islamabad plot dealer website",
+      "real estate inventory sync Google Sheets",
+      "Urdu voice assistant for real estate",
+      "Zaheen Zuberi client work",
+    ],
+    liveUrl: "https://habroestate.com",
+    liveLabel: "habroestate.com",
+    intro:
+      "Habro Real Estate & Builders sells plots in DHA Islamabad. Their stock already lived in one Google Sheet that the team keeps current. The website did not read it, so the site and the sheet drifted apart. The rebuild made the sheet the single source and added a voice assistant that answers from the same public data.",
+    problem:
+      "The old site ran on a website builder and showed the plot table as an embedded Google Sheet inside nested frames. Google could not read any of the inventory, and the team had no way to put a plot on the site except by hand. The client's one hard requirement was that adding, removing or marking a plot sold in their sheet should show up on the website without anyone touching the site.",
+    approach: [
+      {
+        title: "The sheet stays the source of truth",
+        body: "The client's team keeps editing the Google Sheet they already use. A small Google Apps Script reads it and hands the site only an approved list of columns. The agent's name and the concluded price are never sent, so they cannot end up on a page by accident. The build fails on an unexpected column instead of publishing blanks.",
+      },
+      {
+        title: "A static site that republishes itself",
+        body: "The site is Next.js exported as plain HTML and hosted on Cloudflare Pages. A timer checks the sheet every 15 minutes and triggers a fresh build, so a change in the sheet goes live without a developer. Because the inventory is in the page itself, search engines can read every listing, which the embedded sheet never allowed.",
+      },
+      {
+        title: "A voice assistant that only knows what the site knows",
+        body: "A button on every page opens an assistant that takes a name and number, then talks to the visitor by voice in English, Urdu or Roman Urdu. It answers from the website's own public data and says so when it does not have a fact, offering the office number instead. Replies are fast because it uses a live voice model, with a standard voice as the fallback.",
+      },
+      {
+        title: "An admin panel the client can run",
+        body: "Leads from the assistant land in a password-protected admin page, along with the keys the assistant runs on and an on/off switch. Keys are stored encrypted and never shown in full, and repeated wrong passwords lock the address out for a while.",
+      },
+    ],
+    outcome: [
+      "Moved from a website builder to a Next.js site on Cloudflare Pages, with its own address pages for every phase, sector and plot size",
+      "Plot inventory read from the client's own Google Sheet and republished on a 15-minute timer, with no developer step",
+      "Sold prices and agent names kept off the public site by design",
+      "A website voice assistant in English, Urdu and Roman Urdu that collects a lead and answers from public site data only",
+      "A lead and key management panel at /admin for the client's team",
+    ],
+    stack: ["Next.js", "Google Apps Script", "Cloudflare Pages", "Gemini Live", "TypeScript"],
+    goodFor:
+      "Property dealers and agencies whose stock lives in a spreadsheet and who want the website to follow it automatically, with a voice assistant to catch visitors who would not fill in a form.",
+    relatedServices: ["ai-voice-agents", "web-development", "business-automation"],
+  },
 ];
 
 export function getCaseStudy(slug: string) {

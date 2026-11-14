@@ -2385,3 +2385,18 @@ Receptionists", pointing at /ai-receptionist-for.
   Not paid. Zaheen decides.
 - Still to do: dev.to technical post with canonical to the site, Indie Hackers
   comments to unlock posting, Qwoted expert path, Clutch reviewer asks.
+
+## 53. Habro Estate case study (2026-11-14)
+
+New case study `/work/habro-estate` (case-studies.ts, session 0011, client,
+live link habroestate.com), added to the contract test PAGES list and linked as
+a proof card from /ai-voice-agent-real-estate, whose FAQ now names it. Copy is
+claim-free: no plot counts, prices, leads or response times. It says the voice
+assistant is on the website (English, Urdu, Roman Urdu), not the phone, and
+that the sheet is read on a 15 minute timer. The pipeline's own end-to-end test
+(change a price, read it on the site) is still unrun per Habro's handover doc,
+so the page does not promise a specific latency.
+
+The homepage Projects list is database rows, not code, so the matching row is
+added in /admin > Projects (name must contain "Habro Estate" so the "Read the
+case study" link attaches). Status of that row: see the commit that follows.

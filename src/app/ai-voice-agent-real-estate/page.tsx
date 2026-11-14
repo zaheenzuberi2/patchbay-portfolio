@@ -20,7 +20,7 @@ import { Reveal } from "@/components/Reveal";
 // field, so this page is a narrower entry point into the same real work,
 // not a new claim. AD Real Estate (case-studies.ts) is referenced honestly
 // as a real, live real estate client for the web and lead-pipeline side.
-// It does not use a voice agent, and this page does not claim it does.
+// It does not use a voice agent, and this page does not claim it does. Habro Estate is the real estate client with a voice assistant, on its website rather than the phone.
 const title = "AI Voice Agents for Real Estate Agencies";
 const description =
   "An AI voice agent that answers property inquiries around the clock, qualifies callers by budget and area, and books viewings. A missed call is a lost lead.";
@@ -73,13 +73,14 @@ const faqs = [
   },
   {
     q: "Do you have real estate clients already?",
-    a: "Yes. A construction and real estate client already runs a live voice agent that calls their leads, qualifies them by budget and project type, and books the appointment directly on the call, not just answering inbound calls. That client isn't named publicly, so there's no site to link to, but the build is described on the case study below. AD Real Estate & Builders, a DHA Islamabad property advisory, is a separate real, live client, currently for the web and lead-pipeline side of the business, not the voice agent.",
+    a: "Yes. A construction and real estate client already runs a live voice agent that calls their leads, qualifies them by budget and project type, and books the appointment directly on the call, not just answering inbound calls. That client isn't named publicly, so there's no site to link to, but the build is described on the case study below. Habro Estate, a DHA Islamabad plot dealer, runs a voice assistant on its website that answers visitors in English and Urdu and takes their details, alongside a site that updates its inventory from their Google Sheet. AD Real Estate & Builders, a DHA Islamabad property advisory, is a separate real, live client, currently for the web and lead-pipeline side of the business, not the voice agent.",
   },
 ];
 
 export default function AiVoiceAgentRealEstatePage() {
   const voiceService = getService("ai-voice-agents");
   const adRealEstate = getCaseStudy("ad-real-estate");
+  const habro = getCaseStudy("habro-estate");
   const constructionVoiceAgent = getCaseStudy("construction-lead-calling");
 
   const pageSchema = {
@@ -185,6 +186,26 @@ export default function AiVoiceAgentRealEstatePage() {
                     <span className="mt-3 text-sm leading-relaxed text-paper-dim">
                       Outbound lead-calling, qualification, and appointment
                       booking, not just inbound answering.
+                    </span>
+                  </Link>
+                </Reveal>
+              )}
+              {habro && (
+                <Reveal delay={25}>
+                  <Link
+                    href={`/work/${habro.slug}`}
+                    className="group flex h-full flex-col rounded-2xl border border-line-strong bg-ink-2/60 p-6 transition-colors hover:border-signal/50"
+                  >
+                    <span className="font-mono text-xs text-signal">
+                      Client, live voice assistant
+                    </span>
+                    <span className="mt-2 text-lg font-medium tracking-[-0.01em] text-paper transition-colors group-hover:text-signal">
+                      {habro.name}
+                    </span>
+                    <span className="mt-3 text-sm leading-relaxed text-paper-dim">
+                      A DHA Islamabad plot dealer&apos;s website with a voice
+                      assistant in English and Urdu and inventory that follows
+                      their Google Sheet.
                     </span>
                   </Link>
                 </Reveal>

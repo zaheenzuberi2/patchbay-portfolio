@@ -61,6 +61,7 @@ const PAGES = [
   "/work/tryvoicely",
   "/work/pakengine",
   "/work/ad-real-estate",
+  "/work/habro-estate",
   "/work/lex-justitia",
   "/work/ab-juris",
   "/work/mezmenu",
