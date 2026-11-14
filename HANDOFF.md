@@ -2434,3 +2434,27 @@ updated, three long meta descriptions trimmed, en dash removed.
 Left alone on purpose: titles over 60 characters on /work/* and a few blog
 pages (they carry ranking terms, e.g. Voicely at pos 6), descriptions over
 165 on /work/*.
+
+## 56. Inbound pass (2026-11-14)
+
+Shipped and verified live: schema areaServed now includes United States, United
+Arab Emirates, Dubai and Abu Dhabi (remote service area, not an office claim);
+dev.to, Indie Hackers and Product Hunt added to Person sameAs, the Product Hunt
+product page to the business sameAs (SaaSHub and AlternativeTo left out until
+approved); a side-by-side table (src/lib/articles.ts `table`, rendered in
+blog/[slug]) and question headings on the voice agent vs answering service post;
+question headings on the industry template; a six-question FAQ with FAQPage
+schema on /missed-call-calculator; per-city UAE FAQ entries on custom call
+answering and call recordings or transcripts (aimed at the two queries at
+position 47 and 48); a "How does it work for a UAE business" section on /uae.
+All copy restates existing site facts, no new numbers, prices or claims.
+
+Conversion path check: POST /api/leads validates (400 on empty), form, WhatsApp,
+email and voice demo present on the industry and UAE pages, Vercel Analytics
+installed (page views only).
+
+OPEN PROBLEM: `RESEND_API_KEY` is not set in Vercel production (checked with
+`vercel env ls production`), so `src/lib/notify.ts` no-ops and lead alerts are
+off. A lead lands in the database and waits until someone opens /admin. Setting
+the key activates alerts with no code change. Needs Zaheen to create the Resend
+account, since account creation cannot be delegated.
