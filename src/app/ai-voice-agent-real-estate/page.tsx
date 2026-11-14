@@ -73,7 +73,7 @@ const faqs = [
   },
   {
     q: "Do you have real estate clients already?",
-    a: "Yes. A construction and real estate client already runs a live voice agent that calls their leads, qualifies them by budget and project type, and books the appointment directly on the call, not just answering inbound calls. That client isn't named publicly, so there's no site to link to, but the build is described on the case study below. Habro Estate, a DHA Islamabad plot dealer, runs a voice assistant on its website that answers visitors in English and Urdu and takes their details, alongside a site that updates its inventory from their Google Sheet. AD Real Estate & Builders, a DHA Islamabad property advisory, is a separate real, live client, currently for the web and lead-pipeline side of the business, not the voice agent.",
+    a: "Yes. A construction and real estate client already runs a live voice agent that calls their leads, qualifies them by budget and project type, and books the appointment directly on the call, not just answering inbound calls. That client isn't named publicly, so there's no site to link to, but the build is described on the case study below. Habro Estate, a DHA Islamabad plot dealer, runs a voice assistant on its website that answers visitors in English and Urdu and takes their details, alongside a site that updates its plot inventory automatically. AD Real Estate & Builders, a DHA Islamabad property advisory, is a separate real, live client, currently for the web and lead-pipeline side of the business, not the voice agent.",
   },
 ];
 
@@ -204,8 +204,8 @@ export default function AiVoiceAgentRealEstatePage() {
                     </span>
                     <span className="mt-3 text-sm leading-relaxed text-paper-dim">
                       A DHA Islamabad plot dealer&apos;s website with a voice
-                      assistant in English and Urdu and inventory that follows
-                      their Google Sheet.
+                      assistant in English and Urdu and inventory that updates
+                      itself.
                     </span>
                   </Link>
                 </Reveal>

@@ -476,32 +476,41 @@ export const caseStudies: CaseStudy[] = [
     name: "Habro Estate",
     kind: "Client",
     status: "LIVE",
-    h1: "A DHA Islamabad plot dealer's website that reads its own inventory sheet and answers visitors by voice",
-    metaTitle: "Habro Estate Case Study | Real Estate Website with a Voice Assistant",
+    h1: "A DHA Islamabad plot dealer's website that keeps its own inventory up to date and answers visitors by voice",
+    metaTitle: "Habro Estate Case Study | Real Estate Website & AI Voice Assistant, Islamabad",
     metaDescription:
-      "How Habro Real Estate & Builders (habroestate.com) moved off a website builder to a Next.js site that updates its plot inventory from a Google Sheet, with a voice assistant in English and Urdu.",
+      "How Habro Real Estate & Builders (habroestate.com), a DHA Islamabad plot dealer, got a fast Next.js website with live plot inventory, SEO-ready listing pages and an AI voice assistant in English and Urdu, built by Zaheen Zuberi.",
     keywords: [
       "Habro Estate case study",
       "real estate website with voice assistant",
       "DHA Islamabad plot dealer website",
-      "real estate inventory sync Google Sheets",
+      "real estate inventory sync website",
+      "automatic property inventory update",
       "Urdu voice assistant for real estate",
+      "AI voice assistant real estate website",
+      "AI receptionist for property dealers",
+      "real estate website design Islamabad",
+      "property dealer website Pakistan",
+      "DHA Islamabad plots website",
+      "real estate lead capture voice agent",
+      "Next.js real estate website",
+      "SEO real estate website Pakistan",
       "Zaheen Zuberi client work",
     ],
     liveUrl: "https://habroestate.com",
     liveLabel: "habroestate.com",
     intro:
-      "Habro Real Estate & Builders sells plots in DHA Islamabad. Their stock already lived in one Google Sheet that the team keeps current. The website did not read it, so the site and the sheet drifted apart. The rebuild made the sheet the single source and added a voice assistant that answers from the same public data.",
+      "Habro Real Estate & Builders sells plots in DHA Islamabad. Their stock already lived in one master inventory file that the team keeps current. The website did not read it, so the site and the file drifted apart. The rebuild made that file the single source and added a voice assistant that answers from the same public data.",
     problem:
-      "The old site ran on a website builder and showed the plot table as an embedded Google Sheet inside nested frames. Google could not read any of the inventory, and the team had no way to put a plot on the site except by hand. The client's one hard requirement was that adding, removing or marking a plot sold in their sheet should show up on the website without anyone touching the site.",
+      "The old site ran on a website builder and showed the plot table as an embedded spreadsheet inside nested frames. Search engines could not read any of the inventory, and the team had no way to put a plot on the site except by hand. The client's one hard requirement was that adding, removing or marking a plot sold in their inventory should show up on the website without anyone touching the site.",
     approach: [
       {
-        title: "The sheet stays the source of truth",
-        body: "The client's team keeps editing the Google Sheet they already use. A small Google Apps Script reads it and hands the site only an approved list of columns. The agent's name and the concluded price are never sent, so they cannot end up on a page by accident. The build fails on an unexpected column instead of publishing blanks.",
+        title: "The inventory stays where the team already keeps it",
+        body: "The client's team keeps editing the inventory file they already use. A small private connector reads it and hands the site only an approved list of columns. The agent's name and the concluded price are never sent, so they cannot end up on a page by accident. The build fails on an unexpected column instead of publishing blanks.",
       },
       {
         title: "A static site that republishes itself",
-        body: "The site is Next.js exported as plain HTML and hosted on Cloudflare Pages. A timer checks the sheet every 15 minutes and triggers a fresh build, so a change in the sheet goes live without a developer. Because the inventory is in the page itself, search engines can read every listing, which the embedded sheet never allowed.",
+        body: "The site is Next.js exported as plain HTML and hosted on Cloudflare Pages. A timer checks the inventory every 15 minutes and triggers a fresh build, so a change goes live without a developer. Because the inventory is in the page itself, search engines can read every listing, which the old embedded table never allowed.",
       },
       {
         title: "A voice assistant that only knows what the site knows",
@@ -514,14 +523,14 @@ export const caseStudies: CaseStudy[] = [
     ],
     outcome: [
       "Moved from a website builder to a Next.js site on Cloudflare Pages, with its own address pages for every phase, sector and plot size",
-      "Plot inventory read from the client's own Google Sheet and republished on a 15-minute timer, with no developer step",
+      "Plot inventory read from the client's own master file and republished on a 15-minute timer, with no developer step",
       "Sold prices and agent names kept off the public site by design",
       "A website voice assistant in English, Urdu and Roman Urdu that collects a lead and answers from public site data only",
       "A lead and key management panel at /admin for the client's team",
     ],
-    stack: ["Next.js", "Google Apps Script", "Cloudflare Pages", "Gemini Live", "TypeScript"],
+    stack: ["Next.js", "Voice AI", "Cloudflare Pages", "Automation", "TypeScript"],
     goodFor:
-      "Property dealers and agencies whose stock lives in a spreadsheet and who want the website to follow it automatically, with a voice assistant to catch visitors who would not fill in a form.",
+      "Property dealers and agencies whose stock lives in a spreadsheet or back-office file and who want the website to follow it automatically, with a voice assistant to catch visitors who would not fill in a form.",
     relatedServices: ["ai-voice-agents", "web-development", "business-automation"],
   },
 ];
