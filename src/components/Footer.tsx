@@ -77,6 +77,46 @@ export function Footer() {
                   AI Receptionists by Industry
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/missed-call-calculator"
+                  className="text-sm text-paper-dim transition-colors hover:text-signal"
+                >
+                  Missed Call Calculator
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/ai-voice-agent-real-estate"
+                  className="text-sm text-paper-dim transition-colors hover:text-signal"
+                >
+                  Voice Agent for Real Estate
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/ai-receptionist-for/immigration-lawyers"
+                  className="text-sm text-paper-dim transition-colors hover:text-signal"
+                >
+                  AI Receptionist for Immigration Lawyers
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/ai-receptionist-for/solar-installers"
+                  className="text-sm text-paper-dim transition-colors hover:text-signal"
+                >
+                  AI Receptionist for Solar Installers
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/blog/ai-voice-agent-vs-answering-service"
+                  className="text-sm text-paper-dim transition-colors hover:text-signal"
+                >
+                  AI Voice Agent vs Answering Service
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -131,6 +171,22 @@ export function Footer() {
                   className="text-sm text-paper-dim transition-colors hover:text-signal"
                 >
                   Dubai &amp; Abu Dhabi
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/hire-nextjs-developer-pakistan"
+                  className="text-sm text-paper-dim transition-colors hover:text-signal"
+                >
+                  Hire a Next.js Developer
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/ai-agency-vs-traditional-marketing-agency"
+                  className="text-sm text-paper-dim transition-colors hover:text-signal"
+                >
+                  AI Agency vs Traditional Agency
                 </Link>
               </li>
             </ul>
