@@ -98,6 +98,11 @@ export const githubUrl = "https://github.com/zaheenzuberi2";
 export const himalayasUrl = "https://himalayas.app/@zaheenzuberi";
 export const fiverrUrl = "https://www.fiverr.com/zaheen_zuberi";
 export const upworkUrl = "https://www.upwork.com/freelancers/~01d503a27e767d824a";
+// Opened live on 2026-10-31 and 2026-11-14 (dev.to returns 200; Indie Hackers
+// and Product Hunt answer 403 to scripts but load in a real browser).
+export const devToUrl = "https://dev.to/zaheenzuberi";
+export const indieHackersUrl = "https://www.indiehackers.com/zaheenzuberi";
+export const productHuntProfileUrl = "https://www.producthunt.com/@zaheen_zuberi";
 
 // Business directory/listing profiles for Patchbay, not Zaheen personally.
 // Each was verified live before being added here (real page, real content
@@ -105,6 +110,9 @@ export const upworkUrl = "https://www.upwork.com/freelancers/~01d503a27e767d824a
 export const clutchUrl = "https://clutch.co/profile/patchbay";
 export const sortlistUrl = "https://www.sortlist.com/agency/patchbay";
 export const techBehemothsUrl = "https://techbehemoths.com/company/patchbay";
+// Product Hunt page for the voice agent offer, launched in October 2026.
+export const productHuntProductUrl =
+  "https://www.producthunt.com/products/patchbay-ai-receptionists";
 // Permanent Google Maps place URL for the verified Business Profile
 // ("Patchbay", Marketing agency, Islamabad), confirmed live 2026-09-27 by
 // opening it while signed in as the profile's manager. The old

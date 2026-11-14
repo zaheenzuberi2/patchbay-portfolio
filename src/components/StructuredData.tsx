@@ -6,6 +6,10 @@ import {
   himalayasUrl,
   fiverrUrl,
   upworkUrl,
+  devToUrl,
+  indieHackersUrl,
+  productHuntProfileUrl,
+  productHuntProductUrl,
   clutchUrl,
   sortlistUrl,
   techBehemothsUrl,
@@ -93,7 +97,16 @@ export async function StructuredData() {
         },
         // Personal profiles, so they belong here rather than on
         // ProfessionalService, same split reasoning as instagramUrl below.
-        sameAs: [linkedinUrl, githubUrl, himalayasUrl, fiverrUrl, upworkUrl],
+        sameAs: [
+          linkedinUrl,
+          githubUrl,
+          himalayasUrl,
+          fiverrUrl,
+          upworkUrl,
+          devToUrl,
+          indieHackersUrl,
+          productHuntProfileUrl,
+        ],
         knowsAbout: [
           "AI automation",
           "AI voice agents",
@@ -154,6 +167,12 @@ export async function StructuredData() {
           { "@type": "City", name: "Lahore" },
           { "@type": "City", name: "Karachi" },
           { "@type": "Country", name: "Pakistan" },
+          // Remote service areas, matching the /uae pages and the US
+          // industry pages. Not a claim of an office or clients there.
+          { "@type": "Country", name: "United States" },
+          { "@type": "Country", name: "United Arab Emirates" },
+          { "@type": "City", name: "Dubai" },
+          { "@type": "City", name: "Abu Dhabi" },
           { "@type": "Place", name: "Worldwide" },
         ],
         priceRange: "$$",
@@ -169,6 +188,7 @@ export async function StructuredData() {
           sortlistUrl,
           techBehemothsUrl,
           googleBusinessProfileUrl,
+          productHuntProductUrl,
         ],
         hasOfferCatalog: {
           "@type": "OfferCatalog",

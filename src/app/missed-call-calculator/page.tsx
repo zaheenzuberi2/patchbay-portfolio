@@ -41,7 +41,46 @@ export const metadata: Metadata = {
   },
 };
 
+// Every answer restates what the calculator and the page already do. No
+// averages, benchmarks, or promised results.
+const faqs = [
+  {
+    q: "How does the missed call calculator work?",
+    a: "It takes four numbers you enter: inbound calls per month, the share that go unanswered, the share of callers who would have booked, and the average value of one booking. It multiplies calls by the unanswered share, then by the booking rate, then by the booking value.",
+  },
+  {
+    q: "Does it use industry averages?",
+    a: "No. Every figure comes from you. The calculator contains no industry averages or statistics, so the result is only as accurate as the numbers you enter.",
+  },
+  {
+    q: "Is what I type stored or sent anywhere?",
+    a: "No. The arithmetic runs in your browser. Nothing you enter is sent to us or saved.",
+  },
+  {
+    q: "Will an AI receptionist recover all of the revenue it shows?",
+    a: "No. The result is an upper bound, not a forecast. Not every missed caller would have booked, and an AI receptionist will not catch every lost caller.",
+  },
+  {
+    q: "Where do I find how many calls go unanswered?",
+    a: "Check your phone bill or call log for calls that went to voicemail or were never picked up. If you do not track it, count for one typical week and multiply.",
+  },
+  {
+    q: "What does an AI receptionist do with those calls?",
+    a: "It answers every call, asks your intake questions, books into your calendar, and sends you a written summary. In regulated fields such as health, law, and insurance it collects information and schedules without giving advice.",
+  },
+];
+
 export default function MissedCallCalculatorPage() {
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "@id": `${url}#faq`,
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
   const pageSchema = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
@@ -60,6 +99,10 @@ export default function MissedCallCalculatorPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <Nav />
       <main className="flex flex-1 flex-col">
@@ -94,7 +137,7 @@ export default function MissedCallCalculatorPage() {
         <section className="border-b border-line py-12 sm:py-16">
           <div className="mx-auto max-w-3xl px-6">
             <h2 className="text-balance text-2xl font-medium tracking-[-0.02em] sm:text-3xl">
-              How to read the result
+              How do you read the result?
             </h2>
             <div className="mt-5 space-y-4 text-base leading-relaxed text-paper-dim">
               <p>
@@ -141,6 +184,24 @@ export default function MissedCallCalculatorPage() {
               >
                 Ask on WhatsApp
               </a>
+            </div>
+          </div>
+        </section>
+
+        <section className="border-b border-line py-12 sm:py-16">
+          <div className="mx-auto max-w-3xl px-6">
+            <h2 className="text-balance text-2xl font-medium tracking-[-0.02em] sm:text-3xl">
+              Questions about the calculator
+            </h2>
+            <div className="mt-6 space-y-7">
+              {faqs.map((f) => (
+                <div key={f.q}>
+                  <h3 className="text-lg font-medium text-paper">{f.q}</h3>
+                  <p className="mt-2 text-base leading-relaxed text-paper-dim">
+                    {f.a}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </section>

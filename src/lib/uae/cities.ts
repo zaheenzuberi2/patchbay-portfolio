@@ -117,6 +117,14 @@ export const uaeCities: UaeCity[] = [
         a: "Usually yes, through a licensed telecom provider. UAE rules limit internet-based calling, so the route is confirmed while scoping and written into the quote, before any build starts.",
       },
       {
+        q: "Can you build a custom call answering solution for a Dubai business?",
+        a: "Yes. It is written around your own call types, opening hours, and rules rather than a template shared with other clients. It answers, collects the details you need, books the appointment, and passes the call to a person when it should. Which Dubai line it connects to, and through which licensed carrier, is confirmed while scoping.",
+      },
+      {
+        q: "Does it record or transcribe calls in Dubai?",
+        a: "Every call can produce a written summary, and recordings or transcripts can be kept if you want them. They are personal data under UAE law, so whether to record, the greeting wording, who can read them, and how long they are kept are decided with you, ideally with your legal adviser.",
+      },
+      {
         q: "Can you build a trading bot for a Dubai-based trader?",
         a: "Yes, for MT4 and MT5 or a crypto exchange API, running against your own account and never holding your funds. The bot is software, not advice, and it has a daily drawdown circuit breaker. Whether your activity needs a licence, for example from VARA for virtual assets, is something to confirm with your adviser.",
       },
@@ -227,6 +235,14 @@ export const uaeCities: UaeCity[] = [
       {
         q: "Can it integrate with the systems we already use?",
         a: "Usually, through the tool's API or a connector such as n8n: calendars, CRMs, and ticketing systems. We list the systems involved in the quote, and anything without an API is flagged before the build starts.",
+      },
+      {
+        q: "Can you build a custom call answering system for an Abu Dhabi firm?",
+        a: "Yes. The strict-script intake is written around your own call types and the points where a person must take over, then connected to your line through a licensed UAE carrier confirmed during scoping.",
+      },
+      {
+        q: "Are calls transcribed or recorded for an Abu Dhabi firm?",
+        a: "Each call produces a written summary, and recordings or transcripts can be kept if you want them. They hold personal data, so the wording at the start of the call, storage, access, and retention are set with you and your adviser, including any rules specific to ADGM-registered firms.",
       },
       {
         q: "Is Arabic supported?",

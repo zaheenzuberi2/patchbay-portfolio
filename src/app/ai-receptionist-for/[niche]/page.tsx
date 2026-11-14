@@ -170,7 +170,7 @@ export default async function VoiceNichePage(
           <div className="mx-auto max-w-6xl px-6">
             <Reveal>
               <h2 className="max-w-3xl text-balance text-2xl font-medium tracking-[-0.02em] sm:text-3xl">
-                Why the phone matters for {n.plural.toLowerCase()}
+                Why does the phone matter for {n.plural.toLowerCase()}?
               </h2>
               <p className="mt-5 max-w-3xl text-lg leading-relaxed text-paper-dim">
                 {n.why}
@@ -183,7 +183,7 @@ export default async function VoiceNichePage(
           <div className="mx-auto grid max-w-6xl gap-12 px-6 lg:grid-cols-2">
             <Reveal>
               <h2 className="text-balance text-2xl font-medium tracking-[-0.02em] sm:text-3xl">
-                Calls it answers
+                Which calls does it answer for {n.plural.toLowerCase()}?
               </h2>
               <ul className="mt-6 space-y-3 text-paper-dim">
                 {n.inbound.map((item) => (
@@ -198,7 +198,7 @@ export default async function VoiceNichePage(
             </Reveal>
             <Reveal delay={60}>
               <h2 className="text-balance text-2xl font-medium tracking-[-0.02em] sm:text-3xl">
-                Calls it makes
+                Which calls does it make?
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-paper-dim">
                 Outbound calling only goes to people who gave you their number
@@ -224,7 +224,7 @@ export default async function VoiceNichePage(
           <div className="mx-auto grid max-w-6xl gap-12 px-6 lg:grid-cols-2">
             <Reveal>
               <h2 className="text-balance text-2xl font-medium tracking-[-0.02em] sm:text-3xl">
-                What it collects before anything reaches you
+                What does it collect before anything reaches you?
               </h2>
               <ul className="mt-6 space-y-3 text-paper-dim">
                 {n.intake.map((item) => (
@@ -239,7 +239,7 @@ export default async function VoiceNichePage(
             </Reveal>
             <Reveal delay={60}>
               <h2 className="text-balance text-2xl font-medium tracking-[-0.02em] sm:text-3xl">
-                When a person takes over
+                When does a person take over?
               </h2>
               <ul className="mt-6 space-y-3 text-paper-dim">
                 {n.handoff.map((item) => (
@@ -259,7 +259,7 @@ export default async function VoiceNichePage(
           <div className="mx-auto grid max-w-6xl gap-12 px-6 lg:grid-cols-2">
             <Reveal>
               <h2 className="text-balance text-2xl font-medium tracking-[-0.02em] sm:text-3xl">
-                Where it plugs in
+                Where does it plug in?
               </h2>
               <p className="mt-5 leading-relaxed text-paper-dim">{n.tools}</p>
             </Reveal>
@@ -276,7 +276,7 @@ export default async function VoiceNichePage(
           <div className="mx-auto max-w-6xl px-6">
             <Reveal>
               <h2 className="text-balance text-2xl font-medium tracking-[-0.02em] sm:text-3xl">
-                How a build works
+                How does a build work?
               </h2>
             </Reveal>
             <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

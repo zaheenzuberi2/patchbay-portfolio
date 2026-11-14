@@ -15,8 +15,17 @@ export type ArticleSection = { heading: string; body: string };
  *  than a marketing graphic. */
 export type ArticleProof = { src: string; alt: string; caption: string };
 
+/** A short side-by-side table, shown under the intro. Rows restate points the
+ *  sections already make; no figures that are not in the article text. */
+export type ArticleTable = {
+  caption: string;
+  headers: string[];
+  rows: string[][];
+};
+
 export type Article = {
   slug: string;
+  table?: ArticleTable;
   title: string;
   metaTitle: string;
   metaDescription: string;
@@ -45,33 +54,79 @@ export const articles: Article[] = [
     datePublished: "2026-09-24",
     intro:
       "Both promise the same thing: your business stops missing calls. The mechanics underneath are different enough that the choice usually isn't close once you look at how each one actually handles a call.",
+    table: {
+      caption: "AI voice agent vs traditional answering service, side by side",
+      headers: ["", "Answering service", "AI voice agent"],
+      rows: [
+        [
+          "Who answers",
+          "A human operator working from a script",
+          "An AI agent following a script built around your business",
+        ],
+        [
+          "Hours",
+          "The hours the operator is staffed",
+          "Any hour",
+        ],
+        [
+          "Cost structure",
+          "Recurring per-minute or per-call staffing cost that scales with volume",
+          "One-time build cost plus a smaller ongoing usage charge from the telephony and voice providers",
+        ],
+        [
+          "More calls at once",
+          "Needs more operators",
+          "Does not require hiring another operator",
+        ],
+        [
+          "After the call",
+          "Usually a relayed message that someone checks and acts on",
+          "A structured summary and the booking itself, written into a calendar or CRM",
+        ],
+        [
+          "Unpredictable or angry callers",
+          "Reaches a human faster",
+          "Should escalate immediately, which depends on how it is built",
+        ],
+        [
+          "Outbound calls",
+          "Inbound only",
+          "Can also call out, to leads who have consented",
+        ],
+        [
+          "Bilingual callers",
+          "Needs a bilingual operator on shift",
+          "Handled as part of the script",
+        ],
+      ],
+    },
     sections: [
       {
-        heading: "How a call is actually handled",
+        heading: "How is a call actually handled?",
         body: "A traditional answering service routes the call to a human operator working from a script, during the hours that operator is staffed. An AI voice agent answers the same call instantly, at any hour, following a script built around your specific business rather than a generic template shared across the service's other clients.",
       },
       {
-        heading: "Cost structure",
+        heading: "How does the cost compare?",
         body: "An answering service is a recurring per-minute or per-call staffing cost that scales with volume and stays roughly the same whether the calls are simple or complex. An AI voice agent has a one-time build cost plus a smaller ongoing usage charge from the telephony and voice providers, and handling more calls at once doesn't require hiring another operator.",
       },
       {
-        heading: "What happens after the call",
+        heading: "What happens after the call ends?",
         body: "A human operator typically relays a message, which then needs to be checked and acted on separately. An AI voice agent can write a structured summary and the booking itself straight into a calendar or CRM, so the call produces a record instead of a note waiting to be read.",
       },
       {
-        heading: "Where a human operator still wins",
+        heading: "Where does a human operator still win?",
         body: "Genuinely unpredictable calls, an angry customer, a situation with no clear script, still go to a human faster with a live answering service than with an AI agent that has to recognize it needs to escalate first. The honest answer is that a well-built AI voice agent should escalate those calls immediately rather than trying to handle them, which is a design decision, not something either option gets automatically right.",
       },
       {
-        heading: "What this looks like outside a receptionist role",
+        heading: "Can a voice agent make calls, not just answer them?",
         body: "The comparison usually gets framed around answering inbound calls, but the same underlying system can call out. A construction and real estate client of ours runs a voice agent that calls their own leads first, qualifies them by budget, area, and project type, then books the appointment on that same call, rather than waiting for someone to call in. An answering service, by definition, only ever handles the inbound half of that.",
       },
       {
-        heading: "Handling a bilingual caller",
+        heading: "How does each handle a bilingual caller?",
         body: "A market where callers switch between Urdu and English mid-sentence, sometimes mid-word, is a normal support case for a well-built voice agent, not an edge case that needs a separate bilingual hire. A traditional answering service either needs a bilingual operator on shift at the moment the call comes in or loses the caller to a language mismatch; the AI side handles the switch as part of its normal script.",
       },
       {
-        heading: "The actual decision, not the marketing framing",
+        heading: "How should you actually decide?",
         body: "Neither option is universally right. A business with genuinely low call volume and calls that are almost always unpredictable, a small legal practice fielding urgent case questions, say, gets less value from an AI agent than a business with high call volume and a repeatable set of questions: a clinic booking appointments, a real estate office fielding \"is this still available\" calls, a service business getting the same five questions on every call. The volume and predictability of what's actually being asked is what should decide this, not which option sounds more modern.",
       },
     ],

@@ -140,6 +140,47 @@ export default async function ArticlePage(props: PageProps<"/blog/[slug]">) {
 
         <section className="border-b border-line py-14 sm:py-24">
           <div className="mx-auto max-w-3xl px-6">
+            {article.table && (
+              <div className="mb-14 overflow-x-auto rounded-2xl border border-line-strong bg-ink-2/60">
+                <table className="w-full min-w-[34rem] border-collapse text-left text-sm">
+                  <caption className="sr-only">{article.table.caption}</caption>
+                  <thead>
+                    <tr className="border-b border-line">
+                      {article.table.headers.map((h, i) => (
+                        <th
+                          key={i}
+                          scope="col"
+                          className="px-4 py-3 font-mono text-xs uppercase tracking-[0.1em] text-paper-dim"
+                        >
+                          {h}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {article.table.rows.map((row) => (
+                      <tr key={row[0]} className="border-b border-line last:border-b-0">
+                        {row.map((cell, i) =>
+                          i === 0 ? (
+                            <th
+                              key={i}
+                              scope="row"
+                              className="px-4 py-3 align-top font-medium text-paper"
+                            >
+                              {cell}
+                            </th>
+                          ) : (
+                            <td key={i} className="px-4 py-3 align-top leading-relaxed text-paper-dim">
+                              {cell}
+                            </td>
+                          ),
+                        )}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
             <div className="space-y-12">
               {article.sections.map((s) => (
                 <Reveal key={s.heading}>

@@ -133,6 +133,65 @@ export default function UaeHubPage() {
             </div>
           </div>
         </section>
+
+        <section className="border-b border-line py-14 sm:py-20">
+          <div className="mx-auto max-w-3xl px-6">
+            <Reveal>
+              <h2 className="text-balance text-2xl font-medium tracking-[-0.02em] sm:text-3xl">
+                How does it work for a UAE business?
+              </h2>
+              <div className="mt-5 space-y-4 text-base leading-relaxed text-paper-dim">
+                <p>
+                  You describe how calls reach you in a short scoping call:
+                  the call types, your hours, and what a good outcome looks
+                  like. We write the agent around those rules, then agree the
+                  scope, the timeline, and the price in a written quote before
+                  any build starts. Bank transfer is the default for clients
+                  outside Pakistan.
+                </p>
+                <p>
+                  UAE rules limit internet-based calling, so the agent
+                  connects to your line through a licensed telecom provider.
+                  We confirm the exact route while scoping. Outbound calling
+                  is only for people who asked to be contacted, and in
+                  regulated sectors such as healthcare and finance the agent
+                  collects information and books without giving advice.
+                </p>
+                <p>
+                  The agents are built English-first. Arabic is scoped as its
+                  own piece of work and only promised after the voice has been
+                  tested with you. Call recordings and transcripts are
+                  personal data, so the greeting wording and how long they are
+                  kept are decided with you and your legal adviser.
+                </p>
+                <p>
+                  For a closer look, read the{" "}
+                  <Link
+                    href="/uae/dubai"
+                    className="text-signal underline-offset-4 hover:underline"
+                  >
+                    Dubai page
+                  </Link>{" "}
+                  or the{" "}
+                  <Link
+                    href="/uae/abu-dhabi"
+                    className="text-signal underline-offset-4 hover:underline"
+                  >
+                    Abu Dhabi page
+                  </Link>
+                  , or try the{" "}
+                  <Link
+                    href="/missed-call-calculator"
+                    className="text-signal underline-offset-4 hover:underline"
+                  >
+                    missed call calculator
+                  </Link>{" "}
+                  with your own numbers.
+                </p>
+              </div>
+            </Reveal>
+          </div>
+        </section>
       </main>
       <Footer />
       <WhatsAppButton />
