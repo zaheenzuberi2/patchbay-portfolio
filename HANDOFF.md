@@ -2400,3 +2400,37 @@ so the page does not promise a specific latency.
 The homepage Projects list is database rows, not code, so the matching row is
 added in /admin > Projects (name must contain "Habro Estate" so the "Read the
 case study" link attaches). Added 2026-11-14 as session 0010 via the admin panel.
+
+## 54. Search Console recheck, 14 Nov 2026 (28 days)
+
+Totals: 10 clicks, 435 impressions, CTR 2.3%, avg position 26.6. Pakistan 7
+clicks / 225 imp; United States 2 clicks / 65 imp (pos 41); UAE 0 clicks / 42
+imp (pos 69, was 8 imp on 31 Oct). New UAE queries are showing at pos 14 to
+92 ("chat bot agency dubai", "custom call answering solutions uae", "ai call
+transcription dubai", one Arabic query at 14). /uae, /uae/dubai and
+/uae/abu-dhabi are all indexed.
+
+Index: 72 indexed (was 69), 18 not (was 13). The jump is 10 "Crawled, not
+indexed" URLs that are only image files (opengraph-image, favicon), harmless.
+Real pages not indexed: ai-receptionist-for/immigration-lawyers, solar-installers
+and blog/ai-voice-agent-vs-answering-service, never crawled (last crawl N/A).
+Salons, custom-bots and software-development got indexed since 31 Oct.
+Sitemap last read 6 Nov (75 URLs). Manual actions, security issues, HTTPS (0
+non-HTTPS) and breadcrumbs (19 valid) all clean. Core Web Vitals: not enough
+field data yet.
+
+Links report: 128 external links, all to the homepage, 123 from Zaheen's own
+client sites (adrealestate.pk 57, habroestate.com 46, pakengine.com 20), 2
+from sortlist, 1 from github. None to any /ai-receptionist-for page. This is
+the real ceiling: no independent editorial links yet.
+
+Fixes shipped: footer now links the calculator, real estate voice agent page,
+immigration-lawyers, solar-installers, the answering-service post, and the two
+pages that had zero inlinks (hire-nextjs-developer-pakistan,
+ai-agency-vs-traditional-marketing-agency). Indexing requested for the three
+stuck pages. Earlier the same day: og:image added to 13 page types, llms.txt
+updated, three long meta descriptions trimmed, en dash removed.
+
+Left alone on purpose: titles over 60 characters on /work/* and a few blog
+pages (they carry ranking terms, e.g. Voicely at pos 6), descriptions over
+165 on /work/*.
