@@ -2458,3 +2458,39 @@ OPEN PROBLEM: `RESEND_API_KEY` is not set in Vercel production (checked with
 off. A lead lands in the database and waits until someone opens /admin. Setting
 the key activates alerts with no code change. Needs Zaheen to create the Resend
 account, since account creation cannot be delegated.
+
+## 57. Google Business Profile cleanup (2026-11-19)
+
+Why LLMs could not see it: the Patchbay profile lives on Google Maps, which
+other AI crawlers cannot read, and its content described the old marketing
+agency (primary category Marketing agency, description about "brand, content,
+and social", keyword-stuffed services). Only Google's own AI uses it directly.
+
+Edited in Business Profile Manager, all showing "pending, up to 10 minutes":
+- Primary category: Marketing agency to Software company. Additional:
+  Telephone answering service, Web Designer, Computer consultant. Removed
+  Internet marketing service and the duplicate Software company entry.
+- Description rewritten (532 of 750 characters, no em dashes): AI voice agents
+  and receptionists, chatbots, automation, trading bots, Next.js websites,
+  Islamabad and Rawalpindi, remote UAE and US projects, written quote.
+- Service area: added Rawalpindi next to Islamabad Capital Territory. Kept it
+  inside driving distance on purpose. Adding Dubai or the US risks a
+  suspension, so UAE and US local intent stays with the site pages.
+
+Not done, and why:
+- Services list: still the old marketing list (30+ items) attached to the
+  Marketing agency category. It includes two keyword-stuffed entries ("top
+  digital marketing agency in rawalpindi / islamabad") that should be deleted,
+  plus Telemarketing. Edit after Google approves the category change, then add
+  AI Receptionist, Trading Bots and Custom Bot Development under the new
+  categories.
+- Hours: profile says Open 24 hours Mon to Sat. The team is remote and async,
+  and the site schema deliberately has no hours block. Left alone, needs
+  Zaheen to confirm real hours.
+- Bing Places, Apple Business Connect, Foursquare: not signed in, and account
+  creation is Zaheen's. Bing Places can import from this profile once signed in.
+- The other profile in the same account, HABRO Real Estate, is a client's.
+  Not touched.
+
+Profile shows 5.0 from 5 Google reviews. Site schema left as is (still links
+the same profile URL).
