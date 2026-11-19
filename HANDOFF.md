@@ -2538,3 +2538,10 @@ by mail (5 to 6 business days), not requested yet, because it posts a card to
 Zaheen's address and delivery in Pakistan is unreliable. Until verified Bing
 says the listing is not published and edits may not stick. After verification:
 hide the street address (service-area business) and add services.
+
+Bing Places PIN requested 2026-11-19 (arrives by mail in 5 to 6 business days).
+Listing shows "Verification in progress". When the card arrives, enter the PIN
+on the listing page in Bing Places, then re-add the description (it did not
+save before verification), hide the street address, and add services. Expect
+possible non-delivery in Pakistan; if nothing by about 2 Dec 2026, request
+another.
