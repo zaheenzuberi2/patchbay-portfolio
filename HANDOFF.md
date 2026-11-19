@@ -2530,3 +2530,11 @@ Bing Places form (unsubmitted, stops at the required street address): primary
 Software development, additional Web designer, Marketing agency, Business
 consulting, Information technology company. Bing has no telephone answering or
 AI category.
+
+Bing Places listing created (2026-11-19) for Patchbay with the business phone
+and website. Street address was entered in the form but is deliberately not
+recorded here. Status "Needs verification": the only method offered is a PIN
+by mail (5 to 6 business days), not requested yet, because it posts a card to
+Zaheen's address and delivery in Pakistan is unreliable. Until verified Bing
+says the listing is not published and edits may not stick. After verification:
+hide the street address (service-area business) and add services.
