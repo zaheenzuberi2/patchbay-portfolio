@@ -2504,3 +2504,16 @@ once, so it may be rejected. Services list is to be cut down to the site's
 seven (AI Voice & Calling Agents, AI Chatbots & Conversational AI, Automation
 & Workflows, Full-Stack Website Development, Brand Content & Social, Custom
 Software & SaaS Development, Custom Bot Development) once the category settles.
+
+Bing Places (2026-11-19): signed in. "Import from Google" failed ("Unable to
+start Google authentication", the Google popup is not reachable from the
+automation). Started the manual listing (name Patchbay, primary Software
+development, additional Web designer) but step 2 requires a street address,
+which Zaheen has not given and the Google profile hides. Not submitted. Needs
+either an address Bing can verify or Zaheen finishing the Google import
+himself in his own browser.
+
+Personal name: Person schema jobTitle changed to "Founder and Lead Full-Stack
+Engineer". Person and business were already linked both ways (worksFor and
+founder), and Person sameAs already carries LinkedIn, GitHub, Himalayas, Fiverr,
+Upwork, dev.to, Indie Hackers and Product Hunt.

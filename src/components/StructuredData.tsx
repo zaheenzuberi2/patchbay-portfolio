@@ -86,7 +86,7 @@ export async function StructuredData() {
         "@id": `${siteConfig.url}/#person`,
         name: siteConfig.ownerName,
         alternateName: "Zaheen",
-        jobTitle: "Founder and Full-Stack Software Developer",
+        jobTitle: "Founder and Lead Full-Stack Engineer",
         url: siteConfig.url,
         image: `${siteConfig.url}/zaheen.jpg`,
         worksFor: { "@id": `${siteConfig.url}/#business` },
