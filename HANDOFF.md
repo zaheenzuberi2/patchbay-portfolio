@@ -2517,3 +2517,16 @@ Personal name: Person schema jobTitle changed to "Founder and Lead Full-Stack
 Engineer". Person and business were already linked both ways (worksFor and
 founder), and Person sameAs already carries LinkedIn, GitHub, Himalayas, Fiverr,
 Upwork, dev.to, Indie Hackers and Product Hunt.
+
+Categories (2026-11-19): Google flipped the category edit between "pending" and
+"Not approved" (primary change from Marketing agency to Software company reads
+as a significant identity change on a verified profile). Current live set:
+Marketing agency (primary), Web Designer, Internet marketing service, Software
+company. Retry with additional categories only, keeping Marketing agency as
+primary, and add AI-related ones (Google had no "artificial intelligence"
+match; try Business management consultant, Computer consultant, Telephone
+answering service, Social media agency). Max is 9 additional.
+Bing Places form (unsubmitted, stops at the required street address): primary
+Software development, additional Web designer, Marketing agency, Business
+consulting, Information technology company. Bing has no telephone answering or
+AI category.
