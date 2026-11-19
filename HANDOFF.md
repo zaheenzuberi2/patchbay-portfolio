@@ -2494,3 +2494,13 @@ Not done, and why:
 
 Profile shows 5.0 from 5 Google reviews. Site schema left as is (still links
 the same profile URL).
+
+Update 2026-11-19 (same day): the first description went live, so it was
+re-edited to mirror the seven services on the site (adds custom bots, custom
+software, and brand, content and social). 621 of 750 characters, pending
+review. The category change was still pending at the last check, and Google
+showed a "cannot make significant changes to your business identity" notice
+once, so it may be rejected. Services list is to be cut down to the site's
+seven (AI Voice & Calling Agents, AI Chatbots & Conversational AI, Automation
+& Workflows, Full-Stack Website Development, Brand Content & Social, Custom
+Software & SaaS Development, Custom Bot Development) once the category settles.
