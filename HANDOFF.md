@@ -2545,3 +2545,14 @@ on the listing page in Bing Places, then re-add the description (it did not
 save before verification), hide the street address, and add services. Expect
 possible non-delivery in Pakistan; if nothing by about 2 Dec 2026, request
 another.
+
+GBP fill-in pass 2026-11-20: primary category is now Software company
+(approved). Pending review: additional categories Web Designer, Computer
+consultant, Telephone answering service, Marketing agency, Internet marketing
+service, Business management consultant (no AI category exists; "Social media
+agency" has no match). LinkedIn (Zaheen's profile) added to Social profiles,
+pending. Still open: the Services editor (business.google.com services, 30+
+legacy marketing items) froze the Chrome renderer on scroll/open, so it was not
+trimmed; hours still say Open 24 hours Mon-Sat and need Zaheen's real hours.
+Note: a plain "Patchbay" Google search is dominated by the music patchbay
+results, so brand queries should carry "Zaheen Zuberi" or "Islamabad".
